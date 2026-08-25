@@ -3,103 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YanNaing - AI Tools Dashboard</title>
+    <title>YanNaing - AI Tools</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #090d16;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #060913;
             color: #ffffff;
             margin: 0;
             padding: 0;
+            padding-bottom: 30px;
         }
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background-color: #0f172a;
-            border-bottom: 1px solid #1e293b;
+            background-color: #0d121f;
+            border-bottom: 1px solid #1a233a;
         }
         .logo {
-            font-weight: bold;
-            font-size: 20px;
+            font-weight: 800;
+            font-size: 18px;
             color: #ffffff;
             letter-spacing: 0.5px;
         }
         .logo span { color: #38bdf8; }
         .container {
-            padding: 20px 15px;
-            max-width: 500px;
+            padding: 15px;
+            max-width: 480px;
             margin: 0 auto;
         }
+        
+        /* Banner */
         .promo-banner {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 15px;
+            background: linear-gradient(135deg, #11192e, #0a0f1d);
+            padding: 14px 16px;
             border-radius: 12px;
-            border: 1px solid #334155;
+            border: 1px solid #1f2d4d;
             margin-bottom: 20px;
         }
         .promo-tag {
-            background-color: #f59e0b;
-            color: #000;
-            font-size: 11px;
-            font-weight: bold;
-            padding: 2px 8px;
+            background-color: #d97706;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 7px;
             border-radius: 4px;
             display: inline-block;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
+
+        /* Card Section */
         .card {
-            background-color: #111827;
-            border: 1px solid #1f2937;
+            background-color: #0d1322;
+            border: 1px solid #1a253d;
             border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        .api-box {
-            background-color: #1e293b;
-            border: 1px dashed #38bdf8;
-            border-radius: 10px;
-            padding: 12px;
+            padding: 18px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             margin-bottom: 20px;
         }
-        .api-box label {
-            font-size: 12px;
-            color: #38bdf8;
-            font-weight: bold;
+
+        /* API Engine Selection (System / Own Key) */
+        .engine-box {
+            background-color: #080d19;
+            border: 1px solid #1a253d;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
         }
-        .tabs {
+        .engine-header {
             display: flex;
-            background-color: #0f172a;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .engine-title {
+            font-size: 12px;
+            font-weight: bold;
+            color: #94a3b8;
+        }
+        .engine-toggle {
+            display: flex;
+            background-color: #111827;
             border-radius: 8px;
+            padding: 3px;
+        }
+        .engine-btn {
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: bold;
+            border: none;
+            background: none;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .engine-btn.active {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        .key-input-wrap {
+            display: none;
+            margin-top: 10px;
+        }
+        
+        /* Voice Engine Tabs */
+        .voice-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .voice-tab-btn {
+            padding: 12px;
+            background-color: #111827;
+            border: 1px solid #1f293d;
+            border-radius: 10px;
+            color: #94a3b8;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .voice-tab-btn.active {
+            border-color: #2563eb;
+            color: #60a5fa;
+            background-color: #132038;
+        }
+
+        /* Mode Tabs (SINGLE / MULTI) */
+        .mode-tabs {
+            display: flex;
+            background-color: #080d19;
+            border-radius: 10px;
             padding: 4px;
             margin-bottom: 15px;
         }
-        .tab {
+        .mode-tab {
             flex: 1;
             text-align: center;
             padding: 10px;
             font-size: 13px;
             font-weight: bold;
-            color: #94a3b8;
-            border-radius: 6px;
+            color: #64748b;
+            border-radius: 8px;
             cursor: pointer;
         }
-        .tab.active {
+        .mode-tab.active {
             background-color: #2563eb;
             color: #ffffff;
         }
+
+        /* Form Controls */
         label {
-            font-size: 13px;
-            color: #cbd5e1;
+            font-size: 12px;
+            color: #94a3b8;
             display: block;
             margin-bottom: 6px;
+            font-weight: 600;
         }
         input[type="text"], input[type="password"], textarea, select {
             width: 100%;
-            background-color: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
+            background-color: #080d19;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
             padding: 12px;
             color: #ffffff;
             font-size: 14px;
@@ -108,40 +175,41 @@
             outline: none;
         }
         input:focus, textarea:focus, select:focus {
-            border-color: #38bdf8;
+            border-color: #2563eb;
         }
         textarea {
-            height: 100px;
+            height: 110px;
             resize: vertical;
         }
-        .btn-primary {
+
+        /* Primary Button */
+        .btn-submit {
             width: 100%;
             background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: white;
             border: none;
             padding: 14px;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 10px;
+            font-size: 15px;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.2s;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
         }
-        .btn-primary:hover {
-            opacity: 0.9;
-        }
+
+        /* Tools Grid */
         .tools-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
         .tool-card {
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            padding: 15px;
-            border-radius: 10px;
+            background-color: #0d1322;
+            border: 1px solid #1a253d;
+            padding: 16px;
+            border-radius: 12px;
             text-align: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
             color: #e2e8f0;
             cursor: pointer;
@@ -157,104 +225,129 @@
 
     <header>
         <div class="logo">⚡ YAN<span>NAING</span></div>
-        <div style="cursor:pointer;">☰</div>
+        <div style="cursor:pointer; color:#94a3b8;">☰</div>
     </header>
 
     <div class="container">
         <div class="promo-banner">
             <div class="promo-tag">PROMO</div>
-            <div style="font-size: 14px; font-weight: bold;">Unlock Unlimited Voice & Features</div>
-            <div style="font-size: 12px; color: #94a3b8; margin-top: 4px;">Contact via Facebook, Telegram for Premium Plan.</div>
+            <div style="font-size: 13px; font-weight: bold;">Unlock Unlimited Voice & Features</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Contact via Facebook, Telegram for Premium Plan.</div>
+        </div>
+
+        <div class="engine-box">
+            <div class="engine-header">
+                <span class="engine-title">API ENGINE:</span>
+                <div class="engine-toggle">
+                    <button class="engine-btn active" id="btnSystem" onclick="setEngine('system')">SYSTEM</button>
+                    <button class="engine-btn" id="btnOwnKey" onclick="setEngine('own')">OWN KEY</button>
+                </div>
+            </div>
+            <div class="key-input-wrap" id="keyWrap">
+                <input type="password" id="apiKey" placeholder="Paste your Gemini API Key here..." style="margin-bottom:0;">
+            </div>
         </div>
 
         <div class="card">
-            <div class="api-box">
-                <label for="apiKey">🔑 Gemini API Key ထည့်ပါ (OWN KEY):</label>
-                <input type="password" id="apiKey" placeholder="Paste your Gemini API key here..." style="margin-bottom: 0; margin-top: 6px;">
+            <div style="text-align:center; margin-bottom: 15px;">
+                <h2 style="font-size: 18px; margin:0; color:#ffffff;">AI Voice Generator</h2>
             </div>
 
-            <h2 style="font-size: 18px; color: #38bdf8; margin-top: 0; text-align: center;">AI Voice Generator</h2>
+            <div class="voice-tabs">
+                <div class="voice-tab-btn active" id="tabKc" onclick="selectVoiceTab('kc')">KC VOICE</div>
+                <div class="voice-tab-btn" id="tabGemini" onclick="selectVoiceTab('gemini')">GEMINI VOICE</div>
+            </div>
 
-            <div class="tabs">
-                <div class="tab active">SINGLE</div>
-                <div class="tab">MULTI</div>
+            <div class="mode-tabs">
+                <div class="mode-tab active">SINGLE</div>
+                <div class="mode-tab">MULTI</div>
             </div>
 
             <label>File Name</label>
             <input type="text" id="fileName" value="KC_Voice">
 
-            <label>Text to Speech (ဖတ်ပြရမည့် စာသား)</label>
-            <textarea id="textInput" placeholder="ဒီမှာ အင်္ဂလိပ် သို့မဟုတ် မြန်မာစာသား ရိုက်ထည့်ပါ..."></textarea>
+            <label>Text to Speech</label>
+            <textarea id="textInput" placeholder="Enter text for Voice..."></textarea>
 
-            <label>Character / Voice Style</label>
+            <label>Character</label>
             <select id="voiceSelect">
-                <option value="en-US-Standard-C">မောင်မိုင်း (Male - Natural)</option>
-                <option value="en-US-Standard-F">သူတ (Female - Clear)</option>
-                <option value="en-US-Standard-D">သန့်စင် (Male - Deep)</option>
-                <option value="en-US-Standard-E">ကြည်လင် (Female - Soft)</option>
+                <option value="my-MM">မောင်မိုင်း (Myanmar)</option>
+                <option value="my-MM-2">သူတ (Myanmar)</option>
+                <option value="my-MM-3">သန့်စင် (Myanmar)</option>
+                <option value="my-MM-4">ကြည်လင် (Myanmar)</option>
+                <option value="en-US">John (English)</option>
+                <option value="en-US-F">Monica (English)</option>
             </select>
 
-            <button class="btn-primary" onclick="generateVoice()">Generate Voice</button>
+            <label>Style</label>
+            <select>
+                <option>Recap</option>
+                <option>Normal</option>
+            </select>
+
+            <button class="btn-submit" onclick="generateVoice()">Generate</button>
 
             <audio id="audioPlayer" class="audio-player" controls></audio>
         </div>
 
-        <h3 style="font-size: 15px; color: #64748b; margin-top: 25px;">AVAILABLE TOOLS</h3>
+        <h3 style="font-size: 13px; color: #64748b; margin-top: 25px; font-weight: bold; letter-spacing: 0.5px;">AVAILABLE TOOLS</h3>
         <div class="tools-grid">
-            <div class="tool-card" onclick="alert('AI Voice Tool ကို လက်ရှိ သုံးစွဲနေပါသည်။')">🎙️ AI Voice</div>
-            <div class="tool-card" onclick="alert('Transcribe Feature မကြာမီ လာမည်!')">📝 Transcribe</div>
-            <div class="tool-card" onclick="alert('Translate Feature မကြာမီ လာမည်!')">🌐 Translate</div>
-            <div class="tool-card" onclick="alert('SRT Generator Feature မကြာမီ လာမည်!')">🎬 SRT Generator</div>
+            <div class="tool-card" onclick="alert('AI Voice Tool ကို အသုံးပြုနေပါသည်။')">🎙️ AI Voice</div>
+            <div class="tool-card" onclick="alert('Transcribe Feature မကြာမီ ရပါမည်။')">📝 Transcribe</div>
+            <div class="tool-card" onclick="alert('Translate Feature မကြာမီ ရပါမည်။')">🌐 Translate</div>
+            <div class="tool-card" onclick="alert('SRT Generator Feature မကြာမီ ရပါမည်။')">🎬 SRT Generator</div>
         </div>
     </div>
 
     <script>
+        let currentEngine = 'system';
+
+        function setEngine(type) {
+            currentEngine = type;
+            const btnSystem = document.getElementById('btnSystem');
+            const btnOwnKey = document.getElementById('btnOwnKey');
+            const keyWrap = document.getElementById('keyWrap');
+
+            if (type === 'own') {
+                btnOwnKey.classList.add('active');
+                btnSystem.classList.remove('active');
+                keyWrap.style.display = 'block';
+            } else {
+                btnSystem.classList.add('active');
+                btnOwnKey.classList.remove('active');
+                keyWrap.style.display = 'none';
+            }
+        }
+
+        function selectVoiceTab(tab) {
+            document.getElementById('tabKc').classList.toggle('active', tab === 'kc');
+            document.getElementById('tabGemini').classList.toggle('active', tab === 'gemini');
+        }
+
         async function generateVoice() {
-            const apiKey = document.getElementById("apiKey").value.trim();
             const text = document.getElementById("textInput").value.trim();
-            const voice = document.getElementById("voiceSelect").value;
+            const apiKey = document.getElementById("apiKey").value.trim();
             const audioPlayer = document.getElementById("audioPlayer");
 
             if (!text) {
-                alert("ကျေးဇူးပြု၍ ဖတ်ပြရမည့် စာသား ရိုက်ထည့်ပါ!");
+                alert("ကျေးဇူးပြု၍ စာသား ရိုက်ထည့်ပေးပါ!");
                 return;
             }
 
-            // If API key is provided, try calling Google Text-to-Speech API
-            if (apiKey) {
-                try {
-                    const response = await fetch(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            input: { text: text },
-                            voice: { languageCode: 'en-US', name: voice },
-                            audioConfig: { audioEncoding: 'MP3' }
-                        })
-                    });
-
-                    const data = await response.json();
-                    if (data.audioContent) {
-                        audioPlayer.src = "data:audio/mp3;base64," + data.audioContent;
-                        audioPlayer.style.display = "block";
-                        audioPlayer.play();
-                        return;
-                    } else {
-                        alert("API Key မမှန်ကန်ပါ သို့မဟုတ် Error ရှိနေပါသည်။ Browser Voice ဖြင့် ဖတ်ပြပေးပါမည်။");
-                    }
-                } catch (err) {
-                    console.log("API Error, fallback to Web Speech API");
-                }
+            if (currentEngine === 'own' && !apiKey) {
+                alert("ကျေးဇူးပြု၍ Gemini API Key ထည့်သွင်းပေးပါ!");
+                return;
             }
 
-            // Fallback to Free Browser Speech Synthesis if API key is not provided or fails
+            // Speech Synthesis (Browser Standard Voice)
             window.speechSynthesis.cancel();
             const speech = new SpeechSynthesisUtterance(text);
             speech.rate = 1;
             window.speechSynthesis.speak(speech);
+            
+            alert("အသံထွက် ဖတ်ပြနေပါပြီ...");
         }
     </script>
 
 </body>
 </html>
-
