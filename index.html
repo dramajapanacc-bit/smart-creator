@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Smart Creator</title>
+</head>
+<body>
+
+    <h1>AI Voice & Text Creator</h1>
+    <p>ဖုန်းဖြင့် ဖန်တီးထားသော အခြေခံ ဝဘ်ဆိုက်</p>
+
+    <div>
+        <label for="userText">စာသား ရိုက်ထည့်ပါ -</label><br>
+        <textarea id="userText" rows="5" cols="30" placeholder="ဒီမှာ စာရိုက်ပါ..."></textarea>
+    </div>
+
+    <br>
+
+    <button onclick="testFunction()">စမ်းသပ်ရန် ခလုတ်</button>
+
+    <p id="outputResult"></p>
+
+    <script>
+        function testFunction() {
+            let input = document.getElementById("userText").value;
+            if (input.trim() === "") {
+                document.getElementById("outputResult").innerText = "ကျေးဇူးပြု၍ စာသားတစ်ခုခု ရိုက်ထည့်ပါ!";
+            } else {
+                document.getElementById("outputResult").innerText = "ရိုက်ထည့်ထားသောစာ - " + input;
+            }
+        }
+    </script>
+
+</body>
+</html>
+
