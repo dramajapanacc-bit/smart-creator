@@ -3,96 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Smart Creator</title>
+    <title>YanNaing - AI Tools Dashboard</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
+            background-color: #0b0f19;
+            color: #ffffff;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+        }
+        header {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #121826;
+            border-bottom: 1px solid #1f293d;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 20px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.5px;
+        }
+        .logo span { color: #38bdf8; }
+        .promo-banner {
+            background: linear-gradient(135deg, #1f293d, #111827);
+            margin: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #374151;
+            position: relative;
+        }
+        .promo-tag {
+            background-color: #f59e0b;
+            color: #000;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 8px;
         }
         .container {
-            width: 100%;
-            max-width: 500px;
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 15px;
+            max-width: 600px;
+            margin: 0 auto;
         }
-        h1 {
-            color: #1a73e8;
-            font-size: 22px;
+        .card {
+            background-color: #161e2e;
+            border: 1px solid #2d3748;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #38bdf8;
             text-align: center;
             margin-bottom: 5px;
         }
-        p.subtitle {
+        .subtitle {
             text-align: center;
-            color: #666;
-            font-size: 14px;
+            color: #9ca3af;
+            font-size: 13px;
             margin-bottom: 20px;
         }
-        textarea {
-            width: 100%;
-            height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
+        .tabs {
+            display: flex;
+            background-color: #0f172a;
             border-radius: 8px;
-            box-sizing: border-box;
+            padding: 4px;
+            margin-bottom: 15px;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
             font-size: 14px;
+            font-weight: bold;
+            color: #9ca3af;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #2563eb;
+            color: #ffffff;
+        }
+        label {
+            font-size: 13px;
+            color: #d1d5db;
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea, select {
+            width: 100%;
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 12px;
+            color: #ffffff;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+        textarea {
+            height: 100px;
             resize: vertical;
         }
-        button {
+        .btn-primary {
             width: 100%;
-            background-color: #1a73e8;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
             border: none;
-            padding: 12px;
+            padding: 14px;
             border-radius: 8px;
             font-size: 16px;
-            cursor: pointer;
-            margin-top: 15px;
             font-weight: bold;
+            cursor: pointer;
+            text-align: center;
         }
-        button:hover {
-            background-color: #1557b0;
-        }
-        #outputResult {
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
             margin-top: 20px;
-            padding: 12px;
-            background-color: #e8f0fe;
-            border-radius: 8px;
-            color: #1967d2;
-            word-wrap: break-word;
+        }
+        .tool-card {
+            background-color: #161e2e;
+            border: 1px solid #2d3748;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #e2e8f0;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="logo">⚡ YAN<span>NAING</span></div>
+        <div>☰</div>
+    </header>
+
     <div class="container">
-        <h1>AI Voice & Text Creator</h1>
-        <p class="subtitle">ဖုန်းဖြင့် ဖန်တီးထားသော အလှပဆုံး ဝဘ်ဆိုက်</p>
+        <div class="promo-banner">
+            <div class="promo-tag">PROMO</div>
+            <div style="font-size: 14px; font-weight: bold;">Unlock Unlimited Voice & Features</div>
+            <div style="font-size: 12px; color: #9ca3af; margin-top: 4px;">Contact via Facebook, Telegram for Premium Plan.</div>
+        </div>
 
-        <label for="userText"><b>စာသား ရိုက်ထည့်ပါ -</b></label><br><br>
-        <textarea id="userText" placeholder="ဒီမှာ စာရိုက်ပါ..."></textarea>
+        <div class="card">
+            <h2>AI Voice Generator</h2>
+            <p class="subtitle">ဖုန်းဖြင့် ဖန်တီးထားသော အလှပဆုံး ဝဘ်ဆိုက်</p>
 
-        <button onclick="testFunction()">စမ်းသပ်ရန် ခလုတ်</button>
+            <div class="tabs">
+                <div class="tab active">SINGLE</div>
+                <div class="tab">MULTI</div>
+            </div>
 
-        <p id="outputResult">ရလဒ်ကို ဒီမှာ ပြသပေးပါမည်။</p>
+            <label>File Name</label>
+            <input type="text" value="KC_Voice">
+
+            <label>Text to Speech</label>
+            <textarea placeholder="ဒီမှာ စာရိုက်ပါ..."></textarea>
+
+            <label>Character</label>
+            <select>
+                <option>မောင်မိုင်း (Myanmar)</option>
+                <option>သူတ (Myanmar)</option>
+                <option>သန့်စင် (Myanmar)</option>
+                <option>ကြည်လင် (Myanmar)</option>
+            </select>
+
+            <label>Style</label>
+            <select>
+                <option>Recap</option>
+                <option>Normal</option>
+            </select>
+
+            <button class="btn-primary" onclick="alert('ဖန်တီးနေပါပြီ...')">Generate</button>
+        </div>
+
+        <h3 style="font-size: 16px; color: #94a3b8; margin-top: 25px;">AVAILABLE TOOLS</h3>
+        <div class="tools-grid">
+            <div class="tool-card">🎙️ AI Voice</div>
+            <div class="tool-card">📝 Transcribe</div>
+            <div class="tool-card">🌐 Translate</div>
+            <div class="tool-card">🎬 SRT Generator</div>
+        </div>
     </div>
-
-    <script>
-        function testFunction() {
-            let input = document.getElementById("userText").value;
-            if (input.trim() === "") {
-                document.getElementById("outputResult").innerText = "ကျေးဇူးပြု၍ စာသားတစ်ခုခု ရိုက်ထည့်ပါ!";
-            } else {
-                document.getElementById("outputResult").innerText = "ရိုက်ထည့်ထားသောစာ - " + input;
-            }
-        }
-    </script>
 
 </body>
 </html>
+
