@@ -3,79 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Video to Movie Recap Script</title>
+    <title>YanNaing. AI Script</title>
     <style>
-        body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 20px; display: flex; justify-content: center; }
-        .container { max-width: 600px; width: 100%; background: #1e293b; padding: 25px; border-radius: 12px; }
-        h2 { color: #38bdf8; text-align: center; }
-        label { display: block; margin: 15px 0 5px; }
-        input, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; box-sizing: border-box; }
-        button { background: #0284c7; font-weight: bold; margin-top: 20px; cursor: pointer; border: none; }
-        button:hover { background: #0369a1; }
-        .result-box { margin-top: 20px; background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #38bdf8; min-height: 150px; whitespace: pre-wrap; word-break: break-word; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b); 
+            color: #fff; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container { 
+            max-width: 600px; 
+            width: 100%; 
+            background: rgba(30, 41, 59, 0.85); 
+            backdrop-filter: blur(10px);
+            padding: 30px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-sizing: border-box; 
+        }
+        h2 { 
+            color: #38bdf8; 
+            text-align: center; 
+            margin-bottom: 5px;
+            font-size: 28px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            font-size: 13px; 
+            color: #cbd5e1; 
+            text-align: center; 
+            margin-bottom: 25px;
+        }
+        label { 
+            display: block; 
+            margin: 15px 0 8px; 
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+        input { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 10px; 
+            border: 1px solid #475569; 
+            background: #0f172a; 
+            color: #fff; 
+            font-size: 15px;
+            box-sizing: border-box; 
+            transition: all 0.3s ease;
+        }
+        input:focus {
+            border-color: #38bdf8;
+            outline: none;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+        }
+        button { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 10px; 
+            background: linear-gradient(135deg, #0284c7, #2563eb); 
+            color: white;
+            font-weight: bold; 
+            font-size: 16px;
+            margin-top: 20px; 
+            cursor: pointer; 
+            border: none; 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+        }
+        button:hover { 
+            background: linear-gradient(135deg, #0369a1, #1d4ed8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.6);
+        }
+        .result-box { 
+            margin-top: 20px; 
+            background: #0f172a; 
+            padding: 18px; 
+            border-radius: 10px; 
+            border: 1px solid #38bdf8; 
+            min-height: 150px; 
+            max-height: 350px;
+            overflow-y: auto;
+            white-space: pre-wrap; 
+            word-break: break-word; 
+            color: #f1f5f9;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>🎬 AI Video Movie Recap</h2>
-    <p style="font-size: 13px; color: #94a3b8;">* သတိပေးချက် - Clip တိုတို (4MB အောက်) ဖိုင်များကိုသာ တင်ပေးပါ၊၊</p>
+    <h2>✨ YanNaing. AI Script</h2>
+    <div class="subtitle">🎬 YouTube သို့မဟုတ် TikTok လင့်ခ်ထည့်၍ Movie Recap Script ထုတ်ပါ</div>
     
-    <label>ဗီဒီယို ဖိုင် ရွေးပါ (Video Upload):</label>
-    <input type="file" id="videoInput" accept="video/*">
+    <label>ဗီဒီယို လင့်ခ် (YouTube / TikTok Link):</label>
+    <input type="text" id="videoLink" placeholder="https://www.tiktok.com/... သို့မဟုတ် YouTube လင့်ခ်ထည့်ရန်">
 
-    <button onclick="uploadAndGenerate()">Recap Script ထုတ်မည်</button>
+    <button onclick="generateFromLink()">✨ Recap Script ထုတ်မည်</button>
 
     <label>AI သုံးသပ် ရေးသားထားသော မြန်မာ Script:</label>
-    <div id="result" class="result-box">ဒီမှာ စာသား ပေါ်လာပါမည်...</div>
+    <div id="result" class="result-box">ဒီနေရာတွင် AI ရေးသားထားသော Script များ ပေါ်လာပါမည်...</div>
 </div>
 
 <script>
-async function uploadAndGenerate() {
-    const fileInput = document.getElementById('videoInput');
+async function generateFromLink() {
+    const linkInput = document.getElementById('videoLink').value.trim();
     const resultDiv = document.getElementById('result');
 
-    if (!fileInput.files[0]) {
-        alert("ကျေးဇူးပြု၍ ဗီဒီယိုဖိုင် ရွေးပါ");
+    if (!linkInput) {
+        alert("ကျေးဇူးပြု၍ YouTube သို့မဟုတ် TikTok လင့်ခ် ထည့်ပါ");
         return;
     }
 
-    const file = fileInput.files[0];
+    resultDiv.innerText = "⏳ AI က လင့်ခ်ကို လေ့လာပြီး Script ရေးနေပါပြီ။ ခဏစောင့်ပါ...";
+    
+    try {
+        const response = await fetch('/api/recap-video', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ videoUrl: linkInput })
+        });
 
-    // 4MB ထက်ကြီးရင် သတိပေးမည်
-    if (file.size > 4.5 * 1024 * 1024) {
-        alert("ဖိုင်ဆိုဒ် ကြီးလွန်းပါသည်။ 4MB အောက် clip တိုကိုသာ ရွေးပေးပါ၊၊");
-        return;
-    }
-
-    const reader = new FileReader();
-    resultDiv.innerText = "AI က ဗီဒီယိုကို ကြည့်ရှု သုံးသပ်နေပါသည်။ ခဏစောင့်ပါ...";
-
-    reader.onload = async function () {
-        const base64Data = reader.result.split(',')[1];
-        
-        try {
-            const response = await fetch('/api/recap-video', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
-                    videoBase64: base64Data,
-                    mimeType: file.type 
-                })
-            });
-
-            const data = await response.json();
-            if (data.script) {
-                resultDiv.innerText = data.script;
-            } else {
-                resultDiv.innerText = "အမှားအယွင်း: " + (data.error || "Script မထွက်ပါ။");
-            }
-        } catch (err) {
-            resultDiv.innerText = "Server ချိတ်ဆက်မှု အဆင်မပြေပါ။";
+        const data = await response.json();
+        if (data.script) {
+            resultDiv.innerText = data.script;
+        } else {
+            resultDiv.innerText = "အမှားအယွင်း: " + (data.error || "Script မထွက်ပါ။");
         }
-    };
-
-    reader.readAsDataURL(file);
+    } catch (err) {
+        resultDiv.innerText = "Server ချိတ်ဆက်မှု အဆင်မပြေပါ။";
+    }
 }
 </script>
 
