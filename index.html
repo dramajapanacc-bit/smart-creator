@@ -4,22 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Smart Creator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1a73e8;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        p.subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        #outputResult {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #e8f0fe;
+            border-radius: 8px;
+            color: #1967d2;
+            word-wrap: break-word;
+        }
+    </style>
 </head>
 <body>
 
-    <h1>AI Voice & Text Creator</h1>
-    <p>ဖုန်းဖြင့် ဖန်တီးထားသော အခြေခံ ဝဘ်ဆိုက်</p>
+    <div class="container">
+        <h1>AI Voice & Text Creator</h1>
+        <p class="subtitle">ဖုန်းဖြင့် ဖန်တီးထားသော အလှပဆုံး ဝဘ်ဆိုက်</p>
 
-    <div>
-        <label for="userText">စာသား ရိုက်ထည့်ပါ -</label><br>
-        <textarea id="userText" rows="5" cols="30" placeholder="ဒီမှာ စာရိုက်ပါ..."></textarea>
+        <label for="userText"><b>စာသား ရိုက်ထည့်ပါ -</b></label><br><br>
+        <textarea id="userText" placeholder="ဒီမှာ စာရိုက်ပါ..."></textarea>
+
+        <button onclick="testFunction()">စမ်းသပ်ရန် ခလုတ်</button>
+
+        <p id="outputResult">ရလဒ်ကို ဒီမှာ ပြသပေးပါမည်။</p>
     </div>
-
-    <br>
-
-    <button onclick="testFunction()">စမ်းသပ်ရန် ခလုတ်</button>
-
-    <p id="outputResult"></p>
 
     <script>
         function testFunction() {
@@ -34,4 +96,3 @@
 
 </body>
 </html>
-
