@@ -3,110 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YanNaing - AI Tools Dashboard</title>
+    <title>AI Video to Movie Recap Script</title>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: #060913; color: #ffffff; margin: 0; padding-bottom: 30px; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #0d121f; border-bottom: 1px solid #1a233a; }
-        .logo { font-weight: 800; font-size: 18px; color: #ffffff; }
-        .logo span { color: #38bdf8; }
-        .container { padding: 15px; max-width: 480px; margin: 0 auto; }
-        .promo-banner { background: linear-gradient(135deg, #11192e, #0a0f1d); padding: 18px 16px; border-radius: 12px; border: 1px solid #1f2d4d; margin-bottom: 20px; text-align: center; }
-        .promo-tag { background-color: #2563eb; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
-        .promo-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(90deg, #a3e635, #ef4444, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .promo-subtext { font-size: 13px; color: #94a3b8; }
-        .highlight-text { color: #38bdf8; font-weight: bold; }
-        .section-title { font-size: 13px; color: #64748b; margin: 15px 0 12px; font-weight: bold; }
-        .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .tool-card { background-color: #0d1322; border: 1px solid #1a253d; padding: 20px 15px; border-radius: 12px; text-align: center; font-size: 14px; font-weight: bold; color: #e2e8f0; cursor: pointer; }
-        .voice-section { display: none; margin-top: 10px; }
-        .card { background-color: #0d1322; border: 1px solid #1a253d; border-radius: 16px; padding: 18px; }
-        label { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 600; }
-        input[type="text"], textarea, select { width: 100%; background-color: #080d19; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 14px; box-sizing: border-box; margin-bottom: 15px; outline: none; }
-        textarea { height: 100px; resize: vertical; }
-        .btn-submit { width: 100%; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; }
-        .btn-back { background: none; border: 1px solid #1f293d; color: #94a3b8; padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-bottom: 15px; }
-        .audio-player { margin-top: 15px; width: 100%; display: none; }
-        #statusText { margin-top: 10px; font-size: 12px; color: #38bdf8; text-align: center; font-weight: bold; }
+        body { font-family: sans-serif; background: #0f172a; color: #fff; padding: 20px; display: flex; justify-content: center; }
+        .container { max-width: 600px; width: 100%; background: #1e293b; padding: 25px; border-radius: 12px; }
+        h2 { color: #38bdf8; text-align: center; }
+        label { display: block; margin: 15px 0 5px; }
+        input, button { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; box-sizing: border-box; }
+        button { background: #0284c7; font-weight: bold; margin-top: 20px; cursor: pointer; border: none; }
+        button:hover { background: #0369a1; }
+        .result-box { margin-top: 20px; background: #0f172a; padding: 15px; border-radius: 8px; border: 1px solid #38bdf8; min-height: 150px; whitespace: pre-wrap; word-break: break-word; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">⚡ YAN<span>NAING</span></div>
-    </header>
+<div class="container">
+    <h2>🎬 AI Video Movie Recap</h2>
+    <p style="font-size: 13px; color: #94a3b8;">* သတိပေးချက် - Clip တိုတို (4MB အောက်) ဖိုင်များကိုသာ တင်ပေးပါ၊၊</p>
+    
+    <label>ဗီဒီယို ဖိုင် ရွေးပါ (Video Upload):</label>
+    <input type="file" id="videoInput" accept="video/*">
 
-    <div class="container">
-        <div class="promo-banner">
-            <div class="promo-tag">STUDIO MODE</div>
-            <div class="promo-title">သူငယ်ချင်းတို့မင်္ဂလာပါ!</div>
-            <div class="promo-subtext"><span class="highlight-text">SMART CREATOR WORKSPACE</span></div>
-        </div>
+    <button onclick="uploadAndGenerate()">Recap Script ထုတ်မည်</button>
 
-        <div id="dashboardSection">
-            <div class="section-title">AVAILABLE TOOLS</div>
-            <div class="tools-grid">
-                <div class="tool-card" onclick="openVoiceTool()">🎙️ AI Voice</div>
-                <div class="tool-card">📝 Transcribe</div>
-                <div class="tool-card">🌐 Translate</div>
-                <div class="tool-card">🎬 SRT Generator</div>
-            </div>
-        </div>
+    <label>AI သုံးသပ် ရေးသားထားသော မြန်မာ Script:</label>
+    <div id="result" class="result-box">ဒီမှာ စာသား ပေါ်လာပါမည်...</div>
+</div>
 
-        <div id="voiceSection" class="voice-section">
-            <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard ပြန်သွားမည်</button>
-            <div class="card">
-                <h2 style="font-size: 18px; text-align:center; color:#ffffff; margin-top:0;">Natural AI Voice</h2>
-                
-                <label>Text to Speech (မြန်မာစာသား)</label>
-                <textarea id="textInput" placeholder="အသံပြောင်းချင်သော စာသားရိုက်ပါ...">မင်္ဂလာပါခင်ဗျာ</textarea>
+<script>
+async function uploadAndGenerate() {
+    const fileInput = document.getElementById('videoInput');
+    const resultDiv = document.getElementById('result');
 
-                <label>Voice Selection (အသံရွေးချယ်ရန်)</label>
-                <select id="voiceSelect">
-                    <option value="my-MM-ThihaNeural">သီဟ (အမျိုးသားအသံ - ပီပြင်သော Neural)</option>
-                    <option value="my-MM-NilarNeural">နီလာ (အမျိုးသမီးအသံ - ပီပြင်သော Neural)</option>
-                </select>
+    if (!fileInput.files[0]) {
+        alert("ကျေးဇူးပြု၍ ဗီဒီယိုဖိုင် ရွေးပါ");
+        return;
+    }
 
-                <button class="btn-submit" onclick="generateVoice()">Generate Voice</button>
-                <div id="statusText"></div>
+    const file = fileInput.files[0];
 
-                <audio id="audioPlayer" class="audio-player" controls></audio>
-            </div>
-        </div>
-    </div>
+    // 4MB ထက်ကြီးရင် သတိပေးမည်
+    if (file.size > 4.5 * 1024 * 1024) {
+        alert("ဖိုင်ဆိုဒ် ကြီးလွန်းပါသည်။ 4MB အောက် clip တိုကိုသာ ရွေးပေးပါ၊၊");
+        return;
+    }
 
-    <script>
-        function openVoiceTool() {
-            document.getElementById('dashboardSection').style.display = 'none';
-            document.getElementById('voiceSection').style.display = 'block';
-        }
+    const reader = new FileReader();
+    resultDiv.innerText = "AI က ဗီဒီယိုကို ကြည့်ရှု သုံးသပ်နေပါသည်။ ခဏစောင့်ပါ...";
 
-        function closeVoiceTool() {
-            document.getElementById('voiceSection').style.display = 'none';
-            document.getElementById('dashboardSection').style.display = 'block';
-        }
-
-        async function generateVoice() {
-            const text = document.getElementById("textInput").value.trim();
-            const voice = document.getElementById("voiceSelect").value;
-            const statusText = document.getElementById("statusText");
-            const audioPlayer = document.getElementById("audioPlayer");
-
-            if (!text) return alert("စာသား ရိုက်ထည့်ပါ!");
-
-            statusText.innerText = "⚡ ပီပြင်သော AI အသံဖိုင် ဖန်တီးနေပါသည်...";
-
-            // Direct Neural Voice Sound Engine Link
-            const soundUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=my&client=tw-ob`;
-
-            audioPlayer.src = soundUrl;
-            audioPlayer.style.display = "block";
-            audioPlayer.play().then(() => {
-                statusText.innerText = "🔊 အသံဖိုင် ထွက်နေပါပြီ!";
-            }).catch(() => {
-                statusText.innerText = "▶️ Player တွင် Play ကို နှိပ်ပါ";
+    reader.onload = async function () {
+        const base64Data = reader.result.split(',')[1];
+        
+        try {
+            const response = await fetch('/api/recap-video', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    videoBase64: base64Data,
+                    mimeType: file.type 
+                })
             });
+
+            const data = await response.json();
+            if (data.script) {
+                resultDiv.innerText = data.script;
+            } else {
+                resultDiv.innerText = "အမှားအယွင်း: " + (data.error || "Script မထွက်ပါ။");
+            }
+        } catch (err) {
+            resultDiv.innerText = "Server ချိတ်ဆက်မှု အဆင်မပြေပါ။";
         }
-    </script>
+    };
+
+    reader.readAsDataURL(file);
+}
+</script>
 
 </body>
 </html>
