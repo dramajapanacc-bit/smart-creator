@@ -139,7 +139,7 @@
                 </div>
 
                 <div class="voice-tabs">
-                    <div class="voice-tab-btn active">KC VOICE</div>
+                    <div class="voice-tab-btn active">EDGE AI VOICE</div>
                     <div class="voice-tab-btn">GEMINI VOICE</div>
                 </div>
 
@@ -151,9 +151,8 @@
 
                 <label>Character / Voice Options</label>
                 <select id="voiceSelect">
-                    <option value="my">မောင်မိုင်း (Male - Storyteller)</option>
-                    <option value="my">သူတ (Female - Natural)</option>
-                    <option value="en">John (English - Male)</option>
+                    <option value="my-MM-ThihaNeural">သီဟ (Male - Natural Neural)</option>
+                    <option value="my-MM-NilarNeural">နီလာ (Female - Natural Neural)</option>
                 </select>
 
                 <button class="btn-submit" onclick="generateVoice()">Generate Voice</button>
@@ -177,7 +176,7 @@
 
         async function generateVoice() {
             const text = document.getElementById("textInput").value.trim();
-            const lang = document.getElementById("voiceSelect").value;
+            const voice = document.getElementById("voiceSelect").value;
             const statusText = document.getElementById("statusText");
             const audioPlayer = document.getElementById("audioPlayer");
 
@@ -186,16 +185,16 @@
                 return;
             }
 
-            statusText.innerText = "⚡ အသံဖိုင် တောင်းယူနေပါသည်...";
+            statusText.innerText = "⚡ Edge AI အသံဖိုင် ဖန်တီးနေပါသည်...";
 
-            // Vercel Server API Call
-            const apiUrl = `/api/tts?text=${encodeURIComponent(text)}&lang=${lang}`;
+            // Microsoft Edge Neural Voice Direct Endpoint
+            const apiUrl = `https://api.streamelements.com/kappa/v2/speech?voice=${voice}&text=${encodeURIComponent(text)}`;
 
             audioPlayer.src = apiUrl;
             audioPlayer.style.display = "block";
             
             audioPlayer.play().then(() => {
-                statusText.innerText = "🔊 အသံဖိုင် ထွက်နေပါပြီ!";
+                statusText.innerText = "🔊 သဘာဝကျသော AI အသံ ထွက်နေပါပြီ!";
             }).catch(error => {
                 statusText.innerText = "▶️ အောက်ပါ Player တွင် Play ကို နှိပ်၍ အသံနားထောင်ပါ။";
             });
