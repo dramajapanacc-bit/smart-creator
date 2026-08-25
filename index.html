@@ -5,101 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YanNaing - AI Tools Dashboard</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #060913;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            padding-bottom: 30px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #0d121f;
-            border-bottom: 1px solid #1a233a;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background-color: #060913; color: #ffffff; margin: 0; padding-bottom: 30px; }
+        header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #0d121f; border-bottom: 1px solid #1a233a; }
         .logo { font-weight: 800; font-size: 18px; color: #ffffff; }
         .logo span { color: #38bdf8; }
         .container { padding: 15px; max-width: 480px; margin: 0 auto; }
-        
-        .promo-banner {
-            background: linear-gradient(135deg, #11192e, #0a0f1d);
-            padding: 18px 16px;
-            border-radius: 12px;
-            border: 1px solid #1f2d4d;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .promo-tag {
-            background-color: #2563eb;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
-            display: inline-block;
-            margin-bottom: 10px;
-        }
-        .promo-title {
-            font-size: 22px;
-            font-weight: 900;
-            margin-bottom: 8px;
-            background: linear-gradient(90deg, #a3e635, #ef4444, #f59e0b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .promo-banner { background: linear-gradient(135deg, #11192e, #0a0f1d); padding: 18px 16px; border-radius: 12px; border: 1px solid #1f2d4d; margin-bottom: 20px; text-align: center; }
+        .promo-tag { background-color: #2563eb; color: #fff; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 10px; }
+        .promo-title { font-size: 22px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(90deg, #a3e635, #ef4444, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .promo-subtext { font-size: 13px; color: #94a3b8; }
         .highlight-text { color: #38bdf8; font-weight: bold; }
-
         .section-title { font-size: 13px; color: #64748b; margin: 15px 0 12px; font-weight: bold; }
         .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .tool-card {
-            background-color: #0d1322;
-            border: 1px solid #1a253d;
-            padding: 20px 15px;
-            border-radius: 12px;
-            text-align: center;
-            font-size: 14px;
-            font-weight: bold;
-            color: #e2e8f0;
-            cursor: pointer;
-        }
-
+        .tool-card { background-color: #0d1322; border: 1px solid #1a253d; padding: 20px 15px; border-radius: 12px; text-align: center; font-size: 14px; font-weight: bold; color: #e2e8f0; cursor: pointer; }
         .voice-section { display: none; margin-top: 10px; }
-        .card {
-            background-color: #0d1322;
-            border: 1px solid #1a253d;
-            border-radius: 16px;
-            padding: 18px;
-        }
-
+        .card { background-color: #0d1322; border: 1px solid #1a253d; border-radius: 16px; padding: 18px; }
         .voice-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .voice-tab-btn {
-            padding: 12px; background-color: #111827; border: 1px solid #1f293d;
-            border-radius: 10px; color: #94a3b8; font-weight: bold; font-size: 13px; text-align: center;
-        }
+        .voice-tab-btn { padding: 12px; background-color: #111827; border: 1px solid #1f293d; border-radius: 10px; color: #94a3b8; font-weight: bold; font-size: 13px; text-align: center; }
         .voice-tab-btn.active { border-color: #2563eb; color: #60a5fa; background-color: #132038; }
-
         label { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 600; }
-        input[type="text"], textarea, select {
-            width: 100%; background-color: #080d19; border: 1px solid #1e293b;
-            border-radius: 10px; padding: 12px; color: #ffffff; font-size: 14px;
-            box-sizing: border-box; margin-bottom: 15px; outline: none;
-        }
+        input[type="text"], textarea, select { width: 100%; background-color: #080d19; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 14px; box-sizing: border-box; margin-bottom: 15px; outline: none; }
         textarea { height: 100px; resize: vertical; }
-
-        .btn-submit {
-            width: 100%; background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white; border: none; padding: 14px; border-radius: 10px;
-            font-size: 15px; font-weight: bold; cursor: pointer;
-        }
-        .btn-back {
-            background: none; border: 1px solid #1f293d; color: #94a3b8;
-            padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-bottom: 15px;
-        }
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: bold; cursor: pointer; }
+        .btn-back { background: none; border: 1px solid #1f293d; color: #94a3b8; padding: 8px 14px; border-radius: 8px; font-size: 12px; cursor: pointer; margin-bottom: 15px; }
         .audio-player { margin-top: 15px; width: 100%; display: none; }
         #statusText { margin-top: 10px; font-size: 12px; color: #38bdf8; text-align: center; font-weight: bold; }
     </style>
@@ -115,9 +43,7 @@
         <div class="promo-banner">
             <div class="promo-tag">STUDIO MODE</div>
             <div class="promo-title">သူငယ်ချင်းတို့မင်္ဂလာပါ!</div>
-            <div class="promo-subtext">
-                <span class="highlight-text">SMART CREATOR WORKSPACE</span> မှ ကြိုဆိုပါသည်
-            </div>
+            <div class="promo-subtext"><span class="highlight-text">SMART CREATOR WORKSPACE</span> မှ ကြိုဆိုပါသည်</div>
         </div>
 
         <div id="dashboardSection">
@@ -132,32 +58,20 @@
 
         <div id="voiceSection" class="voice-section">
             <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard သို့ ပြန်သွားမည်</button>
-
             <div class="card">
                 <div style="text-align:center; margin-bottom: 15px;">
                     <h2 style="font-size: 18px; margin:0; color:#ffffff;">AI Voice Generator</h2>
                 </div>
-
                 <div class="voice-tabs">
-                    <div class="voice-tab-btn active">EDGE AI VOICE</div>
+                    <div class="voice-tab-btn active">VERCEL VOICE</div>
                     <div class="voice-tab-btn">GEMINI VOICE</div>
                 </div>
-
                 <label>File Name</label>
                 <input type="text" id="fileName" value="KC_Voice">
-
                 <label>Text to Speech</label>
                 <textarea id="textInput" placeholder="အသံထွက်ပြောင်းချင်သော စာသားရိုက်ထည့်ပါ...">မင်္ဂလာပါခင်ဗျာ</textarea>
-
-                <label>Character / Voice Options</label>
-                <select id="voiceSelect">
-                    <option value="my-MM-ThihaNeural">သီဟ (Male - Natural Neural)</option>
-                    <option value="my-MM-NilarNeural">နီလာ (Female - Natural Neural)</option>
-                </select>
-
                 <button class="btn-submit" onclick="generateVoice()">Generate Voice</button>
                 <div id="statusText"></div>
-
                 <audio id="audioPlayer" class="audio-player" controls></audio>
             </div>
         </div>
@@ -176,7 +90,6 @@
 
         async function generateVoice() {
             const text = document.getElementById("textInput").value.trim();
-            const voice = document.getElementById("voiceSelect").value;
             const statusText = document.getElementById("statusText");
             const audioPlayer = document.getElementById("audioPlayer");
 
@@ -185,16 +98,17 @@
                 return;
             }
 
-            statusText.innerText = "⚡ Edge AI အသံဖိုင် ဖန်တီးနေပါသည်...";
+            statusText.innerText = "⚡ Vercel Server မှ အသံဖိုင် ဖန်တီးနေပါသည်...";
 
-            // Microsoft Edge Neural Voice Direct Endpoint
-            const apiUrl = `https://api.streamelements.com/kappa/v2/speech?voice=${voice}&text=${encodeURIComponent(text)}`;
+            // Vercel Server API Link
+            const apiUrl = `/api/tts?text=${encodeURIComponent(text)}`;
 
             audioPlayer.src = apiUrl;
             audioPlayer.style.display = "block";
-            
+            audioPlayer.load();
+
             audioPlayer.play().then(() => {
-                statusText.innerText = "🔊 သဘာဝကျသော AI အသံ ထွက်နေပါပြီ!";
+                statusText.innerText = "🔊 အသံဖိုင် ထွက်နေပါပြီ!";
             }).catch(error => {
                 statusText.innerText = "▶️ အောက်ပါ Player တွင် Play ကို နှိပ်၍ အသံနားထောင်ပါ။";
             });
