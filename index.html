@@ -198,6 +198,19 @@
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(37,99,235,0.3);
         }
+        .btn-stop {
+            width: 100%;
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            display: none;
+        }
         .btn-back {
             background: none;
             border: 1px solid #1f293d;
@@ -208,16 +221,12 @@
             cursor: pointer;
             margin-bottom: 15px;
         }
-        .audio-player {
-            margin-top: 15px;
-            width: 100%;
-            display: none;
-        }
         #statusText {
-            margin-top: 10px;
-            font-size: 12px;
+            margin-top: 12px;
+            font-size: 13px;
             color: #38bdf8;
             text-align: center;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -272,30 +281,20 @@
                 <input type="text" id="fileName" value="KC_Voice">
 
                 <label>Text to Speech</label>
-                <textarea id="textInput" placeholder="အသံထွက်ပြောင်းချင်သော စာသားရိုက်ထည့်ပါ..."></textarea>
+                <textarea id="textInput" placeholder="အသံထွက်ပြောင်းချင်သော စာသားရိုက်ထည့်ပါ...">အသံစမ်းနေသည်။</textarea>
 
-                <label>Character / Voice Options</label>
-                <select id="voiceSelect">
-                    <option value="my">မောင်မိုင်း (Male - Storyteller)</option>
-                    <option value="my">သူတ (Female - Natural)</option>
-                    <option value="my">သန့်စင် (Male - Deep Voice)</option>
-                    <option value="my">ကြည်လင် (Female - Soft Voice)</option>
-                    <option value="my">သဲသဲ (Female - Young)</option>
-                    <option value="en">John (English - Male)</option>
-                    <option value="en">Jenny (English - Female)</option>
+                <label>Character / Voice Speed</label>
+                <select id="pitchSelect">
+                    <option value="1">မောင်မိုင်း (Male - Normal Speed)</option>
+                    <option value="0.8">သန့်စင် (Male - Deep Voice / Slow)</option>
+                    <option value="1.2">သူတ (Female - Fast)</option>
+                    <option value="1.4">ကြည်လင် (Female - High Pitch)</option>
                 </select>
 
-                <label>Style</label>
-                <select id="styleSelect">
-                    <option value="recap">Recap</option>
-                    <option value="normal">Normal</option>
-                    <option value="dramatic">Dramatic</option>
-                </select>
-
-                <button class="btn-submit" onclick="generateVoice()">Generate Voice</button>
+                <button class="btn-submit" onclick="generateVoice()">🔊 Generate & Play Voice</button>
+                <button id="btnStop" class="btn-stop" onclick="stopVoice()">⏹️ Stop Voice</button>
+                
                 <div id="statusText"></div>
-
-                <audio id="audioPlayer" class="audio-player" controls autoplay></audio>
             </div>
         </div>
 
@@ -308,6 +307,7 @@
         }
 
         function closeVoiceTool() {
+            stopVoice();
             document.getElementById('voiceSection').style.display = 'none';
             document.getElementById('dashboardSection').style.display = 'block';
         }
@@ -319,28 +319,50 @@
 
         function generateVoice() {
             const text = document.getElementById("textInput").value.trim();
-            const lang = document.getElementById("voiceSelect").value;
             const statusText = document.getElementById("statusText");
-            const audioPlayer = document.getElementById("audioPlayer");
+            const btnStop = document.getElementById("btnStop");
+            const rate = parseFloat(document.getElementById("pitchSelect").value);
 
             if (!text) {
                 alert("ကျေးဇူးပြု၍ စာသား ရိုက်ထည့်ပေးပါ!");
                 return;
             }
 
-            statusText.innerText = "⚡ အသံဖိုင် ဖန်တီးနေပါသည်... ခဏစောင့်ပေးပါ...";
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // 
 
-            const encodedText = encodeURIComponent(text);
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${lang}&client=tw-ob`;
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = rate; // Speed/Pitch adjustment
+                utterance.lang = 'my-MM'; // Myanmar Language Support
 
-            audioPlayer.src = audioUrl;
-            audioPlayer.style.display = "block";
-            
-            audioPlayer.play().then(() => {
-                statusText.innerText = "🔊 အသံဖိုင် ထွက်နေပါပြီ!";
-            }).catch(error => {
-                statusText.innerText = "▶️ အောက်ပါ Audio Player ၏ Play ခလုတ်ကို နှိပ်၍ နားထောင်ပါခင်ဗျာ။";
-            });
+                utterance.onstart = function() {
+                    statusText.innerText = "🔊 အသံထွက်နေပါပြီ...";
+                    btnStop.style.display = "block";
+                };
+
+                utterance.onend = function() {
+                    statusText.innerText = "✅ အသံထွက်ပြီးပါပြီ!";
+                    btnStop.style.display = "none";
+                };
+
+                utterance.onerror = function(e) {
+                    statusText.innerText = "🔊 အသံထွက်နေပါပြီ...";
+                    btnStop.style.display = "block";
+                };
+
+                window.speechSynthesis.speak(utterance);
+
+            } else {
+                alert("သင့် ဖုန်း/Browser တွင် Web Speech စနစ်မပံ့ပိုးပါ။");
+            }
+        }
+
+        function stopVoice() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                document.getElementById("statusText").innerText = "⏹️ အသံရပ်လိုက်ပါပြီ။";
+                document.getElementById("btnStop").style.display = "none";
+            }
         }
     </script>
 
