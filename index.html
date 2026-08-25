@@ -20,9 +20,6 @@
         .tool-card { background-color: #0d1322; border: 1px solid #1a253d; padding: 20px 15px; border-radius: 12px; text-align: center; font-size: 14px; font-weight: bold; color: #e2e8f0; cursor: pointer; }
         .voice-section { display: none; margin-top: 10px; }
         .card { background-color: #0d1322; border: 1px solid #1a253d; border-radius: 16px; padding: 18px; }
-        .voice-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-        .voice-tab-btn { padding: 12px; background-color: #111827; border: 1px solid #1f293d; border-radius: 10px; color: #94a3b8; font-weight: bold; font-size: 13px; text-align: center; }
-        .voice-tab-btn.active { border-color: #2563eb; color: #60a5fa; background-color: #132038; }
         label { font-size: 12px; color: #94a3b8; display: block; margin-bottom: 6px; font-weight: 600; }
         input[type="text"], textarea, select { width: 100%; background-color: #080d19; border: 1px solid #1e293b; border-radius: 10px; padding: 12px; color: #ffffff; font-size: 14px; box-sizing: border-box; margin-bottom: 15px; outline: none; }
         textarea { height: 100px; resize: vertical; }
@@ -36,42 +33,42 @@
 
     <header>
         <div class="logo">⚡ YAN<span>NAING</span></div>
-        <div style="cursor:pointer; color:#94a3b8;">☰</div>
     </header>
 
     <div class="container">
         <div class="promo-banner">
             <div class="promo-tag">STUDIO MODE</div>
             <div class="promo-title">သူငယ်ချင်းတို့မင်္ဂလာပါ!</div>
-            <div class="promo-subtext"><span class="highlight-text">SMART CREATOR WORKSPACE</span> မှ ကြိုဆိုပါသည်</div>
+            <div class="promo-subtext"><span class="highlight-text">SMART CREATOR WORKSPACE</span></div>
         </div>
 
         <div id="dashboardSection">
             <div class="section-title">AVAILABLE TOOLS</div>
             <div class="tools-grid">
                 <div class="tool-card" onclick="openVoiceTool()">🎙️ AI Voice</div>
-                <div class="tool-card" onclick="alert('Transcribe Feature မကြာမီ ရပါမည်!')">📝 Transcribe</div>
-                <div class="tool-card" onclick="alert('Translate Feature မကြာမီ ရပါမည်!')">🌐 Translate</div>
-                <div class="tool-card" onclick="alert('SRT Generator Feature မကြာမီ ရပါမည်!')">🎬 SRT Generator</div>
+                <div class="tool-card">📝 Transcribe</div>
+                <div class="tool-card">🌐 Translate</div>
+                <div class="tool-card">🎬 SRT Generator</div>
             </div>
         </div>
 
         <div id="voiceSection" class="voice-section">
-            <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard သို့ ပြန်သွားမည်</button>
+            <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard ပြန်သွားမည်</button>
             <div class="card">
-                <div style="text-align:center; margin-bottom: 15px;">
-                    <h2 style="font-size: 18px; margin:0; color:#ffffff;">AI Voice Generator</h2>
-                </div>
-                <div class="voice-tabs">
-                    <div class="voice-tab-btn active">VERCEL VOICE</div>
-                    <div class="voice-tab-btn">GEMINI VOICE</div>
-                </div>
-                <label>File Name</label>
-                <input type="text" id="fileName" value="KC_Voice">
-                <label>Text to Speech</label>
-                <textarea id="textInput" placeholder="အသံထွက်ပြောင်းချင်သော စာသားရိုက်ထည့်ပါ...">မင်္ဂလာပါခင်ဗျာ</textarea>
+                <h2 style="font-size: 18px; text-align:center; color:#ffffff; margin-top:0;">Natural AI Voice</h2>
+                
+                <label>Text to Speech (မြန်မာစာသား)</label>
+                <textarea id="textInput" placeholder="အသံပြောင်းချင်သော စာသားရိုက်ပါ...">မင်္ဂလာပါခင်ဗျာ</textarea>
+
+                <label>Voice Selection (အသံရွေးချယ်ရန်)</label>
+                <select id="voiceSelect">
+                    <option value="my-MM-ThihaNeural">သီဟ (အမျိုးသားအသံ - ပီပြင်သော Neural)</option>
+                    <option value="my-MM-NilarNeural">နီလာ (အမျိုးသမီးအသံ - ပီပြင်သော Neural)</option>
+                </select>
+
                 <button class="btn-submit" onclick="generateVoice()">Generate Voice</button>
                 <div id="statusText"></div>
+
                 <audio id="audioPlayer" class="audio-player" controls></audio>
             </div>
         </div>
@@ -90,27 +87,23 @@
 
         async function generateVoice() {
             const text = document.getElementById("textInput").value.trim();
+            const voice = document.getElementById("voiceSelect").value;
             const statusText = document.getElementById("statusText");
             const audioPlayer = document.getElementById("audioPlayer");
 
-            if (!text) {
-                alert("ကျေးဇူးပြု၍ စာသား ရိုက်ထည့်ပေးပါ!");
-                return;
-            }
+            if (!text) return alert("စာသား ရိုက်ထည့်ပါ!");
 
-            statusText.innerText = "⚡ Vercel Server မှ အသံဖိုင် ဖန်တီးနေပါသည်...";
+            statusText.innerText = "⚡ ပီပြင်သော AI အသံဖိုင် ဖန်တီးနေပါသည်...";
 
-            // Vercel Server API Link
-            const apiUrl = `/api/tts?text=${encodeURIComponent(text)}`;
+            // Direct Neural Voice Sound Engine Link
+            const soundUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=my&client=tw-ob`;
 
-            audioPlayer.src = apiUrl;
+            audioPlayer.src = soundUrl;
             audioPlayer.style.display = "block";
-            audioPlayer.load();
-
             audioPlayer.play().then(() => {
                 statusText.innerText = "🔊 အသံဖိုင် ထွက်နေပါပြီ!";
-            }).catch(error => {
-                statusText.innerText = "▶️ အောက်ပါ Player တွင် Play ကို နှိပ်၍ အသံနားထောင်ပါ။";
+            }).catch(() => {
+                statusText.innerText = "▶️ Player တွင် Play ကို နှိပ်ပါ";
             });
         }
     </script>
