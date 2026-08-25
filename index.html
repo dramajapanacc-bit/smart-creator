@@ -96,48 +96,6 @@
             margin-bottom: 20px;
         }
 
-        .engine-box {
-            background-color: #080d19;
-            border: 1px solid #1a253d;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 20px;
-        }
-        .engine-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .engine-title {
-            font-size: 12px;
-            font-weight: bold;
-            color: #94a3b8;
-        }
-        .engine-toggle {
-            display: flex;
-            background-color: #111827;
-            border-radius: 8px;
-            padding: 3px;
-        }
-        .engine-btn {
-            padding: 6px 12px;
-            font-size: 11px;
-            font-weight: bold;
-            border: none;
-            background: none;
-            color: #64748b;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .engine-btn.active {
-            background-color: #2563eb;
-            color: #ffffff;
-        }
-        .key-input-wrap {
-            display: none;
-            margin-top: 10px;
-        }
-
         .voice-tabs {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -189,7 +147,7 @@
             margin-bottom: 6px;
             font-weight: 600;
         }
-        input[type="text"], input[type="password"], textarea, select {
+        input[type="text"], textarea, select {
             width: 100%;
             background-color: #080d19;
             border: 1px solid #1e293b;
@@ -270,19 +228,6 @@
         <div id="voiceSection" class="voice-section">
             <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard သို့ ပြန်သွားမည်</button>
 
-            <div class="engine-box">
-                <div class="engine-header">
-                    <span class="engine-title">API ENGINE:</span>
-                    <div class="engine-toggle">
-                        <button class="engine-btn active" id="btnSystem" onclick="setEngine('system')">SYSTEM</button>
-                        <button class="engine-btn" id="btnOwnKey" onclick="setEngine('own')">OWN KEY</button>
-                    </div>
-                </div>
-                <div class="key-input-wrap" id="keyWrap">
-                    <input type="password" id="apiKey" placeholder="Paste your Gemini API Key here..." style="margin-bottom:0;">
-                </div>
-            </div>
-
             <div class="card">
                 <div style="text-align:center; margin-bottom: 15px;">
                     <h2 style="font-size: 18px; margin:0; color:#ffffff;">AI Voice Generator</h2>
@@ -304,15 +249,15 @@
                 <label>Text to Speech</label>
                 <textarea id="textInput" placeholder="အသံထွက်ပြောင်းချင်သော စာသားရိုက်ထည့်ပါ..."></textarea>
 
-                <label>Character / Myanmar Voice Options</label>
+                <label>Character / Voice Options</label>
                 <select id="voiceSelect">
-                    <option value="my_male_1">မောင်မိုင်း (Male - Storyteller)</option>
-                    <option value="my_female_1">သူတ (Female - Natural)</option>
-                    <option value="my_male_2">သန့်စင် (Male - Deep Voice)</option>
-                    <option value="my_female_2">ကြည်လင် (Female - Soft Voice)</option>
-                    <option value="my_female_3">သဲသဲ (Female - Young)</option>
-                    <option value="en_male">John (English - Male)</option>
-                    <option value="en_female">Jenny (English - Female)</option>
+                    <option value="my">မောင်မိုင်း (Male - Storyteller)</option>
+                    <option value="my">သူတ (Female - Natural)</option>
+                    <option value="my">သန့်စင် (Male - Deep Voice)</option>
+                    <option value="my">ကြည်လင် (Female - Soft Voice)</option>
+                    <option value="my">သဲသဲ (Female - Young)</option>
+                    <option value="en">John (English - Male)</option>
+                    <option value="en">Jenny (English - Female)</option>
                 </select>
 
                 <label>Style</label>
@@ -332,8 +277,6 @@
     </div>
 
     <script>
-        let currentEngine = 'system';
-
         function openVoiceTool() {
             document.getElementById('dashboardSection').style.display = 'none';
             document.getElementById('voiceSection').style.display = 'block';
@@ -344,22 +287,14 @@
             document.getElementById('dashboardSection').style.display = 'block';
         }
 
-        function setEngine(type) {
-            currentEngine = type;
-            document.getElementById('btnOwnKey').classList.toggle('active', type === 'own');
-            document.getElementById('btnSystem').classList.toggle('active', type === 'system');
-            document.getElementById('keyWrap').style.display = (type === 'own') ? 'block' : 'none';
-        }
-
         function selectVoiceTab(tab) {
             document.getElementById('tabKc').classList.toggle('active', tab === 'kc');
             document.getElementById('tabGemini').classList.toggle('active', tab === 'gemini');
         }
 
-        async function generateVoice() {
+        function generateVoice() {
             const text = document.getElementById("textInput").value.trim();
-            const apiKey = document.getElementById("apiKey").value.trim();
-            const voiceVal = document.getElementById("voiceSelect").value;
+            const lang = document.getElementById("voiceSelect").value;
             const statusText = document.getElementById("statusText");
             const audioPlayer = document.getElementById("audioPlayer");
 
@@ -368,38 +303,11 @@
                 return;
             }
 
-            if (currentEngine === 'own' && !apiKey) {
-                alert("ကျေးဇူးပြု၍ Gemini API Key ထည့်သွင်းပေးပါ!");
-                return;
-            }
-
             statusText.innerText = "⚡ အသံဖိုင် ဖန်တီးနေပါသည်... ခဏစောင့်ပေးပါ...";
 
-            // Gemini API Key သုံးထားလျှင်
-            if (currentEngine === 'own' && apiKey) {
-                try {
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: "Read this text clearly: " + text }] }]
-                        })
-                    });
-                    const data = await response.json();
-                    if (data.error) {
-                        alert("API Key Error: " + data.error.message);
-                        statusText.innerText = "❌ API Key မှားယွင်းနေပါသည်။";
-                        return;
-                    }
-                } catch(e) {
-                    console.log(e);
-                }
-            }
-
-            // High Quality Voice Stream Engine
-            const langCode = voiceVal.startsWith('en') ? 'en' : 'my';
+            // Direct Engine Link
             const encodedText = encodeURIComponent(text);
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${langCode}&client=tw-ob`;
+            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${lang}&client=tw-ob`;
 
             audioPlayer.src = audioUrl;
             audioPlayer.style.display = "block";
@@ -414,4 +322,3 @@
 
 </body>
 </html>
-
