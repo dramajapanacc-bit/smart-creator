@@ -36,20 +36,41 @@
         
         .promo-banner {
             background: linear-gradient(135deg, #11192e, #0a0f1d);
-            padding: 14px 16px;
+            padding: 18px 16px;
             border-radius: 12px;
             border: 1px solid #1f2d4d;
             margin-bottom: 20px;
+            text-align: center;
         }
         .promo-tag {
             background-color: #d97706;
             color: #fff;
             font-size: 10px;
             font-weight: 800;
-            padding: 2px 7px;
+            padding: 2px 8px;
             border-radius: 4px;
             display: inline-block;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+        }
+        
+        /* ပုံထဲကအတိုင်း အရောင်စုံ စာသား Styling */
+        .promo-title {
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #a3e635, #ef4444, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+        .promo-subtext {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        .highlight-text {
+            color: #ec4899;
+            font-weight: bold;
         }
 
         .section-title {
@@ -209,12 +230,16 @@
     </header>
 
     <div class="container">
+        <!-- Promo Banner -->
         <div class="promo-banner">
             <div class="promo-tag">PROMO</div>
-            <div style="font-size: 13px; font-weight: bold;">Unlock Unlimited Voice & Features</div>
-            <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">Contact via Facebook, Telegram for Premium Plan.</div>
+            <div class="promo-title">သူငယ်ချင်းတို့မင်္ဂလာပါ!</div>
+            <div class="promo-subtext">
+                ကြော်ငြာမပါဘဲ <span class="highlight-text">UNLIMITED VOICE</span> တွေ ထုတ်ယူဖို့ <span class="highlight-text">PREMIUM PLAN</span> ရယူပါ
+            </div>
         </div>
 
+        <!-- MAIN DASHBOARD -->
         <div id="dashboardSection">
             <div class="section-title">AVAILABLE TOOLS</div>
             <div class="tools-grid">
@@ -225,6 +250,7 @@
             </div>
         </div>
 
+        <!-- AI VOICE TOOL PAGE -->
         <div id="voiceSection" class="voice-section">
             <button class="btn-back" onclick="closeVoiceTool()">⬅️ Dashboard သို့ ပြန်သွားမည်</button>
 
@@ -305,7 +331,6 @@
 
             statusText.innerText = "⚡ အသံဖိုင် ဖန်တီးနေပါသည်... ခဏစောင့်ပေးပါ...";
 
-            // Direct Engine Link
             const encodedText = encodeURIComponent(text);
             const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=${lang}&client=tw-ob`;
 
