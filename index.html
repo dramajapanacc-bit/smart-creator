@@ -7,7 +7,7 @@
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: linear-gradient(135deg, #1e1b4b, #312e81, #1e1b4b); 
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a); 
             color: #fff; 
             padding: 20px; 
             display: flex; 
@@ -19,8 +19,8 @@
         .container { 
             max-width: 600px; 
             width: 100%; 
-            background: rgba(30, 41, 59, 0.85); 
-            backdrop-filter: blur(10px);
+            background: rgba(30, 41, 59, 0.9); 
+            backdrop-filter: blur(12px);
             padding: 30px; 
             border-radius: 16px; 
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
@@ -31,8 +31,7 @@
             color: #38bdf8; 
             text-align: center; 
             margin-bottom: 5px;
-            font-size: 28px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            font-size: 26px;
         }
         .subtitle {
             font-size: 13px; 
@@ -45,6 +44,7 @@
             margin: 15px 0 8px; 
             font-weight: 600;
             color: #e2e8f0;
+            font-size: 14px;
         }
         input { 
             width: 100%; 
@@ -79,7 +79,6 @@
         button:hover { 
             background: linear-gradient(135deg, #0369a1, #1d4ed8);
             transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.6);
         }
         .result-box { 
             margin-top: 20px; 
@@ -94,6 +93,7 @@
             word-break: break-word; 
             color: #f1f5f9;
             line-height: 1.6;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -101,14 +101,14 @@
 
 <div class="container">
     <h2>✨ YanNaing. AI Script</h2>
-    <div class="subtitle">🎬 YouTube သို့မဟုတ် TikTok လင့်ခ်ထည့်၍ Movie Recap Script ထုတ်ပါ</div>
+    <div class="subtitle">🎬 YouTube / TikTok လင့်ခ် သို့မဟုတ် ရုပ်ရှင်နာမည်ထည့်၍ Script ထုတ်ပါ</div>
     
-    <label>ဗီဒီယို လင့်ခ် (YouTube / TikTok Link):</label>
-    <input type="text" id="videoLink" placeholder="https://www.tiktok.com/... သို့မဟုတ် YouTube လင့်ခ်ထည့်ရန်">
+    <label>အချက်အလက် (Link သို့မဟုတ် Movie Name):</label>
+    <input type="text" id="videoLink" placeholder="ဥပမာ - Avatar 2 သို့မဟုတ် ဗီဒီယိုလင့်ခ်ထည့်ရန်">
 
-    <button onclick="generateFromLink()">✨ Recap Script ထုတ်မည်</button>
+    <button onclick="generateFromLink()">✨ Script ထုတ်မည်</button>
 
-    <label>AI သုံးသပ် ရေးသားထားသော မြန်မာ Script:</label>
+    <label>AI ရေးသားပေးသော မြန်မာ Script:</label>
     <div id="result" class="result-box">ဒီနေရာတွင် AI ရေးသားထားသော Script များ ပေါ်လာပါမည်...</div>
 </div>
 
@@ -118,11 +118,11 @@ async function generateFromLink() {
     const resultDiv = document.getElementById('result');
 
     if (!linkInput) {
-        alert("ကျေးဇူးပြု၍ YouTube သို့မဟုတ် TikTok လင့်ခ် ထည့်ပါ");
+        alert("ကျေးဇူးပြု၍ လင့်ခ် သို့မဟုတ် ရုပ်ရှင်နာမည် ထည့်ပါ");
         return;
     }
 
-    resultDiv.innerText = "⏳ AI က လင့်ခ်ကို လေ့လာပြီး Script ရေးနေပါပြီ။ ခဏစောင့်ပါ...";
+    resultDiv.innerText = "⏳ AI က ဇာတ်လမ်းကို လေ့လာပြီး Script ရေးနေပါပြီ။ ခဏစောင့်ပါ...";
     
     try {
         const response = await fetch('/api/recap-video', {
@@ -145,3 +145,4 @@ async function generateFromLink() {
 
 </body>
 </html>
+
