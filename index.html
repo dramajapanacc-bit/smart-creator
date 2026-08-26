@@ -15,7 +15,7 @@ body {
     margin: 0;
     padding: 18px;
     min-height: 100vh;
-    font-family: "Noto Sans Myanmar", Arial, sans-serif;
+    font-family: "Noto Sans Myanmar", "Segoe UI", Arial, sans-serif;
     background:
         radial-gradient(circle at top, #312e81, transparent 45%),
         linear-gradient(135deg, #020617, #111827, #1e1b4b);
@@ -28,19 +28,16 @@ body {
     margin: auto;
     padding: 25px;
     border-radius: 24px;
-    background: rgba(15, 23, 42, 0.94);
+    background: rgba(15, 23, 42, 0.95);
     border: 1px solid rgba(255,255,255,.15);
     box-shadow: 0 15px 50px rgba(0,0,0,.55);
 }
-
-/* ================= TITLE ================= */
 
 .title {
     text-align: center;
     margin: 0;
     font-size: 30px;
     font-weight: 900;
-    letter-spacing: .5px;
 
     background: linear-gradient(
         90deg,
@@ -55,9 +52,6 @@ body {
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-
-    text-shadow:
-        0 0 12px rgba(56,189,248,.35);
 }
 
 .subtitle {
@@ -67,8 +61,6 @@ body {
     font-size: 14px;
 }
 
-/* ================= LABEL ================= */
-
 label {
     display: block;
     margin: 18px 0 8px;
@@ -76,24 +68,17 @@ label {
     color: #fff;
 }
 
-/* ================= TEXTAREA ================= */
-
 textarea {
     width: 100%;
     min-height: 220px;
     resize: vertical;
-
     padding: 15px;
-
     border-radius: 14px;
     border: 1px solid #475569;
-
     background: #020617;
     color: #fff;
-
     font-size: 16px;
     line-height: 1.8;
-
     outline: none;
 }
 
@@ -102,16 +87,12 @@ textarea:focus {
     box-shadow: 0 0 15px rgba(56,189,248,.25);
 }
 
-/* ================= COUNTER ================= */
-
 .counter {
     text-align: right;
     margin-top: 6px;
     color: #94a3b8;
     font-size: 13px;
 }
-
-/* ================= VOICE ================= */
 
 .voice-grid {
     display: grid;
@@ -122,18 +103,14 @@ textarea:focus {
 .voice-card {
     padding: 17px;
     border-radius: 16px;
-
     background: #0f172a;
     border: 2px solid #334155;
-
     cursor: pointer;
     text-align: center;
-
     transition: .2s;
 }
 
 .voice-card:hover {
-    transform: translateY(-2px);
     border-color: #38bdf8;
 }
 
@@ -145,9 +122,7 @@ textarea:focus {
             rgba(34,197,94,.15),
             rgba(59,130,246,.15)
         );
-
-    box-shadow:
-        0 0 18px rgba(34,197,94,.2);
+    box-shadow: 0 0 18px rgba(34,197,94,.2);
 }
 
 .voice-icon {
@@ -165,8 +140,6 @@ textarea:focus {
     color: #94a3b8;
     font-size: 12px;
 }
-
-/* ================= CONTROLS ================= */
 
 .control {
     margin-top: 22px;
@@ -188,20 +161,15 @@ input[type="range"] {
     accent-color: #38bdf8;
 }
 
-/* ================= BUTTON ================= */
-
 button {
     width: 100%;
     border: none;
     border-radius: 13px;
-
     padding: 15px;
     margin-top: 20px;
-
     color: white;
     font-size: 17px;
     font-weight: bold;
-
     cursor: pointer;
 
     background:
@@ -213,6 +181,11 @@ button {
 
     box-shadow:
         0 6px 20px rgba(37,99,235,.3);
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
 }
 
 button:active {
@@ -237,25 +210,25 @@ button:active {
         );
 }
 
-/* ================= STATUS ================= */
+.download {
+    background:
+        linear-gradient(
+            135deg,
+            #16a34a,
+            #059669
+        );
+}
 
 .status {
     margin-top: 20px;
     padding: 14px;
-
     text-align: center;
-
     border-radius: 12px;
-
     background: #020617;
     border: 1px solid #334155;
-
     color: #cbd5e1;
-
     line-height: 1.6;
 }
-
-/* ================= COLORS ================= */
 
 .color-title {
     margin-top: 25px;
@@ -276,16 +249,12 @@ button:active {
     color: transparent;
 }
 
-/* ================= FOOTER ================= */
-
 .footer {
     margin-top: 25px;
     text-align: center;
     font-size: 12px;
     color: #64748b;
 }
-
-/* ================= MOBILE ================= */
 
 @media(max-width:480px) {
 
@@ -297,17 +266,12 @@ button:active {
         font-size: 25px;
     }
 
-    .voice-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-
     textarea {
         min-height: 190px;
     }
 }
 </style>
 </head>
-
 
 <body>
 
@@ -320,9 +284,6 @@ button:active {
     <div class="subtitle">
         🇲🇲 Myanmar AI Voice Generator
     </div>
-
-
-    <!-- TEXT -->
 
     <label>
         📝 မြန်မာစာ ထည့်ပါ
@@ -338,9 +299,6 @@ button:active {
         <span id="counter">0</span> / 5000
     </div>
 
-
-    <!-- VOICE -->
-
     <label>
         🎙️ မြန်မာအသံ ရွေးပါ
     </label>
@@ -352,10 +310,7 @@ button:active {
             id="thihaCard"
             onclick="selectVoice('thiha')"
         >
-
-            <div class="voice-icon">
-                👨
-            </div>
+            <div class="voice-icon">👨</div>
 
             <div class="voice-name">
                 သီဟ
@@ -364,19 +319,14 @@ button:active {
             <div class="voice-type">
                 🇲🇲 Male Voice
             </div>
-
         </div>
-
 
         <div
             class="voice-card"
             id="nilarCard"
             onclick="selectVoice('nilar')"
         >
-
-            <div class="voice-icon">
-                👩
-            </div>
+            <div class="voice-icon">👩</div>
 
             <div class="voice-name">
                 နီလာ
@@ -385,13 +335,9 @@ button:active {
             <div class="voice-type">
                 🇲🇲 Female Voice
             </div>
-
         </div>
 
     </div>
-
-
-    <!-- SPEED -->
 
     <div class="control">
 
@@ -417,9 +363,6 @@ button:active {
 
     </div>
 
-
-    <!-- PITCH -->
-
     <div class="control">
 
         <div class="control-title">
@@ -444,9 +387,6 @@ button:active {
 
     </div>
 
-
-    <!-- VOLUME -->
-
     <div class="control">
 
         <div class="control-title">
@@ -470,13 +410,12 @@ button:active {
 
     </div>
 
-
-    <!-- BUTTONS -->
-
-    <button onclick="generateVoice()">
+    <button
+        id="generateButton"
+        onclick="generateVoice()"
+    >
         🎙️ အသံထုတ်မည်
     </button>
-
 
     <button
         class="stop"
@@ -485,6 +424,14 @@ button:active {
         ⏹️ ရပ်မည်
     </button>
 
+    <button
+        id="downloadButton"
+        class="download"
+        onclick="downloadVoice()"
+        style="display:none;"
+    >
+        ⬇️ MP3 သိမ်းမည်
+    </button>
 
     <button
         class="clear"
@@ -493,9 +440,6 @@ button:active {
         🗑️ ရှင်းမည်
     </button>
 
-
-    <!-- STATUS -->
-
     <div
         class="status"
         id="status"
@@ -503,11 +447,9 @@ button:active {
         🎙️ သီဟ အသံရွေးထားပါသည်။
     </div>
 
-
     <div class="color-title">
         🌈 YanNaing Free Ai Tool 🌈
     </div>
-
 
     <div class="footer">
         Free Myanmar AI Voice Tool
@@ -515,10 +457,13 @@ button:active {
 
 </div>
 
-
 <script>
 
 let selectedVoice = "thiha";
+
+let currentAudio = null;
+
+let currentAudioUrl = null;
 
 
 const text =
@@ -548,6 +493,12 @@ const volumeValue =
 const status =
     document.getElementById("status");
 
+const generateButton =
+    document.getElementById("generateButton");
+
+const downloadButton =
+    document.getElementById("downloadButton");
+
 
 /* =========================
    CHARACTER COUNTER
@@ -555,7 +506,7 @@ const status =
 
 text.addEventListener(
     "input",
-    function(){
+    function() {
 
         counter.textContent =
             this.value.length;
@@ -568,25 +519,24 @@ text.addEventListener(
    VOICE SELECT
 ========================= */
 
-function selectVoice(voice){
+function selectVoice(voice) {
+
+    stopVoice();
 
     selectedVoice =
         voice;
-
 
     document
         .getElementById("thihaCard")
         .classList
         .remove("selected");
 
-
     document
         .getElementById("nilarCard")
         .classList
         .remove("selected");
 
-
-    if(voice === "thiha"){
+    if (voice === "thiha") {
 
         document
             .getElementById("thihaCard")
@@ -598,8 +548,7 @@ function selectVoice(voice){
 
     }
 
-
-    if(voice === "nilar"){
+    if (voice === "nilar") {
 
         document
             .getElementById("nilarCard")
@@ -620,7 +569,7 @@ function selectVoice(voice){
 
 speed.addEventListener(
     "input",
-    function(){
+    function() {
 
         speedValue.textContent =
             this.value + "x";
@@ -628,10 +577,9 @@ speed.addEventListener(
     }
 );
 
-
 pitch.addEventListener(
     "input",
-    function(){
+    function() {
 
         pitchValue.textContent =
             this.value;
@@ -639,13 +587,19 @@ pitch.addEventListener(
     }
 );
 
-
 volume.addEventListener(
     "input",
-    function(){
+    function() {
 
         volumeValue.textContent =
             this.value + "%";
+
+        if (currentAudio) {
+
+            currentAudio.volume =
+                Number(this.value) / 100;
+
+        }
 
     }
 );
@@ -655,13 +609,12 @@ volume.addEventListener(
    GENERATE VOICE
 ========================= */
 
-async function generateVoice(){
+async function generateVoice() {
 
     const value =
         text.value.trim();
 
-
-    if(!value){
+    if (!value) {
 
         alert(
             "ကျေးဇူးပြု၍ မြန်မာစာထည့်ပါ။"
@@ -671,76 +624,89 @@ async function generateVoice(){
 
     }
 
+    if (value.length > 5000) {
+
+        alert(
+            "စာလုံးရေ 5000 ထက် မကျော်ရပါ။"
+        );
+
+        return;
+
+    }
+
+    stopVoice();
+
+    downloadButton.style.display =
+        "none";
+
+    generateButton.disabled =
+        true;
 
     status.textContent =
         "⏳ " +
         (
             selectedVoice === "thiha"
-            ? "သီဟ"
-            : "နီလာ"
+                ? "သီဟ"
+                : "နီလာ"
         ) +
-        " အသံထုတ်နေပါသည်...";
+        " မြန်မာအသံထုတ်နေပါသည်...";
 
-
-    try{
+    try {
 
         const response =
             await fetch(
                 "/api/tts",
                 {
-                    method:"POST",
+                    method: "POST",
 
-                    headers:{
+                    headers: {
                         "Content-Type":
                             "application/json"
                     },
 
-                    body:JSON.stringify({
+                    body: JSON.stringify({
 
-                        text:value,
+                        text: value,
 
-                        voice:selectedVoice,
+                        voice:
+                            selectedVoice,
 
                         speed:
-                            parseFloat(
-                                speed.value
-                            ),
+                            Number(speed.value),
 
                         pitch:
-                            parseInt(
-                                pitch.value
-                            ),
+                            Number(pitch.value),
 
                         volume:
-                            parseInt(
-                                volume.value
-                            )
+                            Number(volume.value)
 
                     })
                 }
             );
 
 
-        if(!response.ok){
+        if (!response.ok) {
 
-            let error =
+            let errorMessage =
                 "Voice ထုတ်မရပါ။";
 
-            try{
+            try {
 
-                const data =
+                const errorData =
                     await response.json();
 
-                if(data.error){
+                if (errorData.error) {
 
-                    error =
-                        data.error;
+                    errorMessage =
+                        errorData.error;
 
                 }
 
-            }catch(e){}
+            } catch (e) {}
 
-            throw new Error(error);
+            throw new Error(
+                errorMessage
+            );
 
         }
 
@@ -749,38 +715,96 @@ async function generateVoice(){
             await response.blob();
 
 
-        const audioUrl =
+        if (!blob.size) {
+
+            throw new Error(
+                "Audio file အလွတ်ဖြစ်နေပါသည်။"
+            );
+
+        }
+
+
+        currentAudioUrl =
             URL.createObjectURL(blob);
 
 
-        const audio =
-            new Audio(audioUrl);
+        currentAudio =
+            new Audio(currentAudioUrl);
 
 
-        audio.volume =
-            parseInt(volume.value) / 100;
+        currentAudio.volume =
+            Number(volume.value) / 100;
 
 
-        audio.play();
+        currentAudio.onended =
+            function() {
+
+                status.textContent =
+                    "✅ အသံပြီးပါပြီ။";
+
+                generateButton.disabled =
+                    false;
+
+            };
+
+
+        currentAudio.onerror =
+            function() {
+
+                status.textContent =
+                    "❌ Audio ဖွင့်မရပါ။";
+
+                generateButton.disabled =
+                    false;
+
+            };
+
+
+        /*
+         * IMPORTANT:
+         * Browser speechSynthesis ကို
+         * လုံးဝ မသုံးပါ။
+         *
+         * API က ပြန်လာတဲ့
+         * မြန်မာ MP3 တစ်ခုတည်းကိုသာ
+         * ဖွင့်ပါမယ်။
+         */
+
+        await currentAudio.play();
+
+
+        downloadButton.style.display =
+            "block";
 
 
         status.textContent =
-            "✅ " +
+            "🔊 " +
             (
                 selectedVoice === "thiha"
-                ? "သီဟ"
-                : "နီလာ"
+                    ? "သီဟ"
+                    : "နီလာ"
             ) +
-            " အသံထွက်နေပါပြီ။";
+            " မြန်မာအသံထွက်နေပါပြီ။";
 
 
-    }catch(error){
+    } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Voice Error:",
+            error
+        );
 
         status.textContent =
             "❌ " +
-            error.message;
+            (
+                error.message ||
+                "Myanmar Voice ထုတ်ရာတွင် အမှားဖြစ်နေပါသည်။"
+            );
+
+    } finally {
+
+        generateButton.disabled =
+            false;
 
     }
 
@@ -788,12 +812,59 @@ async function generateVoice(){
 
 
 /* =========================
-   STOP
+   STOP VOICE
 ========================= */
 
-function stopVoice(){
+function stopVoice() {
 
-    window.speechSynthesis.cancel();
+    /*
+     * Browser built-in English voice
+     * မသုံးထားသော်လည်း
+     * safety အတွက် cancel လုပ်ထားသည်။
+     */
+
+    if (
+        "speechSynthesis" in window
+    ) {
+
+        window.speechSynthesis.cancel();
+
+    }
+
+
+    if (currentAudio) {
+
+        currentAudio.pause();
+
+        currentAudio.currentTime =
+            0;
+
+        currentAudio.onended =
+            null;
+
+        currentAudio.onerror =
+            null;
+
+        currentAudio =
+            null;
+
+    }
+
+
+    if (currentAudioUrl) {
+
+        URL.revokeObjectURL(
+            currentAudioUrl
+        );
+
+        currentAudioUrl =
+            null;
+
+    }
+
+
+    generateButton.disabled =
+        false;
 
     status.textContent =
         "⏹️ အသံရပ်လိုက်ပါပြီ။";
@@ -802,17 +873,55 @@ function stopVoice(){
 
 
 /* =========================
+   DOWNLOAD MP3
+========================= */
+
+function downloadVoice() {
+
+    if (!currentAudioUrl) {
+
+        alert(
+            "အရင်ဆုံး အသံထုတ်ပါ။"
+        );
+
+        return;
+
+    }
+
+    const link =
+        document.createElement("a");
+
+    link.href =
+        currentAudioUrl;
+
+    link.download =
+        "YanNaing-Myanmar-Voice.mp3";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+}
+
+
+/* =========================
    CLEAR
 ========================= */
 
-function clearText(){
+function clearText() {
 
     stopVoice();
 
-    text.value = "";
+    text.value =
+        "";
 
     counter.textContent =
         "0";
+
+    downloadButton.style.display =
+        "none";
 
     status.textContent =
         "📝 စာသားရှင်းပြီးပါပြီ။";
