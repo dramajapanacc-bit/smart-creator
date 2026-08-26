@@ -24,7 +24,7 @@ body{
     width:100%;
     max-width:650px;
     margin:auto;
-    background:rgba(25,35,55,.95);
+    background:rgba(25,35,55,.96);
     border:1px solid #249eea;
     border-radius:20px;
     padding:25px;
@@ -35,18 +35,21 @@ h1{
     text-align:center;
     color:#38bdf8;
     margin:5px 0 8px;
+    font-size:28px;
 }
 
 .subtitle{
     text-align:center;
     color:#cbd5e1;
     margin-bottom:25px;
+    line-height:1.6;
 }
 
 label{
     display:block;
     margin:18px 0 8px;
     font-weight:bold;
+    color:#e2e8f0;
 }
 
 textarea,
@@ -58,30 +61,46 @@ select{
     border-radius:12px;
     padding:14px;
     font-size:16px;
+    outline:none;
 }
 
 textarea{
-    min-height:180px;
+    min-height:200px;
     resize:vertical;
+    line-height:1.7;
+}
+
+textarea:focus,
+select:focus{
+    border-color:#38bdf8;
+    box-shadow:0 0 8px rgba(56,189,248,.25);
 }
 
 select{
-    height:50px;
+    height:52px;
 }
 
 .control{
-    margin-top:20px;
+    margin-top:22px;
 }
 
 .control-title{
     display:flex;
     justify-content:space-between;
-    margin-bottom:8px;
+    align-items:center;
+    margin-bottom:9px;
+    color:#e2e8f0;
+}
+
+.control-value{
+    color:#38bdf8;
+    font-weight:bold;
 }
 
 input[type="range"]{
     width:100%;
     accent-color:#38bdf8;
+    height:8px;
 }
 
 button{
@@ -93,25 +112,44 @@ button{
     color:white;
     font-size:17px;
     font-weight:bold;
+    cursor:pointer;
     background:linear-gradient(135deg,#0284c7,#2563eb);
+    box-shadow:0 5px 15px rgba(37,99,235,.35);
 }
 
 button:active{
     transform:scale(.98);
 }
 
-.secondary{
-    background:#334155;
+.stop{
+    background:linear-gradient(135deg,#475569,#334155);
+}
+
+.clear{
+    background:#1e293b;
 }
 
 .status{
-    margin-top:18px;
+    margin-top:20px;
     padding:14px;
     border-radius:10px;
     background:#0b1427;
+    border:1px solid #334155;
     color:#cbd5e1;
     text-align:center;
-    min-height:45px;
+    line-height:1.5;
+}
+
+.note{
+    margin-top:18px;
+    padding:12px;
+    border-radius:10px;
+    background:rgba(14,165,233,.08);
+    border:1px solid rgba(56,189,248,.2);
+    color:#94a3b8;
+    font-size:13px;
+    line-height:1.6;
+    text-align:center;
 }
 </style>
 </head>
@@ -123,19 +161,42 @@ button:active{
     <h1>✨ YanNaing AI Voice</h1>
 
     <div class="subtitle">
-        မြန်မာစာကို အသံအဖြစ် ပြောင်းပေးမည့် Free Voice Tool
+        🇲🇲 မြန်မာစာကို မြန်မာအသံအဖြစ် ပြောင်းပေးမည့် Free Voice Tool
     </div>
 
-    <label>📝 စာသားထည့်ပါ</label>
 
-    <textarea id="text"
-        placeholder="ဒီနေရာမှာ မြန်မာ Script ထည့်ပါ..."></textarea>
+    <label>📝 မြန်မာစာထည့်ပါ</label>
+
+    <textarea
+        id="text"
+        placeholder="ဒီနေရာမှာ Movie Recap Script သို့မဟုတ် မြန်မာစာကို ထည့်ပါ..."
+    ></textarea>
 
 
-    <label>🎙️ အသံရွေးပါ</label>
+    <label>🎙️ မြန်မာအသံရွေးပါ</label>
 
     <select id="voice">
-        <option value="">အသံများ ရှာနေပါသည်...</option>
+
+        <option value="normal">
+            🇲🇲 မြန်မာအသံ - ပုံမှန်
+        </option>
+
+        <option value="male">
+            🇲🇲 မြန်မာအသံ - အမျိုးသား
+        </option>
+
+        <option value="female">
+            🇲🇲 မြန်မာအသံ - အမျိုးသမီး
+        </option>
+
+        <option value="deep">
+            🇲🇲 မြန်မာအသံ - အသံနက်
+        </option>
+
+        <option value="story">
+            🇲🇲 မြန်မာအသံ - Storytelling
+        </option>
+
     </select>
 
 
@@ -143,7 +204,9 @@ button:active{
 
         <div class="control-title">
             <span>🎚️ Pitch</span>
-            <span id="pitchValue">1.0</span>
+            <span class="control-value" id="pitchValue">
+                1.0
+            </span>
         </div>
 
         <input
@@ -162,7 +225,9 @@ button:active{
 
         <div class="control-title">
             <span>⚡ Speed</span>
-            <span id="speedValue">1.0</span>
+            <span class="control-value" id="speedValue">
+                1.0
+            </span>
         </div>
 
         <input
@@ -181,7 +246,9 @@ button:active{
 
         <div class="control-title">
             <span>🔊 Volume</span>
-            <span id="volumeValue">1.0</span>
+            <span class="control-value" id="volumeValue">
+                100%
+            </span>
         </div>
 
         <input
@@ -200,13 +267,36 @@ button:active{
         ▶️ အသံထွက်မည်
     </button>
 
-    <button class="secondary" onclick="stopVoice()">
-        ⏹️ ရပ်မည်
+
+    <button
+        class="stop"
+        onclick="stopVoice()"
+    >
+        ⏹️ အသံရပ်မည်
     </button>
 
 
-    <div id="status" class="status">
-        အသံရွေးရန် အသင့်ဖြစ်ပါပြီ။
+    <button
+        class="clear"
+        onclick="clearText()"
+    >
+        🗑️ စာသားရှင်းမည်
+    </button>
+
+
+    <div
+        id="status"
+        class="status"
+    >
+        🇲🇲 မြန်မာစာထည့်ပြီး အသံရွေးကာ အသံထွက်နိုင်ပါပြီ။
+    </div>
+
+
+    <div class="note">
+        💡 ဒီ Version သည် API Key မလိုဘဲ
+        ဖုန်း၏ Speech Synthesis စနစ်ကို အသုံးပြုထားပါသည်။
+        မြန်မာအသံရရှိမှုသည် ဖုန်းနှင့် Browser တွင်
+        ထည့်သွင်းထားသော TTS စနစ်ပေါ်မူတည်ပါသည်။
     </div>
 
 </div>
@@ -214,143 +304,250 @@ button:active{
 
 <script>
 
-const voiceSelect = document.getElementById("voice");
-const textInput = document.getElementById("text");
+const textInput =
+    document.getElementById("text");
 
-const pitch = document.getElementById("pitch");
-const speed = document.getElementById("speed");
-const volume = document.getElementById("volume");
+const voiceSelect =
+    document.getElementById("voice");
 
-const pitchValue = document.getElementById("pitchValue");
-const speedValue = document.getElementById("speedValue");
-const volumeValue = document.getElementById("volumeValue");
+const pitch =
+    document.getElementById("pitch");
 
-const statusBox = document.getElementById("status");
+const speed =
+    document.getElementById("speed");
 
-let voices = [];
+const volume =
+    document.getElementById("volume");
+
+const pitchValue =
+    document.getElementById("pitchValue");
+
+const speedValue =
+    document.getElementById("speedValue");
+
+const volumeValue =
+    document.getElementById("volumeValue");
+
+const statusBox =
+    document.getElementById("status");
 
 
-function loadVoices(){
+/* =========================
+   SLIDER DISPLAY
+========================= */
 
-    voices = speechSynthesis.getVoices();
+pitch.addEventListener("input", function(){
 
-    voiceSelect.innerHTML = "";
+    pitchValue.textContent =
+        this.value;
 
-    if(voices.length === 0){
+});
 
-        const option = document.createElement("option");
 
-        option.textContent = "အသံများ မတွေ့သေးပါ";
+speed.addEventListener("input", function(){
 
-        voiceSelect.appendChild(option);
+    speedValue.textContent =
+        this.value;
 
-        return;
+});
+
+
+volume.addEventListener("input", function(){
+
+    volumeValue.textContent =
+        Math.round(this.value * 100) + "%";
+
+});
+
+
+/* =========================
+   VOICE SETTINGS
+========================= */
+
+function getVoiceSettings(type){
+
+    switch(type){
+
+        case "male":
+
+            return {
+                pitch:0.78,
+                rate:0.95
+            };
+
+
+        case "female":
+
+            return {
+                pitch:1.30,
+                rate:1.00
+            };
+
+
+        case "deep":
+
+            return {
+                pitch:0.55,
+                rate:0.90
+            };
+
+
+        case "story":
+
+            return {
+                pitch:0.92,
+                rate:0.82
+            };
+
+
+        default:
+
+            return {
+                pitch:1.00,
+                rate:1.00
+            };
     }
-
-    voices.forEach((voice,index)=>{
-
-        const option = document.createElement("option");
-
-        option.value = index;
-
-        option.textContent =
-            voice.name +
-            " (" +
-            voice.lang +
-            ")";
-
-        voiceSelect.appendChild(option);
-
-    });
-
-    statusBox.textContent =
-        voices.length +
-        " အသံ ရှာတွေ့ပါပြီ။";
-
 }
 
 
-speechSynthesis.onvoiceschanged = loadVoices;
-
-loadVoices();
-
+/* =========================
+   SPEAK
+========================= */
 
 function speakText(){
 
-    const text = textInput.value.trim();
+    const text =
+        textInput.value.trim();
 
     if(!text){
 
-        alert("ကျေးဇူးပြု၍ စာသားထည့်ပါ။");
+        alert(
+            "ကျေးဇူးပြု၍ မြန်မာစာထည့်ပါ။"
+        );
 
         return;
     }
 
+
+    if(
+        !("speechSynthesis" in window)
+    ){
+
+        statusBox.textContent =
+            "❌ ဒီ Browser မှာ Text-to-Speech မထောက်ပံ့ပါ။";
+
+        return;
+    }
+
+
     speechSynthesis.cancel();
+
 
     const utterance =
         new SpeechSynthesisUtterance(text);
 
 
-    const selectedIndex =
-        parseInt(voiceSelect.value);
+    /*
+       Myanmar language
+    */
 
-    if(
-        !isNaN(selectedIndex) &&
-        voices[selectedIndex]
-    ){
+    utterance.lang =
+        "my-MM";
 
-        utterance.voice =
-            voices[selectedIndex];
 
-        utterance.lang =
-            voices[selectedIndex].lang;
+    /*
+       Selected voice style
+    */
 
-    }
+    const settings =
+        getVoiceSettings(
+            voiceSelect.value
+        );
 
+
+    /*
+       Slider + selected style
+    */
 
     utterance.pitch =
-        parseFloat(pitch.value);
+        Math.max(
+            0.1,
+            Math.min(
+                2,
+                settings.pitch *
+                parseFloat(pitch.value)
+            )
+        );
+
 
     utterance.rate =
-        parseFloat(speed.value);
+        Math.max(
+            0.1,
+            Math.min(
+                2,
+                settings.rate *
+                parseFloat(speed.value)
+            )
+        );
+
 
     utterance.volume =
         parseFloat(volume.value);
 
 
-    utterance.onstart = function(){
+    utterance.onstart =
+        function(){
 
-        statusBox.textContent =
-            "🔊 အသံထွက်နေပါပြီ...";
+            statusBox.textContent =
+                "🔊 မြန်မာအသံထွက်နေပါပြီ...";
 
-    };
-
-
-    utterance.onend = function(){
-
-        statusBox.textContent =
-            "✅ အသံပြီးပါပြီ။";
-
-    };
+        };
 
 
-    utterance.onerror = function(){
+    utterance.onend =
+        function(){
 
-        statusBox.textContent =
-            "❌ အသံထွက်ရာတွင် အမှားရှိပါသည်။";
+            statusBox.textContent =
+                "✅ အသံပြီးပါပြီ။";
 
-    };
+        };
 
 
-    speechSynthesis.speak(utterance);
+    utterance.onerror =
+        function(event){
+
+            console.error(
+                "TTS Error:",
+                event
+            );
+
+            statusBox.textContent =
+                "❌ အသံထွက်ရာတွင် အမှားရှိပါသည်။ " +
+                "ဖုန်း၏ Text-to-Speech setting ကို စစ်ပါ။";
+
+        };
+
+
+    speechSynthesis.speak(
+        utterance
+    );
 
 }
 
 
+/* =========================
+   STOP
+========================= */
+
 function stopVoice(){
 
-    speechSynthesis.cancel();
+    if(
+        "speechSynthesis" in window
+    ){
+
+        speechSynthesis.cancel();
+
+    }
 
     statusBox.textContent =
         "⏹️ အသံရပ်လိုက်ပါပြီ။";
@@ -358,28 +555,41 @@ function stopVoice(){
 }
 
 
-pitch.oninput = function(){
+/* =========================
+   CLEAR
+========================= */
 
-    pitchValue.textContent =
-        this.value;
+function clearText(){
 
-};
+    stopVoice();
 
+    textInput.value = "";
 
-speed.oninput = function(){
+    statusBox.textContent =
+        "🗑️ စာသားရှင်းပြီးပါပြီ။";
 
-    speedValue.textContent =
-        this.value;
-
-};
+}
 
 
-volume.oninput = function(){
+/* =========================
+   PAGE LOAD
+========================= */
 
-    volumeValue.textContent =
-        this.value;
+window.addEventListener(
+    "load",
+    function(){
 
-};
+        if(
+            !("speechSynthesis" in window)
+        ){
+
+            statusBox.textContent =
+                "⚠️ ဒီ Browser မှာ TTS မရနိုင်ပါ။";
+
+        }
+
+    }
+);
 
 </script>
 
