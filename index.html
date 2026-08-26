@@ -3,928 +3,231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>YanNaing Free Ai Tool</title>
 
 <style>
-* {
-    box-sizing: border-box;
+body{
+    margin:0;
+    padding:20px;
+    min-height:100vh;
+    font-family:Arial,"Noto Sans Myanmar",sans-serif;
+    background:linear-gradient(135deg,#020617,#1e1b4b,#172554);
+    color:white;
 }
 
-body {
-    margin: 0;
-    padding: 18px;
-    min-height: 100vh;
-    font-family: "Noto Sans Myanmar", "Segoe UI", Arial, sans-serif;
-    background:
-        radial-gradient(circle at top, #312e81, transparent 45%),
-        linear-gradient(135deg, #020617, #111827, #1e1b4b);
-    color: white;
+.box{
+    max-width:650px;
+    margin:auto;
+    padding:25px;
+    border-radius:22px;
+    background:#0f172a;
+    box-shadow:0 10px 40px #0008;
 }
 
-.container {
-    width: 100%;
-    max-width: 680px;
-    margin: auto;
-    padding: 25px;
-    border-radius: 24px;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(255,255,255,.15);
-    box-shadow: 0 15px 50px rgba(0,0,0,.55);
-}
-
-.title {
-    text-align: center;
-    margin: 0;
-    font-size: 30px;
-    font-weight: 900;
-
-    background: linear-gradient(
+h1{
+    text-align:center;
+    font-size:28px;
+    font-weight:900;
+    background:linear-gradient(
         90deg,
-        #ff0000,
-        #ffea00,
-        #00ff66,
-        #00c8ff,
-        #8b5cf6,
-        #ff00aa
+        red,
+        yellow,
+        lime,
+        cyan,
+        blue,
+        violet
     );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    -webkit-background-clip:text;
+    color:transparent;
 }
 
-.subtitle {
-    text-align: center;
-    margin: 8px 0 25px;
-    color: #e2e8f0;
-    font-size: 14px;
+textarea{
+    width:100%;
+    height:220px;
+    margin-top:15px;
+    padding:15px;
+    box-sizing:border-box;
+    border-radius:14px;
+    border:1px solid #475569;
+    background:#020617;
+    color:white;
+    font-size:16px;
+    line-height:1.8;
 }
 
-label {
-    display: block;
-    margin: 18px 0 8px;
-    font-weight: bold;
-    color: #fff;
+button{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    font-size:17px;
+    font-weight:bold;
 }
 
-textarea {
-    width: 100%;
-    min-height: 220px;
-    resize: vertical;
-    padding: 15px;
-    border-radius: 14px;
-    border: 1px solid #475569;
-    background: #020617;
-    color: #fff;
-    font-size: 16px;
-    line-height: 1.8;
-    outline: none;
+.stop{
+    background:linear-gradient(135deg,#dc2626,#be123c);
 }
 
-textarea:focus {
-    border-color: #38bdf8;
-    box-shadow: 0 0 15px rgba(56,189,248,.25);
-}
-
-.counter {
-    text-align: right;
-    margin-top: 6px;
-    color: #94a3b8;
-    font-size: 13px;
-}
-
-.voice-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-
-.voice-card {
-    padding: 17px;
-    border-radius: 16px;
-    background: #0f172a;
-    border: 2px solid #334155;
-    cursor: pointer;
-    text-align: center;
-    transition: .2s;
-}
-
-.voice-card:hover {
-    border-color: #38bdf8;
-}
-
-.voice-card.selected {
-    border-color: #22c55e;
-    background:
-        linear-gradient(
-            135deg,
-            rgba(34,197,94,.15),
-            rgba(59,130,246,.15)
-        );
-    box-shadow: 0 0 18px rgba(34,197,94,.2);
-}
-
-.voice-icon {
-    font-size: 30px;
-}
-
-.voice-name {
-    margin-top: 6px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.voice-type {
-    margin-top: 4px;
-    color: #94a3b8;
-    font-size: 12px;
-}
-
-.control {
-    margin-top: 22px;
-}
-
-.control-title {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-}
-
-.value {
-    color: #38bdf8;
-    font-weight: bold;
-}
-
-input[type="range"] {
-    width: 100%;
-    accent-color: #38bdf8;
-}
-
-button {
-    width: 100%;
-    border: none;
-    border-radius: 13px;
-    padding: 15px;
-    margin-top: 20px;
-    color: white;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #7c3aed
-        );
-
-    box-shadow:
-        0 6px 20px rgba(37,99,235,.3);
-}
-
-button:disabled {
-    opacity: .6;
-    cursor: not-allowed;
-}
-
-button:active {
-    transform: scale(.98);
-}
-
-.stop {
-    background:
-        linear-gradient(
-            135deg,
-            #dc2626,
-            #be123c
-        );
-}
-
-.clear {
-    background:
-        linear-gradient(
-            135deg,
-            #475569,
-            #334155
-        );
-}
-
-.download {
-    background:
-        linear-gradient(
-            135deg,
-            #16a34a,
-            #059669
-        );
-}
-
-.status {
-    margin-top: 20px;
-    padding: 14px;
-    text-align: center;
-    border-radius: 12px;
-    background: #020617;
-    border: 1px solid #334155;
-    color: #cbd5e1;
-    line-height: 1.6;
-}
-
-.color-title {
-    margin-top: 25px;
-    text-align: center;
-    font-weight: bold;
-
-    background: linear-gradient(
-        90deg,
-        #ff0000,
-        #ffff00,
-        #00ff66,
-        #00bfff,
-        #a855f7
-    );
-
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.footer {
-    margin-top: 25px;
-    text-align: center;
-    font-size: 12px;
-    color: #64748b;
-}
-
-@media(max-width:480px) {
-
-    .container {
-        padding: 18px;
-    }
-
-    .title {
-        font-size: 25px;
-    }
-
-    textarea {
-        min-height: 190px;
-    }
+#status{
+    margin-top:18px;
+    padding:14px;
+    text-align:center;
+    border-radius:12px;
+    background:#020617;
+    color:#cbd5e1;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
-    <h1 class="title">
-        ✨ YanNaing Free Ai Tool ✨
-    </h1>
+<h1>✨ YanNaing Free Ai Tool ✨</h1>
 
-    <div class="subtitle">
-        🇲🇲 Myanmar AI Voice Generator
-    </div>
+<textarea
+id="text"
+maxlength="5000"
+placeholder="မြန်မာစာထည့်ပါ..."
+></textarea>
 
-    <label>
-        📝 မြန်မာစာ ထည့်ပါ
-    </label>
+<button onclick="makeVoice()">
+🎙️ မြန်မာအသံထုတ်မည်
+</button>
 
-    <textarea
-        id="text"
-        maxlength="5000"
-        placeholder="ဒီနေရာမှာ မြန်မာစာ သို့မဟုတ် Movie Recap Script ထည့်ပါ..."
-    ></textarea>
+<button class="stop" onclick="stopVoice()">
+⏹️ ရပ်မည်
+</button>
 
-    <div class="counter">
-        <span id="counter">0</span> / 5000
-    </div>
-
-    <label>
-        🎙️ မြန်မာအသံ ရွေးပါ
-    </label>
-
-    <div class="voice-grid">
-
-        <div
-            class="voice-card selected"
-            id="thihaCard"
-            onclick="selectVoice('thiha')"
-        >
-            <div class="voice-icon">👨</div>
-
-            <div class="voice-name">
-                သီဟ
-            </div>
-
-            <div class="voice-type">
-                🇲🇲 Male Voice
-            </div>
-        </div>
-
-        <div
-            class="voice-card"
-            id="nilarCard"
-            onclick="selectVoice('nilar')"
-        >
-            <div class="voice-icon">👩</div>
-
-            <div class="voice-name">
-                နီလာ
-            </div>
-
-            <div class="voice-type">
-                🇲🇲 Female Voice
-            </div>
-        </div>
-
-    </div>
-
-    <div class="control">
-
-        <div class="control-title">
-            <span>⚡ အသံမြန်နှုန်း</span>
-
-            <span
-                class="value"
-                id="speedValue"
-            >
-                1.0x
-            </span>
-        </div>
-
-        <input
-            type="range"
-            id="speed"
-            min="0.5"
-            max="2"
-            step="0.1"
-            value="1"
-        >
-
-    </div>
-
-    <div class="control">
-
-        <div class="control-title">
-            <span>🎚️ အသံအနိမ့် / အမြင့်</span>
-
-            <span
-                class="value"
-                id="pitchValue"
-            >
-                0
-            </span>
-        </div>
-
-        <input
-            type="range"
-            id="pitch"
-            min="-10"
-            max="10"
-            step="1"
-            value="0"
-        >
-
-    </div>
-
-    <div class="control">
-
-        <div class="control-title">
-            <span>🔊 Volume</span>
-
-            <span
-                class="value"
-                id="volumeValue"
-            >
-                100%
-            </span>
-        </div>
-
-        <input
-            type="range"
-            id="volume"
-            min="0"
-            max="100"
-            value="100"
-        >
-
-    </div>
-
-    <button
-        id="generateButton"
-        onclick="generateVoice()"
-    >
-        🎙️ အသံထုတ်မည်
-    </button>
-
-    <button
-        class="stop"
-        onclick="stopVoice()"
-    >
-        ⏹️ ရပ်မည်
-    </button>
-
-    <button
-        id="downloadButton"
-        class="download"
-        onclick="downloadVoice()"
-        style="display:none;"
-    >
-        ⬇️ MP3 သိမ်းမည်
-    </button>
-
-    <button
-        class="clear"
-        onclick="clearText()"
-    >
-        🗑️ ရှင်းမည်
-    </button>
-
-    <div
-        class="status"
-        id="status"
-    >
-        🎙️ သီဟ အသံရွေးထားပါသည်။
-    </div>
-
-    <div class="color-title">
-        🌈 YanNaing Free Ai Tool 🌈
-    </div>
-
-    <div class="footer">
-        Free Myanmar AI Voice Tool
-    </div>
+<div id="status">
+အသင့်ဖြစ်ပါပြီ။
+</div>
 
 </div>
 
 <script>
 
-let selectedVoice = "thiha";
+let audio = null;
+let audioUrl = null;
 
-let currentAudio = null;
+async function makeVoice(){
 
-let currentAudioUrl = null;
+    const text =
+        document.getElementById("text")
+        .value.trim();
 
+    const status =
+        document.getElementById("status");
 
-const text =
-    document.getElementById("text");
+    if(!text){
 
-const counter =
-    document.getElementById("counter");
-
-const speed =
-    document.getElementById("speed");
-
-const pitch =
-    document.getElementById("pitch");
-
-const volume =
-    document.getElementById("volume");
-
-const speedValue =
-    document.getElementById("speedValue");
-
-const pitchValue =
-    document.getElementById("pitchValue");
-
-const volumeValue =
-    document.getElementById("volumeValue");
-
-const status =
-    document.getElementById("status");
-
-const generateButton =
-    document.getElementById("generateButton");
-
-const downloadButton =
-    document.getElementById("downloadButton");
-
-
-/* =========================
-   CHARACTER COUNTER
-========================= */
-
-text.addEventListener(
-    "input",
-    function() {
-
-        counter.textContent =
-            this.value.length;
-
-    }
-);
-
-
-/* =========================
-   VOICE SELECT
-========================= */
-
-function selectVoice(voice) {
-
-    stopVoice();
-
-    selectedVoice =
-        voice;
-
-    document
-        .getElementById("thihaCard")
-        .classList
-        .remove("selected");
-
-    document
-        .getElementById("nilarCard")
-        .classList
-        .remove("selected");
-
-    if (voice === "thiha") {
-
-        document
-            .getElementById("thihaCard")
-            .classList
-            .add("selected");
-
-        status.textContent =
-            "👨 သီဟ — Male Voice ရွေးထားပါသည်။";
-
-    }
-
-    if (voice === "nilar") {
-
-        document
-            .getElementById("nilarCard")
-            .classList
-            .add("selected");
-
-        status.textContent =
-            "👩 နီလာ — Female Voice ရွေးထားပါသည်။";
-
-    }
-
-}
-
-
-/* =========================
-   SLIDERS
-========================= */
-
-speed.addEventListener(
-    "input",
-    function() {
-
-        speedValue.textContent =
-            this.value + "x";
-
-    }
-);
-
-pitch.addEventListener(
-    "input",
-    function() {
-
-        pitchValue.textContent =
-            this.value;
-
-    }
-);
-
-volume.addEventListener(
-    "input",
-    function() {
-
-        volumeValue.textContent =
-            this.value + "%";
-
-        if (currentAudio) {
-
-            currentAudio.volume =
-                Number(this.value) / 100;
-
-        }
-
-    }
-);
-
-
-/* =========================
-   GENERATE VOICE
-========================= */
-
-async function generateVoice() {
-
-    const value =
-        text.value.trim();
-
-    if (!value) {
-
-        alert(
-            "ကျေးဇူးပြု၍ မြန်မာစာထည့်ပါ။"
-        );
-
-        return;
-
-    }
-
-    if (value.length > 5000) {
-
-        alert(
-            "စာလုံးရေ 5000 ထက် မကျော်ရပါ။"
-        );
-
+        alert("မြန်မာစာထည့်ပါ။");
         return;
 
     }
 
     stopVoice();
 
-    downloadButton.style.display =
-        "none";
+    status.innerText =
+        "⏳ မြန်မာအသံထုတ်နေပါသည်...";
 
-    generateButton.disabled =
-        true;
-
-    status.textContent =
-        "⏳ " +
-        (
-            selectedVoice === "thiha"
-                ? "သီဟ"
-                : "နီလာ"
-        ) +
-        " မြန်မာအသံထုတ်နေပါသည်...";
-
-    try {
+    try{
 
         const response =
-            await fetch(
-                "/api/tts",
-                {
-                    method: "POST",
+            await fetch("/api/tts",{
 
-                    headers: {
-                        "Content-Type":
-                            "application/json"
-                    },
+                method:"POST",
 
-                    body: JSON.stringify({
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
 
-                        text: value,
+                body:JSON.stringify({
+                    text:text
+                })
 
-                        voice:
-                            selectedVoice,
+            });
 
-                        speed:
-                            Number(speed.value),
+        if(!response.ok){
 
-                        pitch:
-                            Number(pitch.value),
-
-                        volume:
-                            Number(volume.value)
-
-                    })
-                }
-            );
-
-
-        if (!response.ok) {
-
-            let errorMessage =
-                "Voice ထုတ်မရပါ။";
-
-            try {
-
-                const errorData =
-                    await response.json();
-
-                if (errorData.error) {
-
-                    errorMessage =
-                        errorData.error;
-
-                }
-
-            } catch (e) {}
+            const data =
+                await response.json()
+                .catch(()=>({}));
 
             throw new Error(
-                errorMessage
+                data.error ||
+                "TTS Error"
             );
 
         }
-
 
         const blob =
             await response.blob();
 
-
-        if (!blob.size) {
-
-            throw new Error(
-                "Audio file အလွတ်ဖြစ်နေပါသည်။"
-            );
-
-        }
-
-
-        currentAudioUrl =
+        audioUrl =
             URL.createObjectURL(blob);
 
-
-        currentAudio =
-            new Audio(currentAudioUrl);
-
-
-        currentAudio.volume =
-            Number(volume.value) / 100;
-
-
-        currentAudio.onended =
-            function() {
-
-                status.textContent =
-                    "✅ အသံပြီးပါပြီ။";
-
-                generateButton.disabled =
-                    false;
-
-            };
-
-
-        currentAudio.onerror =
-            function() {
-
-                status.textContent =
-                    "❌ Audio ဖွင့်မရပါ။";
-
-                generateButton.disabled =
-                    false;
-
-            };
-
+        audio =
+            new Audio(audioUrl);
 
         /*
-         * IMPORTANT:
-         * Browser speechSynthesis ကို
-         * လုံးဝ မသုံးပါ။
-         *
-         * API က ပြန်လာတဲ့
-         * မြန်မာ MP3 တစ်ခုတည်းကိုသာ
-         * ဖွင့်ပါမယ်။
-         */
+        Browser Speech API
+        လုံးဝ မသုံးပါ။
+        API ပြန်ပေးတဲ့ MP3
+        တစ်ခုတည်းကိုသာ ဖွင့်ပါသည်။
+        */
 
-        await currentAudio.play();
+        audio.onended = function(){
 
+            status.innerText =
+                "✅ မြန်မာအသံပြီးပါပြီ။";
 
-        downloadButton.style.display =
-            "block";
+        };
 
+        audio.onerror = function(){
 
-        status.textContent =
-            "🔊 " +
-            (
-                selectedVoice === "thiha"
-                    ? "သီဟ"
-                    : "နီလာ"
-            ) +
-            " မြန်မာအသံထွက်နေပါပြီ။";
+            status.innerText =
+                "❌ Audio ဖွင့်မရပါ။";
 
+        };
 
-    } catch (error) {
+        await audio.play();
 
-        console.error(
-            "Voice Error:",
-            error
-        );
+        status.innerText =
+            "🔊 မြန်မာအသံထွက်နေပါပြီ...";
 
-        status.textContent =
-            "❌ " +
-            (
-                error.message ||
-                "Myanmar Voice ထုတ်ရာတွင် အမှားဖြစ်နေပါသည်။"
-            );
+    }
+    catch(error){
 
-    } finally {
+        console.error(error);
 
-        generateButton.disabled =
-            false;
+        status.innerText =
+            "❌ " + error.message;
 
     }
 
 }
 
+function stopVoice(){
 
-/* =========================
-   STOP VOICE
-========================= */
+    if(audio){
 
-function stopVoice() {
-
-    /*
-     * Browser built-in English voice
-     * မသုံးထားသော်လည်း
-     * safety အတွက် cancel လုပ်ထားသည်။
-     */
-
-    if (
-        "speechSynthesis" in window
-    ) {
-
-        window.speechSynthesis.cancel();
+        audio.pause();
+        audio.currentTime = 0;
+        audio = null;
 
     }
 
+    if(audioUrl){
 
-    if (currentAudio) {
-
-        currentAudio.pause();
-
-        currentAudio.currentTime =
-            0;
-
-        currentAudio.onended =
-            null;
-
-        currentAudio.onerror =
-            null;
-
-        currentAudio =
-            null;
+        URL.revokeObjectURL(audioUrl);
+        audioUrl = null;
 
     }
-
-
-    if (currentAudioUrl) {
-
-        URL.revokeObjectURL(
-            currentAudioUrl
-        );
-
-        currentAudioUrl =
-            null;
-
-    }
-
-
-    generateButton.disabled =
-        false;
-
-    status.textContent =
-        "⏹️ အသံရပ်လိုက်ပါပြီ။";
-
-}
-
-
-/* =========================
-   DOWNLOAD MP3
-========================= */
-
-function downloadVoice() {
-
-    if (!currentAudioUrl) {
-
-        alert(
-            "အရင်ဆုံး အသံထုတ်ပါ။"
-        );
-
-        return;
-
-    }
-
-    const link =
-        document.createElement("a");
-
-    link.href =
-        currentAudioUrl;
-
-    link.download =
-        "YanNaing-Myanmar-Voice.mp3";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-
-}
-
-
-/* =========================
-   CLEAR
-========================= */
-
-function clearText() {
-
-    stopVoice();
-
-    text.value =
-        "";
-
-    counter.textContent =
-        "0";
-
-    downloadButton.style.display =
-        "none";
-
-    status.textContent =
-        "📝 စာသားရှင်းပြီးပါပြီ။";
 
 }
 
