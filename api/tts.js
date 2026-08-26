@@ -6,12 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      text,
-      voice = "thiha",
-      speed = 1,
-      pitch = 0
-    } = req.body || {};
+    const { text } = req.body || {};
 
     if (!text || !String(text).trim()) {
       return res.status(400).json({
@@ -29,305 +24,85 @@ export default async function handler(req, res) {
 
     const cleanText = String(text).trim();
 
-    /*
-     * Free API request limit
-     */
     if (cleanText.length > 5000) {
       return res.status(400).json({
         error: "စာလုံးရေ 5000 ထက် မကျော်ရပါ။"
       });
     }
 
-    /*
-     * 1. FreeTTS voice list ကို အရင်ယူမယ်
-     */
-    const voicesResponse = await fetch(
-      "https://freetts.org/api/voices"
-    );
+    // Burmese Male Voice
+    const voice = "my-MM-ThihaNeural";
 
-    if (!voicesResponse.ok) {
-      return res.status(500).json({
-        error: "FreeTTS Voice List ရယူမရပါ။"
-      });
-    }
+    console.log("Using Burmese Voice:", voice);
 
-    const voices = await voicesResponse.json();
+    // Generate Burmese TTS
+    const response = await fetch(
+      "https://freetts.org/api/v1/tts",
+      {
+        method: "POST",
 
-    if (!Array.isArray(voices)) {
-      return res.status(500).json({
-        error: "FreeTTS Voice List ပုံစံမမှန်ပါ။"
-      });
-    }
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": apiKey
+        },
 
-    /*
-     * Burmese voice တွေကို ရှာမယ်
-     */
-    const burmeseVoices = voices.filter((v) => {
-
-      const locale =
-        String(
-          v.Locale ||
-          v.locale ||
-          ""
-        ).toLowerCase();
-
-      const localeName =
-        String(
-          v.LocaleName ||
-          v.localeName ||
-          ""
-        ).toLowerCase();
-
-      return (
-        locale === "my-mm" ||
-        locale.startsWith("my-") ||
-        localeName.includes("burmese") ||
-        localeName.includes("myanmar")
-      );
-
-    });
-
-    if (!burmeseVoices.length) {
-      console.error(
-        "No Burmese voices found:",
-        voices.slice(0, 10)
-      );
-
-      return res.status(500).json({
-        error: "FreeTTS မှ Burmese Voice မတွေ့ပါ။"
-      });
-    }
-
-    /*
-     * Thiha / Nilar ကို ရှာမယ်
-     */
-    const searchName =
-      voice === "nilar"
-        ? "nilar"
-        : "thiha";
-
-    let selected = burmeseVoices.find((v) => {
-
-      const shortName =
-        String(
-          v.ShortName ||
-          v.shortName ||
-          ""
-        ).toLowerCase();
-
-      const name =
-        String(
-          v.Name ||
-          v.name ||
-          ""
-        ).toLowerCase();
-
-      return (
-        shortName.includes(searchName) ||
-        name.includes(searchName)
-      );
-
-    });
-
-    /*
-     * မတွေ့ရင် gender နဲ့ fallback လုပ်မယ်
-     */
-    if (!selected) {
-
-      if (voice === "nilar") {
-
-        selected =
-          burmeseVoices.find((v) =>
-            String(
-              v.Gender ||
-              v.gender ||
-              ""
-            ).toLowerCase() === "female"
-          );
-
-      } else {
-
-        selected =
-          burmeseVoices.find((v) =>
-            String(
-              v.Gender ||
-              v.gender ||
-              ""
-            ).toLowerCase() === "male"
-          );
-
+        body: JSON.stringify({
+          text: cleanText,
+          voice: voice,
+          rate: "+0%",
+          pitch: "+0Hz",
+          output_format: "mp3"
+        })
       }
-
-    }
-
-    if (!selected) {
-      return res.status(500).json({
-        error:
-          "ရွေးထားသော Burmese Voice မတွေ့ပါ။"
-      });
-    }
-
-    const selectedVoice =
-      selected.ShortName ||
-      selected.shortName;
-
-    if (!selectedVoice) {
-      return res.status(500).json({
-        error:
-          "Burmese Voice ID မရပါ။"
-      });
-    }
-
-    console.log(
-      "Selected Burmese Voice:",
-      selectedVoice
     );
 
-    /*
-     * Speed
-     */
-    let speedNumber =
-      Number(speed);
+    const data = await response.json();
 
-    if (!Number.isFinite(speedNumber)) {
-      speedNumber = 1;
-    }
+    if (!response.ok) {
+      console.error("FreeTTS Error:", data);
 
-    speedNumber =
-      Math.max(
-        0.5,
-        Math.min(2, speedNumber)
-      );
-
-    const rate =
-      Math.round(
-        (speedNumber - 1) * 100
-      );
-
-    const rateValue =
-      `${rate >= 0 ? "+" : ""}${rate}%`;
-
-    /*
-     * Pitch
-     */
-    let pitchNumber =
-      Number(pitch);
-
-    if (!Number.isFinite(pitchNumber)) {
-      pitchNumber = 0;
-    }
-
-    pitchNumber =
-      Math.max(
-        -20,
-        Math.min(20, pitchNumber)
-      );
-
-    const pitchValue =
-      `${pitchNumber >= 0 ? "+" : ""}${Math.round(pitchNumber)}Hz`;
-
-    /*
-     * 2. Burmese Voice နဲ့ Generate
-     */
-    const generateResponse =
-      await fetch(
-        "https://freetts.org/api/v1/tts",
-        {
-          method: "POST",
-
-          headers: {
-            "Content-Type":
-              "application/json",
-
-            "x-api-key":
-              apiKey
-          },
-
-          body: JSON.stringify({
-
-            text:
-              cleanText,
-
-            voice:
-              selectedVoice,
-
-            rate:
-              rateValue,
-
-            pitch:
-              pitchValue,
-
-            output_format:
-              "mp3"
-
-          })
-        }
-      );
-
-    const data =
-      await generateResponse.json();
-
-    if (!generateResponse.ok) {
-
-      console.error(
-        "FreeTTS Generate Error:",
-        data
-      );
-
-      return res.status(
-        generateResponse.status
-      ).json({
+      return res.status(response.status).json({
         error:
           data?.error ||
           data?.message ||
           "FreeTTS အသံထုတ်မရပါ။"
       });
-
     }
 
-    const fileId =
-      data?.file_id;
+    const fileId = data?.file_id;
 
     if (!fileId) {
+      console.error("No file_id:", data);
 
       return res.status(500).json({
-        error:
-          "FreeTTS မှ Audio File ID မရပါ။"
+        error: "FreeTTS မှ Audio File ID မရပါ။"
       });
-
     }
 
-    /*
-     * 3. MP3 Download
-     */
-    const audioResponse =
-      await fetch(
-        `https://freetts.org/api/audio/${encodeURIComponent(fileId)}`
-      );
+    console.log("Audio File ID:", fileId);
+
+    // Download generated MP3
+    const audioResponse = await fetch(
+      `https://freetts.org/api/audio/${encodeURIComponent(fileId)}`
+    );
 
     if (!audioResponse.ok) {
-
       return res.status(500).json({
-        error:
-          "MP3 အသံဖိုင် ရယူမရပါ။"
+        error: "Audio file ရယူမရပါ။"
       });
-
     }
 
-    const audioBuffer =
-      Buffer.from(
-        await audioResponse.arrayBuffer()
-      );
+    const audioBuffer = Buffer.from(
+      await audioResponse.arrayBuffer()
+    );
 
     if (!audioBuffer.length) {
-
       return res.status(500).json({
-        error:
-          "Audio file အလွတ်ဖြစ်နေပါသည်။"
+        error: "Audio file အလွတ်ဖြစ်နေပါသည်။"
       });
-
     }
 
+    // MP3 only
     res.setHeader(
       "Content-Type",
       "audio/mpeg"
@@ -335,7 +110,12 @@ export default async function handler(req, res) {
 
     res.setHeader(
       "Content-Disposition",
-      'inline; filename="YanNaing-Myanmar-Voice.mp3"'
+      'attachment; filename="YanNaing-Myanmar-Voice.mp3"'
+    );
+
+    res.setHeader(
+      "Content-Length",
+      audioBuffer.length.toString()
     );
 
     res.setHeader(
@@ -359,6 +139,5 @@ export default async function handler(req, res) {
         error?.message ||
         "Myanmar Voice ထုတ်ရာတွင် Server Error ဖြစ်နေပါသည်။"
     });
-
   }
-        }
+}
