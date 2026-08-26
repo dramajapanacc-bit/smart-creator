@@ -4,229 +4,405 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>YanNaing AI Voice</title>
+<title>YanNaing Free Ai Tool</title>
 
 <style>
-*{
-    box-sizing:border-box;
+* {
+    box-sizing: border-box;
 }
 
-body{
-    margin:0;
-    padding:20px;
-    min-height:100vh;
-    font-family:Arial,"Noto Sans Myanmar",sans-serif;
-    background:linear-gradient(135deg,#07111f,#111b3d,#07111f);
-    color:white;
+body {
+    margin: 0;
+    padding: 18px;
+    min-height: 100vh;
+    font-family: "Noto Sans Myanmar", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #312e81, transparent 45%),
+        linear-gradient(135deg, #020617, #111827, #1e1b4b);
+    color: white;
 }
 
-.container{
-    width:100%;
-    max-width:650px;
-    margin:auto;
-    background:rgba(25,35,55,.96);
-    border:1px solid #249eea;
-    border-radius:20px;
-    padding:25px;
-    box-shadow:0 10px 40px rgba(0,0,0,.5);
+.container {
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+    padding: 25px;
+    border-radius: 24px;
+    background: rgba(15, 23, 42, 0.94);
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 15px 50px rgba(0,0,0,.55);
 }
 
-h1{
-    text-align:center;
-    color:#38bdf8;
-    margin:5px 0 8px;
-    font-size:28px;
+/* ================= TITLE ================= */
+
+.title {
+    text-align: center;
+    margin: 0;
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: .5px;
+
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ffea00,
+        #00ff66,
+        #00c8ff,
+        #8b5cf6,
+        #ff00aa
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow:
+        0 0 12px rgba(56,189,248,.35);
 }
 
-.subtitle{
-    text-align:center;
-    color:#cbd5e1;
-    margin-bottom:25px;
-    line-height:1.6;
+.subtitle {
+    text-align: center;
+    margin: 8px 0 25px;
+    color: #e2e8f0;
+    font-size: 14px;
 }
 
-label{
-    display:block;
-    margin:18px 0 8px;
-    font-weight:bold;
-    color:#e2e8f0;
+/* ================= LABEL ================= */
+
+label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: bold;
+    color: #fff;
 }
 
-textarea,
-select{
-    width:100%;
-    background:#0b1427;
-    color:white;
-    border:1px solid #475569;
-    border-radius:12px;
-    padding:14px;
-    font-size:16px;
-    outline:none;
+/* ================= TEXTAREA ================= */
+
+textarea {
+    width: 100%;
+    min-height: 220px;
+    resize: vertical;
+
+    padding: 15px;
+
+    border-radius: 14px;
+    border: 1px solid #475569;
+
+    background: #020617;
+    color: #fff;
+
+    font-size: 16px;
+    line-height: 1.8;
+
+    outline: none;
 }
 
-textarea{
-    min-height:200px;
-    resize:vertical;
-    line-height:1.7;
+textarea:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 15px rgba(56,189,248,.25);
 }
 
-textarea:focus,
-select:focus{
-    border-color:#38bdf8;
-    box-shadow:0 0 8px rgba(56,189,248,.25);
+/* ================= COUNTER ================= */
+
+.counter {
+    text-align: right;
+    margin-top: 6px;
+    color: #94a3b8;
+    font-size: 13px;
 }
 
-select{
-    height:52px;
+/* ================= VOICE ================= */
+
+.voice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.control{
-    margin-top:22px;
+.voice-card {
+    padding: 17px;
+    border-radius: 16px;
+
+    background: #0f172a;
+    border: 2px solid #334155;
+
+    cursor: pointer;
+    text-align: center;
+
+    transition: .2s;
 }
 
-.control-title{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:9px;
-    color:#e2e8f0;
+.voice-card:hover {
+    transform: translateY(-2px);
+    border-color: #38bdf8;
 }
 
-.control-value{
-    color:#38bdf8;
-    font-weight:bold;
+.voice-card.selected {
+    border-color: #22c55e;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(34,197,94,.15),
+            rgba(59,130,246,.15)
+        );
+
+    box-shadow:
+        0 0 18px rgba(34,197,94,.2);
 }
 
-input[type="range"]{
-    width:100%;
-    accent-color:#38bdf8;
-    height:8px;
+.voice-icon {
+    font-size: 30px;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    margin-top:20px;
-    border:0;
-    border-radius:12px;
-    color:white;
-    font-size:17px;
-    font-weight:bold;
-    cursor:pointer;
-    background:linear-gradient(135deg,#0284c7,#2563eb);
-    box-shadow:0 5px 15px rgba(37,99,235,.35);
+.voice-name {
+    margin-top: 6px;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-button:active{
-    transform:scale(.98);
+.voice-type {
+    margin-top: 4px;
+    color: #94a3b8;
+    font-size: 12px;
 }
 
-.stop{
-    background:linear-gradient(135deg,#475569,#334155);
+/* ================= CONTROLS ================= */
+
+.control {
+    margin-top: 22px;
 }
 
-.clear{
-    background:#1e293b;
+.control-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
 }
 
-.status{
-    margin-top:20px;
-    padding:14px;
-    border-radius:10px;
-    background:#0b1427;
-    border:1px solid #334155;
-    color:#cbd5e1;
-    text-align:center;
-    line-height:1.5;
+.value {
+    color: #38bdf8;
+    font-weight: bold;
 }
 
-.note{
-    margin-top:18px;
-    padding:12px;
-    border-radius:10px;
-    background:rgba(14,165,233,.08);
-    border:1px solid rgba(56,189,248,.2);
-    color:#94a3b8;
-    font-size:13px;
-    line-height:1.6;
-    text-align:center;
+input[type="range"] {
+    width: 100%;
+    accent-color: #38bdf8;
+}
+
+/* ================= BUTTON ================= */
+
+button {
+    width: 100%;
+    border: none;
+    border-radius: 13px;
+
+    padding: 15px;
+    margin-top: 20px;
+
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #7c3aed
+        );
+
+    box-shadow:
+        0 6px 20px rgba(37,99,235,.3);
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+.stop {
+    background:
+        linear-gradient(
+            135deg,
+            #dc2626,
+            #be123c
+        );
+}
+
+.clear {
+    background:
+        linear-gradient(
+            135deg,
+            #475569,
+            #334155
+        );
+}
+
+/* ================= STATUS ================= */
+
+.status {
+    margin-top: 20px;
+    padding: 14px;
+
+    text-align: center;
+
+    border-radius: 12px;
+
+    background: #020617;
+    border: 1px solid #334155;
+
+    color: #cbd5e1;
+
+    line-height: 1.6;
+}
+
+/* ================= COLORS ================= */
+
+.color-title {
+    margin-top: 25px;
+    text-align: center;
+    font-weight: bold;
+
+    background: linear-gradient(
+        90deg,
+        #ff0000,
+        #ffff00,
+        #00ff66,
+        #00bfff,
+        #a855f7
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* ================= MOBILE ================= */
+
+@media(max-width:480px) {
+
+    .container {
+        padding: 18px;
+    }
+
+    .title {
+        font-size: 25px;
+    }
+
+    .voice-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    textarea {
+        min-height: 190px;
+    }
 }
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <h1>✨ YanNaing AI Voice</h1>
+    <h1 class="title">
+        ✨ YanNaing Free Ai Tool ✨
+    </h1>
 
     <div class="subtitle">
-        🇲🇲 မြန်မာစာကို မြန်မာအသံအဖြစ် ပြောင်းပေးမည့် Free Voice Tool
+        🇲🇲 Myanmar AI Voice Generator
     </div>
 
 
-    <label>📝 မြန်မာစာထည့်ပါ</label>
+    <!-- TEXT -->
+
+    <label>
+        📝 မြန်မာစာ ထည့်ပါ
+    </label>
 
     <textarea
         id="text"
-        placeholder="ဒီနေရာမှာ Movie Recap Script သို့မဟုတ် မြန်မာစာကို ထည့်ပါ..."
+        maxlength="5000"
+        placeholder="ဒီနေရာမှာ မြန်မာစာ သို့မဟုတ် Movie Recap Script ထည့်ပါ..."
     ></textarea>
 
-
-    <label>🎙️ မြန်မာအသံရွေးပါ</label>
-
-    <select id="voice">
-
-        <option value="normal">
-            🇲🇲 မြန်မာအသံ - ပုံမှန်
-        </option>
-
-        <option value="male">
-            🇲🇲 မြန်မာအသံ - အမျိုးသား
-        </option>
-
-        <option value="female">
-            🇲🇲 မြန်မာအသံ - အမျိုးသမီး
-        </option>
-
-        <option value="deep">
-            🇲🇲 မြန်မာအသံ - အသံနက်
-        </option>
-
-        <option value="story">
-            🇲🇲 မြန်မာအသံ - Storytelling
-        </option>
-
-    </select>
+    <div class="counter">
+        <span id="counter">0</span> / 5000
+    </div>
 
 
-    <div class="control">
+    <!-- VOICE -->
 
-        <div class="control-title">
-            <span>🎚️ Pitch</span>
-            <span class="control-value" id="pitchValue">
-                1.0
-            </span>
+    <label>
+        🎙️ မြန်မာအသံ ရွေးပါ
+    </label>
+
+    <div class="voice-grid">
+
+        <div
+            class="voice-card selected"
+            id="thihaCard"
+            onclick="selectVoice('thiha')"
+        >
+
+            <div class="voice-icon">
+                👨
+            </div>
+
+            <div class="voice-name">
+                သီဟ
+            </div>
+
+            <div class="voice-type">
+                🇲🇲 Male Voice
+            </div>
+
         </div>
 
-        <input
-            type="range"
-            id="pitch"
-            min="0.5"
-            max="2"
-            step="0.1"
-            value="1"
+
+        <div
+            class="voice-card"
+            id="nilarCard"
+            onclick="selectVoice('nilar')"
         >
+
+            <div class="voice-icon">
+                👩
+            </div>
+
+            <div class="voice-name">
+                နီလာ
+            </div>
+
+            <div class="voice-type">
+                🇲🇲 Female Voice
+            </div>
+
+        </div>
 
     </div>
 
 
+    <!-- SPEED -->
+
     <div class="control">
 
         <div class="control-title">
-            <span>⚡ Speed</span>
-            <span class="control-value" id="speedValue">
-                1.0
+            <span>⚡ အသံမြန်နှုန်း</span>
+
+            <span
+                class="value"
+                id="speedValue"
+            >
+                1.0x
             </span>
         </div>
 
@@ -242,11 +418,44 @@ button:active{
     </div>
 
 
+    <!-- PITCH -->
+
+    <div class="control">
+
+        <div class="control-title">
+            <span>🎚️ အသံအနိမ့် / အမြင့်</span>
+
+            <span
+                class="value"
+                id="pitchValue"
+            >
+                0
+            </span>
+        </div>
+
+        <input
+            type="range"
+            id="pitch"
+            min="-10"
+            max="10"
+            step="1"
+            value="0"
+        >
+
+    </div>
+
+
+    <!-- VOLUME -->
+
     <div class="control">
 
         <div class="control-title">
             <span>🔊 Volume</span>
-            <span class="control-value" id="volumeValue">
+
+            <span
+                class="value"
+                id="volumeValue"
+            >
                 100%
             </span>
         </div>
@@ -255,16 +464,17 @@ button:active{
             type="range"
             id="volume"
             min="0"
-            max="1"
-            step="0.1"
-            value="1"
+            max="100"
+            value="100"
         >
 
     </div>
 
 
-    <button onclick="speakText()">
-        ▶️ အသံထွက်မည်
+    <!-- BUTTONS -->
+
+    <button onclick="generateVoice()">
+        🎙️ အသံထုတ်မည်
     </button>
 
 
@@ -272,7 +482,7 @@ button:active{
         class="stop"
         onclick="stopVoice()"
     >
-        ⏹️ အသံရပ်မည်
+        ⏹️ ရပ်မည်
     </button>
 
 
@@ -280,23 +490,27 @@ button:active{
         class="clear"
         onclick="clearText()"
     >
-        🗑️ စာသားရှင်းမည်
+        🗑️ ရှင်းမည်
     </button>
 
 
+    <!-- STATUS -->
+
     <div
-        id="status"
         class="status"
+        id="status"
     >
-        🇲🇲 မြန်မာစာထည့်ပြီး အသံရွေးကာ အသံထွက်နိုင်ပါပြီ။
+        🎙️ သီဟ အသံရွေးထားပါသည်။
     </div>
 
 
-    <div class="note">
-        💡 ဒီ Version သည် API Key မလိုဘဲ
-        ဖုန်း၏ Speech Synthesis စနစ်ကို အသုံးပြုထားပါသည်။
-        မြန်မာအသံရရှိမှုသည် ဖုန်းနှင့် Browser တွင်
-        ထည့်သွင်းထားသော TTS စနစ်ပေါ်မူတည်ပါသည်။
+    <div class="color-title">
+        🌈 YanNaing Free Ai Tool 🌈
+    </div>
+
+
+    <div class="footer">
+        Free Myanmar AI Voice Tool
     </div>
 
 </div>
@@ -304,233 +518,271 @@ button:active{
 
 <script>
 
-const textInput =
+let selectedVoice = "thiha";
+
+
+const text =
     document.getElementById("text");
 
-const voiceSelect =
-    document.getElementById("voice");
-
-const pitch =
-    document.getElementById("pitch");
+const counter =
+    document.getElementById("counter");
 
 const speed =
     document.getElementById("speed");
 
+const pitch =
+    document.getElementById("pitch");
+
 const volume =
     document.getElementById("volume");
-
-const pitchValue =
-    document.getElementById("pitchValue");
 
 const speedValue =
     document.getElementById("speedValue");
 
+const pitchValue =
+    document.getElementById("pitchValue");
+
 const volumeValue =
     document.getElementById("volumeValue");
 
-const statusBox =
+const status =
     document.getElementById("status");
 
 
 /* =========================
-   SLIDER DISPLAY
+   CHARACTER COUNTER
 ========================= */
 
-pitch.addEventListener("input", function(){
+text.addEventListener(
+    "input",
+    function(){
 
-    pitchValue.textContent =
-        this.value;
+        counter.textContent =
+            this.value.length;
 
-});
-
-
-speed.addEventListener("input", function(){
-
-    speedValue.textContent =
-        this.value;
-
-});
-
-
-volume.addEventListener("input", function(){
-
-    volumeValue.textContent =
-        Math.round(this.value * 100) + "%";
-
-});
+    }
+);
 
 
 /* =========================
-   VOICE SETTINGS
+   VOICE SELECT
 ========================= */
 
-function getVoiceSettings(type){
+function selectVoice(voice){
 
-    switch(type){
-
-        case "male":
-
-            return {
-                pitch:0.78,
-                rate:0.95
-            };
+    selectedVoice =
+        voice;
 
 
-        case "female":
-
-            return {
-                pitch:1.30,
-                rate:1.00
-            };
+    document
+        .getElementById("thihaCard")
+        .classList
+        .remove("selected");
 
 
-        case "deep":
-
-            return {
-                pitch:0.55,
-                rate:0.90
-            };
+    document
+        .getElementById("nilarCard")
+        .classList
+        .remove("selected");
 
 
-        case "story":
+    if(voice === "thiha"){
 
-            return {
-                pitch:0.92,
-                rate:0.82
-            };
+        document
+            .getElementById("thihaCard")
+            .classList
+            .add("selected");
 
+        status.textContent =
+            "👨 သီဟ — Male Voice ရွေးထားပါသည်။";
 
-        default:
-
-            return {
-                pitch:1.00,
-                rate:1.00
-            };
     }
+
+
+    if(voice === "nilar"){
+
+        document
+            .getElementById("nilarCard")
+            .classList
+            .add("selected");
+
+        status.textContent =
+            "👩 နီလာ — Female Voice ရွေးထားပါသည်။";
+
+    }
+
 }
 
 
 /* =========================
-   SPEAK
+   SLIDERS
 ========================= */
 
-function speakText(){
+speed.addEventListener(
+    "input",
+    function(){
 
-    const text =
-        textInput.value.trim();
+        speedValue.textContent =
+            this.value + "x";
 
-    if(!text){
+    }
+);
+
+
+pitch.addEventListener(
+    "input",
+    function(){
+
+        pitchValue.textContent =
+            this.value;
+
+    }
+);
+
+
+volume.addEventListener(
+    "input",
+    function(){
+
+        volumeValue.textContent =
+            this.value + "%";
+
+    }
+);
+
+
+/* =========================
+   GENERATE VOICE
+========================= */
+
+async function generateVoice(){
+
+    const value =
+        text.value.trim();
+
+
+    if(!value){
 
         alert(
             "ကျေးဇူးပြု၍ မြန်မာစာထည့်ပါ။"
         );
 
         return;
+
     }
 
 
-    if(
-        !("speechSynthesis" in window)
-    ){
-
-        statusBox.textContent =
-            "❌ ဒီ Browser မှာ Text-to-Speech မထောက်ပံ့ပါ။";
-
-        return;
-    }
-
-
-    speechSynthesis.cancel();
+    status.textContent =
+        "⏳ " +
+        (
+            selectedVoice === "thiha"
+            ? "သီဟ"
+            : "နီလာ"
+        ) +
+        " အသံထုတ်နေပါသည်...";
 
 
-    const utterance =
-        new SpeechSynthesisUtterance(text);
+    try{
 
+        const response =
+            await fetch(
+                "/api/tts",
+                {
+                    method:"POST",
 
-    /*
-       Myanmar language
-    */
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-    utterance.lang =
-        "my-MM";
+                    body:JSON.stringify({
 
+                        text:value,
 
-    /*
-       Selected voice style
-    */
+                        voice:selectedVoice,
 
-    const settings =
-        getVoiceSettings(
-            voiceSelect.value
-        );
+                        speed:
+                            parseFloat(
+                                speed.value
+                            ),
 
+                        pitch:
+                            parseInt(
+                                pitch.value
+                            ),
 
-    /*
-       Slider + selected style
-    */
+                        volume:
+                            parseInt(
+                                volume.value
+                            )
 
-    utterance.pitch =
-        Math.max(
-            0.1,
-            Math.min(
-                2,
-                settings.pitch *
-                parseFloat(pitch.value)
-            )
-        );
-
-
-    utterance.rate =
-        Math.max(
-            0.1,
-            Math.min(
-                2,
-                settings.rate *
-                parseFloat(speed.value)
-            )
-        );
-
-
-    utterance.volume =
-        parseFloat(volume.value);
-
-
-    utterance.onstart =
-        function(){
-
-            statusBox.textContent =
-                "🔊 မြန်မာအသံထွက်နေပါပြီ...";
-
-        };
-
-
-    utterance.onend =
-        function(){
-
-            statusBox.textContent =
-                "✅ အသံပြီးပါပြီ။";
-
-        };
-
-
-    utterance.onerror =
-        function(event){
-
-            console.error(
-                "TTS Error:",
-                event
+                    })
+                }
             );
 
-            statusBox.textContent =
-                "❌ အသံထွက်ရာတွင် အမှားရှိပါသည်။ " +
-                "ဖုန်း၏ Text-to-Speech setting ကို စစ်ပါ။";
 
-        };
+        if(!response.ok){
+
+            let error =
+                "Voice ထုတ်မရပါ။";
+
+            try{
+
+                const data =
+                    await response.json();
+
+                if(data.error){
+
+                    error =
+                        data.error;
+
+                }
+
+            }catch(e){}
+
+            throw new Error(error);
+
+        }
 
 
-    speechSynthesis.speak(
-        utterance
-    );
+        const blob =
+            await response.blob();
+
+
+        const audioUrl =
+            URL.createObjectURL(blob);
+
+
+        const audio =
+            new Audio(audioUrl);
+
+
+        audio.volume =
+            parseInt(volume.value) / 100;
+
+
+        audio.play();
+
+
+        status.textContent =
+            "✅ " +
+            (
+                selectedVoice === "thiha"
+                ? "သီဟ"
+                : "နီလာ"
+            ) +
+            " အသံထွက်နေပါပြီ။";
+
+
+    }catch(error){
+
+        console.error(error);
+
+        status.textContent =
+            "❌ " +
+            error.message;
+
+    }
 
 }
 
@@ -541,15 +793,9 @@ function speakText(){
 
 function stopVoice(){
 
-    if(
-        "speechSynthesis" in window
-    ){
+    window.speechSynthesis.cancel();
 
-        speechSynthesis.cancel();
-
-    }
-
-    statusBox.textContent =
+    status.textContent =
         "⏹️ အသံရပ်လိုက်ပါပြီ။";
 
 }
@@ -563,33 +809,15 @@ function clearText(){
 
     stopVoice();
 
-    textInput.value = "";
+    text.value = "";
 
-    statusBox.textContent =
-        "🗑️ စာသားရှင်းပြီးပါပြီ။";
+    counter.textContent =
+        "0";
+
+    status.textContent =
+        "📝 စာသားရှင်းပြီးပါပြီ။";
 
 }
-
-
-/* =========================
-   PAGE LOAD
-========================= */
-
-window.addEventListener(
-    "load",
-    function(){
-
-        if(
-            !("speechSynthesis" in window)
-        ){
-
-            statusBox.textContent =
-                "⚠️ ဒီ Browser မှာ TTS မရနိုင်ပါ။";
-
-        }
-
-    }
-);
 
 </script>
 
