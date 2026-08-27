@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { text } = req.body || {};
+    const { text, voice = "Kore" } = req.body || {};
 
     if (!text || !String(text).trim()) {
       return res.status(400).json({
@@ -14,11 +14,11 @@ export default async function handler(req, res) {
       });
     }
 
-    const apiKey = process.env.FREETTS_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "FREETTS_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
+        error: "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
       });
     }
 
@@ -30,28 +30,54 @@ export default async function handler(req, res) {
       });
     }
 
-    // Burmese Male Voice
-    const voice = "my-MM-ThihaNeural";
+    const allowedVoices = [
+      "Kore",
+      "Zephyr",
+      "Puck",
+      "Charon",
+      "Fenrir",
+      "Leda",
+      "Orus",
+      "Aoede"
+    ];
 
-    console.log("Using Burmese Voice:", voice);
+    const selectedVoice = allowedVoices.includes(voice)
+      ? voice
+      : "Kore";
 
-    // Generate Burmese TTS
+    console.log("Gemini TTS Voice:", selectedVoice);
+
     const response = await fetch(
-      "https://freetts.org/api/v1/tts",
+      "https://generativelanguage.googleapis.com/v1beta/interactions",
       {
         method: "POST",
 
         headers: {
           "Content-Type": "application/json",
-          "x-api-key": apiKey
+          "x-goog-api-key": apiKey,
+          "Api-Revision": "2026-05-20"
         },
 
         body: JSON.stringify({
-          text: cleanText,
-          voice: voice,
-          rate: "+0%",
-          pitch: "+0Hz",
-          output_format: "mp3"
+          model: "gemini-3.1-flash-tts-preview",
+
+          input:
+            "Read the following Burmese Myanmar text naturally and clearly. " +
+            "Speak ONLY the text provided. Do not translate it into English. " +
+            "Do not add any English words.\n\n" +
+            cleanText,
+
+          response_format: {
+            type: "audio"
+          },
+
+          generation_config: {
+            speech_config: [
+              {
+                voice: selectedVoice
+              }
+            ]
+          }
         })
       }
     );
@@ -59,63 +85,37 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("FreeTTS Error:", data);
+      console.error("Gemini TTS Error:", data);
 
-      return res.status(response.status).json({
+      return res.status(500).json({
         error:
-          data?.error ||
-          data?.message ||
-          "FreeTTS အသံထုတ်မရပါ။"
+          data?.error?.message ||
+          "Gemini TTS Error ဖြစ်နေပါသည်။"
       });
     }
 
-    const fileId = data?.file_id;
+    const audioBase64 =
+      data?.output_audio?.data;
 
-    if (!fileId) {
-      console.error("No file_id:", data);
+    if (!audioBase64) {
+      console.error("No audio:", data);
 
       return res.status(500).json({
-        error: "FreeTTS မှ Audio File ID မရပါ။"
+        error: "Gemini မှ Audio ပြန်မပေးပါ။"
       });
     }
 
-    console.log("Audio File ID:", fileId);
+    const audioBuffer =
+      Buffer.from(audioBase64, "base64");
 
-    // Download generated MP3
-    const audioResponse = await fetch(
-      `https://freetts.org/api/audio/${encodeURIComponent(fileId)}`
-    );
-
-    if (!audioResponse.ok) {
-      return res.status(500).json({
-        error: "Audio file ရယူမရပါ။"
-      });
-    }
-
-    const audioBuffer = Buffer.from(
-      await audioResponse.arrayBuffer()
-    );
-
-    if (!audioBuffer.length) {
-      return res.status(500).json({
-        error: "Audio file အလွတ်ဖြစ်နေပါသည်။"
-      });
-    }
-
-    // MP3 only
     res.setHeader(
       "Content-Type",
-      "audio/mpeg"
+      "audio/wav"
     );
 
     res.setHeader(
       "Content-Disposition",
-      'attachment; filename="YanNaing-Myanmar-Voice.mp3"'
-    );
-
-    res.setHeader(
-      "Content-Length",
-      audioBuffer.length.toString()
+      'inline; filename="YanNaing-Myanmar-Voice.wav"'
     );
 
     res.setHeader(
@@ -123,21 +123,16 @@ export default async function handler(req, res) {
       "no-store"
     );
 
-    return res
-      .status(200)
-      .send(audioBuffer);
+    return res.status(200).send(audioBuffer);
 
   } catch (error) {
 
-    console.error(
-      "TTS Server Error:",
-      error
-    );
+    console.error("Gemini TTS Server Error:", error);
 
     return res.status(500).json({
       error:
         error?.message ||
-        "Myanmar Voice ထုတ်ရာတွင် Server Error ဖြစ်နေပါသည်။"
+        "Gemini TTS Server Error ဖြစ်နေပါသည်။"
     });
   }
 }
