@@ -22,20 +22,18 @@ export default async function handler(req, res) {
       });
     }
 
-    /*
-      မြန်မာနာမည် → Gemini built-in voice
-    */
+    // Google Gemini TTS မူရင်း Voice ၅ မျိုး
+    const allowedVoices = [
+      "Zephyr",
+      "Puck",
+      "Charon",
+      "Kore",
+      "Leda"
+    ];
 
-    const voiceMap = {
-      "ဘိုဘို": "Kore",
-      "ညဏ်လင်း": "Puck",
-      "ကောင်းမြတ်": "Charon",
-      "ကြယ်ဇင်": "Aoede",
-      "လမင်း": "Leda"
-    };
-
-    const selectedVoice =
-      voiceMap[voice] || "Puck";
+    const selectedVoice = allowedVoices.includes(voice)
+      ? voice
+      : "Zephyr";
 
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent",
@@ -53,11 +51,11 @@ export default async function handler(req, res) {
               parts: [
                 {
                   text:
-                    "Speak ONLY in Burmese Myanmar language. " +
-                    "Do not translate the text into English. " +
-                    "Read the Burmese text naturally and clearly. " +
-                    "Use a natural narration style. " +
-                    "Do not add any extra words.\n\n" +
+                    "Speak the following text in Burmese Myanmar language. " +
+                    "Do not translate it. " +
+                    "Read ONLY the provided text. " +
+                    "Use natural Burmese pronunciation, clear narration, " +
+                    "natural pauses and appropriate emotion.\n\n" +
                     String(text).trim()
                 }
               ]
@@ -96,7 +94,9 @@ export default async function handler(req, res) {
 
     const audioBase64 =
       data?.candidates?.[0]
-        ?.content?.parts?.[0]
+        ?.content?.parts?.find(
+          (part) => part.inlineData?.data
+        )
         ?.inlineData?.data;
 
     if (!audioBase64) {
@@ -115,11 +115,8 @@ export default async function handler(req, res) {
       "base64"
     );
 
-    /*
-      Gemini TTS PCM
-      24kHz / 16-bit / Mono
-    */
-
+    // Gemini TTS PCM → WAV
+    // 24kHz / 16-bit / Mono
     const wavHeader = Buffer.alloc(44);
 
     wavHeader.write("RIFF", 0);
@@ -133,29 +130,20 @@ export default async function handler(req, res) {
     wavHeader.write("fmt ", 12);
 
     wavHeader.writeUInt32LE(16, 16);
-
-    // PCM
     wavHeader.writeUInt16LE(1, 20);
-
-    // Mono
     wavHeader.writeUInt16LE(1, 22);
 
-    // Sample rate
     wavHeader.writeUInt32LE(
       24000,
       24
     );
 
-    // Byte rate
     wavHeader.writeUInt32LE(
       24000 * 2,
       28
     );
 
-    // Block align
     wavHeader.writeUInt16LE(2, 32);
-
-    // 16-bit
     wavHeader.writeUInt16LE(16, 34);
 
     wavHeader.write("data", 36);
@@ -177,7 +165,7 @@ export default async function handler(req, res) {
 
     res.setHeader(
       "Content-Disposition",
-      'inline; filename="Myanmar-Voice.wav"'
+      'inline; filename="Gemini-Myanmar-TTS.wav"'
     );
 
     res.setHeader(
@@ -185,9 +173,7 @@ export default async function handler(req, res) {
       "no-store"
     );
 
-    return res
-      .status(200)
-      .send(wavBuffer);
+    return res.status(200).send(wavBuffer);
 
   } catch (error) {
     console.error(
