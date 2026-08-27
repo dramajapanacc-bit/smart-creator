@@ -42,7 +42,11 @@ body{
     font-weight:900;
     margin-bottom:5px;
     background:linear-gradient(
-        90deg,#38bdf8,#6366f1,#ec4899,#f59e0b
+        90deg,
+        #38bdf8,
+        #6366f1,
+        #ec4899,
+        #f59e0b
     );
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -85,32 +89,6 @@ textarea:focus{
     color:#64748b;
     font-size:12px;
     margin-top:5px;
-}
-
-.recap-btn{
-    width:100%;
-    margin-top:15px;
-    padding:16px;
-    border:0;
-    border-radius:15px;
-    background:linear-gradient(135deg,#0891b2,#2563eb);
-    color:#fff;
-    font-size:16px;
-    font-weight:900;
-    cursor:pointer;
-}
-
-.recap-btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-}
-
-.recap-status{
-    min-height:24px;
-    margin-top:12px;
-    text-align:center;
-    color:#cbd5e1;
-    font-size:14px;
 }
 
 .voice-grid{
@@ -216,6 +194,10 @@ textarea:focus{
     cursor:pointer;
 }
 
+.control-btn:hover{
+    border-color:#60a5fa;
+}
+
 input[type="range"]{
     width:100%;
     accent-color:#ec4899;
@@ -266,16 +248,6 @@ audio{
     cursor:pointer;
 }
 
-.hidden{
-    display:none;
-}
-
-.divider{
-    height:1px;
-    background:#334155;
-    margin:25px 0;
-}
-
 @media(max-width:520px){
 
     body{
@@ -304,6 +276,7 @@ audio{
 <body>
 
 <div class="container">
+
 <div class="card">
 
 <div class="title">
@@ -313,8 +286,6 @@ audio{
 <div class="subtitle">
 🇲🇲 Gemini AI Myanmar Voice Generator
 </div>
-
-<!-- ORIGINAL TEXT -->
 
 <div class="section-title">
 📝 စာထည့်ပါ
@@ -330,46 +301,6 @@ oninput="updateCounter()"
 <div class="counter">
 <span id="counter">0</span> / 5000
 </div>
-
-<!-- RECAP -->
-
-<button
-class="recap-btn"
-id="recapBtn"
-onclick="generateRecap()"
->
-✨ Recap Generate
-</button>
-
-<div
-class="recap-status"
-id="recapStatus"
-></div>
-
-<div
-id="recapSection"
-class="hidden"
->
-
-<div class="section-title">
-📖 Recap Result
-</div>
-
-<textarea
-id="recapText"
-maxlength="5000"
-placeholder="Recap ထွက်လာပါမည်..."
-></textarea>
-
-<div class="counter">
-<span id="recapCounter">0</span> / 5000
-</div>
-
-</div>
-
-<div class="divider"></div>
-
-<!-- VOICE -->
 
 <div class="section-title">
 🎙️ Voice
@@ -422,8 +353,6 @@ Leda
 <div class="selected" id="selectedVoice">
 Selected Voice — Zephyr
 </div>
-
-<!-- EMOTION -->
 
 <div class="section-title">
 🎭 Emotion
@@ -505,8 +434,6 @@ onclick="selectEmotion(this)"
 
 </div>
 
-<!-- SPEED -->
-
 <div class="control">
 
 <div class="control-head">
@@ -549,8 +476,6 @@ onclick="changeSpeed(1)"
 
 </div>
 </div>
-
-<!-- PITCH -->
 
 <div class="control">
 
@@ -599,8 +524,6 @@ onclick="changePitch(1)"
 </div>
 </div>
 
-<!-- VOICE GENERATE -->
-
 <button
 class="generate"
 id="generateBtn"
@@ -612,7 +535,8 @@ onclick="generateVoice()"
 <div
 class="status"
 id="status"
-></div>
+>
+</div>
 
 <audio
 id="audioPlayer"
@@ -636,8 +560,6 @@ let selectedVoice = "Zephyr";
 let selectedEmotion = "natural";
 let audioUrl = null;
 
-/* VOICE */
-
 function selectVoice(button){
 
     document
@@ -658,8 +580,6 @@ function selectVoice(button){
         selectedVoice;
 }
 
-/* EMOTION */
-
 function selectEmotion(button){
 
     document
@@ -674,174 +594,16 @@ function selectEmotion(button){
         button.dataset.emotion;
 }
 
-/* COUNTER */
-
 function updateCounter(){
 
     const text =
-        document.getElementById(
-            "text"
-        ).value;
+        document.getElementById("text").value;
 
     document.getElementById(
         "counter"
     ).innerText =
         text.length;
 }
-
-document
-.getElementById("recapText")
-.addEventListener(
-    "input",
-    function(){
-
-        document.getElementById(
-            "recapCounter"
-        ).innerText =
-            this.value.length;
-    }
-);
-
-/* RECAP */
-
-async function generateRecap(){
-
-    const text =
-        document.getElementById(
-            "text"
-        ).value.trim();
-
-    const button =
-        document.getElementById(
-            "recapBtn"
-        );
-
-    const status =
-        document.getElementById(
-            "recapStatus"
-        );
-
-    const result =
-        document.getElementById(
-            "recapText"
-        );
-
-    const section =
-        document.getElementById(
-            "recapSection"
-        );
-
-    if(!text){
-
-        alert(
-            "ကျေးဇူးပြု၍ စာထည့်ပါ။"
-        );
-
-        return;
-    }
-
-    button.disabled = true;
-
-    status.innerText =
-        "⏳ Recap ပြုလုပ်နေပါသည်...";
-
-    try{
-
-        const response =
-            await fetch(
-                "/api/recap",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-                        text:text
-                    })
-                }
-            );
-
-        const contentType =
-            response.headers.get(
-                "content-type"
-            ) || "";
-
-        if(!response.ok){
-
-            let message =
-                "Recap ပြုလုပ်မရပါ။";
-
-            if(
-                contentType.includes(
-                    "application/json"
-                )
-            ){
-
-                const data =
-                    await response.json();
-
-                message =
-                    data.error ||
-                    message;
-            }
-
-            throw new Error(message);
-        }
-
-        const data =
-            await response.json();
-
-        const recap =
-            data.recap ||
-            data.text ||
-            data.output ||
-            data.result;
-
-        if(!recap){
-
-            throw new Error(
-                "Recap စာသား မရရှိပါ။"
-            );
-        }
-
-        result.value =
-            recap;
-
-        document.getElementById(
-            "recapCounter"
-        ).innerText =
-            recap.length;
-
-        section.classList.remove(
-            "hidden"
-        );
-
-        status.innerText =
-            "✅ Recap ပြီးပါပြီ။";
-
-        result.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-        });
-
-    }catch(error){
-
-        console.error(error);
-
-        status.innerText =
-            "❌ " +
-            error.message;
-
-    }finally{
-
-        button.disabled = false;
-    }
-}
-
-/* SPEED */
 
 function updateSpeed(){
 
@@ -856,13 +618,10 @@ function updateSpeed(){
 function changeSpeed(amount){
 
     const slider =
-        document.getElementById(
-            "speed"
-        );
+        document.getElementById("speed");
 
     let value =
-        Number(slider.value) +
-        amount;
+        Number(slider.value) + amount;
 
     value =
         Math.max(
@@ -870,13 +629,10 @@ function changeSpeed(amount){
             Math.min(5,value)
         );
 
-    slider.value =
-        value;
+    slider.value = value;
 
     updateSpeed();
 }
-
-/* PITCH */
 
 function updatePitch(){
 
@@ -891,13 +647,10 @@ function updatePitch(){
 function changePitch(amount){
 
     const slider =
-        document.getElementById(
-            "pitch"
-        );
+        document.getElementById("pitch");
 
     let value =
-        Number(slider.value) +
-        amount;
+        Number(slider.value) + amount;
 
     value =
         Math.max(
@@ -905,29 +658,17 @@ function changePitch(amount){
             Math.min(5,value)
         );
 
-    slider.value =
-        value;
+    slider.value = value;
 
     updatePitch();
 }
 
-/* VOICE GENERATE */
-
 async function generateVoice(){
 
-    const originalText =
+    const text =
         document.getElementById(
             "text"
         ).value.trim();
-
-    const recapText =
-        document.getElementById(
-            "recapText"
-        ).value.trim();
-
-    const text =
-        recapText ||
-        originalText;
 
     const status =
         document.getElementById(
@@ -966,7 +707,7 @@ async function generateVoice(){
     if(!text){
 
         alert(
-            "ကျေးဇူးပြု၍ စာထည့်ပါ။"
+            "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
         );
 
         return;
@@ -1085,11 +826,10 @@ async function generateVoice(){
 
     }finally{
 
-        button.disabled = false;
+        button.disabled =
+            false;
     }
 }
-
-/* DOWNLOAD */
 
 function downloadAudio(){
 
