@@ -1,12 +1,10 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { text, voice = "Kore" } = req.body || {};
+    const { text } = req.body || {};
 
     if (!text || !String(text).trim()) {
       return res.status(400).json({
@@ -18,53 +16,26 @@ export default async function handler(req, res) {
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
+        error: "GEMINI_API_KEY မတွေ့ပါ။"
       });
     }
 
     const cleanText = String(text).trim();
 
-    if (cleanText.length > 5000) {
-      return res.status(400).json({
-        error: "စာလုံးရေ 5000 ထက် မကျော်ရပါ။"
-      });
-    }
-
-    const allowedVoices = [
-      "Kore",
-      "Zephyr",
-      "Puck",
-      "Charon",
-      "Fenrir",
-      "Leda",
-      "Orus",
-      "Aoede"
-    ];
-
-    const selectedVoice = allowedVoices.includes(voice)
-      ? voice
-      : "Kore";
-
-    console.log("Gemini TTS Voice:", selectedVoice);
-
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/interactions",
       {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
-          "x-goog-api-key": apiKey,
-          "Api-Revision": "2026-05-20"
+          "x-goog-api-key": apiKey
         },
-
         body: JSON.stringify({
           model: "gemini-3.1-flash-tts-preview",
 
           input:
-            "Read the following Burmese Myanmar text naturally and clearly. " +
-            "Speak ONLY the text provided. Do not translate it into English. " +
-            "Do not add any English words.\n\n" +
+            "Speak the following Burmese Myanmar text naturally and clearly. " +
+            "Do not translate it. Speak only the Burmese text.\n\n" +
             cleanText,
 
           response_format: {
@@ -74,7 +45,7 @@ export default async function handler(req, res) {
           generation_config: {
             speech_config: [
               {
-                voice: selectedVoice
+                voice: "Kore"
               }
             ]
           }
@@ -85,28 +56,44 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini TTS Error:", data);
+      console.error("Gemini API Error:", data);
 
       return res.status(500).json({
         error:
           data?.error?.message ||
-          "Gemini TTS Error ဖြစ်နေပါသည်။"
+          "Gemini TTS API Error ဖြစ်နေပါသည်။"
       });
     }
+
+    console.log(
+      "Gemini response keys:",
+      Object.keys(data || {})
+    );
 
     const audioBase64 =
       data?.output_audio?.data;
 
     if (!audioBase64) {
-      console.error("No audio:", data);
+      console.error(
+        "No output_audio:",
+        JSON.stringify(data)
+      );
 
       return res.status(500).json({
         error: "Gemini မှ Audio ပြန်မပေးပါ။"
       });
     }
 
-    const audioBuffer =
-      Buffer.from(audioBase64, "base64");
+    const audioBuffer = Buffer.from(
+      audioBase64,
+      "base64"
+    );
+
+    if (!audioBuffer.length) {
+      return res.status(500).json({
+        error: "Audio data အလွတ်ဖြစ်နေပါသည်။"
+      });
+    }
 
     res.setHeader(
       "Content-Type",
@@ -126,8 +113,10 @@ export default async function handler(req, res) {
     return res.status(200).send(audioBuffer);
 
   } catch (error) {
-
-    console.error("Gemini TTS Server Error:", error);
+    console.error(
+      "TTS Server Error:",
+      error
+    );
 
     return res.status(500).json({
       error:
