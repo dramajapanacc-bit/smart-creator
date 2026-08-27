@@ -18,7 +18,7 @@ const apiKey = process.env.GEMINI_API_KEY;
 
 if (!apiKey) {
   return res.status(500).json({
-    error: "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables မှာ ထည့်ပါ။"
+    error: "GEMINI_API_KEY မတွေ့ပါ။"
   });
 }
 
@@ -34,11 +34,11 @@ const selectedVoice = allowedVoices.includes(voice)
   ? voice
   : "Zephyr";
 
-const inputText =
-  "Speak the following transcript in natural Burmese Myanmar language. " +
-  "Do not translate it. " +
-  "Do not explain it. " +
-  "Only speak the transcript.\n\n" +
+const prompt =
+  "TTS the following transcript in natural Burmese Myanmar language. " +
+  "Do not translate the text. " +
+  "Do not explain anything. " +
+  "Speak only the transcript.\n\n" +
   String(text).trim();
 
 const response = await fetch(
@@ -48,16 +48,19 @@ const response = await fetch(
 
     headers: {
       "Content-Type": "application/json",
-      "x-goog-api-key": apiKey
+      "x-goog-api-key": apiKey,
+      "Api-Revision": "2026-05-20"
     },
 
     body: JSON.stringify({
       model: "gemini-3.1-flash-tts-preview",
 
-      input: inputText,
+      input: prompt,
 
       response_format: {
-        type: "audio"
+        type: "audio",
+        delivery: "inline",
+        mime_type: "audio/wav"
       },
 
       generation_config: {
@@ -75,7 +78,7 @@ const data = await response.json();
 
 if (!response.ok) {
   console.error(
-    "Gemini API Error:",
+    "GEMINI ERROR:",
     JSON.stringify(data, null, 2)
   );
 
@@ -87,51 +90,61 @@ if (!response.ok) {
 }
 
 console.log(
-  "Gemini response:",
-  JSON.stringify(data, null, 2)
+  "GEMINI STATUS:",
+  data?.status
 );
 
 /*
-  Gemini Interactions API
-  Audio ကို output_audio.data ထဲမှာ ပြန်ပေးပါတယ်။
-*/
+ * Google Interactions API
+ * Normal response:
+ *
+ * output_audio.data
+ */
 
 let audioBase64 =
   data?.output_audio?.data;
 
 /*
-  တချို့ response structure တွေမှာ
-  output_audio မဟုတ်ဘဲ output array ထဲက
-  audio block ဖြစ်နိုင်တဲ့အတွက် fallback ရှာပါ။
-*/
+ * Fallback:
+ * output steps ထဲမှာ audio block ပါလာရင်
+ * အဲဒီကနေယူမယ်။
+ */
 
-if (!audioBase64 && Array.isArray(data?.outputs)) {
-  for (const item of data.outputs) {
+if (!audioBase64 && Array.isArray(data?.steps)) {
+  for (const step of data.steps) {
+
     if (
-      item?.type === "audio" &&
-      item?.data
+      step?.delta?.type === "audio" &&
+      step?.delta?.data
     ) {
-      audioBase64 = item.data;
+      audioBase64 =
+        step.delta.data;
       break;
     }
 
     if (
-      item?.type === "audio" &&
-      item?.audio?.data
+      step?.output_audio?.data
     ) {
-      audioBase64 = item.audio.data;
+      audioBase64 =
+        step.output_audio.data;
       break;
     }
   }
 }
 
+/*
+ * output array fallback
+ */
+
 if (!audioBase64 && Array.isArray(data?.output)) {
   for (const item of data.output) {
+
     if (
       item?.type === "audio" &&
       item?.data
     ) {
-      audioBase64 = item.data;
+      audioBase64 =
+        item.data;
       break;
     }
 
@@ -139,114 +152,45 @@ if (!audioBase64 && Array.isArray(data?.output)) {
       item?.type === "audio" &&
       item?.audio?.data
     ) {
-      audioBase64 = item.audio.data;
+      audioBase64 =
+        item.audio.data;
       break;
     }
   }
 }
 
 if (!audioBase64) {
+
   console.error(
-    "NO AUDIO IN GEMINI RESPONSE:",
+    "NO AUDIO:",
     JSON.stringify(data, null, 2)
   );
 
   return res.status(500).json({
     error:
-      "Gemini response ထဲမှာ Audio မပါလာပါ။ Vercel Logs ကိုစစ်ရန်လိုပါသည်။"
+      "Gemini က Audio မပြန်ပေးသေးပါ။ Gemini response status: " +
+      (data?.status || "unknown")
   });
 }
 
-const pcmBuffer = Buffer.from(
-  audioBase64,
-  "base64"
-);
+const audioBuffer =
+  Buffer.from(
+    audioBase64,
+    "base64"
+  );
 
-if (!pcmBuffer.length) {
+if (!audioBuffer.length) {
   return res.status(500).json({
     error:
-      "Gemini Audio data အလွတ်ဖြစ်နေပါသည်။"
+      "Audio data အလွတ်ဖြစ်နေပါသည်။"
   });
 }
 
 /*
-  Gemini TTS PCM:
-  24,000 Hz
-  16-bit
-  Mono
-*/
-
-const channels = 1;
-const sampleRate = 24000;
-const bitsPerSample = 16;
-const blockAlign =
-  channels * (bitsPerSample / 8);
-
-const byteRate =
-  sampleRate * blockAlign;
-
-const wavHeader = Buffer.alloc(44);
-
-wavHeader.write("RIFF", 0);
-
-wavHeader.writeUInt32LE(
-  36 + pcmBuffer.length,
-  4
-);
-
-wavHeader.write("WAVE", 8);
-
-wavHeader.write("fmt ", 12);
-
-wavHeader.writeUInt32LE(
-  16,
-  16
-);
-
-wavHeader.writeUInt16LE(
-  1,
-  20
-);
-
-wavHeader.writeUInt16LE(
-  channels,
-  22
-);
-
-wavHeader.writeUInt32LE(
-  sampleRate,
-  24
-);
-
-wavHeader.writeUInt32LE(
-  byteRate,
-  28
-);
-
-wavHeader.writeUInt16LE(
-  blockAlign,
-  32
-);
-
-wavHeader.writeUInt16LE(
-  bitsPerSample,
-  34
-);
-
-wavHeader.write(
-  "data",
-  36
-);
-
-wavHeader.writeUInt32LE(
-  pcmBuffer.length,
-  40
-);
-
-const wavBuffer = Buffer.concat([
-  wavHeader,
-  pcmBuffer
-]);
+ * response_format က audio/wav ဖြစ်တဲ့အတွက်
+ * Gemini ပြန်ပေးတဲ့ WAV ကို
+ * ထပ်ပြီး WAV header မထည့်ပါ။
+ */
 
 res.setHeader(
   "Content-Type",
@@ -255,7 +199,7 @@ res.setHeader(
 
 res.setHeader(
   "Content-Length",
-  wavBuffer.length
+  audioBuffer.length
 );
 
 res.setHeader(
@@ -270,18 +214,19 @@ res.setHeader(
 
 return res
   .status(200)
-  .send(wavBuffer);
+  .send(audioBuffer);
 
 } catch (error) {
+
 console.error(
-"TTS Server Error:",
-error
+  "SERVER ERROR:",
+  error
 );
 
 return res.status(500).json({
   error:
     error?.message ||
-    "Myanmar Voice ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
+    "TTS ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
 });
 
 }
