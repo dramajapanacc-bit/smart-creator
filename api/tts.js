@@ -14,32 +14,21 @@ export default async function handler(req, res) {
       pitch
     } = req.body || {};
 
-    // -----------------------------
-    // Check text
-    // -----------------------------
-
     if (!text || !String(text).trim()) {
       return res.status(400).json({
         error: "မြန်မာစာ ထည့်ပေးပါ။"
       });
     }
 
-    // -----------------------------
-    // Gemini API Key
-    // -----------------------------
-
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကိုစစ်ပါ။"
+        error: "GEMINI_API_KEY မတွေ့ပါ။"
       });
     }
 
-    // -----------------------------
-    // Allowed Gemini voices
-    // -----------------------------
-
+    // Gemini TTS voices
     const allowedVoices = [
       "Zephyr",
       "Puck",
@@ -53,257 +42,191 @@ export default async function handler(req, res) {
         ? voice
         : "Zephyr";
 
-    // -----------------------------
     // Emotion
-    // -----------------------------
-
-    const emotionMap = {
-      natural:
-        "natural, clear and balanced",
-
-      happy:
-        "happy, warm and cheerful",
-
-      sad:
-        "sad, gentle and emotional",
-
-      angry:
-        "angry and intense",
-
-      excited:
-        "excited, energetic and lively",
-
-      serious:
-        "serious, confident and professional",
-
-      calm:
-        "calm, soft and relaxed",
-
-      whisper:
-        "very soft and quiet, almost whispering",
-
-      dramatic:
-        "dramatic, expressive and emotional"
+    const emotions = {
+      natural: "natural, clear and balanced",
+      happy: "warm, happy and cheerful",
+      sad: "soft, sad and emotional",
+      angry: "angry and intense",
+      excited: "excited and energetic",
+      serious: "serious and professional",
+      calm: "calm, soft and relaxed",
+      whisper: "very soft and quiet",
+      dramatic: "dramatic and expressive"
     };
 
     const selectedEmotion =
-      emotionMap[emotion] ||
-      emotionMap.natural;
+      emotions[emotion] || emotions.natural;
 
-    // -----------------------------
     // Speed
-    // -----------------------------
+    let speedNumber = Number(speed);
 
-    let speedValue =
-      Number(speed);
-
-    if (Number.isNaN(speedValue)) {
-      speedValue = 0;
+    if (Number.isNaN(speedNumber)) {
+      speedNumber = 0;
     }
 
-    speedValue =
-      Math.max(
-        -5,
-        Math.min(5, speedValue)
-      );
+    speedNumber = Math.max(
+      -5,
+      Math.min(5, speedNumber)
+    );
 
-    let speedInstruction =
-      "normal speaking speed";
+    let speedText = "normal speaking speed";
 
-    if (speedValue <= -4) {
-      speedInstruction =
-        "very slow speaking pace";
-    } else if (speedValue === -3) {
-      speedInstruction =
-        "slow speaking pace";
-    } else if (speedValue === -2) {
-      speedInstruction =
-        "slightly slow speaking pace";
-    } else if (speedValue === -1) {
-      speedInstruction =
-        "slightly slower than normal";
-    } else if (speedValue === 1) {
-      speedInstruction =
-        "slightly faster than normal";
-    } else if (speedValue === 2) {
-      speedInstruction =
-        "faster speaking pace";
-    } else if (speedValue === 3) {
-      speedInstruction =
-        "fast speaking pace";
-    } else if (speedValue >= 4) {
-      speedInstruction =
-        "very fast speaking pace";
+    if (speedNumber <= -4) {
+      speedText = "very slow speaking pace";
+    } else if (speedNumber === -3) {
+      speedText = "slow speaking pace";
+    } else if (speedNumber === -2) {
+      speedText = "slightly slow speaking pace";
+    } else if (speedNumber === -1) {
+      speedText = "slightly slower than normal";
+    } else if (speedNumber === 1) {
+      speedText = "slightly faster than normal";
+    } else if (speedNumber === 2) {
+      speedText = "fast speaking pace";
+    } else if (speedNumber === 3) {
+      speedText = "very fast speaking pace";
+    } else if (speedNumber >= 4) {
+      speedText = "extremely fast speaking pace";
     }
 
-    // -----------------------------
     // Pitch
-    // -----------------------------
+    let pitchNumber = Number(pitch);
 
-    let pitchValue =
-      Number(pitch);
-
-    if (Number.isNaN(pitchValue)) {
-      pitchValue = 0;
+    if (Number.isNaN(pitchNumber)) {
+      pitchNumber = 0;
     }
 
-    pitchValue =
-      Math.max(
-        -5,
-        Math.min(5, pitchValue)
-      );
+    pitchNumber = Math.max(
+      -5,
+      Math.min(5, pitchNumber)
+    );
 
-    let pitchInstruction =
-      "natural vocal pitch";
+    let pitchText = "natural vocal pitch";
 
-    if (pitchValue <= -4) {
-      pitchInstruction =
-        "very low vocal pitch";
-    } else if (pitchValue === -3) {
-      pitchInstruction =
-        "low vocal pitch";
-    } else if (pitchValue === -2) {
-      pitchInstruction =
-        "slightly low vocal pitch";
-    } else if (pitchValue === -1) {
-      pitchInstruction =
-        "slightly lower vocal pitch";
-    } else if (pitchValue === 1) {
-      pitchInstruction =
-        "slightly higher vocal pitch";
-    } else if (pitchValue === 2) {
-      pitchInstruction =
-        "higher vocal pitch";
-    } else if (pitchValue === 3) {
-      pitchInstruction =
-        "high vocal pitch";
-    } else if (pitchValue >= 4) {
-      pitchInstruction =
-        "very high vocal pitch";
+    if (pitchNumber <= -4) {
+      pitchText = "very low vocal pitch";
+    } else if (pitchNumber === -3) {
+      pitchText = "low vocal pitch";
+    } else if (pitchNumber === -2) {
+      pitchText = "slightly low vocal pitch";
+    } else if (pitchNumber === -1) {
+      pitchText = "slightly lower vocal pitch";
+    } else if (pitchNumber === 1) {
+      pitchText = "slightly higher vocal pitch";
+    } else if (pitchNumber === 2) {
+      pitchText = "higher vocal pitch";
+    } else if (pitchNumber === 3) {
+      pitchText = "high vocal pitch";
+    } else if (pitchNumber >= 4) {
+      pitchText = "very high vocal pitch";
     }
 
-    // -----------------------------
-    // TTS Prompt
-    // -----------------------------
+    // TTS instruction
+    const prompt = `
+Speak the following text in Burmese (Myanmar) language.
 
-    const inputText = `
-Generate speech audio.
-
-Language:
-Burmese (Myanmar).
-
-Voice:
-Use the selected Gemini voice naturally.
-
-Style:
-${selectedEmotion}.
-
-Pacing:
-${speedInstruction}.
-
-Pitch:
-${pitchInstruction}.
-
-Important:
-- Speak ONLY the Burmese text provided below.
-- Do NOT translate the Burmese text.
-- Do NOT explain anything.
-- Do NOT read these instructions aloud.
+Performance:
+- Voice: ${selectedVoice}
+- Emotion: ${selectedEmotion}
+- Speaking pace: ${speedText}
+- Vocal pitch: ${pitchText}
 - Use natural Burmese pronunciation.
-- Speak clearly like a professional narrator.
-- Keep the delivery natural and smooth.
+- Speak clearly and naturally.
+- Do not translate the text.
+- Do not explain anything.
+- Do not read these instructions.
+- Speak only the text under TEXT TO SPEAK.
 
 TEXT TO SPEAK:
 ${String(text).trim()}
 `;
 
-    // -----------------------------
-    // Gemini Interactions API
-    // -----------------------------
+    // Google Gemini Generate Content TTS API
+    const url =
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-tts-preview:generateContent";
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/interactions",
-      {
-        method: "POST",
+    const response = await fetch(url, {
+      method: "POST",
 
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
+      headers: {
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
 
-        body: JSON.stringify({
-          model:
-            "gemini-3.1-flash-tts-preview",
-
-          input:
-            inputText,
-
-          response_format: {
-            type: "audio"
-          },
-
-          generation_config: {
-            speech_config: [
+      body: JSON.stringify({
+        contents: [
+          {
+            parts: [
               {
-                voice:
-                  selectedVoice
+                text: prompt
               }
             ]
           }
-        })
-      }
-    );
+        ],
 
-    // -----------------------------
-    // Read Gemini response
-    // -----------------------------
+        generationConfig: {
+          responseModalities: [
+            "AUDIO"
+          ],
 
-    const data =
-      await response.json();
+          speechConfig: {
+            voiceConfig: {
+              prebuiltVoiceConfig: {
+                voiceName: selectedVoice
+              }
+            }
+          }
+        }
+      })
+    });
 
+    const data = await response.json();
+
+    // Gemini API error
     if (!response.ok) {
-
       console.error(
         "Gemini API Error:",
         JSON.stringify(data)
       );
 
-      return res.status(
-        response.status >= 400 &&
-        response.status < 600
-          ? response.status
-          : 500
-      ).json({
+      return res.status(500).json({
         error:
           data?.error?.message ||
           "Gemini TTS API Error ဖြစ်နေပါသည်။"
       });
     }
 
-    // -----------------------------
-    // Get generated audio
-    // -----------------------------
+    // Find audio inside Gemini response
+    let audioBase64 = null;
 
-    const audioBase64 =
-      data?.output_audio?.data;
+    const parts =
+      data?.candidates?.[0]?.content?.parts || [];
+
+    for (const part of parts) {
+      if (
+        part?.inlineData?.data
+      ) {
+        audioBase64 =
+          part.inlineData.data;
+
+        break;
+      }
+    }
 
     if (!audioBase64) {
-
       console.error(
-        "Gemini response has no audio:",
+        "Gemini response:",
         JSON.stringify(data)
       );
 
       return res.status(500).json({
         error:
-          "Gemini response ထဲမှာ Audio မပါလာပါ။"
+          "Gemini က Audio ပြန်မပေးပါ။ API response ထဲမှာ audio data မတွေ့ပါ။"
       });
     }
 
-    // -----------------------------
-    // Base64 -> Buffer
-    // -----------------------------
-
+    // Base64 -> PCM Buffer
     const pcmBuffer =
       Buffer.from(
         audioBase64,
@@ -311,25 +234,21 @@ ${String(text).trim()}
       );
 
     if (!pcmBuffer.length) {
-
       return res.status(500).json({
         error:
-          "Gemini Audio data အလွတ်ဖြစ်နေပါသည်။"
+          "Audio data အလွတ်ဖြစ်နေပါသည်။"
       });
     }
 
-    // -----------------------------
-    // PCM -> WAV
-    //
-    // Gemini TTS:
-    // 24,000 Hz
+    // Gemini TTS PCM:
+    // 24000 Hz
     // 16-bit
     // Mono
-    // -----------------------------
 
-    const channels = 1;
     const sampleRate = 24000;
+    const channels = 1;
     const bitsPerSample = 16;
+
     const blockAlign =
       channels *
       bitsPerSample /
@@ -339,103 +258,101 @@ ${String(text).trim()}
       sampleRate *
       blockAlign;
 
-    const wavHeader =
+    // WAV Header
+    const header =
       Buffer.alloc(44);
 
-    wavHeader.write(
+    header.write(
       "RIFF",
       0
     );
 
-    wavHeader.writeUInt32LE(
+    header.writeUInt32LE(
       36 + pcmBuffer.length,
       4
     );
 
-    wavHeader.write(
+    header.write(
       "WAVE",
       8
     );
 
-    wavHeader.write(
+    header.write(
       "fmt ",
       12
     );
 
-    wavHeader.writeUInt32LE(
+    header.writeUInt32LE(
       16,
       16
     );
 
-    // PCM format
-    wavHeader.writeUInt16LE(
+    // PCM
+    header.writeUInt16LE(
       1,
       20
     );
 
     // Mono
-    wavHeader.writeUInt16LE(
+    header.writeUInt16LE(
       channels,
       22
     );
 
     // Sample rate
-    wavHeader.writeUInt32LE(
+    header.writeUInt32LE(
       sampleRate,
       24
     );
 
     // Byte rate
-    wavHeader.writeUInt32LE(
+    header.writeUInt32LE(
       byteRate,
       28
     );
 
     // Block align
-    wavHeader.writeUInt16LE(
+    header.writeUInt16LE(
       blockAlign,
       32
     );
 
-    // Bits per sample
-    wavHeader.writeUInt16LE(
+    // Bits
+    header.writeUInt16LE(
       bitsPerSample,
       34
     );
 
-    wavHeader.write(
+    header.write(
       "data",
       36
     );
 
-    wavHeader.writeUInt32LE(
+    header.writeUInt32LE(
       pcmBuffer.length,
       40
     );
 
     const wavBuffer =
       Buffer.concat([
-        wavHeader,
+        header,
         pcmBuffer
       ]);
 
-    // -----------------------------
-    // Send audio to website
-    // -----------------------------
-
+    // Send WAV to website
     res.setHeader(
       "Content-Type",
       "audio/wav"
     );
 
     res.setHeader(
-      "Content-Disposition",
-      'inline; filename="YanNaing-Gemini-TTS.wav"'
+      "Content-Length",
+      wavBuffer.length
     );
 
     res.setHeader(
-      "Content-Length",
-      wavBuffer.length
+      "Content-Disposition",
+      'inline; filename="YanNaing-Gemini-TTS.wav"'
     );
 
     res.setHeader(
@@ -457,7 +374,7 @@ ${String(text).trim()}
     return res.status(500).json({
       error:
         error?.message ||
-        "Myanmar Voice ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
+        "Voice ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
     });
   }
-}
+          }
