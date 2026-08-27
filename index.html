@@ -1,337 +1,319 @@
-<!DOCTYPE html>
-<html lang="my">
+<!DOCTYPE html><html lang="my">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>YanNaing Free Ai Tool</title>
 
-    <title>YanNaing Free Ai Tool</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background:
+            radial-gradient(circle at top, #312e81 0%, transparent 35%),
+            linear-gradient(135deg, #020617, #111827, #1e1b4b);
+        color: white;
+        padding: 20px;
+    }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background:
-                radial-gradient(circle at top, #312e81 0%, transparent 35%),
-                linear-gradient(135deg, #020617, #111827, #1e1b4b);
-            color: white;
-            padding: 20px;
-        }
+    .container {
+        width: 100%;
+        max-width: 650px;
+        margin: 0 auto;
+        padding: 25px;
+        border-radius: 22px;
+        background: rgba(15, 23, 42, 0.94);
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 15px 45px rgba(0,0,0,0.55);
+    }
 
+    .title {
+        text-align: center;
+        font-size: 30px;
+        font-weight: 900;
+        margin-bottom: 6px;
+
+        background: linear-gradient(
+            90deg,
+            #ff3b30,
+            #ffcc00,
+            #34c759,
+            #00c7ff,
+            #5856d6,
+            #ff2d55
+        );
+
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    label {
+        display: block;
+        margin: 16px 0 8px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8fafc;
+    }
+
+    textarea,
+    select {
+        width: 100%;
+        border: 1px solid #475569;
+        border-radius: 12px;
+        background: #020617;
+        color: white;
+        padding: 14px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    textarea {
+        min-height: 180px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    textarea:focus,
+    select:focus {
+        border-color: #38bdf8;
+        box-shadow: 0 0 10px rgba(56,189,248,0.3);
+    }
+
+    select {
+        cursor: pointer;
+    }
+
+    .voice-title {
+        margin-top: 18px;
+        font-size: 15px;
+        font-weight: 800;
+        color: #38bdf8;
+    }
+
+    .voice-group {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .voice-button {
+        padding: 13px 10px;
+        border-radius: 12px;
+        border: 1px solid #475569;
+        background: #111827;
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .voice-button:hover {
+        transform: translateY(-1px);
+        border-color: #38bdf8;
+    }
+
+    .voice-button.active {
+        border-color: #38bdf8;
+        background: linear-gradient(135deg, #0369a1, #4338ca);
+        box-shadow: 0 0 14px rgba(56,189,248,0.25);
+    }
+
+    .male {
+        border-left: 4px solid #3b82f6;
+    }
+
+    .female {
+        border-left: 4px solid #ec4899;
+    }
+
+    .generate-btn {
+        width: 100%;
+        margin-top: 20px;
+        padding: 15px;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(
+            135deg,
+            #0284c7,
+            #4f46e5
+        );
+        color: white;
+        font-size: 17px;
+        font-weight: 900;
+        cursor: pointer;
+        box-shadow: 0 7px 20px rgba(37,99,235,0.35);
+    }
+
+    .generate-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .status {
+        margin-top: 15px;
+        text-align: center;
+        color: #cbd5e1;
+        font-size: 14px;
+        min-height: 22px;
+    }
+
+    audio {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .download-btn {
+        width: 100%;
+        margin-top: 10px;
+        padding: 13px;
+        border: 1px solid #334155;
+        border-radius: 10px;
+        background: #1e293b;
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        display: none;
+    }
+
+    .selected {
+        text-align: center;
+        margin-top: 10px;
+        color: #94a3b8;
+        font-size: 13px;
+    }
+
+    @media (max-width: 500px) {
         .container {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 25px;
-            border-radius: 22px;
-            background: rgba(15, 23, 42, 0.94);
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 15px 45px rgba(0,0,0,0.55);
+            padding: 18px;
         }
 
         .title {
-            text-align: center;
-            font-size: 30px;
-            font-weight: 900;
-            margin-bottom: 6px;
-
-            background: linear-gradient(
-                90deg,
-                #ff3b30,
-                #ffcc00,
-                #34c759,
-                #00c7ff,
-                #5856d6,
-                #ff2d55
-            );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin: 16px 0 8px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #f8fafc;
-        }
-
-        textarea,
-        select {
-            width: 100%;
-            border: 1px solid #475569;
-            border-radius: 12px;
-            background: #020617;
-            color: white;
-            padding: 14px;
-            font-size: 15px;
-            outline: none;
-        }
-
-        textarea {
-            min-height: 180px;
-            resize: vertical;
-            line-height: 1.6;
-        }
-
-        textarea:focus,
-        select:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56,189,248,0.3);
-        }
-
-        select {
-            cursor: pointer;
-        }
-
-        .voice-title {
-            margin-top: 18px;
-            font-size: 15px;
-            font-weight: 800;
-            color: #38bdf8;
+            font-size: 25px;
         }
 
         .voice-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 10px;
+            grid-template-columns: 1fr;
         }
+    }
+</style>
 
-        .voice-button {
-            padding: 13px 10px;
-            border-radius: 12px;
-            border: 1px solid #475569;
-            background: #111827;
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+</head><body><div class="container"><div class="title">
+    ✨ YanNaing Free Ai Tool ✨
+</div>
 
-        .voice-button:hover {
-            transform: translateY(-1px);
-            border-color: #38bdf8;
-        }
+<div class="subtitle">
+    🇲🇲 မြန်မာ AI Voice Generator
+</div>
 
-        .voice-button.active {
-            border-color: #38bdf8;
-            background: linear-gradient(135deg, #0369a1, #4338ca);
-            box-shadow: 0 0 14px rgba(56,189,248,0.25);
-        }
+<label for="text">
+    📝 မြန်မာစာထည့်ပါ
+</label>
 
-        .male {
-            border-left: 4px solid #3b82f6;
-        }
+<textarea
+    id="text"
+    maxlength="5000"
+    placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
+></textarea>
 
-        .female {
-            border-left: 4px solid #ec4899;
-        }
+<div class="selected" id="selectedVoice">
+    Selected Voice — Zephyr
+</div>
 
-        .generate-btn {
-            width: 100%;
-            margin-top: 20px;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(
-                135deg,
-                #0284c7,
-                #4f46e5
-            );
-            color: white;
-            font-size: 17px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 7px 20px rgba(37,99,235,0.35);
-        }
+<div class="voice-title">
+    🎙️ Gemini Voices
+</div>
 
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .status {
-            margin-top: 15px;
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 14px;
-            min-height: 22px;
-        }
-
-        audio {
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        .download-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 13px;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            background: #1e293b;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            display: none;
-        }
-
-        .selected {
-            text-align: center;
-            margin-top: 10px;
-            color: #94a3b8;
-            font-size: 13px;
-        }
-
-        @media (max-width: 500px) {
-            .container {
-                padding: 18px;
-            }
-
-            .title {
-                font-size: 25px;
-            }
-
-            .voice-group {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div class="title">
-        ✨ YanNaing Free Ai Tool ✨
-    </div>
-
-    <div class="subtitle">
-        🇲🇲 မြန်မာ AI Voice Generator
-    </div>
-
-    <label for="text">
-        📝 မြန်မာစာထည့်ပါ
-    </label>
-
-    <textarea
-        id="text"
-        maxlength="5000"
-        placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
-    ></textarea>
-
-    <div class="selected" id="selectedVoice">
-        ရွေးထားသောအသံ — ဘိုဘို
-    </div>
-
-    <div class="voice-title">
-        👨 ယောက်ျားလေးအသံ
-    </div>
-
-    <div class="voice-group">
-
-        <button
-            class="voice-button male active"
-            data-voice="Kore"
-            data-name="ဘိုဘို"
-            onclick="selectVoice(this)"
-        >
-            👨 ဘိုဘို
-        </button>
-
-        <button
-            class="voice-button male"
-            data-voice="Charon"
-            data-name="ညဏ်လင်း"
-            onclick="selectVoice(this)"
-        >
-            👨 ညဏ်လင်း
-        </button>
-
-        <button
-            class="voice-button male"
-            data-voice="Orus"
-            data-name="ကောင်းမြတ်"
-            onclick="selectVoice(this)"
-        >
-            👨 ကောင်းမြတ်
-        </button>
-
-    </div>
-
-    <div class="voice-title">
-        👩 မိန်းကလေးအသံ
-    </div>
-
-    <div class="voice-group">
-
-        <button
-            class="voice-button female"
-            data-voice="Gacrux"
-            data-name="ကြယ်ဇင်"
-            onclick="selectVoice(this)"
-        >
-            👩 ကြယ်ဇင်
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Sulafat"
-            data-name="လမင်း"
-            onclick="selectVoice(this)"
-        >
-            👩 လမင်း
-        </button>
-
-    </div>
+<div class="voice-group">
 
     <button
-        class="generate-btn"
-        id="generateBtn"
-        onclick="generateVoice()"
+        class="voice-button male active"
+        data-voice="Zephyr"
+        data-name="Zephyr"
+        onclick="selectVoice(this)"
     >
-        🎙️ မြန်မာအသံထုတ်မည်
+        🎙️ Zephyr
     </button>
 
-    <div
-        class="status"
-        id="status"
-    ></div>
-
-    <audio
-        id="audioPlayer"
-        controls
-    ></audio>
+    <button
+        class="voice-button male"
+        data-voice="Puck"
+        data-name="Puck"
+        onclick="selectVoice(this)"
+    >
+        🎙️ Puck
+    </button>
 
     <button
-        class="download-btn"
-        id="downloadBtn"
-        onclick="downloadAudio()"
+        class="voice-button male"
+        data-voice="Charon"
+        data-name="Charon"
+        onclick="selectVoice(this)"
     >
-        ⬇️ အသံဖိုင် Download
+        🎙️ Charon
+    </button>
+
+    <button
+        class="voice-button male"
+        data-voice="Kore"
+        data-name="Kore"
+        onclick="selectVoice(this)"
+    >
+        🎙️ Kore
+    </button>
+
+    <button
+        class="voice-button female"
+        data-voice="Leda"
+        data-name="Leda"
+        onclick="selectVoice(this)"
+    >
+        🎙️ Leda
     </button>
 
 </div>
 
-<script>
+<button
+    class="generate-btn"
+    id="generateBtn"
+    onclick="generateVoice()"
+>
+    🎙️ မြန်မာအသံထုတ်မည်
+</button>
 
-let selectedVoice = "Kore";
-let selectedVoiceName = "ဘိုဘို";
+<div
+    class="status"
+    id="status"
+></div>
+
+<audio
+    id="audioPlayer"
+    controls
+></audio>
+
+<button
+    class="download-btn"
+    id="downloadBtn"
+    onclick="downloadAudio()"
+>
+    ⬇️ အသံဖိုင် Download
+</button>
+
+</div><script>
+
+let selectedVoice = "Zephyr";
+let selectedVoiceName = "Zephyr";
 let audioUrl = null;
 
 function selectVoice(button) {
@@ -353,7 +335,7 @@ function selectVoice(button) {
     document.getElementById(
         "selectedVoice"
     ).innerText =
-        "ရွေးထားသောအသံ — " +
+        "Selected Voice — " +
         selectedVoiceName;
 }
 
@@ -390,7 +372,7 @@ async function generateVoice() {
     status.innerText =
         "⏳ " +
         selectedVoiceName +
-        " အသံဖြင့် အသံထုတ်နေပါသည်...";
+        " voice ဖြင့် အသံထုတ်နေပါသည်...";
 
     button.disabled = true;
 
@@ -538,7 +520,5 @@ function downloadAudio() {
     link.remove();
 }
 
-</script>
-
-</body>
+</script></body>
 </html>
