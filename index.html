@@ -1,234 +1,541 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YanNaing Free Ai Tool</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-body{
-    margin:0;
-    padding:20px;
-    min-height:100vh;
-    font-family:Arial,"Noto Sans Myanmar",sans-serif;
-    background:linear-gradient(135deg,#020617,#1e1b4b,#172554);
-    color:white;
-}
+    <title>YanNaing Free Ai Tool</title>
 
-.box{
-    max-width:650px;
-    margin:auto;
-    padding:25px;
-    border-radius:22px;
-    background:#0f172a;
-    box-shadow:0 10px 40px #0008;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-h1{
-    text-align:center;
-    font-size:28px;
-    font-weight:900;
-    background:linear-gradient(
-        90deg,
-        red,
-        yellow,
-        lime,
-        cyan,
-        blue,
-        violet
-    );
-    -webkit-background-clip:text;
-    color:transparent;
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background:
+                radial-gradient(circle at top, #312e81 0%, transparent 35%),
+                linear-gradient(135deg, #020617, #111827, #1e1b4b);
+            color: white;
+            padding: 20px;
+        }
 
-textarea{
-    width:100%;
-    height:220px;
-    margin-top:15px;
-    padding:15px;
-    box-sizing:border-box;
-    border-radius:14px;
-    border:1px solid #475569;
-    background:#020617;
-    color:white;
-    font-size:16px;
-    line-height:1.8;
-}
+        .container {
+            width: 100%;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 25px;
+            border-radius: 22px;
+            background: rgba(15, 23, 42, 0.94);
+            border: 1px solid rgba(255,255,255,0.12);
+            box-shadow: 0 15px 45px rgba(0,0,0,0.55);
+        }
 
-button{
-    width:100%;
-    margin-top:15px;
-    padding:15px;
-    border:0;
-    border-radius:12px;
-    color:white;
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-    font-size:17px;
-    font-weight:bold;
-}
+        .title {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 6px;
 
-.stop{
-    background:linear-gradient(135deg,#dc2626,#be123c);
-}
+            background: linear-gradient(
+                90deg,
+                #ff3b30,
+                #ffcc00,
+                #34c759,
+                #00c7ff,
+                #5856d6,
+                #ff2d55
+            );
 
-#status{
-    margin-top:18px;
-    padding:14px;
-    text-align:center;
-    border-radius:12px;
-    background:#020617;
-    color:#cbd5e1;
-}
-</style>
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 13px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        textarea,
+        select {
+            width: 100%;
+            border: 1px solid #475569;
+            border-radius: 12px;
+            background: #020617;
+            color: white;
+            padding: 14px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        textarea:focus,
+        select:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56,189,248,0.3);
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        .voice-title {
+            margin-top: 18px;
+            font-size: 15px;
+            font-weight: 800;
+            color: #38bdf8;
+        }
+
+        .voice-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .voice-button {
+            padding: 13px 10px;
+            border-radius: 12px;
+            border: 1px solid #475569;
+            background: #111827;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .voice-button:hover {
+            transform: translateY(-1px);
+            border-color: #38bdf8;
+        }
+
+        .voice-button.active {
+            border-color: #38bdf8;
+            background: linear-gradient(135deg, #0369a1, #4338ca);
+            box-shadow: 0 0 14px rgba(56,189,248,0.25);
+        }
+
+        .male {
+            border-left: 4px solid #3b82f6;
+        }
+
+        .female {
+            border-left: 4px solid #ec4899;
+        }
+
+        .generate-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(
+                135deg,
+                #0284c7,
+                #4f46e5
+            );
+            color: white;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            box-shadow: 0 7px 20px rgba(37,99,235,0.35);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 15px;
+            text-align: center;
+            color: #cbd5e1;
+            font-size: 14px;
+            min-height: 22px;
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .download-btn {
+            width: 100%;
+            margin-top: 10px;
+            padding: 13px;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            background: #1e293b;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            display: none;
+        }
+
+        .selected {
+            text-align: center;
+            margin-top: 10px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 18px;
+            }
+
+            .title {
+                font-size: 25px;
+            }
+
+            .voice-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-<h1>✨ YanNaing Free Ai Tool ✨</h1>
+    <div class="title">
+        ✨ YanNaing Free Ai Tool ✨
+    </div>
 
-<textarea
-id="text"
-maxlength="5000"
-placeholder="မြန်မာစာထည့်ပါ..."
-></textarea>
+    <div class="subtitle">
+        🇲🇲 မြန်မာ AI Voice Generator
+    </div>
 
-<button onclick="makeVoice()">
-🎙️ မြန်မာအသံထုတ်မည်
-</button>
+    <label for="text">
+        📝 မြန်မာစာထည့်ပါ
+    </label>
 
-<button class="stop" onclick="stopVoice()">
-⏹️ ရပ်မည်
-</button>
+    <textarea
+        id="text"
+        maxlength="5000"
+        placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
+    ></textarea>
 
-<div id="status">
-အသင့်ဖြစ်ပါပြီ။
-</div>
+    <div class="selected" id="selectedVoice">
+        ရွေးထားသောအသံ — ဘိုဘို
+    </div>
+
+    <div class="voice-title">
+        👨 ယောက်ျားလေးအသံ
+    </div>
+
+    <div class="voice-group">
+
+        <button
+            class="voice-button male active"
+            data-voice="Kore"
+            data-name="ဘိုဘို"
+            onclick="selectVoice(this)"
+        >
+            👨 ဘိုဘို
+        </button>
+
+        <button
+            class="voice-button male"
+            data-voice="Charon"
+            data-name="ညဏ်လင်း"
+            onclick="selectVoice(this)"
+        >
+            👨 ညဏ်လင်း
+        </button>
+
+        <button
+            class="voice-button male"
+            data-voice="Orus"
+            data-name="ကောင်းမြတ်"
+            onclick="selectVoice(this)"
+        >
+            👨 ကောင်းမြတ်
+        </button>
+
+    </div>
+
+    <div class="voice-title">
+        👩 မိန်းကလေးအသံ
+    </div>
+
+    <div class="voice-group">
+
+        <button
+            class="voice-button female"
+            data-voice="Gacrux"
+            data-name="ကြယ်ဇင်"
+            onclick="selectVoice(this)"
+        >
+            👩 ကြယ်ဇင်
+        </button>
+
+        <button
+            class="voice-button female"
+            data-voice="Sulafat"
+            data-name="လမင်း"
+            onclick="selectVoice(this)"
+        >
+            👩 လမင်း
+        </button>
+
+    </div>
+
+    <button
+        class="generate-btn"
+        id="generateBtn"
+        onclick="generateVoice()"
+    >
+        🎙️ မြန်မာအသံထုတ်မည်
+    </button>
+
+    <div
+        class="status"
+        id="status"
+    ></div>
+
+    <audio
+        id="audioPlayer"
+        controls
+    ></audio>
+
+    <button
+        class="download-btn"
+        id="downloadBtn"
+        onclick="downloadAudio()"
+    >
+        ⬇️ အသံဖိုင် Download
+    </button>
 
 </div>
 
 <script>
 
-let audio = null;
+let selectedVoice = "Kore";
+let selectedVoiceName = "ဘိုဘို";
 let audioUrl = null;
 
-async function makeVoice(){
+function selectVoice(button) {
+
+    document
+        .querySelectorAll(".voice-button")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
+
+    button.classList.add("active");
+
+    selectedVoice =
+        button.dataset.voice;
+
+    selectedVoiceName =
+        button.dataset.name;
+
+    document.getElementById(
+        "selectedVoice"
+    ).innerText =
+        "ရွေးထားသောအသံ — " +
+        selectedVoiceName;
+}
+
+
+async function generateVoice() {
 
     const text =
-        document.getElementById("text")
-        .value.trim();
+        document
+        .getElementById("text")
+        .value
+        .trim();
 
     const status =
         document.getElementById("status");
 
-    if(!text){
+    const button =
+        document.getElementById("generateBtn");
 
-        alert("မြန်မာစာထည့်ပါ။");
+    const audio =
+        document.getElementById("audioPlayer");
+
+    const download =
+        document.getElementById("downloadBtn");
+
+    if (!text) {
+
+        alert(
+            "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
+        );
+
         return;
-
     }
 
-    stopVoice();
-
     status.innerText =
-        "⏳ မြန်မာအသံထုတ်နေပါသည်...";
+        "⏳ " +
+        selectedVoiceName +
+        " အသံဖြင့် အသံထုတ်နေပါသည်...";
 
-    try{
+    button.disabled = true;
+
+    download.style.display =
+        "none";
+
+    try {
 
         const response =
-            await fetch("/api/tts",{
+            await fetch("/api/tts", {
 
-                method:"POST",
+                method: "POST",
 
-                headers:{
+                headers: {
                     "Content-Type":
-                    "application/json"
+                        "application/json"
                 },
 
-                body:JSON.stringify({
-                    text:text
+                body: JSON.stringify({
+
+                    text: text,
+
+                    voice:
+                        selectedVoice
+
                 })
 
             });
 
-        if(!response.ok){
 
-            const data =
-                await response.json()
-                .catch(()=>({}));
+        const contentType =
+            response.headers
+            .get("content-type") || "";
+
+
+        if (!response.ok) {
+
+            let errorMessage =
+                "အသံထုတ်မရပါ။";
+
+            if (
+                contentType.includes(
+                    "application/json"
+                )
+            ) {
+
+                const data =
+                    await response.json();
+
+                errorMessage =
+                    data.error ||
+                    errorMessage;
+            }
 
             throw new Error(
-                data.error ||
-                "TTS Error"
+                errorMessage
             );
-
         }
+
 
         const blob =
             await response.blob();
 
+
+        if (!blob.size) {
+
+            throw new Error(
+                "Audio file အလွတ်ဖြစ်နေပါသည်။"
+            );
+        }
+
+
+        if (audioUrl) {
+
+            URL.revokeObjectURL(
+                audioUrl
+            );
+        }
+
+
         audioUrl =
-            URL.createObjectURL(blob);
+            URL.createObjectURL(
+                blob
+            );
 
-        audio =
-            new Audio(audioUrl);
 
-        /*
-        Browser Speech API
-        လုံးဝ မသုံးပါ။
-        API ပြန်ပေးတဲ့ MP3
-        တစ်ခုတည်းကိုသာ ဖွင့်ပါသည်။
-        */
+        audio.src =
+            audioUrl;
 
-        audio.onended = function(){
+        audio.load();
 
-            status.innerText =
-                "✅ မြန်မာအသံပြီးပါပြီ။";
-
-        };
-
-        audio.onerror = function(){
-
-            status.innerText =
-                "❌ Audio ဖွင့်မရပါ။";
-
-        };
-
-        await audio.play();
 
         status.innerText =
-            "🔊 မြန်မာအသံထွက်နေပါပြီ...";
+            "✅ " +
+            selectedVoiceName +
+            " အသံရပါပြီ။";
+
+        download.style.display =
+            "block";
 
     }
-    catch(error){
+
+    catch (error) {
 
         console.error(error);
 
         status.innerText =
-            "❌ " + error.message;
+            "❌ " +
+            error.message;
 
     }
 
+    finally {
+
+        button.disabled =
+            false;
+    }
 }
 
-function stopVoice(){
 
-    if(audio){
+function downloadAudio() {
 
-        audio.pause();
-        audio.currentTime = 0;
-        audio = null;
+    if (!audioUrl) {
 
+        return;
     }
 
-    if(audioUrl){
+    const link =
+        document.createElement("a");
 
-        URL.revokeObjectURL(audioUrl);
-        audioUrl = null;
+    link.href =
+        audioUrl;
 
-    }
+    link.download =
+        "YanNaing-" +
+        selectedVoiceName +
+        ".wav";
 
+    document.body.appendChild(
+        link
+    );
+
+    link.click();
+
+    link.remove();
 }
 
 </script>
