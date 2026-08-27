@@ -22,7 +22,7 @@ export default async function handler(req, res) {
       });
     }
 
-    // Google Gemini TTS မူရင်း Voice ၅ မျိုး
+    // Google Gemini TTS မူရင်း Voice ၅ ခု
     const allowedVoices = [
       "Zephyr",
       "Puck",
@@ -35,8 +35,16 @@ export default async function handler(req, res) {
       ? voice
       : "Zephyr";
 
+    const inputText =
+      "TTS the following text in Burmese Myanmar language. " +
+      "Speak only the provided text. " +
+      "Do not translate it. " +
+      "Use natural, clear Burmese pronunciation with a smooth narration style.\n\n" +
+      String(text).trim();
+
+    // Google ရဲ့ လက်ရှိ Gemini 3.1 TTS Interactions API
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/interactions",
       {
         method: "POST",
 
@@ -46,32 +54,20 @@ export default async function handler(req, res) {
         },
 
         body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text:
-                    "Speak the following text in Burmese Myanmar language. " +
-                    "Do not translate it. " +
-                    "Read ONLY the provided text. " +
-                    "Use natural Burmese pronunciation, clear narration, " +
-                    "natural pauses and appropriate emotion.\n\n" +
-                    String(text).trim()
-                }
-              ]
-            }
-          ],
+          model: "gemini-3.1-flash-tts-preview",
 
-          generationConfig: {
-            responseModalities: ["AUDIO"],
+          input: inputText,
 
-            speechConfig: {
-              voiceConfig: {
-                prebuiltVoiceConfig: {
-                  voiceName: selectedVoice
-                }
+          response_format: {
+            type: "audio"
+          },
+
+          generation_config: {
+            speech_config: [
+              {
+                voice: selectedVoice
               }
-            }
+            ]
           }
         })
       }
@@ -92,12 +88,13 @@ export default async function handler(req, res) {
       });
     }
 
+    /*
+      Google Interactions API
+      output_audio.data ထဲမှာ Base64 audio ရှိပါတယ်။
+    */
+
     const audioBase64 =
-      data?.candidates?.[0]
-        ?.content?.parts?.find(
-          (part) => part.inlineData?.data
-        )
-        ?.inlineData?.data;
+      data?.output_audio?.data;
 
     if (!audioBase64) {
       console.error(
@@ -115,8 +112,12 @@ export default async function handler(req, res) {
       "base64"
     );
 
-    // Gemini TTS PCM → WAV
-    // 24kHz / 16-bit / Mono
+    /*
+      Gemini TTS Audio
+      24kHz / 16-bit / Mono PCM
+      PCM → WAV
+    */
+
     const wavHeader = Buffer.alloc(44);
 
     wavHeader.write("RIFF", 0);
@@ -129,21 +130,31 @@ export default async function handler(req, res) {
     wavHeader.write("WAVE", 8);
     wavHeader.write("fmt ", 12);
 
+    // PCM format chunk size
     wavHeader.writeUInt32LE(16, 16);
+
+    // PCM
     wavHeader.writeUInt16LE(1, 20);
+
+    // Mono
     wavHeader.writeUInt16LE(1, 22);
 
+    // Sample rate
     wavHeader.writeUInt32LE(
       24000,
       24
     );
 
+    // Byte rate
     wavHeader.writeUInt32LE(
       24000 * 2,
       28
     );
 
+    // Block align
     wavHeader.writeUInt16LE(2, 32);
+
+    // Bits per sample
     wavHeader.writeUInt16LE(16, 34);
 
     wavHeader.write("data", 36);
@@ -173,7 +184,9 @@ export default async function handler(req, res) {
       "no-store"
     );
 
-    return res.status(200).send(wavBuffer);
+    return res
+      .status(200)
+      .send(wavBuffer);
 
   } catch (error) {
     console.error(
