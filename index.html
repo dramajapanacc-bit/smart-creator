@@ -1,171 +1,710 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>YanNaing Free AI Tool</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    padding:20px;
+    font-family:"Segoe UI",Tahoma,sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at top,#243b72 0%,transparent 38%),
+        linear-gradient(135deg,#07101f,#111c30,#151d32);
+}
+
+.container{
+    width:100%;
+    max-width:680px;
+    margin:auto;
+}
+
+.card{
+    background:rgba(25,38,60,.96);
+    border:1px solid rgba(148,163,184,.18);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:0 18px 50px rgba(0,0,0,.45);
+}
+
+.title{
+    text-align:center;
+    font-size:29px;
+    font-weight:900;
+    margin-bottom:5px;
+    background:linear-gradient(
+        90deg,
+        #38bdf8,
+        #6366f1,
+        #ec4899,
+        #f59e0b
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.subtitle{
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+    margin-bottom:25px;
+}
+
+.section-title{
+    color:#60a5fa;
+    font-weight:800;
+    font-size:16px;
+    margin:20px 0 12px;
+}
+
+textarea{
+    width:100%;
+    min-height:180px;
+    resize:vertical;
+    padding:16px;
+    border-radius:16px;
+    border:2px solid #334155;
+    background:#0b1424;
+    color:#fff;
+    font-size:16px;
+    line-height:1.7;
+    outline:none;
+}
+
+textarea:focus{
+    border-color:#3b82f6;
+}
+
+.counter{
+    text-align:right;
+    color:#64748b;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.voice-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.voice{
+    padding:15px 10px;
+    border-radius:14px;
+    border:2px solid #3b4a63;
+    background:#172338;
+    color:#fff;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.voice:hover{
+    border-color:#60a5fa;
+}
+
+.voice.active{
+    border-color:#38bdf8;
+    background:linear-gradient(135deg,#1769aa,#5b3fc4);
+    box-shadow:0 0 18px rgba(56,189,248,.22);
+}
+
+.selected{
+    margin-top:10px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.emotion-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+
+.emotion{
+    padding:13px 7px;
+    border-radius:13px;
+    border:2px solid #3b4a63;
+    background:#172338;
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.emotion.active{
+    border-color:#ec4899;
+    background:linear-gradient(135deg,#7c3aed,#db2777);
+}
+
+.control{
+    margin-top:18px;
+    padding:18px;
+    border:2px solid #334155;
+    border-radius:20px;
+    background:#172338;
+}
+
+.control-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.control-name{
+    font-size:16px;
+    font-weight:800;
+}
+
+.value{
+    min-width:58px;
+    padding:9px 12px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:900;
+    background:#ec4899;
+}
+
+.control-row{
+    display:grid;
+    grid-template-columns:65px 1fr 65px;
+    align-items:center;
+    gap:12px;
+}
+
+.control-btn{
+    height:58px;
+    border-radius:15px;
+    border:2px solid #475569;
+    background:#172338;
+    color:#e2e8f0;
+    font-size:27px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+.control-btn:hover{
+    border-color:#60a5fa;
+}
+
+input[type="range"]{
+    width:100%;
+    accent-color:#ec4899;
+    cursor:pointer;
+}
+
+.generate{
+    width:100%;
+    margin-top:22px;
+    padding:17px;
+    border:0;
+    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#9333ea);
+    color:#fff;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(59,130,246,.3);
+}
+
+.generate:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.status{
+    min-height:25px;
+    margin-top:15px;
+    text-align:center;
+    color:#cbd5e1;
+}
+
+audio{
+    width:100%;
+    margin-top:12px;
+}
+
+.download{
+    display:none;
+    width:100%;
+    margin-top:10px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #475569;
+    background:#1e293b;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+}
+
+@media(max-width:520px){
+
+    body{
+        padding:10px;
+    }
+
+    .card{
+        padding:17px;
+    }
+
+    .voice-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .emotion-grid{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+
+    .control-row{
+        grid-template-columns:55px 1fr 55px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="title">
+✨ YanNaing Free AI Tool ✨
+</div>
+
+<div class="subtitle">
+🇲🇲 Gemini AI Myanmar Voice Generator
+</div>
+
+<div class="section-title">
+📝 စာထည့်ပါ
+</div>
+
+<textarea
+id="text"
+maxlength="5000"
+placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
+oninput="updateCounter()"
+></textarea>
+
+<div class="counter">
+<span id="counter">0</span> / 5000
+</div>
+
+<div class="section-title">
+🎙️ Voice
+</div>
+
+<div class="voice-grid">
+
+<button
+class="voice active"
+data-voice="Zephyr"
+onclick="selectVoice(this)"
+>
+Zephyr
+</button>
+
+<button
+class="voice"
+data-voice="Puck"
+onclick="selectVoice(this)"
+>
+Puck
+</button>
+
+<button
+class="voice"
+data-voice="Charon"
+onclick="selectVoice(this)"
+>
+Charon
+</button>
+
+<button
+class="voice"
+data-voice="Kore"
+onclick="selectVoice(this)"
+>
+Kore
+</button>
+
+<button
+class="voice"
+data-voice="Leda"
+onclick="selectVoice(this)"
+>
+Leda
+</button>
+
+</div>
+
+<div class="selected" id="selectedVoice">
+Selected Voice — Zephyr
+</div>
+
+<div class="section-title">
+🎭 Emotion
+</div>
+
+<div class="emotion-grid">
+
+<button
+class="emotion active"
+data-emotion="natural"
+onclick="selectEmotion(this)"
+>
+😌 Natural
+</button>
+
+<button
+class="emotion"
+data-emotion="happy"
+onclick="selectEmotion(this)"
+>
+😊 Happy
+</button>
+
+<button
+class="emotion"
+data-emotion="sad"
+onclick="selectEmotion(this)"
+>
+😢 Sad
+</button>
+
+<button
+class="emotion"
+data-emotion="angry"
+onclick="selectEmotion(this)"
+>
+😠 Angry
+</button>
+
+<button
+class="emotion"
+data-emotion="excited"
+onclick="selectEmotion(this)"
+>
+🤩 Excited
+</button>
+
+<button
+class="emotion"
+data-emotion="serious"
+onclick="selectEmotion(this)"
+>
+😐 Serious
+</button>
+
+<button
+class="emotion"
+data-emotion="calm"
+onclick="selectEmotion(this)"
+>
+😌 Calm
+</button>
+
+<button
+class="emotion"
+data-emotion="whisper"
+onclick="selectEmotion(this)"
+>
+🤫 Whisper
+</button>
+
+<button
+class="emotion"
+data-emotion="dramatic"
+onclick="selectEmotion(this)"
+>
+😮 Dramatic
+</button>
+
+</div>
+
+<div class="control">
+
+<div class="control-head">
+
+<div class="control-name">
+⚡ Speed
+</div>
+
+<div class="value" id="speedValue">
+0
+</div>
+
+</div>
+
+<div class="control-row">
+
+<button
+class="control-btn"
+onclick="changeSpeed(-1)"
+>
+−
+</button>
+
+<input
+id="speed"
+type="range"
+min="-5"
+max="5"
+value="0"
+step="1"
+oninput="updateSpeed()"
+>
+
+<button
+class="control-btn"
+onclick="changeSpeed(1)"
+>
++
+</button>
+
+</div>
+</div>
+
+<div class="control">
+
+<div class="control-head">
+
+<div class="control-name">
+🎚️ Pitch
+</div>
+
+<div
+class="value"
+id="pitchValue"
+style="background:#9333ea"
+>
+0
+</div>
+
+</div>
+
+<div class="control-row">
+
+<button
+class="control-btn"
+onclick="changePitch(-1)"
+>
+−
+</button>
+
+<input
+id="pitch"
+type="range"
+min="-5"
+max="5"
+value="0"
+step="1"
+oninput="updatePitch()"
+>
+
+<button
+class="control-btn"
+onclick="changePitch(1)"
+>
++
+</button>
+
+</div>
+</div>
+
+<button
+class="generate"
+id="generateBtn"
+onclick="generateVoice()"
+>
+🎙️ မြန်မာအသံထုတ်မည်
+</button>
+
+<div
+class="status"
+id="status"
+>
+</div>
+
+<audio
+id="audioPlayer"
+controls
+></audio>
+
+<button
+class="download"
+id="downloadBtn"
+onclick="downloadAudio()"
+>
+⬇️ အသံဖိုင် Download
+</button>
+
+</div>
+</div>
+
+<script>
+
 let selectedVoice = "Zephyr";
-let selectedVoiceName = "Zephyr";
+let selectedEmotion = "natural";
 let audioUrl = null;
 
-// ========================================
-// Text ကို သဘာဝကျကျ အပိုင်းခွဲခြင်း
-// ========================================
+function selectVoice(button){
 
-function splitText(text, maxLength = 1000) {
-    const cleanText = text.trim();
+    document
+    .querySelectorAll(".voice")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
 
-    if (cleanText.length <= maxLength) {
-        return [cleanText];
-    }
+    button.classList.add("active");
 
-    const chunks = [];
-    let remaining = cleanText;
+    selectedVoice =
+        button.dataset.voice;
 
-    while (remaining.length > maxLength) {
-        let cut = maxLength;
-
-        // မြန်မာစာကြောင်းဆုံးရာမှာ အရင်ဖြတ်
-        const punctuationMarks = [
-            "။",
-            "၊",
-            "!",
-            "?",
-            "\n"
-        ];
-
-        let bestCut = -1;
-
-        for (const mark of punctuationMarks) {
-            const position =
-                remaining.lastIndexOf(mark, maxLength);
-
-            if (position > bestCut) {
-                bestCut = position;
-            }
-        }
-
-        // စာကြောင်းဆုံးရာ မတွေ့ရင် space နေရာမှာ ဖြတ်
-        if (bestCut < Math.floor(maxLength * 0.6)) {
-            const spaceCut =
-                remaining.lastIndexOf(" ", maxLength);
-
-            if (spaceCut > 0) {
-                bestCut = spaceCut;
-            }
-        }
-
-        // ဘာမှမတွေ့ရင် maxLength မှာပဲ ဖြတ်
-        if (bestCut <= 0) {
-            bestCut = maxLength;
-        }
-
-        chunks.push(
-            remaining.slice(0, bestCut + 1).trim()
-        );
-
-        remaining =
-            remaining.slice(bestCut + 1).trim();
-    }
-
-    if (remaining.length > 0) {
-        chunks.push(remaining);
-    }
-
-    return chunks;
+    document.getElementById(
+        "selectedVoice"
+    ).innerText =
+        "Selected Voice — " +
+        selectedVoice;
 }
 
+function selectEmotion(button){
 
-// ========================================
-// WAV Audio တွေကို ပြန်ပေါင်းခြင်း
-// ========================================
+    document
+    .querySelectorAll(".emotion")
+    .forEach(btn=>{
+        btn.classList.remove("active");
+    });
 
-function mergeWavFiles(buffers) {
+    button.classList.add("active");
 
-    if (!buffers.length) {
-        throw new Error("Audio file မရှိပါ။");
-    }
-
-    const first =
-        new Uint8Array(buffers[0]);
-
-    // WAV header = 44 bytes
-    const header =
-        first.slice(0, 44);
-
-    let totalDataLength = 0;
-
-    for (const buffer of buffers) {
-        totalDataLength +=
-            buffer.byteLength - 44;
-    }
-
-    const result =
-        new Uint8Array(
-            44 + totalDataLength
-        );
-
-    // Header copy
-    result.set(header, 0);
-
-    let offset = 44;
-
-    for (const buffer of buffers) {
-
-        const data =
-            new Uint8Array(buffer);
-
-        result.set(
-            data.slice(44),
-            offset
-        );
-
-        offset +=
-            data.length - 44;
-    }
-
-    const view =
-        new DataView(
-            result.buffer
-        );
-
-    // RIFF file size
-    view.setUint32(
-        4,
-        36 + totalDataLength,
-        true
-    );
-
-    // WAV data size
-    view.setUint32(
-        40,
-        totalDataLength,
-        true
-    );
-
-    return result.buffer;
+    selectedEmotion =
+        button.dataset.emotion;
 }
 
-
-// ========================================
-// Generate Voice
-// ========================================
-
-async function generateVoice() {
+function updateCounter(){
 
     const text =
-        document
-        .getElementById("text")
-        .value
-        .trim();
+        document.getElementById("text").value;
+
+    document.getElementById(
+        "counter"
+    ).innerText =
+        text.length;
+}
+
+function updateSpeed(){
+
+    document.getElementById(
+        "speedValue"
+    ).innerText =
+        document.getElementById(
+            "speed"
+        ).value;
+}
+
+function changeSpeed(amount){
+
+    const slider =
+        document.getElementById("speed");
+
+    let value =
+        Number(slider.value) + amount;
+
+    value =
+        Math.max(
+            -5,
+            Math.min(5,value)
+        );
+
+    slider.value = value;
+
+    updateSpeed();
+}
+
+function updatePitch(){
+
+    document.getElementById(
+        "pitchValue"
+    ).innerText =
+        document.getElementById(
+            "pitch"
+        ).value;
+}
+
+function changePitch(amount){
+
+    const slider =
+        document.getElementById("pitch");
+
+    let value =
+        Number(slider.value) + amount;
+
+    value =
+        Math.max(
+            -5,
+            Math.min(5,value)
+        );
+
+    slider.value = value;
+
+    updatePitch();
+}
+
+async function generateVoice(){
+
+    const text =
+        document.getElementById(
+            "text"
+        ).value.trim();
 
     const status =
-        document.getElementById("status");
+        document.getElementById(
+            "status"
+        );
 
     const button =
-        document.getElementById("generateBtn");
+        document.getElementById(
+            "generateBtn"
+        );
 
     const audio =
-        document.getElementById("audioPlayer");
+        document.getElementById(
+            "audioPlayer"
+        );
 
     const download =
-        document.getElementById("downloadBtn");
+        document.getElementById(
+            "downloadBtn"
+        );
 
-    if (!text) {
+    const speed =
+        Number(
+            document.getElementById(
+                "speed"
+            ).value
+        );
+
+    const pitch =
+        Number(
+            document.getElementById(
+                "pitch"
+            ).value
+        );
+
+    if(!text){
 
         alert(
             "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
@@ -174,173 +713,87 @@ async function generateVoice() {
         return;
     }
 
-    // ------------------------------------
-    // Text ကို အပိုင်းခွဲ
-    // ------------------------------------
-
-    const chunks =
-        splitText(text, 1000);
-
     button.disabled = true;
 
-    download.style.display = "none";
+    download.style.display =
+        "none";
 
     status.innerText =
-        `⏳ စတင်နေပါပြီ... 0/${chunks.length}`;
+        "⏳ " +
+        selectedVoice +
+        " ဖြင့် အသံထုတ်နေပါသည်...";
 
-    try {
+    try{
 
-        const audioBuffers = [];
+        const response =
+            await fetch(
+                "/api/tts",
+                {
+                    method:"POST",
 
-        // --------------------------------
-        // အပိုင်းတစ်ခုချင်း Generate
-        // --------------------------------
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-        for (
-            let i = 0;
-            i < chunks.length;
-            i++
-        ) {
+                    body:JSON.stringify({
 
-            status.innerText =
-                `🎙️ အသံထုတ်နေပါသည်... ${i + 1}/${chunks.length}`;
+                        text:text,
 
-            const response =
-                await fetch(
-                    "/api/tts",
-                    {
-                        method: "POST",
+                        voice:
+                            selectedVoice,
 
-                        headers: {
-                            "Content-Type":
-                                "application/json"
-                        },
+                        emotion:
+                            selectedEmotion,
 
-                        body: JSON.stringify({
-                            text:
-                                chunks[i],
+                        speed:
+                            speed,
 
-                            voice:
-                                selectedVoice
-                        })
-                    }
-                );
+                        pitch:
+                            pitch
 
-            // --------------------------------
-            // Error
-            // --------------------------------
-
-            if (!response.ok) {
-
-                let errorMessage =
-                    "အသံထုတ်မရပါ။";
-
-                const contentType =
-                    response.headers.get(
-                        "content-type"
-                    ) || "";
-
-                if (
-                    contentType.includes(
-                        "application/json"
-                    )
-                ) {
-
-                    const data =
-                        await response.json();
-
-                    errorMessage =
-                        data.error ||
-                        errorMessage;
+                    })
                 }
+            );
 
-                // Quota error
-                if (
-                    response.status === 429 ||
-                    errorMessage
-                        .toLowerCase()
-                        .includes("quota")
-                ) {
+        const contentType =
+            response.headers.get(
+                "content-type"
+            ) || "";
 
-                    throw new Error(
-                        "Gemini Free Tier quota ပြည့်သွားပါပြီ။ ခဏစောင့်ပြီး ပြန်စမ်းပါ။"
-                    );
-                }
+        if(!response.ok){
 
-                throw new Error(
-                    errorMessage
-                );
+            let message =
+                "အသံထုတ်မရပါ။";
+
+            if(
+                contentType.includes(
+                    "application/json"
+                )
+            ){
+
+                const data =
+                    await response.json();
+
+                message =
+                    data.error ||
+                    message;
             }
 
-            // --------------------------------
-            // Audio Buffer
-            // --------------------------------
-
-            const buffer =
-                await response.arrayBuffer();
-
-            if (!buffer.byteLength) {
-
-                throw new Error(
-                    `အပိုင်း ${i + 1} မှာ Audio မရပါ။`
-                );
-            }
-
-            audioBuffers.push(buffer);
-
-            // --------------------------------
-            // Quota မမြန်မြန်စားအောင်
-            // အပိုင်းတိုင်းကြား 1 sec ခဏစောင့်
-            // --------------------------------
-
-            if (
-                i <
-                chunks.length - 1
-            ) {
-
-                await new Promise(
-                    resolve =>
-                        setTimeout(
-                            resolve,
-                            1000
-                        )
-                );
-            }
+            throw new Error(message);
         }
 
-        // ------------------------------------
-        // Audio အားလုံး ပြန်ပေါင်း
-        // ------------------------------------
-
-        status.innerText =
-            "🔄 အသံဖိုင်တွေကို ပြန်ပေါင်းနေပါသည်...";
-
-        const mergedAudio =
-            mergeWavFiles(
-                audioBuffers
-            );
-
-        // ------------------------------------
-        // Blob
-        // ------------------------------------
-
         const blob =
-            new Blob(
-                [mergedAudio],
-                {
-                    type: "audio/wav"
-                }
-            );
+            await response.blob();
 
-        if (!blob.size) {
+        if(!blob.size){
 
             throw new Error(
                 "Audio file အလွတ်ဖြစ်နေပါသည်။"
             );
         }
 
-        // Old URL ဖျက်
-        if (audioUrl) {
+        if(audioUrl){
 
             URL.revokeObjectURL(
                 audioUrl
@@ -357,42 +810,30 @@ async function generateVoice() {
 
         audio.load();
 
-        // ------------------------------------
-        // Success
-        // ------------------------------------
-
         status.innerText =
-            `✅ Recap အသံပြီးပါပြီ။ (${chunks.length} ပိုင်း)`;
+            "✅ အသံရပါပြီ။";
 
         download.style.display =
             "block";
 
-    } catch (error) {
+    }catch(error){
 
-        console.error(
-            "TTS Error:",
-            error
-        );
+        console.error(error);
 
         status.innerText =
             "❌ " +
             error.message;
 
-    } finally {
+    }finally{
 
         button.disabled =
             false;
     }
 }
 
+function downloadAudio(){
 
-// ========================================
-// Download
-// ========================================
-
-function downloadAudio() {
-
-    if (!audioUrl) {
+    if(!audioUrl){
         return;
     }
 
@@ -403,7 +844,7 @@ function downloadAudio() {
         audioUrl;
 
     link.download =
-        "YanNaing-Myanmar-Recap.wav";
+        "YanNaing-Gemini-TTS.wav";
 
     document.body.appendChild(
         link
@@ -413,3 +854,8 @@ function downloadAudio() {
 
     link.remove();
 }
+
+</script>
+
+</body>
+</html>
