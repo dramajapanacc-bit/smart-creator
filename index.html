@@ -1,443 +1,689 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>YanNaing Free AI Tool</title>
+<title>YanNaing Free AI Tool</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+<style>
+*{
+    box-sizing:border-box;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-            background:
-                radial-gradient(circle at top, #312e81 0%, transparent 35%),
-                linear-gradient(135deg, #020617, #111827, #1e1b4b);
-            color: white;
-            padding: 20px;
-        }
+body{
+    margin:0;
+    min-height:100vh;
+    padding:20px;
+    font-family:"Segoe UI",Tahoma,sans-serif;
+    color:#fff;
+    background:
+        radial-gradient(circle at top,#243b72 0%,transparent 38%),
+        linear-gradient(135deg,#07101f,#111c30,#151d32);
+}
 
-        .container {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
-            padding: 25px;
-            border-radius: 22px;
-            background: rgba(15, 23, 42, 0.94);
-            border: 1px solid rgba(255,255,255,0.12);
-            box-shadow: 0 15px 45px rgba(0,0,0,0.55);
-        }
+.container{
+    width:100%;
+    max-width:680px;
+    margin:auto;
+}
 
-        .title {
-            text-align: center;
-            font-size: 30px;
-            font-weight: 900;
-            margin-bottom: 6px;
+.card{
+    background:rgba(25,38,60,.96);
+    border:1px solid rgba(148,163,184,.18);
+    border-radius:24px;
+    padding:22px;
+    box-shadow:0 18px 50px rgba(0,0,0,.45);
+}
 
-            background: linear-gradient(
-                90deg,
-                #ff3b30,
-                #ffcc00,
-                #34c759,
-                #00c7ff,
-                #5856d6,
-                #ff2d55
-            );
+.title{
+    text-align:center;
+    font-size:29px;
+    font-weight:900;
+    margin-bottom:5px;
+    background:linear-gradient(
+        90deg,#38bdf8,#6366f1,#ec4899,#f59e0b
+    );
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+.subtitle{
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+    margin-bottom:25px;
+}
 
-        .subtitle {
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 13px;
-            margin-bottom: 25px;
-        }
+.section-title{
+    color:#60a5fa;
+    font-weight:800;
+    font-size:16px;
+    margin:20px 0 12px;
+}
 
-        label {
-            display: block;
-            margin: 16px 0 8px;
-            font-size: 14px;
-            font-weight: 700;
-            color: #f8fafc;
-        }
+textarea{
+    width:100%;
+    min-height:180px;
+    resize:vertical;
+    padding:16px;
+    border-radius:16px;
+    border:2px solid #334155;
+    background:#0b1424;
+    color:#fff;
+    font-size:16px;
+    line-height:1.7;
+    outline:none;
+}
 
-        textarea,
-        select {
-            width: 100%;
-            border: 1px solid #475569;
-            border-radius: 12px;
-            background: #020617;
-            color: white;
-            padding: 14px;
-            font-size: 15px;
-            outline: none;
-        }
+textarea:focus{
+    border-color:#3b82f6;
+}
 
-        textarea {
-            min-height: 180px;
-            resize: vertical;
-            line-height: 1.6;
-        }
+.counter{
+    text-align:right;
+    color:#64748b;
+    font-size:12px;
+    margin-top:5px;
+}
 
-        textarea:focus,
-        select:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 10px rgba(56,189,248,0.3);
-        }
+.voice-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
 
-        .voice-title {
-            margin-top: 18px;
-            font-size: 15px;
-            font-weight: 800;
-            color: #38bdf8;
-        }
+.voice{
+    padding:15px 10px;
+    border-radius:14px;
+    border:2px solid #3b4a63;
+    background:#172338;
+    color:#fff;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
 
-        .voice-group {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
+.voice:hover{
+    border-color:#60a5fa;
+}
 
-        .voice-button {
-            padding: 13px 10px;
-            border-radius: 12px;
-            border: 1px solid #475569;
-            background: #111827;
-            color: white;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+.voice.active{
+    border-color:#38bdf8;
+    background:linear-gradient(135deg,#1769aa,#5b3fc4);
+    box-shadow:0 0 18px rgba(56,189,248,.22);
+}
 
-        .voice-button:hover {
-            transform: translateY(-1px);
-            border-color: #38bdf8;
-        }
+.selected{
+    margin-top:10px;
+    text-align:center;
+    color:#94a3b8;
+    font-size:13px;
+}
 
-        .voice-button.active {
-            border-color: #38bdf8;
-            background: linear-gradient(135deg, #0369a1, #4338ca);
-            box-shadow: 0 0 14px rgba(56,189,248,0.25);
-        }
+.emotion-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
 
-        .male {
-            border-left: 4px solid #3b82f6;
-        }
+.emotion{
+    padding:13px 7px;
+    border-radius:13px;
+    border:2px solid #3b4a63;
+    background:#172338;
+    color:#e2e8f0;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+}
 
-        .female {
-            border-left: 4px solid #ec4899;
-        }
+.emotion.active{
+    border-color:#ec4899;
+    background:linear-gradient(135deg,#7c3aed,#db2777);
+}
 
-        .generate-btn {
-            width: 100%;
-            margin-top: 20px;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            background: linear-gradient(
-                135deg,
-                #0284c7,
-                #4f46e5
-            );
-            color: white;
-            font-size: 17px;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 7px 20px rgba(37,99,235,0.35);
-        }
+.control{
+    margin-top:18px;
+    padding:18px;
+    border:2px solid #334155;
+    border-radius:20px;
+    background:#172338;
+}
 
-        .generate-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+.control-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
 
-        .status {
-            margin-top: 15px;
-            text-align: center;
-            color: #cbd5e1;
-            font-size: 14px;
-            min-height: 22px;
-        }
+.control-name{
+    font-size:16px;
+    font-weight:800;
+}
 
-        audio {
-            width: 100%;
-            margin-top: 15px;
-        }
+.value{
+    min-width:58px;
+    padding:9px 12px;
+    border-radius:10px;
+    text-align:center;
+    font-weight:900;
+    background:#ec4899;
+}
 
-        .download-btn {
-            width: 100%;
-            margin-top: 10px;
-            padding: 13px;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            background: #1e293b;
-            color: white;
-            font-weight: 700;
-            cursor: pointer;
-            display: none;
-        }
+.control-row{
+    display:grid;
+    grid-template-columns:65px 1fr 65px;
+    align-items:center;
+    gap:12px;
+}
 
-        .selected {
-            text-align: center;
-            margin-top: 10px;
-            color: #94a3b8;
-            font-size: 13px;
-        }
+.control-btn{
+    height:58px;
+    border-radius:15px;
+    border:2px solid #475569;
+    background:#172338;
+    color:#e2e8f0;
+    font-size:27px;
+    font-weight:800;
+    cursor:pointer;
+}
 
-        @media (max-width: 500px) {
-            .container {
-                padding: 18px;
-            }
+.control-btn:hover{
+    border-color:#60a5fa;
+}
 
-            .title {
-                font-size: 25px;
-            }
+input[type="range"]{
+    width:100%;
+    accent-color:#ec4899;
+    cursor:pointer;
+}
 
-            .voice-group {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+.generate{
+    width:100%;
+    margin-top:22px;
+    padding:17px;
+    border:0;
+    border-radius:15px;
+    background:linear-gradient(135deg,#2563eb,#9333ea);
+    color:#fff;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(59,130,246,.3);
+}
+
+.generate:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.status{
+    min-height:25px;
+    margin-top:15px;
+    text-align:center;
+    color:#cbd5e1;
+}
+
+audio{
+    width:100%;
+    margin-top:12px;
+}
+
+.download{
+    display:none;
+    width:100%;
+    margin-top:10px;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid #475569;
+    background:#1e293b;
+    color:#fff;
+    font-weight:800;
+    cursor:pointer;
+}
+
+@media(max-width:520px){
+    body{
+        padding:10px;
+    }
+
+    .card{
+        padding:17px;
+    }
+
+    .voice-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .emotion-grid{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+
+    .control-row{
+        grid-template-columns:55px 1fr 55px;
+    }
+}
+</style>
 </head>
 
 <body>
 
 <div class="container">
 
-    <div class="title">
-        ✨ YanNaing Free AI Tool ✨
-    </div>
+<div class="card">
 
-    <div class="subtitle">
-        🇲🇲 Gemini AI Myanmar Voice Generator
-    </div>
+<div class="title">
+✨ YanNaing Free AI Tool ✨
+</div>
 
-    <label for="text">
-        📝 မြန်မာစာထည့်ပါ
-    </label>
+<div class="subtitle">
+🇲🇲 Gemini AI Myanmar Voice Generator
+</div>
 
-    <textarea
-        id="text"
-        maxlength="5000"
-        placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
-    ></textarea>
+<div class="section-title">
+📝 စာထည့်ပါ
+</div>
 
-    <div class="selected" id="selectedVoice">
-        Selected Voice — Zephyr
-    </div>
+<textarea
+id="text"
+maxlength="5000"
+placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
+oninput="updateCounter()"
+></textarea>
 
-    <div class="voice-title">
-        👨 Voice
-    </div>
+<div class="counter">
+<span id="counter">0</span> / 5000
+</div>
 
-    <div class="voice-group">
 
-        <button
-            class="voice-button male active"
-            data-voice="Zephyr"
-            data-name="Zephyr"
-            onclick="selectVoice(this)"
-        >
-            Zephyr
-        </button>
+<div class="section-title">
+🎙️ Voice
+</div>
 
-        <button
-            class="voice-button male"
-            data-voice="Puck"
-            data-name="Puck"
-            onclick="selectVoice(this)"
-        >
-            Puck
-        </button>
+<div class="voice-grid">
 
-        <button
-            class="voice-button male"
-            data-voice="Charon"
-            data-name="Charon"
-            onclick="selectVoice(this)"
-        >
-            Charon
-        </button>
+<button class="voice active"
+data-voice="Zephyr"
+onclick="selectVoice(this)">
+Zephyr
+</button>
 
-        <button
-            class="voice-button male"
-            data-voice="Kore"
-            data-name="Kore"
-            onclick="selectVoice(this)"
-        >
-            Kore
-        </button>
+<button class="voice"
+data-voice="Puck"
+onclick="selectVoice(this)">
+Puck
+</button>
 
-        <button
-            class="voice-button male"
-            data-voice="Fenrir"
-            data-name="Fenrir"
-            onclick="selectVoice(this)"
-        >
-            Fenrir
-        </button>
+<button class="voice"
+data-voice="Charon"
+onclick="selectVoice(this)">
+Charon
+</button>
 
-        <button
-            class="voice-button male"
-            data-voice="Orus"
-            data-name="Orus"
-            onclick="selectVoice(this)"
-        >
-            Orus
-        </button>
+<button class="voice"
+data-voice="Kore"
+onclick="selectVoice(this)">
+Kore
+</button>
 
-    </div>
-
-    <div class="voice-title">
-        👩 Voice
-    </div>
-
-    <div class="voice-group">
-
-        <button
-            class="voice-button female"
-            data-voice="Leda"
-            data-name="Leda"
-            onclick="selectVoice(this)"
-        >
-            Leda
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Aoede"
-            data-name="Aoede"
-            onclick="selectVoice(this)"
-        >
-            Aoede
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Gacrux"
-            data-name="Gacrux"
-            onclick="selectVoice(this)"
-        >
-            Gacrux
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Sulafat"
-            data-name="Sulafat"
-            onclick="selectVoice(this)"
-        >
-            Sulafat
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Achernar"
-            data-name="Achernar"
-            onclick="selectVoice(this)"
-        >
-            Achernar
-        </button>
-
-        <button
-            class="voice-button female"
-            data-voice="Vindemiatrix"
-            data-name="Vindemiatrix"
-            onclick="selectVoice(this)"
-        >
-            Vindemiatrix
-        </button>
-
-    </div>
-
-    <button
-        class="generate-btn"
-        id="generateBtn"
-        onclick="generateVoice()"
-    >
-        🎙️ မြန်မာအသံထုတ်မည်
-    </button>
-
-    <div
-        class="status"
-        id="status"
-    ></div>
-
-    <audio
-        id="audioPlayer"
-        controls
-    ></audio>
-
-    <button
-        class="download-btn"
-        id="downloadBtn"
-        onclick="downloadAudio()"
-    >
-        ⬇️ အသံဖိုင် Download
-    </button>
+<button class="voice"
+data-voice="Leda"
+onclick="selectVoice(this)">
+Leda
+</button>
 
 </div>
+
+<div class="selected" id="selectedVoice">
+Selected Voice — Zephyr
+</div>
+
+
+<div class="section-title">
+🎭 Emotion
+</div>
+
+<div class="emotion-grid">
+
+<button class="emotion active"
+data-emotion="natural"
+onclick="selectEmotion(this)">
+😌 Natural
+</button>
+
+<button class="emotion"
+data-emotion="happy"
+onclick="selectEmotion(this)">
+😊 Happy
+</button>
+
+<button class="emotion"
+data-emotion="sad"
+onclick="selectEmotion(this)">
+😢 Sad
+</button>
+
+<button class="emotion"
+data-emotion="angry"
+onclick="selectEmotion(this)">
+😠 Angry
+</button>
+
+<button class="emotion"
+data-emotion="excited"
+onclick="selectEmotion(this)">
+🤩 Excited
+</button>
+
+<button class="emotion"
+data-emotion="serious"
+onclick="selectEmotion(this)">
+😐 Serious
+</button>
+
+<button class="emotion"
+data-emotion="calm"
+onclick="selectEmotion(this)">
+😌 Calm
+</button>
+
+<button class="emotion"
+data-emotion="whisper"
+onclick="selectEmotion(this)">
+🤫 Whisper
+</button>
+
+<button class="emotion"
+data-emotion="dramatic"
+onclick="selectEmotion(this)">
+😮 Dramatic
+</button>
+
+</div>
+
+
+<div class="control">
+
+<div class="control-head">
+
+<div class="control-name">
+⚡ Speed
+</div>
+
+<div class="value" id="speedValue">
+0
+</div>
+
+</div>
+
+<div class="control-row">
+
+<button
+class="control-btn"
+onclick="changeSpeed(-1)">
+−
+</button>
+
+<input
+id="speed"
+type="range"
+min="-5"
+max="5"
+value="0"
+step="1"
+oninput="updateSpeed()"
+>
+
+<button
+class="control-btn"
+onclick="changeSpeed(1)">
++
+</button>
+
+</div>
+
+</div>
+
+
+<div class="control">
+
+<div class="control-head">
+
+<div class="control-name">
+🎚️ Pitch
+</div>
+
+<div
+class="value"
+id="pitchValue"
+style="background:#9333ea">
+0
+</div>
+
+</div>
+
+<div class="control-row">
+
+<button
+class="control-btn"
+onclick="changePitch(-1)">
+−
+</button>
+
+<input
+id="pitch"
+type="range"
+min="-5"
+max="5"
+value="0"
+step="1"
+oninput="updatePitch()"
+>
+
+<button
+class="control-btn"
+onclick="changePitch(1)">
++
+</button>
+
+</div>
+
+</div>
+
+
+<button
+class="generate"
+id="generateBtn"
+onclick="generateVoice()">
+🎙️ မြန်မာအသံထုတ်မည်
+</button>
+
+<div
+class="status"
+id="status">
+</div>
+
+<audio
+id="audioPlayer"
+controls>
+</audio>
+
+<button
+class="download"
+id="downloadBtn"
+onclick="downloadAudio()">
+⬇️ အသံဖိုင် Download
+</button>
+
+</div>
+</div>
+
 
 <script>
 
 let selectedVoice = "Zephyr";
-let selectedVoiceName = "Zephyr";
+let selectedEmotion = "natural";
+
 let audioUrl = null;
 
-function selectVoice(button) {
+
+/* Voice */
+
+function selectVoice(button){
 
     document
-        .querySelectorAll(".voice-button")
-        .forEach(btn => {
-            btn.classList.remove("active");
-        });
+    .querySelectorAll(".voice")
+    .forEach(btn =>
+        btn.classList.remove("active")
+    );
 
     button.classList.add("active");
 
     selectedVoice =
         button.dataset.voice;
 
-    selectedVoiceName =
-        button.dataset.name;
-
     document.getElementById(
         "selectedVoice"
     ).innerText =
         "Selected Voice — " +
-        selectedVoiceName;
+        selectedVoice;
 }
 
 
-async function generateVoice() {
+/* Emotion */
+
+function selectEmotion(button){
+
+    document
+    .querySelectorAll(".emotion")
+    .forEach(btn =>
+        btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    selectedEmotion =
+        button.dataset.emotion;
+}
+
+
+/* Counter */
+
+function updateCounter(){
 
     const text =
-        document
-        .getElementById("text")
-        .value
-        .trim();
+        document.getElementById("text").value;
+
+    document.getElementById(
+        "counter"
+    ).innerText = text.length;
+}
+
+
+/* Speed */
+
+function updateSpeed(){
+
+    document.getElementById(
+        "speedValue"
+    ).innerText =
+        document.getElementById(
+            "speed"
+        ).value;
+}
+
+function changeSpeed(amount){
+
+    const slider =
+        document.getElementById("speed");
+
+    let value =
+        Number(slider.value) + amount;
+
+    value =
+        Math.max(-5,Math.min(5,value));
+
+    slider.value = value;
+
+    updateSpeed();
+}
+
+
+/* Pitch */
+
+function updatePitch(){
+
+    document.getElementById(
+        "pitchValue"
+    ).innerText =
+        document.getElementById(
+            "pitch"
+        ).value;
+}
+
+function changePitch(amount){
+
+    const slider =
+        document.getElementById("pitch");
+
+    let value =
+        Number(slider.value) + amount;
+
+    value =
+        Math.max(-5,Math.min(5,value));
+
+    slider.value = value;
+
+    updatePitch();
+}
+
+
+/* Generate */
+
+async function generateVoice(){
+
+    const text =
+        document.getElementById(
+            "text"
+        ).value.trim();
 
     const status =
-        document.getElementById("status");
+        document.getElementById(
+            "status"
+        );
 
     const button =
-        document.getElementById("generateBtn");
+        document.getElementById(
+            "generateBtn"
+        );
 
     const audio =
-        document.getElementById("audioPlayer");
+        document.getElementById(
+            "audioPlayer"
+        );
 
     const download =
-        document.getElementById("downloadBtn");
+        document.getElementById(
+            "downloadBtn"
+        );
 
-    if (!text) {
+    const speed =
+        Number(
+            document.getElementById(
+                "speed"
+            ).value
+        );
+
+    const pitch =
+        Number(
+            document.getElementById(
+                "pitch"
+            ).value
+        );
+
+    if(!text){
 
         alert(
             "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
@@ -446,67 +692,72 @@ async function generateVoice() {
         return;
     }
 
-    status.innerText =
-        "⏳ " +
-        selectedVoiceName +
-        " ဖြင့် အသံထုတ်နေပါသည်...";
-
     button.disabled = true;
 
-    download.style.display =
-        "none";
+    download.style.display = "none";
 
-    try {
+    status.innerText =
+        "⏳ " +
+        selectedVoice +
+        " ဖြင့် အသံထုတ်နေပါသည်...";
+
+    try{
 
         const response =
-            await fetch("/api/tts", {
+            await fetch(
+                "/api/tts",
+                {
+                    method:"POST",
 
-                method: "POST",
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
+                    body:JSON.stringify({
 
-                body: JSON.stringify({
+                        text:text,
 
-                    text: text,
+                        voice:
+                            selectedVoice,
 
-                    voice:
-                        selectedVoice
+                        emotion:
+                            selectedEmotion,
 
-                })
+                        speed:speed,
 
-            });
+                        pitch:pitch
+
+                    })
+                }
+            );
 
 
         const contentType =
-            response.headers
-            .get("content-type") || "";
+            response.headers.get(
+                "content-type"
+            ) || "";
 
 
-        if (!response.ok) {
+        if(!response.ok){
 
-            let errorMessage =
+            let message =
                 "အသံထုတ်မရပါ။";
 
-            if (
+            if(
                 contentType.includes(
                     "application/json"
                 )
-            ) {
+            ){
 
                 const data =
                     await response.json();
 
-                errorMessage =
-                    data.error ||
-                    errorMessage;
+                message =
+                    data.error || message;
             }
 
-            throw new Error(
-                errorMessage
-            );
+            throw new Error(message);
         }
 
 
@@ -514,7 +765,7 @@ async function generateVoice() {
             await response.blob();
 
 
-        if (!blob.size) {
+        if(!blob.size){
 
             throw new Error(
                 "Audio file အလွတ်ဖြစ်နေပါသည်။"
@@ -522,7 +773,7 @@ async function generateVoice() {
         }
 
 
-        if (audioUrl) {
+        if(audioUrl){
 
             URL.revokeObjectURL(
                 audioUrl
@@ -535,7 +786,6 @@ async function generateVoice() {
                 blob
             );
 
-
         audio.src =
             audioUrl;
 
@@ -543,16 +793,13 @@ async function generateVoice() {
 
 
         status.innerText =
-            "✅ " +
-            selectedVoiceName +
-            " အသံရပါပြီ။";
+            "✅ အသံရပါပြီ။";
 
         download.style.display =
             "block";
 
     }
-
-    catch (error) {
+    catch(error){
 
         console.error(error);
 
@@ -561,18 +808,18 @@ async function generateVoice() {
             error.message;
 
     }
+    finally{
 
-    finally {
-
-        button.disabled =
-            false;
+        button.disabled = false;
     }
 }
 
 
-function downloadAudio() {
+/* Download */
 
-    if (!audioUrl) {
+function downloadAudio(){
+
+    if(!audioUrl){
         return;
     }
 
@@ -583,13 +830,9 @@ function downloadAudio() {
         audioUrl;
 
     link.download =
-        "YanNaing-" +
-        selectedVoiceName +
-        ".wav";
+        "YanNaing-Gemini-TTS.wav";
 
-    document.body.appendChild(
-        link
-    );
+    document.body.appendChild(link);
 
     link.click();
 
