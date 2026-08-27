@@ -1,380 +1,461 @@
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
-  }
 
-  try {
-    const {
-      text,
-      voice,
-      emotion,
-      speed,
-      pitch
-    } = req.body || {};
+    if (req.method !== "POST") {
 
-    if (!text || !String(text).trim()) {
-      return res.status(400).json({
-        error: "မြန်မာစာ ထည့်ပေးပါ။"
-      });
+        return res.status(405).json({
+            error: "Method not allowed"
+        });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
+    try {
 
-    if (!apiKey) {
-      return res.status(500).json({
-        error: "GEMINI_API_KEY မတွေ့ပါ။"
-      });
-    }
+        const {
+            text,
+            voice,
+            emotion,
+            speed,
+            pitch
+        } = req.body || {};
 
-    // Gemini TTS voices
-    const allowedVoices = [
-      "Zephyr",
-      "Puck",
-      "Charon",
-      "Kore",
-      "Leda"
-    ];
+        if (!text || !String(text).trim()) {
 
-    const selectedVoice =
-      allowedVoices.includes(voice)
-        ? voice
-        : "Zephyr";
+            return res.status(400).json({
+                error: "မြန်မာစာ ထည့်ပေးပါ။"
+            });
+        }
 
-    // Emotion
-    const emotions = {
-      natural: "natural, clear and balanced",
-      happy: "warm, happy and cheerful",
-      sad: "soft, sad and emotional",
-      angry: "angry and intense",
-      excited: "excited and energetic",
-      serious: "serious and professional",
-      calm: "calm, soft and relaxed",
-      whisper: "very soft and quiet",
-      dramatic: "dramatic and expressive"
-    };
+        const apiKey =
+            process.env.GEMINI_API_KEY;
 
-    const selectedEmotion =
-      emotions[emotion] || emotions.natural;
+        if (!apiKey) {
 
-    // Speed
-    let speedNumber = Number(speed);
+            return res.status(500).json({
+                error:
+                    "GEMINI_API_KEY မတွေ့ပါ။"
+            });
+        }
 
-    if (Number.isNaN(speedNumber)) {
-      speedNumber = 0;
-    }
+        const allowedVoices = [
+            "Zephyr",
+            "Puck",
+            "Charon",
+            "Kore",
+            "Leda"
+        ];
 
-    speedNumber = Math.max(
-      -5,
-      Math.min(5, speedNumber)
-    );
+        const selectedVoice =
+            allowedVoices.includes(voice)
+                ? voice
+                : "Zephyr";
 
-    let speedText = "normal speaking speed";
+        const emotionMap = {
 
-    if (speedNumber <= -4) {
-      speedText = "very slow speaking pace";
-    } else if (speedNumber === -3) {
-      speedText = "slow speaking pace";
-    } else if (speedNumber === -2) {
-      speedText = "slightly slow speaking pace";
-    } else if (speedNumber === -1) {
-      speedText = "slightly slower than normal";
-    } else if (speedNumber === 1) {
-      speedText = "slightly faster than normal";
-    } else if (speedNumber === 2) {
-      speedText = "fast speaking pace";
-    } else if (speedNumber === 3) {
-      speedText = "very fast speaking pace";
-    } else if (speedNumber >= 4) {
-      speedText = "extremely fast speaking pace";
-    }
+            natural:
+                "natural, clear and neutral",
 
-    // Pitch
-    let pitchNumber = Number(pitch);
+            happy:
+                "happy, warm and cheerful",
 
-    if (Number.isNaN(pitchNumber)) {
-      pitchNumber = 0;
-    }
+            sad:
+                "sad, gentle and emotional",
 
-    pitchNumber = Math.max(
-      -5,
-      Math.min(5, pitchNumber)
-    );
+            angry:
+                "angry and firm",
 
-    let pitchText = "natural vocal pitch";
+            excited:
+                "excited, energetic and lively",
 
-    if (pitchNumber <= -4) {
-      pitchText = "very low vocal pitch";
-    } else if (pitchNumber === -3) {
-      pitchText = "low vocal pitch";
-    } else if (pitchNumber === -2) {
-      pitchText = "slightly low vocal pitch";
-    } else if (pitchNumber === -1) {
-      pitchText = "slightly lower vocal pitch";
-    } else if (pitchNumber === 1) {
-      pitchText = "slightly higher vocal pitch";
-    } else if (pitchNumber === 2) {
-      pitchText = "higher vocal pitch";
-    } else if (pitchNumber === 3) {
-      pitchText = "high vocal pitch";
-    } else if (pitchNumber >= 4) {
-      pitchText = "very high vocal pitch";
-    }
+            serious:
+                "serious, calm and authoritative",
 
-    // TTS instruction
-    const prompt = `
-Speak the following text in Burmese (Myanmar) language.
+            calm:
+                "calm, smooth and relaxed",
 
-Performance:
-- Voice: ${selectedVoice}
-- Emotion: ${selectedEmotion}
-- Speaking pace: ${speedText}
-- Vocal pitch: ${pitchText}
-- Use natural Burmese pronunciation.
-- Speak clearly and naturally.
-- Do not translate the text.
-- Do not explain anything.
-- Do not read these instructions.
-- Speak only the text under TEXT TO SPEAK.
+            whisper:
+                "soft and quiet, like a whisper",
+
+            dramatic:
+                "dramatic and expressive"
+        };
+
+        const selectedEmotion =
+            emotionMap[emotion] ||
+            emotionMap.natural;
+
+        let speedInstruction =
+            "normal speaking speed";
+
+        const speedNumber =
+            Number(speed) || 0;
+
+        if (speedNumber <= -3) {
+
+            speedInstruction =
+                "speak very slowly";
+
+        } else if (speedNumber === -2) {
+
+            speedInstruction =
+                "speak slowly";
+
+        } else if (speedNumber === -1) {
+
+            speedInstruction =
+                "speak slightly slower than normal";
+
+        } else if (speedNumber === 1) {
+
+            speedInstruction =
+                "speak slightly faster than normal";
+
+        } else if (speedNumber === 2) {
+
+            speedInstruction =
+                "speak faster than normal";
+
+        } else if (speedNumber >= 3) {
+
+            speedInstruction =
+                "speak very quickly";
+        }
+
+        let pitchInstruction =
+            "use a natural pitch";
+
+        const pitchNumber =
+            Number(pitch) || 0;
+
+        if (pitchNumber <= -3) {
+
+            pitchInstruction =
+                "use a noticeably lower pitch";
+
+        } else if (pitchNumber === -2) {
+
+            pitchInstruction =
+                "use a lower pitch";
+
+        } else if (pitchNumber === -1) {
+
+            pitchInstruction =
+                "use a slightly lower pitch";
+
+        } else if (pitchNumber === 1) {
+
+            pitchInstruction =
+                "use a slightly higher pitch";
+
+        } else if (pitchNumber === 2) {
+
+            pitchInstruction =
+                "use a higher pitch";
+
+        } else if (pitchNumber >= 3) {
+
+            pitchInstruction =
+                "use a noticeably higher pitch";
+        }
+
+        const cleanText =
+            String(text)
+            .trim()
+            .slice(0, 5000);
+
+        const prompt =
+`Generate speech audio.
+
+Language: Burmese Myanmar.
+
+Voice: ${selectedVoice}.
+
+Style:
+${selectedEmotion}.
+
+Pacing:
+${speedInstruction}.
+
+Pitch:
+${pitchInstruction}.
+
+Speak ONLY the Burmese text below.
+Do not translate it.
+Do not explain it.
+Do not read these instructions aloud.
 
 TEXT TO SPEAK:
-${String(text).trim()}
-`;
+${cleanText}`;
 
-    // Google Gemini Generate Content TTS API
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-tts-preview:generateContent";
+        const model =
+            "gemini-2.5-flash-preview-tts";
 
-    const response = await fetch(url, {
-      method: "POST",
+        const url =
+            "https://generativelanguage.googleapis.com/v1beta/models/" +
+            model +
+            ":generateContent";
 
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
+        const response =
+            await fetch(
+                url,
+                {
+                    method:"POST",
 
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt
-              }
-            ]
-          }
-        ],
+                    headers:{
+                        "Content-Type":
+                            "application/json",
 
-        generationConfig: {
-          responseModalities: [
-            "AUDIO"
-          ],
+                        "x-goog-api-key":
+                            apiKey
+                    },
 
-          speechConfig: {
-            voiceConfig: {
-              prebuiltVoiceConfig: {
-                voiceName: selectedVoice
-              }
-            }
-          }
+                    body:JSON.stringify({
+
+                        contents:[
+                            {
+                                parts:[
+                                    {
+                                        text:
+                                            prompt
+                                    }
+                                ]
+                            }
+                        ],
+
+                        generationConfig:{
+
+                            responseModalities:[
+                                "AUDIO"
+                            ],
+
+                            speechConfig:{
+
+                                voiceConfig:{
+
+                                    prebuiltVoiceConfig:{
+                                        voiceName:
+                                            selectedVoice
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    })
+                }
+            );
+
+        const data =
+            await response.json();
+
+        if(!response.ok){
+
+            console.error(
+                "Gemini API Error:",
+                JSON.stringify(data)
+            );
+
+            const apiMessage =
+                data?.error?.message ||
+                "Gemini TTS API Error ဖြစ်နေပါသည်။";
+
+            return res.status(
+                response.status >= 400 &&
+                response.status < 600
+                    ? response.status
+                    : 500
+            ).json({
+                error: apiMessage
+            });
         }
-      })
-    });
 
-    const data = await response.json();
+        const parts =
+            data?.candidates?.[0]
+                ?.content
+                ?.parts || [];
 
-    // Gemini API error
-    if (!response.ok) {
-      console.error(
-        "Gemini API Error:",
-        JSON.stringify(data)
-      );
+        let audioBase64 = null;
 
-      return res.status(500).json({
-        error:
-          data?.error?.message ||
-          "Gemini TTS API Error ဖြစ်နေပါသည်။"
-      });
+        for(const part of parts){
+
+            if(
+                part?.inlineData?.data
+            ){
+
+                audioBase64 =
+                    part.inlineData.data;
+
+                break;
+            }
+
+            if(
+                part?.inline_data?.data
+            ){
+
+                audioBase64 =
+                    part.inline_data.data;
+
+                break;
+            }
+        }
+
+        if(!audioBase64){
+
+            console.error(
+                "Gemini response:",
+                JSON.stringify(data)
+            );
+
+            return res.status(500).json({
+                error:
+                    "Gemini မှ Audio မပြန်လာပါ။"
+            });
+        }
+
+        const pcmBuffer =
+            Buffer.from(
+                audioBase64,
+                "base64"
+            );
+
+        if(!pcmBuffer.length){
+
+            return res.status(500).json({
+                error:
+                    "Audio data အလွတ်ဖြစ်နေပါသည်။"
+            });
+        }
+
+        /*
+         * Gemini TTS:
+         * 24000 Hz
+         * Mono
+         * 16-bit PCM
+         */
+
+        const channels = 1;
+        const sampleRate = 24000;
+        const bitsPerSample = 16;
+        const bytesPerSample = 2;
+
+        const byteRate =
+            sampleRate *
+            channels *
+            bytesPerSample;
+
+        const blockAlign =
+            channels *
+            bytesPerSample;
+
+        const wavHeader =
+            Buffer.alloc(44);
+
+        wavHeader.write(
+            "RIFF",
+            0
+        );
+
+        wavHeader.writeUInt32LE(
+            36 + pcmBuffer.length,
+            4
+        );
+
+        wavHeader.write(
+            "WAVE",
+            8
+        );
+
+        wavHeader.write(
+            "fmt ",
+            12
+        );
+
+        wavHeader.writeUInt32LE(
+            16,
+            16
+        );
+
+        wavHeader.writeUInt16LE(
+            1,
+            20
+        );
+
+        wavHeader.writeUInt16LE(
+            channels,
+            22
+        );
+
+        wavHeader.writeUInt32LE(
+            sampleRate,
+            24
+        );
+
+        wavHeader.writeUInt32LE(
+            byteRate,
+            28
+        );
+
+        wavHeader.writeUInt16LE(
+            blockAlign,
+            32
+        );
+
+        wavHeader.writeUInt16LE(
+            bitsPerSample,
+            34
+        );
+
+        wavHeader.write(
+            "data",
+            36
+        );
+
+        wavHeader.writeUInt32LE(
+            pcmBuffer.length,
+            40
+        );
+
+        const wavBuffer =
+            Buffer.concat([
+                wavHeader,
+                pcmBuffer
+            ]);
+
+        res.setHeader(
+            "Content-Type",
+            "audio/wav"
+        );
+
+        res.setHeader(
+            "Content-Length",
+            wavBuffer.length
+        );
+
+        res.setHeader(
+            "Content-Disposition",
+            'inline; filename="YanNaing-Gemini-TTS.wav"'
+        );
+
+        res.setHeader(
+            "Cache-Control",
+            "no-store"
+        );
+
+        return res
+            .status(200)
+            .send(wavBuffer);
+
+    } catch(error) {
+
+        console.error(
+            "TTS Server Error:",
+            error
+        );
+
+        return res.status(500).json({
+            error:
+                error?.message ||
+                "TTS Server Error ဖြစ်နေပါသည်။"
+        });
     }
-
-    // Find audio inside Gemini response
-    let audioBase64 = null;
-
-    const parts =
-      data?.candidates?.[0]?.content?.parts || [];
-
-    for (const part of parts) {
-      if (
-        part?.inlineData?.data
-      ) {
-        audioBase64 =
-          part.inlineData.data;
-
-        break;
-      }
-    }
-
-    if (!audioBase64) {
-      console.error(
-        "Gemini response:",
-        JSON.stringify(data)
-      );
-
-      return res.status(500).json({
-        error:
-          "Gemini က Audio ပြန်မပေးပါ။ API response ထဲမှာ audio data မတွေ့ပါ။"
-      });
-    }
-
-    // Base64 -> PCM Buffer
-    const pcmBuffer =
-      Buffer.from(
-        audioBase64,
-        "base64"
-      );
-
-    if (!pcmBuffer.length) {
-      return res.status(500).json({
-        error:
-          "Audio data အလွတ်ဖြစ်နေပါသည်။"
-      });
-    }
-
-    // Gemini TTS PCM:
-    // 24000 Hz
-    // 16-bit
-    // Mono
-
-    const sampleRate = 24000;
-    const channels = 1;
-    const bitsPerSample = 16;
-
-    const blockAlign =
-      channels *
-      bitsPerSample /
-      8;
-
-    const byteRate =
-      sampleRate *
-      blockAlign;
-
-    // WAV Header
-    const header =
-      Buffer.alloc(44);
-
-    header.write(
-      "RIFF",
-      0
-    );
-
-    header.writeUInt32LE(
-      36 + pcmBuffer.length,
-      4
-    );
-
-    header.write(
-      "WAVE",
-      8
-    );
-
-    header.write(
-      "fmt ",
-      12
-    );
-
-    header.writeUInt32LE(
-      16,
-      16
-    );
-
-    // PCM
-    header.writeUInt16LE(
-      1,
-      20
-    );
-
-    // Mono
-    header.writeUInt16LE(
-      channels,
-      22
-    );
-
-    // Sample rate
-    header.writeUInt32LE(
-      sampleRate,
-      24
-    );
-
-    // Byte rate
-    header.writeUInt32LE(
-      byteRate,
-      28
-    );
-
-    // Block align
-    header.writeUInt16LE(
-      blockAlign,
-      32
-    );
-
-    // Bits
-    header.writeUInt16LE(
-      bitsPerSample,
-      34
-    );
-
-    header.write(
-      "data",
-      36
-    );
-
-    header.writeUInt32LE(
-      pcmBuffer.length,
-      40
-    );
-
-    const wavBuffer =
-      Buffer.concat([
-        header,
-        pcmBuffer
-      ]);
-
-    // Send WAV to website
-    res.setHeader(
-      "Content-Type",
-      "audio/wav"
-    );
-
-    res.setHeader(
-      "Content-Length",
-      wavBuffer.length
-    );
-
-    res.setHeader(
-      "Content-Disposition",
-      'inline; filename="YanNaing-Gemini-TTS.wav"'
-    );
-
-    res.setHeader(
-      "Cache-Control",
-      "no-store"
-    );
-
-    return res
-      .status(200)
-      .send(wavBuffer);
-
-  } catch (error) {
-
-    console.error(
-      "TTS Server Error:",
-      error
-    );
-
-    return res.status(500).json({
-      error:
-        error?.message ||
-        "Voice ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
-    });
-  }
-          }
+              }
