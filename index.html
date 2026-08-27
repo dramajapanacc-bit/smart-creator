@@ -1,524 +1,101 @@
-<!DOCTYPE html><html lang="my">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>YanNaing Free Ai Tool</title>
+<script>
+    let selectedVoice = 'Zephyr';
+    let audioBlobUrl = null;
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    const textInput    = document.getElementById('textInput');
+    const generateBtn  = document.getElementById('generateBtn');
+    const statusDiv    = document.getElementById('status');
+    const audioPlayer  = document.getElementById('audioPlayer');
+    const downloadBtn  = document.getElementById('downloadBtn');
+    const voiceDisplay = document.getElementById('selectedVoiceDisplay');
+    const voiceGrid    = document.getElementById('voiceGrid');
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        font-family: "Segoe UI", Tahoma, sans-serif;
-        background:
-            radial-gradient(circle at top, #312e81 0%, transparent 35%),
-            linear-gradient(135deg, #020617, #111827, #1e1b4b);
-        color: white;
-        padding: 20px;
-    }
+    // Voice Selection
+    voiceGrid.addEventListener('click', (e) => {
+        const btn = e.target.closest('.voice-btn');
+        if (!btn) return;
+        document.querySelectorAll('.voice-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedVoice = btn.dataset.voice;
+        voiceDisplay.textContent = selectedVoice;
+    });
 
-    .container {
-        width: 100%;
-        max-width: 650px;
-        margin: 0 auto;
-        padding: 25px;
-        border-radius: 22px;
-        background: rgba(15, 23, 42, 0.94);
-        border: 1px solid rgba(255,255,255,0.12);
-        box-shadow: 0 15px 45px rgba(0,0,0,0.55);
-    }
-
-    .title {
-        text-align: center;
-        font-size: 30px;
-        font-weight: 900;
-        margin-bottom: 6px;
-
-        background: linear-gradient(
-            90deg,
-            #ff3b30,
-            #ffcc00,
-            #34c759,
-            #00c7ff,
-            #5856d6,
-            #ff2d55
-        );
-
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .subtitle {
-        text-align: center;
-        color: #cbd5e1;
-        font-size: 13px;
-        margin-bottom: 25px;
-    }
-
-    label {
-        display: block;
-        margin: 16px 0 8px;
-        font-size: 14px;
-        font-weight: 700;
-        color: #f8fafc;
-    }
-
-    textarea,
-    select {
-        width: 100%;
-        border: 1px solid #475569;
-        border-radius: 12px;
-        background: #020617;
-        color: white;
-        padding: 14px;
-        font-size: 15px;
-        outline: none;
-    }
-
-    textarea {
-        min-height: 180px;
-        resize: vertical;
-        line-height: 1.6;
-    }
-
-    textarea:focus,
-    select:focus {
-        border-color: #38bdf8;
-        box-shadow: 0 0 10px rgba(56,189,248,0.3);
-    }
-
-    select {
-        cursor: pointer;
-    }
-
-    .voice-title {
-        margin-top: 18px;
-        font-size: 15px;
-        font-weight: 800;
-        color: #38bdf8;
-    }
-
-    .voice-group {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .voice-button {
-        padding: 13px 10px;
-        border-radius: 12px;
-        border: 1px solid #475569;
-        background: #111827;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-
-    .voice-button:hover {
-        transform: translateY(-1px);
-        border-color: #38bdf8;
-    }
-
-    .voice-button.active {
-        border-color: #38bdf8;
-        background: linear-gradient(135deg, #0369a1, #4338ca);
-        box-shadow: 0 0 14px rgba(56,189,248,0.25);
-    }
-
-    .male {
-        border-left: 4px solid #3b82f6;
-    }
-
-    .female {
-        border-left: 4px solid #ec4899;
-    }
-
-    .generate-btn {
-        width: 100%;
-        margin-top: 20px;
-        padding: 15px;
-        border: none;
-        border-radius: 12px;
-        background: linear-gradient(
-            135deg,
-            #0284c7,
-            #4f46e5
-        );
-        color: white;
-        font-size: 17px;
-        font-weight: 900;
-        cursor: pointer;
-        box-shadow: 0 7px 20px rgba(37,99,235,0.35);
-    }
-
-    .generate-btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    .status {
-        margin-top: 15px;
-        text-align: center;
-        color: #cbd5e1;
-        font-size: 14px;
-        min-height: 22px;
-    }
-
-    audio {
-        width: 100%;
-        margin-top: 15px;
-    }
-
-    .download-btn {
-        width: 100%;
-        margin-top: 10px;
-        padding: 13px;
-        border: 1px solid #334155;
-        border-radius: 10px;
-        background: #1e293b;
-        color: white;
-        font-weight: 700;
-        cursor: pointer;
-        display: none;
-    }
-
-    .selected {
-        text-align: center;
-        margin-top: 10px;
-        color: #94a3b8;
-        font-size: 13px;
-    }
-
-    @media (max-width: 500px) {
-        .container {
-            padding: 18px;
+    // Generate TTS
+    async function generateTTS() {
+        const text = textInput.value.trim();
+        if (!text) {
+            alert('ကျေးဇူးပြု၍ စာသားထည့်ပါ။');
+            return;
         }
 
-        .title {
-            font-size: 25px;
-        }
+        generateBtn.disabled = true;
+        generateBtn.textContent = '⏳ ပြင်ဆင်နေသည်...';
+        statusDiv.textContent = '⏳ ' + selectedVoice + ' အသံထုတ်နေပါသည်...';
+        audioPlayer.style.display = 'none';
+        downloadBtn.style.display = 'none';
 
-        .voice-group {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-
-</head><body><div class="container"><div class="title">
-    ✨ YanNaing Free Ai Tool ✨
-</div>
-
-<div class="subtitle">
-    🇲🇲 မြန်မာ AI Voice Generator
-</div>
-
-<label for="text">
-    📝 မြန်မာစာထည့်ပါ
-</label>
-
-<textarea
-    id="text"
-    maxlength="5000"
-    placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
-></textarea>
-
-<div class="selected" id="selectedVoice">
-    Selected Voice — Zephyr
-</div>
-
-<div class="voice-title">
-    🎙️ Gemini Voices
-</div>
-
-<div class="voice-group">
-
-    <button
-        class="voice-button male active"
-        data-voice="Zephyr"
-        data-name="Zephyr"
-        onclick="selectVoice(this)"
-    >
-        🎙️ Zephyr
-    </button>
-
-    <button
-        class="voice-button male"
-        data-voice="Puck"
-        data-name="Puck"
-        onclick="selectVoice(this)"
-    >
-        🎙️ Puck
-    </button>
-
-    <button
-        class="voice-button male"
-        data-voice="Charon"
-        data-name="Charon"
-        onclick="selectVoice(this)"
-    >
-        🎙️ Charon
-    </button>
-
-    <button
-        class="voice-button male"
-        data-voice="Kore"
-        data-name="Kore"
-        onclick="selectVoice(this)"
-    >
-        🎙️ Kore
-    </button>
-
-    <button
-        class="voice-button female"
-        data-voice="Leda"
-        data-name="Leda"
-        onclick="selectVoice(this)"
-    >
-        🎙️ Leda
-    </button>
-
-</div>
-
-<button
-    class="generate-btn"
-    id="generateBtn"
-    onclick="generateVoice()"
->
-    🎙️ မြန်မာအသံထုတ်မည်
-</button>
-
-<div
-    class="status"
-    id="status"
-></div>
-
-<audio
-    id="audioPlayer"
-    controls
-></audio>
-
-<button
-    class="download-btn"
-    id="downloadBtn"
-    onclick="downloadAudio()"
->
-    ⬇️ အသံဖိုင် Download
-</button>
-
-</div><script>
-
-let selectedVoice = "Zephyr";
-let selectedVoiceName = "Zephyr";
-let audioUrl = null;
-
-function selectVoice(button) {
-
-    document
-        .querySelectorAll(".voice-button")
-        .forEach(btn => {
-            btn.classList.remove("active");
-        });
-
-    button.classList.add("active");
-
-    selectedVoice =
-        button.dataset.voice;
-
-    selectedVoiceName =
-        button.dataset.name;
-
-    document.getElementById(
-        "selectedVoice"
-    ).innerText =
-        "Selected Voice — " +
-        selectedVoiceName;
-}
-
-
-async function generateVoice() {
-
-    const text =
-        document
-        .getElementById("text")
-        .value
-        .trim();
-
-    const status =
-        document.getElementById("status");
-
-    const button =
-        document.getElementById("generateBtn");
-
-    const audio =
-        document.getElementById("audioPlayer");
-
-    const download =
-        document.getElementById("downloadBtn");
-
-    if (!text) {
-
-        alert(
-            "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
-        );
-
-        return;
-    }
-
-    status.innerText =
-        "⏳ " +
-        selectedVoiceName +
-        " voice ဖြင့် အသံထုတ်နေပါသည်...";
-
-    button.disabled = true;
-
-    download.style.display =
-        "none";
-
-    try {
-
-        const response =
-            await fetch("/api/tts", {
-
-                method: "POST",
-
-                headers: {
-                    "Content-Type":
-                        "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    text: text,
-
-                    voice:
-                        selectedVoice
-
-                })
-
+        try {
+            const response = await fetch('/api/tts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: text })
             });
 
-
-        const contentType =
-            response.headers
-            .get("content-type") || "";
-
-
-        if (!response.ok) {
-
-            let errorMessage =
-                "အသံထုတ်မရပါ။";
-
-            if (
-                contentType.includes(
-                    "application/json"
-                )
-            ) {
-
-                const data =
-                    await response.json();
-
-                errorMessage =
-                    data.error ||
-                    errorMessage;
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error || 'အသံထုတ်မရပါ။');
             }
 
-            throw new Error(
-                errorMessage
-            );
+            const blob = await response.blob();
+            if (!blob || blob.size === 0) {
+                throw new Error('အသံဖိုင်အလွတ်ဖြစ်နေသည်။');
+            }
+
+            if (audioBlobUrl) {
+                URL.revokeObjectURL(audioBlobUrl);
+                audioBlobUrl = null;
+            }
+
+            audioBlobUrl = URL.createObjectURL(blob);
+            audioPlayer.src = audioBlobUrl;
+            audioPlayer.style.display = 'block';
+            audioPlayer.load();
+
+            downloadBtn.style.display = 'block';
+            statusDiv.textContent = '✅ ' + selectedVoice + ' အသံရပါပြီ။';
+
+        } catch (err) {
+            console.error('TTS Error:', err);
+            statusDiv.textContent = '❌ ' + err.message;
+        } finally {
+            generateBtn.disabled = false;
+            generateBtn.textContent = '🔊 အသံထုတ်မည်';
         }
+    }
 
+    function downloadAudio() {
+        if (!audioBlobUrl) return;
+        const a = document.createElement('a');
+        a.href = audioBlobUrl;
+        a.download = 'yan-naing-voice-' + selectedVoice + '.mp3';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
 
-        const blob =
-            await response.blob();
+    generateBtn.addEventListener('click', generateTTS);
+    downloadBtn.addEventListener('click', downloadAudio);
 
-
-        if (!blob.size) {
-
-            throw new Error(
-                "Audio file အလွတ်ဖြစ်နေပါသည်။"
-            );
+    textInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            generateTTS();
         }
+    });
 
+    audioPlayer.addEventListener('loadeddata', () => {
+        audioPlayer.play().catch(() => {});
+    });
 
-        if (audioUrl) {
-
-            URL.revokeObjectURL(
-                audioUrl
-            );
-        }
-
-
-        audioUrl =
-            URL.createObjectURL(
-                blob
-            );
-
-
-        audio.src =
-            audioUrl;
-
-        audio.load();
-
-
-        status.innerText =
-            "✅ " +
-            selectedVoiceName +
-            " အသံရပါပြီ။";
-
-        download.style.display =
-            "block";
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        status.innerText =
-            "❌ " +
-            error.message;
-
-    }
-
-    finally {
-
-        button.disabled =
-            false;
-    }
-}
-
-
-function downloadAudio() {
-
-    if (!audioUrl) {
-
-        return;
-    }
-
-    const link =
-        document.createElement("a");
-
-    link.href =
-        audioUrl;
-
-    link.download =
-        "YanNaing-" +
-        selectedVoiceName +
-        ".wav";
-
-    document.body.appendChild(
-        link
-    );
-
-    link.click();
-
-    link.remove();
-}
-
-</script></body>
-</html>
+    console.log('✅ မြန်မာ TTS အဆင်သင့်ဖြစ်ပါပြီ။');
+</script>
