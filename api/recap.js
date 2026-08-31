@@ -1,4 +1,3 @@
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
@@ -23,35 +22,40 @@ export default async function handler(req, res) {
       });
     }
 
-    const prompt = `
-You are an expert movie/series recap writer.
+    const cleanText = String(text)
+      .trim()
+      .slice(0, 50000);
 
-Rewrite the following content into a clear, engaging Burmese Myanmar recap.
+    const prompt = `
+You are an expert Myanmar movie recap writer.
+
+Rewrite the source below into a natural, engaging Burmese Myanmar movie recap script.
 
 Rules:
-- Write naturally in Burmese.
-- Keep the important story events, characters, actions, conflicts and ending.
-- Do not invent events that are not in the original text.
-- Do not translate names unnecessarily.
-- Make the narration suitable for a YouTube/movie recap voice-over.
-- Use smooth, easy-to-listen Burmese sentences.
+- Write ONLY Burmese Myanmar narration.
+- Keep the original story events in correct order.
+- Keep important characters, actions, conflicts and ending.
+- Do not invent events.
+- Do not translate character names unnecessarily.
+- Make the narration smooth and suitable for voice-over.
 - Remove unnecessary repetition.
-- Keep the story in the correct order.
-- Do not add headings unless they are necessary.
-- Output ONLY the recap text.
+- Do not add explanations or comments.
+- Output ONLY the final recap script.
 
 SOURCE:
-${String(text).trim()}
+${cleanText}
 `;
 
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey
         },
+
         body: JSON.stringify({
           contents: [
             {
@@ -62,9 +66,10 @@ ${String(text).trim()}
               ]
             }
           ],
+
           generationConfig: {
             temperature: 0.7,
-            maxOutputTokens: 8000
+            maxOutputTokens: 12000
           }
         })
       }
@@ -78,32 +83,39 @@ ${String(text).trim()}
         JSON.stringify(data)
       );
 
-      return res.status(500).json({
+      return res.status(
+        response.status || 500
+      ).json({
         error:
           data?.error?.message ||
           "Gemini Recap API Error ဖြစ်နေပါသည်။"
       });
     }
 
-    const recap =
-      data?.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || "")
-        .join("")
-        .trim();
+    const parts =
+      data?.candidates?.[0]
+        ?.content
+        ?.parts || [];
+
+    const recap = parts
+      .map(part => part?.text || "")
+      .join("")
+      .trim();
 
     if (!recap) {
       console.error(
-        "Gemini response:",
+        "Gemini Empty Response:",
         JSON.stringify(data)
       );
 
       return res.status(500).json({
-        error: "Gemini မှ Recap စာသား ပြန်မပေးပါ။"
+        error:
+          "Gemini မှ Recap Script ပြန်မပေးပါ။"
       });
     }
 
     return res.status(200).json({
-      recap: recap
+      script: recap
     });
 
   } catch (error) {
@@ -115,7 +127,7 @@ ${String(text).trim()}
     return res.status(500).json({
       error:
         error?.message ||
-        "Recap ထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
+        "Recap Server Error ဖြစ်နေပါသည်။"
     });
   }
 }
