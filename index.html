@@ -2,858 +2,1760 @@
 <html lang="my">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>YanNaing Free AI Tool</title>
+<title>YNT TTS Voice</title>
 
 <style>
 *{
-    box-sizing:border-box;
+  box-sizing:border-box;
+}
+
+:root{
+  --bg:#050711;
+  --glass:rgba(255,255,255,.065);
+  --glass2:rgba(255,255,255,.095);
+  --line:rgba(255,255,255,.13);
+  --text:#f8fafc;
+  --muted:#94a3b8;
+  --cyan:#22d3ee;
+  --purple:#8b5cf6;
+  --pink:#ec4899;
 }
 
 body{
-    margin:0;
-    min-height:100vh;
-    padding:20px;
-    font-family:"Segoe UI",Tahoma,sans-serif;
-    color:#fff;
-    background:
-        radial-gradient(circle at top,#243b72 0%,transparent 38%),
-        linear-gradient(135deg,#07101f,#111c30,#151d32);
+  margin:0;
+  min-height:100vh;
+  font-family:
+    "Segoe UI",
+    "Noto Sans Myanmar",
+    Tahoma,
+    sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(
+      circle at 15% 5%,
+      rgba(34,211,238,.15),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(139,92,246,.18),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 50% 100%,
+      rgba(236,72,153,.10),
+      transparent 35%
+    ),
+    var(--bg);
+  overflow-x:hidden;
 }
 
-.container{
-    width:100%;
-    max-width:680px;
-    margin:auto;
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      rgba(255,255,255,.015) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.015) 1px,
+      transparent 1px
+    );
+  background-size:40px 40px;
+  mask-image:linear-gradient(
+    to bottom,
+    black,
+    transparent
+  );
 }
+
+/* =========================
+   APP
+========================= */
+
+.app{
+  width:100%;
+  max-width:920px;
+  margin:auto;
+  padding:22px 16px 45px;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.brand-icon{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34,211,238,.22),
+      rgba(139,92,246,.25)
+    );
+  border:1px solid var(--line);
+  box-shadow:
+    0 0 30px rgba(34,211,238,.08);
+}
+
+.brand-name{
+  font-size:18px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+
+.brand-sub{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:2px;
+}
+
+.status-pill{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 12px;
+  border-radius:30px;
+  background:rgba(255,255,255,.055);
+  border:1px solid var(--line);
+  color:#cbd5e1;
+  font-size:11px;
+}
+
+.status-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 12px #22c55e;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  min-height:270px;
+  border-radius:30px;
+  border:1px solid var(--line);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.09),
+      rgba(255,255,255,.035)
+    );
+  backdrop-filter:blur(25px);
+  -webkit-backdrop-filter:blur(25px);
+  box-shadow:
+    0 30px 90px rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.07);
+  padding:34px 28px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  left:-100px;
+  top:-130px;
+  border-radius:50%;
+  background:rgba(34,211,238,.12);
+  filter:blur(55px);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:280px;
+  height:280px;
+  right:-100px;
+  bottom:-150px;
+  border-radius:50%;
+  background:rgba(139,92,246,.14);
+  filter:blur(60px);
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin-bottom:13px;
+  padding:7px 12px;
+  border-radius:30px;
+  background:rgba(34,211,238,.08);
+  border:1px solid rgba(34,211,238,.2);
+  color:#67e8f9;
+  font-size:11px;
+  font-weight:800;
+}
+
+.hero h1{
+  margin:0;
+  font-size:clamp(30px,6vw,53px);
+  line-height:1.05;
+  font-weight:950;
+  letter-spacing:-1.8px;
+  background:
+    linear-gradient(
+      90deg,
+      #fff,
+      #a5f3fc,
+      #c4b5fd,
+      #f9a8d4
+    );
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.hero p{
+  margin:13px auto 24px;
+  max-width:520px;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.7;
+}
+
+/* =========================
+   WAVEFORM
+========================= */
+
+.waveform{
+  height:70px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:4px;
+  margin-top:4px;
+}
+
+.wave{
+  width:4px;
+  border-radius:20px;
+  height:20px;
+  background:
+    linear-gradient(
+      to top,
+      var(--cyan),
+      var(--purple),
+      var(--pink)
+    );
+  opacity:.55;
+  transition:.2s;
+}
+
+.wave:nth-child(1){height:20px}
+.wave:nth-child(2){height:34px}
+.wave:nth-child(3){height:48px}
+.wave:nth-child(4){height:28px}
+.wave:nth-child(5){height:55px}
+.wave:nth-child(6){height:38px}
+.wave:nth-child(7){height:64px}
+.wave:nth-child(8){height:45px}
+.wave:nth-child(9){height:30px}
+.wave:nth-child(10){height:58px}
+.wave:nth-child(11){height:40px}
+.wave:nth-child(12){height:25px}
+.wave:nth-child(13){height:52px}
+.wave:nth-child(14){height:35px}
+.wave:nth-child(15){height:62px}
+.wave:nth-child(16){height:43px}
+.wave:nth-child(17){height:28px}
+.wave:nth-child(18){height:50px}
+.wave:nth-child(19){height:35px}
+.wave:nth-child(20){height:22px}
+
+body.playing .wave{
+  animation:pulse .75s ease-in-out infinite alternate;
+}
+
+body.playing .wave:nth-child(2n){
+  animation-delay:.12s;
+}
+
+body.playing .wave:nth-child(3n){
+  animation-delay:.24s;
+}
+
+@keyframes pulse{
+  from{
+    transform:scaleY(.45);
+    opacity:.45;
+  }
+  to{
+    transform:scaleY(1.35);
+    opacity:1;
+  }
+}
+
+/* =========================
+   GLASS CARD
+========================= */
 
 .card{
-    background:rgba(25,38,60,.96);
-    border:1px solid rgba(148,163,184,.18);
-    border-radius:24px;
-    padding:22px;
-    box-shadow:0 18px 50px rgba(0,0,0,.45);
+  margin-top:16px;
+  padding:22px;
+  border-radius:25px;
+  border:1px solid var(--line);
+  background:var(--glass);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  box-shadow:
+    0 22px 60px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-.title{
-    text-align:center;
-    font-size:29px;
-    font-weight:900;
-    margin-bottom:5px;
-    background:linear-gradient(
-        90deg,
-        #38bdf8,
-        #6366f1,
-        #ec4899,
-        #f59e0b
-    );
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
+.section-head{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  margin-bottom:14px;
 }
 
-.subtitle{
-    text-align:center;
-    color:#94a3b8;
-    font-size:13px;
-    margin-bottom:25px;
+.section-icon{
+  width:38px;
+  height:38px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:12px;
+  background:rgba(139,92,246,.12);
+  border:1px solid rgba(139,92,246,.2);
 }
 
 .section-title{
-    color:#60a5fa;
-    font-weight:800;
-    font-size:16px;
-    margin:20px 0 12px;
+  font-size:15px;
+  font-weight:900;
+}
+
+.section-sub{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+/* =========================
+   TEXT
+========================= */
+
+.text-wrap{
+  position:relative;
 }
 
 textarea{
-    width:100%;
-    min-height:180px;
-    resize:vertical;
-    padding:16px;
-    border-radius:16px;
-    border:2px solid #334155;
-    background:#0b1424;
-    color:#fff;
-    font-size:16px;
-    line-height:1.7;
-    outline:none;
+  width:100%;
+  min-height:190px;
+  resize:vertical;
+  padding:18px 18px 38px;
+  border-radius:18px;
+  border:1px solid var(--line);
+  outline:none;
+  background:rgba(0,0,0,.22);
+  color:#fff;
+  font-size:15px;
+  line-height:1.8;
+  font-family:inherit;
+  transition:.2s;
+}
+
+textarea::placeholder{
+  color:#64748b;
 }
 
 textarea:focus{
-    border-color:#3b82f6;
+  border-color:rgba(34,211,238,.45);
+  box-shadow:
+    0 0 0 3px rgba(34,211,238,.06);
 }
 
 .counter{
-    text-align:right;
-    color:#64748b;
-    font-size:12px;
-    margin-top:5px;
+  position:absolute;
+  right:13px;
+  bottom:10px;
+  color:#64748b;
+  font-size:10px;
 }
 
+/* =========================
+   VOICE
+========================= */
+
 .voice-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
 }
 
 .voice{
-    padding:15px 10px;
-    border-radius:14px;
-    border:2px solid #3b4a63;
-    background:#172338;
-    color:#fff;
-    font-size:15px;
-    font-weight:800;
-    cursor:pointer;
+  position:relative;
+  overflow:hidden;
+  padding:14px 7px;
+  border-radius:15px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  color:#cbd5e1;
+  font-size:12px;
+  font-weight:850;
+  cursor:pointer;
+  transition:.22s;
 }
 
 .voice:hover{
-    border-color:#60a5fa;
+  transform:translateY(-2px);
+  border-color:rgba(34,211,238,.3);
 }
 
 .voice.active{
-    border-color:#38bdf8;
-    background:linear-gradient(135deg,#1769aa,#5b3fc4);
-    box-shadow:0 0 18px rgba(56,189,248,.22);
+  color:#fff;
+  border-color:rgba(34,211,238,.65);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(34,211,238,.16),
+      rgba(139,92,246,.17)
+    );
+  box-shadow:
+    0 0 25px rgba(34,211,238,.09);
+}
+
+.voice.active:after{
+  content:"✓";
+  position:absolute;
+  right:6px;
+  top:5px;
+  font-size:9px;
+  color:#67e8f9;
 }
 
 .selected{
-    margin-top:10px;
-    text-align:center;
-    color:#94a3b8;
-    font-size:13px;
+  margin-top:10px;
+  color:#64748b;
+  text-align:center;
+  font-size:10px;
 }
 
+/* =========================
+   EMOTION
+========================= */
+
 .emotion-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
 }
 
 .emotion{
-    padding:13px 7px;
-    border-radius:13px;
-    border:2px solid #3b4a63;
-    background:#172338;
-    color:#e2e8f0;
-    font-size:14px;
-    font-weight:700;
-    cursor:pointer;
+  padding:10px 13px;
+  border-radius:30px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.035);
+  color:#cbd5e1;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.emotion:hover{
+  border-color:rgba(236,72,153,.35);
 }
 
 .emotion.active{
-    border-color:#ec4899;
-    background:linear-gradient(135deg,#7c3aed,#db2777);
+  color:#fff;
+  border-color:rgba(236,72,153,.6);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(139,92,246,.22),
+      rgba(236,72,153,.18)
+    );
+}
+
+/* =========================
+   CONTROLS
+========================= */
+
+.controls{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
 .control{
-    margin-top:18px;
-    padding:18px;
-    border:2px solid #334155;
-    border-radius:20px;
-    background:#172338;
+  padding:18px;
+  border-radius:20px;
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--line);
 }
 
 .control-head{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:17px;
 }
 
 .control-name{
-    font-size:16px;
-    font-weight:800;
+  font-size:13px;
+  font-weight:900;
 }
 
-.value{
-    min-width:58px;
-    padding:9px 12px;
-    border-radius:10px;
-    text-align:center;
-    font-weight:900;
-    background:#ec4899;
+.control-value{
+  min-width:55px;
+  padding:6px 9px;
+  border-radius:9px;
+  text-align:center;
+  font-size:11px;
+  font-weight:900;
+  color:#67e8f9;
+  background:rgba(34,211,238,.08);
+  border:1px solid rgba(34,211,238,.14);
 }
 
 .control-row{
-    display:grid;
-    grid-template-columns:65px 1fr 65px;
-    align-items:center;
-    gap:12px;
+  display:grid;
+  grid-template-columns:42px 1fr 42px;
+  align-items:center;
+  gap:9px;
 }
 
 .control-btn{
-    height:58px;
-    border-radius:15px;
-    border:2px solid #475569;
-    background:#172338;
-    color:#e2e8f0;
-    font-size:27px;
-    font-weight:800;
-    cursor:pointer;
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  color:#fff;
+  font-size:21px;
+  cursor:pointer;
+  transition:.2s;
 }
 
 .control-btn:hover{
-    border-color:#60a5fa;
+  background:rgba(34,211,238,.1);
+  border-color:rgba(34,211,238,.3);
 }
 
-input[type="range"]{
-    width:100%;
-    accent-color:#ec4899;
-    cursor:pointer;
+input[type=range]{
+  width:100%;
+  height:5px;
+  appearance:none;
+  -webkit-appearance:none;
+  border-radius:20px;
+  outline:none;
+  background:
+    linear-gradient(
+      90deg,
+      var(--cyan),
+      var(--purple),
+      var(--pink)
+    );
 }
+
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;
+  -webkit-appearance:none;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#fff;
+  border:3px solid #8b5cf6;
+  box-shadow:
+    0 0 15px rgba(139,92,246,.65);
+  cursor:pointer;
+}
+
+input[type=range]::-moz-range-thumb{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#fff;
+  border:3px solid #8b5cf6;
+  cursor:pointer;
+}
+
+/* =========================
+   GENERATE
+========================= */
 
 .generate{
-    width:100%;
-    margin-top:22px;
-    padding:17px;
-    border:0;
-    border-radius:15px;
-    background:linear-gradient(135deg,#2563eb,#9333ea);
-    color:#fff;
-    font-size:17px;
-    font-weight:900;
-    cursor:pointer;
-    box-shadow:0 8px 25px rgba(59,130,246,.3);
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  margin-top:16px;
+  padding:17px;
+  border:0;
+  border-radius:17px;
+  color:#fff;
+  font-size:15px;
+  font-weight:950;
+  cursor:pointer;
+  background:
+    linear-gradient(
+      100deg,
+      #0891b2,
+      #6366f1,
+      #9333ea,
+      #db2777
+    );
+  box-shadow:
+    0 12px 35px rgba(99,102,241,.23);
+  transition:.2s;
+}
+
+.generate:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 17px 45px rgba(99,102,241,.32);
+}
+
+.generate:active{
+  transform:translateY(0);
 }
 
 .generate:disabled{
-    opacity:.6;
-    cursor:not-allowed;
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
 }
 
+.generate span{
+  margin-right:7px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
 .status{
-    min-height:25px;
-    margin-top:15px;
-    text-align:center;
-    color:#cbd5e1;
+  min-height:20px;
+  margin-top:12px;
+  text-align:center;
+  color:#94a3b8;
+  font-size:11px;
+  line-height:1.6;
+}
+
+/* =========================
+   AUDIO
+========================= */
+
+.audio-card{
+  display:none;
+}
+
+.audio-card.show{
+  display:block;
+}
+
+.audio-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:12px;
+}
+
+.audio-title strong{
+  font-size:14px;
+}
+
+.audio-live{
+  color:#22c55e;
+  font-size:10px;
+  font-weight:800;
 }
 
 audio{
-    width:100%;
-    margin-top:12px;
+  width:100%;
+  height:46px;
+  border-radius:14px;
 }
 
 .download{
-    display:none;
-    width:100%;
-    margin-top:10px;
-    padding:14px;
-    border-radius:12px;
-    border:1px solid #475569;
-    background:#1e293b;
-    color:#fff;
-    font-weight:800;
-    cursor:pointer;
+  display:block;
+  width:100%;
+  margin-top:10px;
+  padding:13px;
+  border-radius:14px;
+  text-align:center;
+  text-decoration:none;
+  color:#fff;
+  font-size:12px;
+  font-weight:850;
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
 }
 
-@media(max-width:520px){
+/* =========================
+   FOOTER
+========================= */
 
-    body{
-        padding:10px;
-    }
+.footer{
+  padding-top:20px;
+  text-align:center;
+  color:#475569;
+  font-size:10px;
+}
 
-    .card{
-        padding:17px;
-    }
+/* =========================
+   MOBILE
+========================= */
 
-    .voice-grid{
-        grid-template-columns:1fr 1fr;
-    }
+@media(max-width:700px){
 
-    .emotion-grid{
-        grid-template-columns:1fr 1fr 1fr;
-    }
+  .voice-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
 
-    .control-row{
-        grid-template-columns:55px 1fr 55px;
-    }
+  .controls{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:480px){
+
+  .app{
+    padding:12px 10px 35px;
+  }
+
+  .hero{
+    min-height:250px;
+    padding:27px 17px;
+    border-radius:25px;
+  }
+
+  .hero h1{
+    font-size:34px;
+  }
+
+  .hero p{
+    font-size:11px;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:21px;
+  }
+
+  .voice-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .topbar{
+    margin-bottom:12px;
+  }
+
+  .status-pill{
+    display:none;
+  }
+
+  .brand-name{
+    font-size:16px;
+  }
+
+  .waveform{
+    gap:3px;
+  }
+
+  .wave{
+    width:3px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
+
+<!-- =========================
+     TOP BAR
+========================= -->
+
+<div class="topbar">
+
+  <div class="brand">
+
+    <div class="brand-icon">
+      🎙️
+    </div>
+
+    <div>
+      <div class="brand-name">
+        YNT TTS Voice
+      </div>
+
+      <div class="brand-sub">
+        Myanmar AI Voice Studio
+      </div>
+    </div>
+
+  </div>
+
+  <div class="status-pill">
+    <span class="status-dot"></span>
+    AI READY
+  </div>
+
+</div>
+
+
+<!-- =========================
+     WAVEFORM HERO
+========================= -->
+
+<div class="hero">
+
+  <div class="hero-content">
+
+    <div class="hero-badge">
+      ✨ PREMIUM AI VOICE
+    </div>
+
+    <h1>
+      YNT TTS Voice
+    </h1>
+
+    <p>
+      မြန်မာစာကို သဘာဝကျတဲ့ AI အသံအဖြစ်
+      မြန်မြန်ဆန်ဆန် ပြောင်းလိုက်ပါ။
+    </p>
+
+    <div class="waveform">
+
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     TEXT CARD
+========================= -->
 
 <div class="card">
 
-<div class="title">
-✨ YanNaing Free AI Tool ✨
-</div>
+  <div class="section-head">
 
-<div class="subtitle">
-🇲🇲 Gemini AI Myanmar Voice Generator
-</div>
+    <div class="section-icon">
+      📝
+    </div>
 
-<div class="section-title">
-📝 စာထည့်ပါ
-</div>
+    <div>
+      <div class="section-title">
+        Script
+      </div>
 
-<textarea
-id="text"
-maxlength="5000"
-placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
-oninput="updateCounter()"
-></textarea>
+      <div class="section-sub">
+        မြန်မာစာထည့်ပြီး AI Voice ဖန်တီးပါ
+      </div>
+    </div>
 
-<div class="counter">
-<span id="counter">0</span> / 5000
-</div>
+  </div>
 
-<div class="section-title">
-🎙️ Voice
-</div>
+  <div class="text-wrap">
 
-<div class="voice-grid">
+    <textarea
+      id="text"
+      maxlength="5000"
+      placeholder="မြန်မာစာကို ဒီနေရာမှာ ရေးပါ..."
+      oninput="updateCounter()"
+    ></textarea>
 
-<button
-class="voice active"
-data-voice="Zephyr"
-onclick="selectVoice(this)"
->
-Zephyr
-</button>
+    <div class="counter">
+      <span id="counter">0</span> / 5000
+    </div>
 
-<button
-class="voice"
-data-voice="Puck"
-onclick="selectVoice(this)"
->
-Puck
-</button>
-
-<button
-class="voice"
-data-voice="Charon"
-onclick="selectVoice(this)"
->
-Charon
-</button>
-
-<button
-class="voice"
-data-voice="Kore"
-onclick="selectVoice(this)"
->
-Kore
-</button>
-
-<button
-class="voice"
-data-voice="Leda"
-onclick="selectVoice(this)"
->
-Leda
-</button>
+  </div>
 
 </div>
 
-<div class="selected" id="selectedVoice">
-Selected Voice — Zephyr
-</div>
 
-<div class="section-title">
-🎭 Emotion
-</div>
+<!-- =========================
+     VOICE CARD
+========================= -->
 
-<div class="emotion-grid">
+<div class="card">
 
-<button
-class="emotion active"
-data-emotion="natural"
-onclick="selectEmotion(this)"
->
-😌 Natural
-</button>
+  <div class="section-head">
 
-<button
-class="emotion"
-data-emotion="happy"
-onclick="selectEmotion(this)"
->
-😊 Happy
-</button>
+    <div class="section-icon">
+      🎙️
+    </div>
 
-<button
-class="emotion"
-data-emotion="sad"
-onclick="selectEmotion(this)"
->
-😢 Sad
-</button>
+    <div>
+      <div class="section-title">
+        Voice
+      </div>
 
-<button
-class="emotion"
-data-emotion="angry"
-onclick="selectEmotion(this)"
->
-😠 Angry
-</button>
+      <div class="section-sub">
+        အသံပုံစံရွေးပါ
+      </div>
+    </div>
 
-<button
-class="emotion"
-data-emotion="excited"
-onclick="selectEmotion(this)"
->
-🤩 Excited
-</button>
+  </div>
 
-<button
-class="emotion"
-data-emotion="serious"
-onclick="selectEmotion(this)"
->
-😐 Serious
-</button>
 
-<button
-class="emotion"
-data-emotion="calm"
-onclick="selectEmotion(this)"
->
-😌 Calm
-</button>
+  <div class="voice-grid">
 
-<button
-class="emotion"
-data-emotion="whisper"
-onclick="selectEmotion(this)"
->
-🤫 Whisper
-</button>
+    <button
+      class="voice active"
+      data-voice="Zephyr"
+      onclick="selectVoice(this)"
+    >
+      Zephyr
+    </button>
 
-<button
-class="emotion"
-data-emotion="dramatic"
-onclick="selectEmotion(this)"
->
-😮 Dramatic
-</button>
+    <button
+      class="voice"
+      data-voice="Puck"
+      onclick="selectVoice(this)"
+    >
+      Puck
+    </button>
+
+    <button
+      class="voice"
+      data-voice="Charon"
+      onclick="selectVoice(this)"
+    >
+      Charon
+    </button>
+
+    <button
+      class="voice"
+      data-voice="Kore"
+      onclick="selectVoice(this)"
+    >
+      Kore
+    </button>
+
+    <button
+      class="voice"
+      data-voice="Leda"
+      onclick="selectVoice(this)"
+    >
+      Leda
+    </button>
+
+  </div>
+
+
+  <div
+    class="selected"
+    id="selectedVoice"
+  >
+    Selected — Zephyr
+  </div>
 
 </div>
 
-<div class="control">
 
-<div class="control-head">
+<!-- =========================
+     EMOTION CARD
+========================= -->
 
-<div class="control-name">
-⚡ Speed
+<div class="card">
+
+  <div class="section-head">
+
+    <div class="section-icon">
+      🎭
+    </div>
+
+    <div>
+      <div class="section-title">
+        Emotion
+      </div>
+
+      <div class="section-sub">
+        အသံရဲ့ ခံစားချက်ရွေးပါ
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="emotion-grid">
+
+    <button
+      class="emotion active"
+      data-emotion="natural"
+      onclick="selectEmotion(this)"
+    >
+      😌 Natural
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="happy"
+      onclick="selectEmotion(this)"
+    >
+      😊 Happy
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="sad"
+      onclick="selectEmotion(this)"
+    >
+      😢 Sad
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="angry"
+      onclick="selectEmotion(this)"
+    >
+      😠 Angry
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="excited"
+      onclick="selectEmotion(this)"
+    >
+      🤩 Excited
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="serious"
+      onclick="selectEmotion(this)"
+    >
+      😐 Serious
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="calm"
+      onclick="selectEmotion(this)"
+    >
+      🧘 Calm
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="whisper"
+      onclick="selectEmotion(this)"
+    >
+      🤫 Whisper
+    </button>
+
+    <button
+      class="emotion"
+      data-emotion="dramatic"
+      onclick="selectEmotion(this)"
+    >
+      🎬 Dramatic
+    </button>
+
+  </div>
+
 </div>
 
-<div class="value" id="speedValue">
-0
-</div>
+
+<!-- =========================
+     CONTROLS
+========================= -->
+
+<div class="card">
+
+  <div class="section-head">
+
+    <div class="section-icon">
+      🎚️
+    </div>
+
+    <div>
+      <div class="section-title">
+        Voice Controls
+      </div>
+
+      <div class="section-sub">
+        Speed နဲ့ Pitch ကို ချိန်ညှိပါ
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="controls">
+
+    <!-- SPEED -->
+
+    <div class="control">
+
+      <div class="control-head">
+
+        <div class="control-name">
+          ⚡ Speed
+        </div>
+
+        <div
+          class="control-value"
+          id="speedValue"
+        >
+          0
+        </div>
+
+      </div>
+
+      <div class="control-row">
+
+        <button
+          class="control-btn"
+          onclick="changeSpeed(-1)"
+        >
+          −
+        </button>
+
+        <input
+          id="speed"
+          type="range"
+          min="-5"
+          max="5"
+          value="0"
+          step="1"
+          oninput="updateSpeed()"
+        >
+
+        <button
+          class="control-btn"
+          onclick="changeSpeed(1)"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- PITCH -->
+
+    <div class="control">
+
+      <div class="control-head">
+
+        <div class="control-name">
+          🎚️ Pitch
+        </div>
+
+        <div
+          class="control-value"
+          id="pitchValue"
+        >
+          0
+        </div>
+
+      </div>
+
+      <div class="control-row">
+
+        <button
+          class="control-btn"
+          onclick="changePitch(-1)"
+        >
+          −
+        </button>
+
+        <input
+          id="pitch"
+          type="range"
+          min="-5"
+          max="5"
+          value="0"
+          step="1"
+          oninput="updatePitch()"
+        >
+
+        <button
+          class="control-btn"
+          onclick="changePitch(1)"
+        >
+          +
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- GENERATE -->
+
+  <button
+    class="generate"
+    id="generateBtn"
+    onclick="generateVoice()"
+  >
+    <span>✨</span>
+    မြန်မာအသံထုတ်မည်
+  </button>
+
+
+  <div
+    class="status"
+    id="status"
+  ></div>
 
 </div>
 
-<div class="control-row">
 
-<button
-class="control-btn"
-onclick="changeSpeed(-1)"
->
-−
-</button>
-
-<input
-id="speed"
-type="range"
-min="-5"
-max="5"
-value="0"
-step="1"
-oninput="updateSpeed()"
->
-
-<button
-class="control-btn"
-onclick="changeSpeed(1)"
->
-+
-</button>
-
-</div>
-</div>
-
-<div class="control">
-
-<div class="control-head">
-
-<div class="control-name">
-🎚️ Pitch
-</div>
+<!-- =========================
+     AUDIO RESULT
+========================= -->
 
 <div
-class="value"
-id="pitchValue"
-style="background:#9333ea"
+  class="card audio-card"
+  id="audioCard"
 >
-0
+
+  <div class="audio-title">
+
+    <strong>
+      🔊 Generated Voice
+    </strong>
+
+    <span class="audio-live">
+      ● READY
+    </span>
+
+  </div>
+
+  <audio
+    id="audioPlayer"
+    controls
+  ></audio>
+
+  <a
+    id="downloadBtn"
+    class="download"
+    href="#"
+    download="YNT-TTS-Voice.wav"
+  >
+    ⬇️ အသံဖိုင် Download
+  </a>
+
+</div>
+
+
+<div class="footer">
+  YNT TTS Voice · Myanmar AI Voice Studio · 2026
 </div>
 
 </div>
 
-<div class="control-row">
-
-<button
-class="control-btn"
-onclick="changePitch(-1)"
->
-−
-</button>
-
-<input
-id="pitch"
-type="range"
-min="-5"
-max="5"
-value="0"
-step="1"
-oninput="updatePitch()"
->
-
-<button
-class="control-btn"
-onclick="changePitch(1)"
->
-+
-</button>
-
-</div>
-</div>
-
-<button
-class="generate"
-id="generateBtn"
-onclick="generateVoice()"
->
-🎙️ မြန်မာအသံထုတ်မည်
-</button>
-
-<div
-class="status"
-id="status"
->
-</div>
-
-<audio
-id="audioPlayer"
-controls
-></audio>
-
-<button
-class="download"
-id="downloadBtn"
-onclick="downloadAudio()"
->
-⬇️ အသံဖိုင် Download
-</button>
-
-</div>
-</div>
 
 <script>
+
+/* =========================
+   STATE
+========================= */
 
 let selectedVoice = "Zephyr";
 let selectedEmotion = "natural";
 let audioUrl = null;
 
+
+/* =========================
+   VOICE
+========================= */
+
 function selectVoice(button){
 
-    document
+  document
     .querySelectorAll(".voice")
     .forEach(btn=>{
-        btn.classList.remove("active");
+      btn.classList.remove("active");
     });
 
-    button.classList.add("active");
+  button.classList.add("active");
 
-    selectedVoice =
-        button.dataset.voice;
+  selectedVoice =
+    button.dataset.voice;
 
-    document.getElementById(
-        "selectedVoice"
-    ).innerText =
-        "Selected Voice — " +
-        selectedVoice;
+  document.getElementById(
+    "selectedVoice"
+  ).innerText =
+    "Selected — " +
+    selectedVoice;
 }
+
+
+/* =========================
+   EMOTION
+========================= */
 
 function selectEmotion(button){
 
-    document
+  document
     .querySelectorAll(".emotion")
     .forEach(btn=>{
-        btn.classList.remove("active");
+      btn.classList.remove("active");
     });
 
-    button.classList.add("active");
+  button.classList.add("active");
 
-    selectedEmotion =
-        button.dataset.emotion;
+  selectedEmotion =
+    button.dataset.emotion;
 }
+
+
+/* =========================
+   COUNTER
+========================= */
 
 function updateCounter(){
 
-    const text =
-        document.getElementById("text").value;
-
+  const text =
     document.getElementById(
-        "counter"
-    ).innerText =
-        text.length;
+      "text"
+    ).value;
+
+  document.getElementById(
+    "counter"
+  ).innerText =
+    text.length;
 }
+
+
+/* =========================
+   SPEED
+========================= */
 
 function updateSpeed(){
 
+  const value =
     document.getElementById(
-        "speedValue"
-    ).innerText =
-        document.getElementById(
-            "speed"
-        ).value;
+      "speed"
+    ).value;
+
+  document.getElementById(
+    "speedValue"
+  ).innerText =
+    value > 0
+      ? "+" + value
+      : value;
 }
+
 
 function changeSpeed(amount){
 
-    const slider =
-        document.getElementById("speed");
+  const slider =
+    document.getElementById(
+      "speed"
+    );
 
-    let value =
-        Number(slider.value) + amount;
+  let value =
+    Number(slider.value) +
+    amount;
 
-    value =
-        Math.max(
-            -5,
-            Math.min(5,value)
-        );
+  value =
+    Math.max(
+      -5,
+      Math.min(5,value)
+    );
 
-    slider.value = value;
+  slider.value =
+    value;
 
-    updateSpeed();
+  updateSpeed();
 }
+
+
+/* =========================
+   PITCH
+========================= */
 
 function updatePitch(){
 
+  const value =
     document.getElementById(
-        "pitchValue"
-    ).innerText =
-        document.getElementById(
-            "pitch"
-        ).value;
+      "pitch"
+    ).value;
+
+  document.getElementById(
+    "pitchValue"
+  ).innerText =
+    value > 0
+      ? "+" + value
+      : value;
 }
+
 
 function changePitch(amount){
 
-    const slider =
-        document.getElementById("pitch");
+  const slider =
+    document.getElementById(
+      "pitch"
+    );
 
-    let value =
-        Number(slider.value) + amount;
+  let value =
+    Number(slider.value) +
+    amount;
 
-    value =
-        Math.max(
-            -5,
-            Math.min(5,value)
-        );
+  value =
+    Math.max(
+      -5,
+      Math.min(5,value)
+    );
 
-    slider.value = value;
+  slider.value =
+    value;
 
-    updatePitch();
+  updatePitch();
 }
+
+
+/* =========================
+   GENERATE VOICE
+========================= */
 
 async function generateVoice(){
 
-    const text =
-        document.getElementById(
-            "text"
-        ).value.trim();
+  const text =
+    document.getElementById(
+      "text"
+    ).value.trim();
 
-    const status =
-        document.getElementById(
-            "status"
-        );
-
-    const button =
-        document.getElementById(
-            "generateBtn"
-        );
-
-    const audio =
-        document.getElementById(
-            "audioPlayer"
-        );
-
-    const download =
-        document.getElementById(
-            "downloadBtn"
-        );
-
-    const speed =
-        Number(
-            document.getElementById(
-                "speed"
-            ).value
-        );
-
-    const pitch =
-        Number(
-            document.getElementById(
-                "pitch"
-            ).value
-        );
-
-    if(!text){
-
-        alert(
-            "ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။"
-        );
-
-        return;
-    }
-
-    button.disabled = true;
-
-    download.style.display =
-        "none";
-
-    status.innerText =
-        "⏳ " +
-        selectedVoice +
-        " ဖြင့် အသံထုတ်နေပါသည်...";
-
-    try{
-
-        const response =
-            await fetch(
-                "/api/tts",
-                {
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":
-                            "application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        text:text,
-
-                        voice:
-                            selectedVoice,
-
-                        emotion:
-                            selectedEmotion,
-
-                        speed:
-                            speed,
-
-                        pitch:
-                            pitch
-
-                    })
-                }
-            );
-
-        const contentType =
-            response.headers.get(
-                "content-type"
-            ) || "";
-
-        if(!response.ok){
-
-            let message =
-                "အသံထုတ်မရပါ။";
-
-            if(
-                contentType.includes(
-                    "application/json"
-                )
-            ){
-
-                const data =
-                    await response.json();
-
-                message =
-                    data.error ||
-                    message;
-            }
-
-            throw new Error(message);
-        }
-
-        const blob =
-            await response.blob();
-
-        if(!blob.size){
-
-            throw new Error(
-                "Audio file အလွတ်ဖြစ်နေပါသည်။"
-            );
-        }
-
-        if(audioUrl){
-
-            URL.revokeObjectURL(
-                audioUrl
-            );
-        }
-
-        audioUrl =
-            URL.createObjectURL(
-                blob
-            );
-
-        audio.src =
-            audioUrl;
-
-        audio.load();
-
-        status.innerText =
-            "✅ အသံရပါပြီ။";
-
-        download.style.display =
-            "block";
-
-    }catch(error){
-
-        console.error(error);
-
-        status.innerText =
-            "❌ " +
-            error.message;
-
-    }finally{
-
-        button.disabled =
-            false;
-    }
-}
-
-function downloadAudio(){
-
-    if(!audioUrl){
-        return;
-    }
-
-    const link =
-        document.createElement("a");
-
-    link.href =
-        audioUrl;
-
-    link.download =
-        "YanNaing-Gemini-TTS.wav";
-
-    document.body.appendChild(
-        link
+  const status =
+    document.getElementById(
+      "status"
     );
 
-    link.click();
+  const button =
+    document.getElementById(
+      "generateBtn"
+    );
 
-    link.remove();
+  const audio =
+    document.getElementById(
+      "audioPlayer"
+    );
+
+  const audioCard =
+    document.getElementById(
+      "audioCard"
+    );
+
+  const download =
+    document.getElementById(
+      "downloadBtn"
+    );
+
+  const speed =
+    Number(
+      document.getElementById(
+        "speed"
+      ).value
+    );
+
+  const pitch =
+    Number(
+      document.getElementById(
+        "pitch"
+      ).value
+    );
+
+
+  if(!text){
+
+    status.innerText =
+      "⚠️ ကျေးဇူးပြု၍ မြန်မာစာ ထည့်ပါ။";
+
+    return;
+  }
+
+
+  button.disabled =
+    true;
+
+  download.style.display =
+    "none";
+
+  status.innerText =
+    "⏳ " +
+    selectedVoice +
+    " ဖြင့် အသံထုတ်နေပါသည်...";
+
+
+  document.body.classList.add(
+    "playing"
+  );
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/tts",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            text:text,
+
+            voice:
+              selectedVoice,
+
+            emotion:
+              selectedEmotion,
+
+            speed:
+              speed,
+
+            pitch:
+              pitch
+
+          })
+        }
+      );
+
+
+    const contentType =
+      response.headers.get(
+        "content-type"
+      ) || "";
+
+
+    if(!response.ok){
+
+      let message =
+        "အသံထုတ်မရပါ။";
+
+
+      if(
+        contentType.includes(
+          "application/json"
+        )
+      ){
+
+        const data =
+          await response.json();
+
+        message =
+          data?.error ||
+          message;
+
+      }else{
+
+        const errorText =
+          await response.text();
+
+        if(errorText){
+          message =
+            errorText;
+        }
+      }
+
+
+      throw new Error(
+        message
+      );
+    }
+
+
+    const blob =
+      await response.blob();
+
+
+    if(!blob.size){
+
+      throw new Error(
+        "Audio file အလွတ်ဖြစ်နေပါသည်။"
+      );
+    }
+
+
+    if(audioUrl){
+
+      URL.revokeObjectURL(
+        audioUrl
+      );
+    }
+
+
+    audioUrl =
+      URL.createObjectURL(
+        blob
+      );
+
+
+    audio.src =
+      audioUrl;
+
+    audio.load();
+
+
+    audioCard.classList.add(
+      "show"
+    );
+
+
+    download.href =
+      audioUrl;
+
+
+    download.style.display =
+      "block";
+
+
+    status.innerText =
+      "✅ အသံရပါပြီ။";
+
+
+    audioCard.scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
+
+
+  }catch(error){
+
+    console.error(
+      "YNT TTS Error:",
+      error
+    );
+
+
+    status.innerText =
+      "❌ " +
+      (
+        error?.message ||
+        "အသံထုတ်ရာတွင် Error ဖြစ်နေပါသည်။"
+      );
+
+  }finally{
+
+    button.disabled =
+      false;
+
+    document.body.classList.remove(
+      "playing"
+    );
+  }
 }
+
+
+/* =========================
+   AUDIO WAVEFORM
+========================= */
+
+const audioPlayer =
+  document.getElementById(
+    "audioPlayer"
+  );
+
+
+audioPlayer.addEventListener(
+  "play",
+  function(){
+
+    document.body.classList.add(
+      "playing"
+    );
+
+  }
+);
+
+
+audioPlayer.addEventListener(
+  "pause",
+  function(){
+
+    document.body.classList.remove(
+      "playing"
+    );
+
+  }
+);
+
+
+audioPlayer.addEventListener(
+  "ended",
+  function(){
+
+    document.body.classList.remove(
+      "playing"
+    );
+
+  }
+);
+
+
+/* =========================
+   INITIAL
+========================= */
+
+updateCounter();
+updateSpeed();
+updatePitch();
 
 </script>
 
