@@ -11,32 +11,85 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
   margin:0;
   min-height:100vh;
   font-family:"Segoe UI",Tahoma,sans-serif;
   color:#fff;
   background:
-    radial-gradient(circle at 20% 0%,rgba(59,130,246,.25),transparent 35%),
-    radial-gradient(circle at 90% 20%,rgba(168,85,247,.22),transparent 35%),
-    linear-gradient(135deg,#050816,#0b1020,#111827);
+    radial-gradient(circle at 15% 5%,rgba(59,130,246,.25),transparent 30%),
+    radial-gradient(circle at 85% 15%,rgba(168,85,247,.22),transparent 30%),
+    linear-gradient(135deg,#050914,#0a1020,#111827);
 }
 
 .container{
   width:100%;
   max-width:900px;
   margin:auto;
-  padding:20px;
+  padding:20px 15px 40px;
 }
 
-.header{
-  text-align:center;
-  padding:25px 10px 30px;
+/* HERO */
+
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:35px 22px;
+  margin-bottom:20px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:30px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(30,41,59,.75),
+      rgba(15,23,42,.55)
+    );
+  backdrop-filter:blur(22px);
+  box-shadow:
+    0 25px 80px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.hero:before{
+  content:"";
+  position:absolute;
+  width:250px;
+  height:250px;
+  right:-100px;
+  top:-100px;
+  border-radius:50%;
+  background:#6366f1;
+  filter:blur(90px);
+  opacity:.35;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 12px;
+  border-radius:999px;
+  background:rgba(59,130,246,.12);
+  border:1px solid rgba(96,165,250,.25);
+  color:#93c5fd;
+  font-size:12px;
+  font-weight:800;
 }
 
 .logo{
-  font-size:32px;
-  font-weight:900;
+  margin:14px 0 8px;
+  font-size:36px;
+  font-weight:950;
+  letter-spacing:-1px;
   background:linear-gradient(
     90deg,
     #38bdf8,
@@ -48,95 +101,148 @@ body{
   -webkit-text-fill-color:transparent;
 }
 
-.subtitle{
-  margin-top:8px;
+.hero-text{
+  margin:0;
   color:#94a3b8;
+  line-height:1.7;
   font-size:14px;
 }
 
+/* WAVEFORM */
+
+.waveform{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  height:55px;
+  margin-top:20px;
+}
+
+.wave{
+  width:4px;
+  border-radius:999px;
+  background:linear-gradient(
+    180deg,
+    #38bdf8,
+    #a855f7,
+    #ec4899
+  );
+  animation:pulse 1.1s ease-in-out infinite;
+}
+
+.wave:nth-child(1){height:15px;animation-delay:.0s}
+.wave:nth-child(2){height:28px;animation-delay:.1s}
+.wave:nth-child(3){height:40px;animation-delay:.2s}
+.wave:nth-child(4){height:22px;animation-delay:.3s}
+.wave:nth-child(5){height:48px;animation-delay:.4s}
+.wave:nth-child(6){height:30px;animation-delay:.5s}
+.wave:nth-child(7){height:44px;animation-delay:.6s}
+.wave:nth-child(8){height:20px;animation-delay:.7s}
+.wave:nth-child(9){height:38px;animation-delay:.8s}
+.wave:nth-child(10){height:25px;animation-delay:.9s}
+.wave:nth-child(11){height:45px;animation-delay:1s}
+.wave:nth-child(12){height:18px;animation-delay:1.1s}
+
+@keyframes pulse{
+  0%,100%{
+    transform:scaleY(.55);
+    opacity:.55;
+  }
+  50%{
+    transform:scaleY(1);
+    opacity:1;
+  }
+}
+
+/* CARD */
+
 .card{
-  padding:24px;
-  border-radius:26px;
+  position:relative;
+  margin-bottom:18px;
+  padding:22px;
+  border-radius:25px;
+  border:1px solid rgba(255,255,255,.1);
   background:rgba(15,23,42,.72);
-  border:1px solid rgba(255,255,255,.10);
+  backdrop-filter:blur(20px);
   box-shadow:
-    0 25px 70px rgba(0,0,0,.45),
-    inset 0 1px rgba(255,255,255,.05);
-  backdrop-filter:blur(18px);
+    0 20px 60px rgba(0,0,0,.3),
+    inset 0 1px 0 rgba(255,255,255,.05);
 }
 
 .step{
   display:flex;
   align-items:center;
   gap:13px;
-  margin-bottom:22px;
+  margin-bottom:18px;
 }
 
 .step-number{
   width:42px;
   height:42px;
+  flex-shrink:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  flex-shrink:0;
   border-radius:14px;
-  background:linear-gradient(135deg,#2563eb,#9333ea);
-  font-weight:900;
-  font-size:18px;
+  background:linear-gradient(
+    135deg,
+    #2563eb,
+    #9333ea
+  );
+  font-size:17px;
+  font-weight:950;
   box-shadow:0 8px 25px rgba(99,102,241,.25);
 }
 
 .step-title{
-  font-size:20px;
+  font-size:19px;
   font-weight:900;
 }
 
 .step-sub{
-  margin-top:4px;
-  color:#94a3b8;
+  margin-top:3px;
+  color:#64748b;
   font-size:12px;
 }
 
+/* UPLOAD */
+
 .upload{
-  position:relative;
   display:block;
-  padding:45px 20px;
-  border-radius:22px;
-  border:2px dashed rgba(96,165,250,.65);
-  background:
-    radial-gradient(circle at center,rgba(59,130,246,.14),transparent 65%),
-    rgba(30,41,59,.45);
+  padding:35px 18px;
   text-align:center;
+  border:2px dashed rgba(96,165,250,.5);
+  border-radius:22px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(37,99,235,.09),
+      rgba(147,51,234,.07)
+    );
   cursor:pointer;
   transition:.25s;
 }
 
 .upload:hover{
-  border-color:#38bdf8;
+  border-color:#60a5fa;
   transform:translateY(-2px);
-  background:
-    radial-gradient(circle at center,rgba(59,130,246,.20),transparent 65%),
-    rgba(30,41,59,.6);
-}
-
-.upload.dragover{
-  border-color:#c084fc;
-  transform:scale(1.01);
+  background:rgba(59,130,246,.12);
 }
 
 .upload-icon{
-  font-size:52px;
-  margin-bottom:12px;
+  font-size:48px;
+  margin-bottom:8px;
 }
 
 .upload-title{
-  font-size:19px;
+  font-size:18px;
   font-weight:900;
 }
 
 .upload-text{
   margin-top:7px;
-  color:#94a3b8;
+  color:#64748b;
   font-size:13px;
 }
 
@@ -146,113 +252,178 @@ body{
 
 .file-info{
   display:none;
-  margin-top:16px;
-  padding:16px;
-  border-radius:18px;
+  margin-top:14px;
+  padding:13px;
+  border-radius:15px;
   background:rgba(30,41,59,.75);
-  border:1px solid rgba(148,163,184,.15);
+  border:1px solid rgba(255,255,255,.08);
 }
 
 .file-name{
   color:#38bdf8;
-  font-size:14px;
+  font-size:13px;
   font-weight:800;
   word-break:break-word;
 }
 
-.file-meta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-
-.meta{
-  padding:7px 10px;
-  border-radius:9px;
-  background:#111827;
-  color:#cbd5e1;
+.file-size{
+  margin-top:4px;
+  color:#64748b;
   font-size:12px;
 }
+
+/* VIDEO */
 
 .video-preview{
   display:none;
   width:100%;
   max-height:480px;
-  margin-top:16px;
-  border-radius:20px;
+  margin-top:15px;
+  border-radius:18px;
   background:#000;
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.1);
 }
 
-.clear-btn{
-  width:100%;
-  margin-top:12px;
-  padding:13px;
-  border:1px solid #475569;
-  border-radius:13px;
-  background:#172033;
-  color:#cbd5e1;
-  font-weight:800;
-  cursor:pointer;
-}
+/* SCRIPT */
 
-.clear-btn:hover{
-  border-color:#ef4444;
-  color:#fca5a5;
-}
-
-.ready{
-  display:none;
-  margin-top:16px;
-  padding:13px;
-  border-radius:13px;
-  text-align:center;
-  color:#86efac;
-  background:rgba(34,197,94,.08);
-  border:1px solid rgba(34,197,94,.20);
+.label{
+  display:block;
+  margin:12px 0 9px;
+  color:#93c5fd;
   font-size:13px;
   font-weight:800;
 }
 
-.next-btn{
+textarea{
   width:100%;
-  margin-top:20px;
-  padding:17px;
+  min-height:280px;
+  padding:16px;
+  resize:vertical;
+  border:1px solid #334155;
+  border-radius:17px;
+  outline:none;
+  background:#070d1a;
+  color:#fff;
+  font-family:inherit;
+  font-size:15px;
+  line-height:1.8;
+}
+
+textarea:focus{
+  border-color:#6366f1;
+  box-shadow:0 0 0 3px rgba(99,102,241,.1);
+}
+
+/* BUTTON */
+
+.button{
+  width:100%;
+  margin-top:16px;
+  padding:16px;
   border:0;
   border-radius:16px;
   color:#fff;
   font-size:16px;
   font-weight:900;
-  background:linear-gradient(135deg,#2563eb,#9333ea);
+  background:linear-gradient(
+    135deg,
+    #2563eb,
+    #7c3aed,
+    #db2777
+  );
   cursor:pointer;
-  box-shadow:0 10px 30px rgba(59,130,246,.25);
+  box-shadow:0 10px 30px rgba(99,102,241,.22);
+  transition:.2s;
 }
 
-.next-btn:disabled{
-  opacity:.45;
-  cursor:not-allowed;
+.button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 14px 35px rgba(99,102,241,.3);
 }
+
+.button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none;
+}
+
+/* STATUS */
 
 .status{
-  min-height:22px;
-  margin-top:13px;
+  min-height:24px;
+  margin-top:14px;
   text-align:center;
   color:#94a3b8;
   font-size:13px;
+  line-height:1.6;
+  word-break:break-word;
+}
+
+.progress-box{
+  display:none;
+  margin-top:15px;
+  padding:15px;
+  border-radius:16px;
+  background:rgba(30,41,59,.65);
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.progress-text{
+  text-align:center;
+  color:#cbd5e1;
+  font-size:12px;
+}
+
+.progress{
+  height:7px;
+  margin-top:10px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#1e293b;
+}
+
+.progress-bar{
+  width:30%;
+  height:100%;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    #38bdf8,
+    #6366f1,
+    #ec4899
+  );
+  animation:loading 1.4s infinite ease-in-out;
+}
+
+@keyframes loading{
+  0%{
+    transform:translateX(-130%);
+  }
+  100%{
+    transform:translateX(430%);
+  }
 }
 
 .footer{
-  padding:25px 0;
+  padding:10px 0;
   text-align:center;
   color:#475569;
-  font-size:12px;
+  font-size:11px;
 }
 
 @media(max-width:600px){
 
   .container{
-    padding:10px;
+    padding:12px 10px 30px;
+  }
+
+  .hero{
+    padding:27px 18px;
+    border-radius:24px;
+  }
+
+  .logo{
+    font-size:28px;
   }
 
   .card{
@@ -260,12 +431,12 @@ body{
     border-radius:21px;
   }
 
-  .logo{
-    font-size:26px;
+  .upload{
+    padding:28px 12px;
   }
 
-  .upload{
-    padding:38px 15px;
+  .step-title{
+    font-size:17px;
   }
 }
 </style>
@@ -275,158 +446,200 @@ body{
 
 <div class="container">
 
-  <div class="header">
-    <div class="logo">
-      🎬 YNT MOVIE RECAP AI
+<!-- HERO -->
+
+<div class="hero">
+
+  <div class="hero-content">
+
+    <div class="badge">
+      ✨ AI POWERED MOVIE RECAP
     </div>
 
-    <div class="subtitle">
-      AI-Powered Myanmar Movie Recap Studio
+    <div class="logo">
+      🎬 YNT Movie Recap AI
     </div>
+
+    <p class="hero-text">
+      Movie Video တင်ပါ → Gemini AI က ဇာတ်လမ်းကို နားလည်ပါမယ်
+      → မြန်မာ Movie Recap Script ထုတ်ပေးပါမယ်။
+    </p>
+
+    <div class="waveform">
+
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+      <span class="wave"></span>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- STEP 1 -->
+
+<div class="card">
+
+  <div class="step">
+
+    <div class="step-number">
+      01
+    </div>
+
+    <div>
+
+      <div class="step-title">
+        🎬 Movie Video တင်ပါ
+      </div>
+
+      <div class="step-sub">
+        MP4 / MOV / WEBM
+      </div>
+
+    </div>
+
   </div>
 
 
-  <!-- STEP 1 -->
+  <label class="upload">
 
-  <div class="card">
-
-    <div class="step">
-
-      <div class="step-number">
-        1
-      </div>
-
-      <div>
-
-        <div class="step-title">
-          🎬 Movie Upload
-        </div>
-
-        <div class="step-sub">
-          Recap လုပ်မယ့် Movie / Video ဖိုင်ကို ရွေးပါ
-        </div>
-
-      </div>
-
+    <div class="upload-icon">
+      📤
     </div>
 
-
-    <label
-      class="upload"
-      id="uploadBox"
-    >
-
-      <div class="upload-icon">
-        🎞️
-      </div>
-
-      <div class="upload-title">
-        Movie / Video ရွေးရန်
-      </div>
-
-      <div class="upload-text">
-        MP4 • MOV • WEBM • AVI
-      </div>
-
-      <input
-        type="file"
-        id="videoInput"
-        accept="video/*"
-      >
-
-    </label>
-
-
-    <!-- FILE INFORMATION -->
-
-    <div
-      class="file-info"
-      id="fileInfo"
-    >
-
-      <div
-        class="file-name"
-        id="fileName"
-      ></div>
-
-      <div class="file-meta">
-
-        <div
-          class="meta"
-          id="fileSize"
-        >
-          📦 —
-        </div>
-
-        <div
-          class="meta"
-          id="fileType"
-        >
-          🎞️ —
-        </div>
-
-        <div
-          class="meta"
-          id="fileDuration"
-        >
-          ⏱️ —
-        </div>
-
-      </div>
-
+    <div class="upload-title">
+      Video ဖိုင်ရွေးရန်
     </div>
 
-
-    <!-- VIDEO PREVIEW -->
-
-    <video
-      id="videoPreview"
-      class="video-preview"
-      controls
-      playsinline
-      preload="metadata"
-    ></video>
-
-
-    <button
-      id="clearBtn"
-      class="clear-btn"
-      type="button"
-      style="display:none;"
-    >
-      🗑️ Video ဖယ်မည်
-    </button>
-
-
-    <div
-      id="ready"
-      class="ready"
-    >
-      ✅ Movie Upload အောင်မြင်ပါပြီ
+    <div class="upload-text">
+      Movie ဖိုင်ကို ဒီနေရာမှာ နှိပ်ပြီးရွေးပါ
     </div>
 
-
-    <button
-      id="nextBtn"
-      class="next-btn"
-      type="button"
-      disabled
+    <input
+      type="file"
+      id="videoInput"
+      accept="video/mp4,video/mov,video/webm,video/*"
     >
-      🤖 Step 2 — AI Movie Analysis
-    </button>
 
+  </label>
+
+
+  <div
+    class="file-info"
+    id="fileInfo"
+  >
 
     <div
-      id="status"
-      class="status"
+      class="file-name"
+      id="fileName"
+    ></div>
+
+    <div
+      class="file-size"
+      id="fileSize"
     ></div>
 
   </div>
 
 
-  <div class="footer">
-    © 2026 YNT Movie Recap AI
+  <video
+    id="videoPreview"
+    class="video-preview"
+    controls
+    playsinline
+  ></video>
+
+</div>
+
+
+<!-- STEP 2 -->
+
+<div class="card">
+
+  <div class="step">
+
+    <div class="step-number">
+      02
+    </div>
+
+    <div>
+
+      <div class="step-title">
+        🤖 AI Movie Recap
+      </div>
+
+      <div class="step-sub">
+        Gemini AI ဖြင့် မြန်မာ Recap Script ပြုလုပ်မည်
+      </div>
+
+    </div>
+
   </div>
+
+
+  <label class="label">
+    📝 Myanmar Movie Recap Script
+  </label>
+
+
+  <textarea
+    id="myanmarText"
+    placeholder="AI Recap Script ထွက်လာရင် ဒီနေရာမှာ ပေါ်လာပါမယ်..."
+  ></textarea>
+
+
+  <button
+    class="button"
+    id="recapScriptBtn"
+    type="button"
+  >
+    🤖 AI Recap Script ရယူမည်
+  </button>
+
+
+  <div
+    class="progress-box"
+    id="progressBox"
+  >
+
+    <div
+      class="progress-text"
+      id="progressText"
+    >
+      🤖 AI က Video ကို စစ်ဆေးနေပါတယ်...
+    </div>
+
+    <div class="progress">
+
+      <div class="progress-bar"></div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="status"
+    id="scriptStatus"
+  ></div>
+
+</div>
+
+
+<div class="footer">
+  © 2026 YNT Movie Recap AI
+</div>
 
 </div>
 
@@ -436,15 +649,12 @@ body{
 let previewURL = null;
 
 
-/* =====================================
+/* ================================
    ELEMENTS
-===================================== */
+================================ */
 
 const videoInput =
   document.getElementById("videoInput");
-
-const uploadBox =
-  document.getElementById("uploadBox");
 
 const fileInfo =
   document.getElementById("fileInfo");
@@ -455,36 +665,35 @@ const fileName =
 const fileSize =
   document.getElementById("fileSize");
 
-const fileType =
-  document.getElementById("fileType");
-
-const fileDuration =
-  document.getElementById("fileDuration");
-
 const videoPreview =
   document.getElementById("videoPreview");
 
-const clearBtn =
-  document.getElementById("clearBtn");
+const myanmarText =
+  document.getElementById("myanmarText");
 
-const ready =
-  document.getElementById("ready");
+const recapScriptBtn =
+  document.getElementById("recapScriptBtn");
 
-const nextBtn =
-  document.getElementById("nextBtn");
+const scriptStatus =
+  document.getElementById("scriptStatus");
 
-const status =
-  document.getElementById("status");
+const progressBox =
+  document.getElementById("progressBox");
+
+const progressText =
+  document.getElementById("progressText");
 
 
-/* =====================================
-   FORMAT FILE SIZE
-===================================== */
+/* ================================
+   FILE SIZE
+================================ */
 
 function formatSize(bytes){
 
   if(bytes < 1024){
+
     return bytes + " B";
+
   }
 
   if(bytes < 1024 * 1024){
@@ -509,178 +718,9 @@ function formatSize(bytes){
 }
 
 
-/* =====================================
-   FORMAT DURATION
-===================================== */
-
-function formatDuration(seconds){
-
-  if(!Number.isFinite(seconds)){
-    return "—";
-  }
-
-  seconds =
-    Math.floor(seconds);
-
-  const hours =
-    Math.floor(seconds / 3600);
-
-  const minutes =
-    Math.floor(
-      (seconds % 3600) / 60
-    );
-
-  const secs =
-    seconds % 60;
-
-  if(hours > 0){
-
-    return (
-      String(hours).padStart(2,"0") +
-      ":" +
-      String(minutes).padStart(2,"0") +
-      ":" +
-      String(secs).padStart(2,"0")
-    );
-
-  }
-
-  return (
-    String(minutes).padStart(2,"0") +
-    ":" +
-    String(secs).padStart(2,"0")
-  );
-}
-
-
-/* =====================================
-   SHOW VIDEO
-===================================== */
-
-function loadVideo(file){
-
-  if(!file){
-    return;
-  }
-
-
-  if(!file.type.startsWith("video/")){
-
-    status.textContent =
-      "❌ Video ဖိုင်သာ ရွေးပါ။";
-
-    videoInput.value = "";
-
-    return;
-  }
-
-
-  /*
-   * OLD PREVIEW URL CLEAN
-   */
-
-  if(previewURL){
-
-    URL.revokeObjectURL(
-      previewURL
-    );
-  }
-
-
-  previewURL =
-    URL.createObjectURL(file);
-
-
-  /*
-   * FILE INFO
-   */
-
-  fileName.textContent =
-    "🎬 " + file.name;
-
-  fileSize.textContent =
-    "📦 " + formatSize(file.size);
-
-  fileType.textContent =
-    "🎞️ " +
-    (
-      file.type ||
-      "video"
-    );
-
-
-  fileInfo.style.display =
-    "block";
-
-
-  /*
-   * VIDEO PREVIEW
-   */
-
-  videoPreview.src =
-    previewURL;
-
-  videoPreview.style.display =
-    "block";
-
-  videoPreview.load();
-
-
-  /*
-   * RESET
-   */
-
-  ready.style.display =
-    "none";
-
-  nextBtn.disabled =
-    true;
-
-  status.textContent =
-    "⏳ Video information ဖတ်နေပါတယ်...";
-
-
-  /*
-   * DURATION
-   */
-
-  videoPreview.onloadedmetadata =
-    function(){
-
-      fileDuration.textContent =
-        "⏱️ " +
-        formatDuration(
-          videoPreview.duration
-        );
-
-      ready.style.display =
-        "block";
-
-      clearBtn.style.display =
-        "block";
-
-      nextBtn.disabled =
-        false;
-
-      status.textContent =
-        "✅ Video ကို အောင်မြင်စွာ ရွေးပြီးပါပြီ။";
-
-    };
-
-
-  videoPreview.onerror =
-    function(){
-
-      status.textContent =
-        "⚠️ Video Preview ဖတ်မရပါ။ ဖိုင် format ကို စစ်ပါ။";
-
-    };
-}
-
-
-/* =====================================
-   FILE SELECT
-===================================== */
+/* ================================
+   VIDEO SELECT
+================================ */
 
 videoInput.addEventListener(
   "change",
@@ -689,115 +729,266 @@ videoInput.addEventListener(
     const file =
       this.files[0];
 
+
     if(!file){
+
+      fileInfo.style.display =
+        "none";
+
+      videoPreview.style.display =
+        "none";
+
+      videoPreview.removeAttribute(
+        "src"
+      );
+
       return;
     }
 
-    loadVideo(file);
-
-  }
-);
-
-
-/* =====================================
-   DRAG & DROP
-===================================== */
-
-uploadBox.addEventListener(
-  "dragover",
-  function(event){
-
-    event.preventDefault();
-
-    uploadBox.classList.add(
-      "dragover"
-    );
-
-  }
-);
-
-
-uploadBox.addEventListener(
-  "dragleave",
-  function(){
-
-    uploadBox.classList.remove(
-      "dragover"
-    );
-
-  }
-);
-
-
-uploadBox.addEventListener(
-  "drop",
-  function(event){
-
-    event.preventDefault();
-
-    uploadBox.classList.remove(
-      "dragover"
-    );
-
-    const file =
-      event.dataTransfer.files[0];
-
-    if(!file){
-      return;
-    }
 
     if(
-      !file.type.startsWith(
-        "video/"
-      )
+      !file.type.startsWith("video/")
     ){
 
-      status.textContent =
-        "❌ Video ဖိုင်သာ ထည့်ပါ။";
+      this.value = "";
+
+      alert(
+        "Video ဖိုင်သာ ရွေးပါ။"
+      );
 
       return;
     }
 
 
-    /*
-     * Put dropped file into input
-     * when browser allows it.
-     */
+    fileName.textContent =
+      "📁 " + file.name;
+
+
+    fileSize.textContent =
+      "📦 " + formatSize(file.size);
+
+
+    fileInfo.style.display =
+      "block";
+
+
+    if(previewURL){
+
+      URL.revokeObjectURL(
+        previewURL
+      );
+
+    }
+
+
+    previewURL =
+      URL.createObjectURL(file);
+
+
+    videoPreview.src =
+      previewURL;
+
+
+    videoPreview.style.display =
+      "block";
+
+
+    videoPreview.load();
+
+
+    scriptStatus.textContent =
+      "";
+
+
+    myanmarText.value =
+      "";
+
+  }
+);
+
+
+/* ================================
+   AI RECAP SCRIPT
+================================ */
+
+recapScriptBtn.addEventListener(
+  "click",
+  async function(){
+
+    const file =
+      videoInput.files[0];
+
+
+    if(!file){
+
+      scriptStatus.textContent =
+        "⚠️ အရင်ဆုံး Movie Video ဖိုင်ရွေးပါ။";
+
+      return;
+    }
+
+
+    recapScriptBtn.disabled =
+      true;
+
+
+    progressBox.style.display =
+      "block";
+
+
+    progressText.textContent =
+      "📤 Video ကို Gemini AI ဆီ ပို့နေပါတယ်...";
+
+
+    scriptStatus.textContent =
+      "";
+
 
     try{
 
-      const dataTransfer =
-        new DataTransfer();
+      const formData =
+        new FormData();
 
-      dataTransfer.items.add(
-        file
+
+      formData.append(
+        "video",
+        file,
+        file.name
       );
 
-      videoInput.files =
-        dataTransfer.files;
+
+      progressText.textContent =
+        "🤖 Gemini AI က Video ကို နားလည်ပြီး Recap Script ရေးနေပါတယ်...";
+
+
+      const response =
+        await fetch(
+          "/api/recap",
+          {
+            method:"POST",
+            body:formData
+          }
+        );
+
+
+      const contentType =
+        response.headers.get(
+          "content-type"
+        ) || "";
+
+
+      let data;
+
+
+      if(
+        contentType.includes(
+          "application/json"
+        )
+      ){
+
+        data =
+          await response.json();
+
+      }else{
+
+        const responseText =
+          await response.text();
+
+        throw new Error(
+          responseText ||
+          "Server မှ JSON response မရပါ။"
+        );
+
+      }
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data?.error ||
+          "AI Recap API Error"
+        );
+
+      }
+
+
+      if(
+        !data ||
+        !data.script ||
+        !String(data.script).trim()
+      ){
+
+        throw new Error(
+          "AI Recap Script မရပါ။"
+        );
+
+      }
+
+
+      myanmarText.value =
+        String(data.script).trim();
+
+
+      progressText.textContent =
+        "✅ Gemini AI Recap ပြီးပါပြီ။";
+
+
+      scriptStatus.textContent =
+        "✅ Myanmar Movie Recap Script ရပါပြီ။";
+
+
+      myanmarText.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
 
     }catch(error){
 
-      console.log(
-        "DataTransfer:",
+      console.error(
+        "Recap Error:",
         error
       );
 
+
+      progressText.textContent =
+        "❌ Recap ပြုလုပ်ရာတွင် Error ဖြစ်နေပါတယ်။";
+
+
+      scriptStatus.textContent =
+        "❌ " +
+        (
+          error?.message ||
+          "AI Recap ပြုလုပ်၍မရပါ။"
+        );
+
+    }finally{
+
+      recapScriptBtn.disabled =
+        false;
+
+      setTimeout(
+        function(){
+
+          progressBox.style.display =
+            "none";
+
+        },
+        1800
+      );
+
     }
-
-
-    loadVideo(file);
 
   }
 );
 
 
-/* =====================================
-   CLEAR VIDEO
-===================================== */
+/* ================================
+   CLEANUP
+================================ */
 
-clearBtn.addEventListener(
-  "click",
+window.addEventListener(
+  "beforeunload",
   function(){
 
     if(previewURL){
@@ -806,72 +997,7 @@ clearBtn.addEventListener(
         previewURL
       );
 
-      previewURL =
-        null;
     }
-
-
-    videoInput.value = "";
-
-    videoPreview.pause();
-
-    videoPreview.removeAttribute(
-      "src"
-    );
-
-    videoPreview.load();
-
-    videoPreview.style.display =
-      "none";
-
-    fileInfo.style.display =
-      "none";
-
-    clearBtn.style.display =
-      "none";
-
-    ready.style.display =
-      "none";
-
-    nextBtn.disabled =
-      true;
-
-    status.textContent =
-      "Video ဖယ်ရှားပြီးပါပြီ။";
-
-  }
-);
-
-
-/* =====================================
-   STEP 2 BUTTON
-===================================== */
-
-nextBtn.addEventListener(
-  "click",
-  function(){
-
-    const file =
-      videoInput.files[0];
-
-    if(!file){
-
-      status.textContent =
-        "⚠️ အရင် Movie / Video ရွေးပါ။";
-
-      return;
-    }
-
-
-    /*
-     * STEP 1 ONLY
-     *
-     * Step 2 ကို နောက်အဆင့်မှာ
-     * ချိတ်မယ်။
-     */
-
-    status.textContent =
-      "✅ Step 1 ပြီးပါပြီ။ Step 2 AI Movie Analysis အတွက် အသင့်ဖြစ်ပါပြီ။";
 
   }
 );
