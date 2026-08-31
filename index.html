@@ -28,21 +28,9 @@ body{
     sans-serif;
 
   background:
-    radial-gradient(
-      circle at 15% 5%,
-      rgba(59,130,246,.20),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 85% 10%,
-      rgba(168,85,247,.20),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(236,72,153,.10),
-      transparent 35%
-    ),
+    radial-gradient(circle at 15% 5%,rgba(59,130,246,.20),transparent 30%),
+    radial-gradient(circle at 85% 10%,rgba(168,85,247,.20),transparent 32%),
+    radial-gradient(circle at 50% 100%,rgba(236,72,153,.10),transparent 35%),
     #05050d;
 }
 
@@ -63,9 +51,7 @@ button{
   padding:18px 14px 45px;
 }
 
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
   position:relative;
@@ -127,15 +113,14 @@ button{
   display:inline-flex;
   align-items:center;
   gap:7px;
-
   padding:7px 13px;
 
   border:1px solid rgba(129,140,248,.28);
   border-radius:999px;
 
   background:rgba(99,102,241,.10);
-
   color:#a5b4fc;
+
   font-size:11px;
   font-weight:900;
   letter-spacing:.5px;
@@ -169,9 +154,7 @@ button{
   line-height:1.7;
 }
 
-/* =========================
-   WAVE
-========================= */
+/* WAVE */
 
 .waveform{
   display:flex;
@@ -223,9 +206,7 @@ button{
   }
 }
 
-/* =========================
-   MAIN CARD
-========================= */
+/* CARD */
 
 .card{
   position:relative;
@@ -250,9 +231,7 @@ button{
     inset 0 1px 0 rgba(255,255,255,.05);
 }
 
-/* =========================
-   SECTION TITLE
-========================= */
+/* SECTION */
 
 .section-title{
   display:flex;
@@ -294,9 +273,7 @@ button{
   font-size:11px;
 }
 
-/* =========================
-   TEXT INPUT
-========================= */
+/* TEXT */
 
 textarea{
   width:100%;
@@ -354,9 +331,7 @@ textarea:focus{
   font-weight:800;
 }
 
-/* =========================
-   OPTION GRID
-========================= */
+/* VOICE */
 
 .option-title{
   margin:18px 0 10px;
@@ -420,9 +395,7 @@ textarea:focus{
   color:#a78bfa;
 }
 
-/* =========================
-   EMOTION
-========================= */
+/* EMOTION */
 
 .emotion-grid{
   display:grid;
@@ -476,9 +449,7 @@ textarea:focus{
   font-weight:800;
 }
 
-/* =========================
-   STUDIO CONTROLS
-========================= */
+/* CONTROLS */
 
 .controls{
   display:grid;
@@ -530,8 +501,6 @@ textarea:focus{
   font-size:11px;
   font-weight:900;
 }
-
-/* range */
 
 .range-wrap{
   position:relative;
@@ -593,9 +562,7 @@ input[type="range"]::-moz-range-thumb{
   font-size:9px;
 }
 
-/* =========================
-   GENERATE
-========================= */
+/* GENERATE */
 
 .generate-btn{
   width:100%;
@@ -644,9 +611,7 @@ input[type="range"]::-moz-range-thumb{
   transform:none;
 }
 
-/* =========================
-   STATUS
-========================= */
+/* STATUS */
 
 .status{
   min-height:22px;
@@ -663,9 +628,7 @@ input[type="range"]::-moz-range-thumb{
   word-break:break-word;
 }
 
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 .player{
   display:none;
@@ -746,9 +709,7 @@ audio{
   background:rgba(99,102,241,.18);
 }
 
-/* =========================
-   LOADING
-========================= */
+/* LOADING */
 
 .loading{
   display:none;
@@ -814,9 +775,7 @@ audio{
   }
 }
 
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer{
   padding:10px;
@@ -828,9 +787,7 @@ audio{
   font-size:10px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:650px){
 
@@ -886,10 +843,6 @@ audio{
 
 <div class="container">
 
-<!-- =========================
-     HERO
-========================= -->
-
 <section class="hero">
 
   <div class="hero-content">
@@ -925,18 +878,11 @@ audio{
 
 </section>
 
-
-<!-- =========================
-     TEXT
-========================= -->
-
 <section class="card">
 
   <div class="section-title">
 
-    <div class="section-icon">
-      📝
-    </div>
+    <div class="section-icon">📝</div>
 
     <div>
       <div class="section-name">
@@ -950,13 +896,11 @@ audio{
 
   </div>
 
-
   <textarea
     id="textInput"
     maxlength="5000"
     placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
   ></textarea>
-
 
   <div class="text-bottom">
 
@@ -964,10 +908,7 @@ audio{
       Maximum 5,000 characters
     </span>
 
-    <span
-      class="counter"
-      id="counter"
-    >
+    <span class="counter" id="counter">
       0 / 5000
     </span>
 
@@ -975,18 +916,11 @@ audio{
 
 </section>
 
-
-<!-- =========================
-     VOICE
-========================= -->
-
 <section class="card">
 
   <div class="section-title">
 
-    <div class="section-icon">
-      🎙️
-    </div>
+    <div class="section-icon">🎙️</div>
 
     <div>
       <div class="section-name">
@@ -1000,167 +934,87 @@ audio{
 
   </div>
 
-
   <div class="voice-grid">
 
-    <button
-      class="voice-btn"
-      data-voice="Zephyr"
-      type="button"
-    >
+    <button class="voice-btn" data-voice="Zephyr" type="button">
       <span class="voice-icon">〽</span>
       <span class="voice-name">Zephyr</span>
     </button>
 
-
-    <button
-      class="voice-btn"
-      data-voice="Puck"
-      type="button"
-    >
+    <button class="voice-btn" data-voice="Puck" type="button">
       <span class="voice-icon">〽</span>
       <span class="voice-name">Puck</span>
     </button>
 
-
-    <button
-      class="voice-btn"
-      data-voice="Charon"
-      type="button"
-    >
+    <button class="voice-btn" data-voice="Charon" type="button">
       <span class="voice-icon">〽</span>
       <span class="voice-name">Charon</span>
     </button>
 
-
-    <button
-      class="voice-btn active"
-      data-voice="Kore"
-      type="button"
-    >
+    <button class="voice-btn active" data-voice="Kore" type="button">
       <span class="voice-icon">〽</span>
       <span class="voice-name">Kore</span>
     </button>
 
-
-    <button
-      class="voice-btn"
-      data-voice="Leda"
-      type="button"
-    >
+    <button class="voice-btn" data-voice="Leda" type="button">
       <span class="voice-icon">〽</span>
       <span class="voice-name">Leda</span>
     </button>
 
   </div>
 
-
-  <!-- =========================
-       EMOTION
-  ========================= -->
-
   <div class="option-title">
     😊 EMOTION
   </div>
 
-
   <div class="emotion-grid">
 
-    <button
-      class="emotion-btn active"
-      data-emotion="natural"
-      type="button"
-    >
+    <button class="emotion-btn active" data-emotion="natural" type="button">
       <span class="emotion-icon">😌</span>
       <span class="emotion-name">Natural</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="happy"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="happy" type="button">
       <span class="emotion-icon">😄</span>
       <span class="emotion-name">Happy</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="sad"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="sad" type="button">
       <span class="emotion-icon">😢</span>
       <span class="emotion-name">Sad</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="angry"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="angry" type="button">
       <span class="emotion-icon">😡</span>
       <span class="emotion-name">Angry</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="excited"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="excited" type="button">
       <span class="emotion-icon">🤩</span>
       <span class="emotion-name">Excited</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="serious"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="serious" type="button">
       <span class="emotion-icon">😐</span>
       <span class="emotion-name">Serious</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="calm"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="calm" type="button">
       <span class="emotion-icon">😌</span>
       <span class="emotion-name">Calm</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="whisper"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="whisper" type="button">
       <span class="emotion-icon">🤫</span>
       <span class="emotion-name">Whisper</span>
     </button>
 
-
-    <button
-      class="emotion-btn"
-      data-emotion="dramatic"
-      type="button"
-    >
+    <button class="emotion-btn" data-emotion="dramatic" type="button">
       <span class="emotion-icon">🎭</span>
       <span class="emotion-name">Dramatic</span>
     </button>
 
   </div>
-
-
-  <!-- =========================
-       STUDIO CONTROLS
-  ========================= -->
 
   <div class="controls">
 
@@ -1172,15 +1026,11 @@ audio{
           ⚡ Speed
         </span>
 
-        <span
-          class="control-value"
-          id="speedValue"
-        >
+        <span class="control-value" id="speedValue">
           0
         </span>
 
       </div>
-
 
       <div class="range-wrap">
 
@@ -1195,7 +1045,6 @@ audio{
 
       </div>
 
-
       <div class="range-labels">
         <span>Very Slow</span>
         <span>Normal</span>
@@ -1203,7 +1052,6 @@ audio{
       </div>
 
     </div>
-
 
     <div class="control-box">
 
@@ -1213,15 +1061,11 @@ audio{
           🎵 Pitch
         </span>
 
-        <span
-          class="control-value"
-          id="pitchValue"
-        >
+        <span class="control-value" id="pitchValue">
           0
         </span>
 
       </div>
-
 
       <div class="range-wrap">
 
@@ -1236,7 +1080,6 @@ audio{
 
       </div>
 
-
       <div class="range-labels">
         <span>Deep</span>
         <span>Normal</span>
@@ -1247,11 +1090,6 @@ audio{
 
   </div>
 
-
-  <!-- =========================
-       GENERATE
-  ========================= -->
-
   <button
     class="generate-btn"
     id="generateBtn"
@@ -1260,16 +1098,9 @@ audio{
     ✨ Generate Voice
   </button>
 
+  <div class="loading" id="loading">
 
-  <div
-    class="loading"
-    id="loading"
-  >
-
-    <div
-      class="loading-text"
-      id="loadingText"
-    >
+    <div class="loading-text" id="loadingText">
       🤖 AI Voice ပြုလုပ်နေပါတယ်...
     </div>
 
@@ -1277,21 +1108,9 @@ audio{
 
   </div>
 
+  <div class="status" id="status"></div>
 
-  <div
-    class="status"
-    id="status"
-  ></div>
-
-
-  <!-- =========================
-       AUDIO PLAYER
-  ========================= -->
-
-  <div
-    class="player"
-    id="player"
-  >
+  <div class="player" id="player">
 
     <div class="player-top">
 
@@ -1313,13 +1132,11 @@ audio{
 
     </div>
 
-
     <audio
       id="audioPlayer"
       controls
       preload="metadata"
     ></audio>
-
 
     <button
       class="download-btn"
@@ -1333,542 +1150,351 @@ audio{
 
 </section>
 
-
 <div class="footer">
   © 2026 YNT TTS Voice • AI Powered
 </div>
 
 </div>
 
-
 <script>
-
-/* =========================
-   STATE
-========================= */
 
 let selectedVoice = "Kore";
 let selectedEmotion = "natural";
 let currentAudioURL = null;
 
+const textInput = document.getElementById("textInput");
+const counter = document.getElementById("counter");
 
-/* =========================
-   ELEMENTS
-========================= */
+const speed = document.getElementById("speed");
+const pitch = document.getElementById("pitch");
 
-const textInput =
-  document.getElementById("textInput");
+const speedValue = document.getElementById("speedValue");
+const pitchValue = document.getElementById("pitchValue");
 
-const counter =
-  document.getElementById("counter");
+const generateBtn = document.getElementById("generateBtn");
 
-const speed =
-  document.getElementById("speed");
+const loading = document.getElementById("loading");
+const loadingText = document.getElementById("loadingText");
 
-const pitch =
-  document.getElementById("pitch");
+const status = document.getElementById("status");
 
-const speedValue =
-  document.getElementById("speedValue");
+const player = document.getElementById("player");
+const audioPlayer = document.getElementById("audioPlayer");
 
-const pitchValue =
-  document.getElementById("pitchValue");
+const downloadBtn = document.getElementById("downloadBtn");
 
-const generateBtn =
-  document.getElementById("generateBtn");
 
-const loading =
-  document.getElementById("loading");
+/* CHARACTER COUNTER */
 
-const loadingText =
-  document.getElementById("loadingText");
+textInput.addEventListener("input", function(){
 
-const status =
-  document.getElementById("status");
+  counter.textContent =
+    this.value.length + " / 5000";
 
-const player =
-  document.getElementById("player");
+});
 
-const audioPlayer =
-  document.getElementById("audioPlayer");
 
-const downloadBtn =
-  document.getElementById("downloadBtn");
+/* VOICE */
 
+document.querySelectorAll(".voice-btn").forEach(function(button){
 
-/* =========================
-   CHARACTER COUNTER
-========================= */
+  button.addEventListener("click", function(){
 
-textInput.addEventListener(
-  "input",
-  function(){
+    document.querySelectorAll(".voice-btn").forEach(function(item){
+      item.classList.remove("active");
+    });
 
-    const length =
-      this.value.length;
+    this.classList.add("active");
 
-    counter.textContent =
-      length + " / 5000";
-
-  }
-);
-
-
-/* =========================
-   VOICE SELECT
-========================= */
-
-document
-  .querySelectorAll(".voice-btn")
-  .forEach(
-    function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          document
-            .querySelectorAll(".voice-btn")
-            .forEach(
-              function(item){
-                item.classList.remove(
-                  "active"
-                );
-              }
-            );
-
-          this.classList.add(
-            "active"
-          );
-
-          selectedVoice =
-            this.dataset.voice;
-
-          status.textContent =
-            "🎙️ Voice: " +
-            selectedVoice;
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================
-   EMOTION SELECT
-========================= */
-
-document
-  .querySelectorAll(".emotion-btn")
-  .forEach(
-    function(button){
-
-      button.addEventListener(
-        "click",
-        function(){
-
-          document
-            .querySelectorAll(".emotion-btn")
-            .forEach(
-              function(item){
-                item.classList.remove(
-                  "active"
-                );
-              }
-            );
-
-          this.classList.add(
-            "active"
-          );
-
-          selectedEmotion =
-            this.dataset.emotion;
-
-          status.textContent =
-            "😊 Emotion: " +
-            selectedEmotion;
-
-        }
-      );
-
-    }
-  );
-
-
-/* =========================
-   SPEED
-========================= */
-
-speed.addEventListener(
-  "input",
-  function(){
-
-    speedValue.textContent =
-      this.value;
-
-  }
-);
-
-
-/* =========================
-   PITCH
-========================= */
-
-pitch.addEventListener(
-  "input",
-  function(){
-
-    pitchValue.textContent =
-      this.value;
-
-  }
-);
-
-
-/* =========================
-   GENERATE TTS
-========================= */
-
-generateBtn.addEventListener(
-  "click",
-  async function(){
-
-    const text =
-      textInput.value.trim();
-
-
-    /* EMPTY */
-
-    if(!text){
-
-      status.textContent =
-        "⚠️ အရင်ဆုံး မြန်မာစာထည့်ပါ။";
-
-      textInput.focus();
-
-      return;
-    }
-
-
-    /* LIMIT */
-
-    if(text.length > 5000){
-
-      status.textContent =
-        "⚠️ စာလုံးရေ 5000 ထက် မကျော်ရပါ။";
-
-      return;
-    }
-
-
-    /* RESET */
-
-    generateBtn.disabled =
-      true;
-
-    loading.style.display =
-      "block";
-
-    player.style.display =
-      "none";
+    selectedVoice = this.dataset.voice;
 
     status.textContent =
-      "";
+      "🎙️ Voice: " + selectedVoice;
 
-    loadingText.textContent =
-      "🤖 Gemini AI က Voice ပြုလုပ်နေပါတယ်...";
+  });
 
-
-    try{
-
-      /*
-       * IMPORTANT
-       * Existing backend:
-       * POST /api/tts
-       */
-
-      const response =
-        await fetch(
-          "/api/tts",
-          {
-            method:"POST",
-
-            headers:{
-              "Content-Type":
-                "application/json"
-            },
-
-            body:JSON.stringify({
-
-              text:text,
-
-              voice:selectedVoice,
-
-              emotion:selectedEmotion,
-
-              speed:Number(
-                speed.value
-              ),
-
-              pitch:Number(
-                pitch.value
-              )
-
-            })
-
-          }
-        );
+});
 
 
-      /*
-       * CHECK CONTENT TYPE
-       */
+/* EMOTION */
 
-      const contentType =
-        response.headers.get(
-          "content-type"
-        ) || "";
+document.querySelectorAll(".emotion-btn").forEach(function(button){
 
+  button.addEventListener("click", function(){
 
-      if(!response.ok){
+    document.querySelectorAll(".emotion-btn").forEach(function(item){
+      item.classList.remove("active");
+    });
 
-        let errorMessage =
-          "TTS ပြုလုပ်၍မရပါ။";
+    this.classList.add("active");
 
+    selectedEmotion = this.dataset.emotion;
 
-        if(
-          contentType.includes(
-            "application/json"
-          )
-        ){
+    status.textContent =
+      "😊 Emotion: " + selectedEmotion;
 
-          const errorData =
-            await response.json();
+  });
 
-          errorMessage =
-            errorData?.error ||
-            errorMessage;
-
-        }else{
-
-          const errorText =
-            await response.text();
-
-          if(errorText){
-            errorMessage =
-              errorText;
-          }
-
-        }
+});
 
 
-        throw new Error(
-          errorMessage
-        );
+/* SPEED */
 
-      }
+speed.addEventListener("input", function(){
+
+  speedValue.textContent = this.value;
+
+});
 
 
-      /*
-       * MUST RECEIVE AUDIO
-       */
+/* PITCH */
 
-      if(
-        !contentType.includes(
-          "audio/"
-        )
-      ){
+pitch.addEventListener("input", function(){
+
+  pitchValue.textContent = this.value;
+
+});
+
+
+/* GENERATE */
+
+generateBtn.addEventListener("click", async function(){
+
+  const text = textInput.value.trim();
+
+  if(!text){
+
+    status.textContent =
+      "⚠️ အရင်ဆုံး မြန်မာစာထည့်ပါ။";
+
+    textInput.focus();
+
+    return;
+  }
+
+  if(text.length > 5000){
+
+    status.textContent =
+      "⚠️ စာလုံးရေ 5000 ထက် မကျော်ရပါ။";
+
+    return;
+  }
+
+  generateBtn.disabled = true;
+
+  loading.style.display = "block";
+
+  player.style.display = "none";
+
+  status.textContent = "";
+
+  loadingText.textContent =
+    "🤖 Gemini AI က Voice ပြုလုပ်နေပါတယ်...";
+
+
+  try{
+
+    const response = await fetch("/api/tts", {
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+
+        text:text,
+
+        voice:selectedVoice,
+
+        emotion:selectedEmotion,
+
+        speed:Number(speed.value),
+
+        pitch:Number(pitch.value)
+
+      })
+
+    });
+
+
+    const contentType =
+      response.headers.get("content-type") || "";
+
+
+    if(!response.ok){
+
+      let errorMessage =
+        "TTS ပြုလုပ်၍မရပါ။";
+
+
+      if(contentType.includes("application/json")){
+
+        const errorData =
+          await response.json();
+
+        errorMessage =
+          errorData?.error || errorMessage;
+
+      }else{
 
         const errorText =
           await response.text();
 
-        throw new Error(
-          errorText ||
-          "Server မှ Audio File မပြန်လာပါ။"
-        );
+        if(errorText){
+          errorMessage = errorText;
+        }
 
       }
 
+      throw new Error(errorMessage);
 
-      /*
-       * AUDIO BLOB
-       */
-
-      const audioBlob =
-        await response.blob();
+    }
 
 
-      if(
-        !audioBlob ||
-        audioBlob.size === 0
-      ){
+    if(!contentType.includes("audio/")){
 
-        throw new Error(
-          "Audio Data အလွတ်ဖြစ်နေပါတယ်။"
-        );
+      const errorText =
+        await response.text();
 
-      }
-
-
-      /*
-       * CLEAN OLD URL
-       */
-
-      if(currentAudioURL){
-
-        URL.revokeObjectURL(
-          currentAudioURL
-        );
-
-      }
-
-
-      /*
-       * CREATE AUDIO URL
-       */
-
-      currentAudioURL =
-        URL.createObjectURL(
-          audioBlob
-        );
-
-
-      audioPlayer.src =
-        currentAudioURL;
-
-
-      player.style.display =
-        "block";
-
-
-      loadingText.textContent =
-        "✅ Voice ပြုလုပ်ပြီးပါပြီ။";
-
-
-      status.textContent =
-        "✅ YNT TTS Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
-
-
-      /*
-       * SCROLL PLAYER
-       */
-
-      setTimeout(
-        function(){
-
-          player.scrollIntoView({
-            behavior:"smooth",
-            block:"center"
-          });
-
-        },
-        150
-      );
-
-
-    }catch(error){
-
-      console.error(
-        "YNT TTS ERROR:",
-        error
-      );
-
-
-      loadingText.textContent =
-        "❌ Voice ပြုလုပ်၍မရပါ။";
-
-
-      status.textContent =
-        "❌ " +
-        (
-          error?.message ||
-          "TTS Error ဖြစ်နေပါတယ်။"
-        );
-
-    }finally{
-
-      generateBtn.disabled =
-        false;
-
-
-      setTimeout(
-        function(){
-
-          loading.style.display =
-            "none";
-
-        },
-        1500
+      throw new Error(
+        errorText ||
+        "Server မှ Audio File မပြန်လာပါ။"
       );
 
     }
 
-  }
-);
+
+    const audioBlob =
+      await response.blob();
 
 
-/* =========================
-   DOWNLOAD WAV
-========================= */
+    if(!audioBlob || audioBlob.size === 0){
 
-downloadBtn.addEventListener(
-  "click",
-  function(){
+      throw new Error(
+        "Audio Data အလွတ်ဖြစ်နေပါတယ်။"
+      );
 
-    if(!currentAudioURL){
-
-      status.textContent =
-        "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
-
-      return;
     }
 
-
-    const link =
-      document.createElement("a");
-
-
-    link.href =
-      currentAudioURL;
-
-
-    link.download =
-      "YNT-TTS-Voice.wav";
-
-
-    document.body.appendChild(
-      link
-    );
-
-
-    link.click();
-
-
-    link.remove();
-
-  }
-);
-
-
-/* =========================
-   CLEANUP
-========================= */
-
-window.addEventListener(
-  "beforeunload",
-  function(){
 
     if(currentAudioURL){
 
-      URL.revokeObjectURL(
-        currentAudioURL
-      );
+      URL.revokeObjectURL(currentAudioURL);
 
     }
 
+
+    currentAudioURL =
+      URL.createObjectURL(audioBlob);
+
+
+    audioPlayer.src =
+      currentAudioURL;
+
+
+    player.style.display =
+      "block";
+
+
+    loadingText.textContent =
+      "✅ Voice ပြုလုပ်ပြီးပါပြီ။";
+
+
+    status.textContent =
+      "✅ YNT TTS Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
+
+
+    setTimeout(function(){
+
+      player.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+    },150);
+
+
+  }catch(error){
+
+    console.error(
+      "YNT TTS ERROR:",
+      error
+    );
+
+    loadingText.textContent =
+      "❌ Voice ပြုလုပ်၍မရပါ။";
+
+
+    status.textContent =
+      "❌ " +
+      (
+        error?.message ||
+        "TTS Error ဖြစ်နေပါတယ်။"
+      );
+
+  }finally{
+
+    generateBtn.disabled = false;
+
+    setTimeout(function(){
+
+      loading.style.display =
+        "none";
+
+    },1500);
+
   }
-);
+
+});
+
+
+/* DOWNLOAD */
+
+downloadBtn.addEventListener("click", function(){
+
+  if(!currentAudioURL){
+
+    status.textContent =
+      "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
+
+    return;
+  }
+
+
+  const link =
+    document.createElement("a");
+
+
+  link.href =
+    currentAudioURL;
+
+
+  link.download =
+    "YNT-TTS-Voice.wav";
+
+
+  document.body.appendChild(link);
+
+  link.click();
+
+  link.remove();
+
+});
+
+
+/* CLEANUP */
+
+window.addEventListener("beforeunload", function(){
+
+  if(currentAudioURL){
+
+    URL.revokeObjectURL(currentAudioURL);
+
+  }
+
+});
 
 </script>
 
