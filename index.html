@@ -8,7 +8,6 @@
 <title>YNT TTS Voice</title>
 
 <style>
-
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
@@ -52,18 +51,13 @@ button{
   padding:14px 12px 40px;
 }
 
-
-/* =========================
-   HERO
-========================= */
+/* HERO */
 
 .hero{
   position:relative;
   overflow:hidden;
-
   padding:30px 18px 24px;
   margin-bottom:14px;
-
   border:1px solid rgba(255,255,255,.10);
   border-radius:28px;
 
@@ -85,15 +79,11 @@ button{
 .hero:before{
   content:"";
   position:absolute;
-
   width:260px;
   height:260px;
-
   right:-120px;
   top:-150px;
-
   border-radius:50%;
-
   background:#9333ea;
   filter:blur(90px);
   opacity:.27;
@@ -102,15 +92,11 @@ button{
 .hero:after{
   content:"";
   position:absolute;
-
   width:220px;
   height:220px;
-
   left:-130px;
   bottom:-150px;
-
   border-radius:50%;
-
   background:#2563eb;
   filter:blur(90px);
   opacity:.20;
@@ -126,32 +112,21 @@ button{
   display:inline-flex;
   align-items:center;
   gap:7px;
-
   padding:7px 13px;
-
   border:1px solid rgba(129,140,248,.28);
   border-radius:999px;
-
   background:rgba(99,102,241,.10);
-
   color:#c4b5fd;
-
   font-size:10px;
   font-weight:900;
   letter-spacing:.6px;
 }
-
-
-/* =========================
-   LOGO
-========================= */
 
 .logo{
   display:flex;
   align-items:center;
   justify-content:center;
   gap:8px;
-
   margin:16px 0 9px;
 
   font-family:
@@ -161,7 +136,6 @@ button{
 
   font-size:clamp(34px,8vw,54px);
   font-weight:950;
-
   letter-spacing:-2.5px;
   line-height:1;
 
@@ -171,42 +145,21 @@ button{
 }
 
 .logo-ynt{
-  background:
-    linear-gradient(
-      135deg,
-      #22d3ee,
-      #38bdf8,
-      #6366f1
-    );
-
+  background:linear-gradient(135deg,#22d3ee,#38bdf8,#6366f1);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
 .logo-tts{
-  background:
-    linear-gradient(
-      135deg,
-      #818cf8,
-      #a855f7,
-      #c084fc
-    );
-
+  background:linear-gradient(135deg,#818cf8,#a855f7,#c084fc);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
 }
 
 .logo-voice{
-  background:
-    linear-gradient(
-      135deg,
-      #f472b6,
-      #ec4899,
-      #fb7185
-    );
-
+  background:linear-gradient(135deg,#f472b6,#ec4899,#fb7185);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -219,25 +172,19 @@ button{
   line-height:1.8;
 }
 
-
-/* =========================
-   WAVE
-========================= */
+/* WAVE */
 
 .waveform{
   display:flex;
   align-items:center;
   justify-content:center;
-
   gap:4px;
-
   height:36px;
   margin-top:13px;
 }
 
 .wave{
   width:3px;
-
   border-radius:99px;
 
   background:
@@ -276,10 +223,7 @@ button{
   }
 }
 
-
-/* =========================
-   CARD
-========================= */
+/* CARD */
 
 .card{
   margin-bottom:12px;
@@ -303,23 +247,18 @@ button{
     inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-
-/* =========================
-   SECTION
-========================= */
+/* TITLE */
 
 .section-title{
   display:flex;
   align-items:center;
   gap:10px;
-
   margin-bottom:13px;
 }
 
 .section-icon{
   width:38px;
   height:38px;
-
   flex-shrink:0;
 
   display:flex;
@@ -351,22 +290,16 @@ button{
   font-size:10px;
 }
 
-
-/* =========================
-   TEXT
-========================= */
+/* TEXT */
 
 textarea{
   width:100%;
   min-height:230px;
-
   padding:16px;
-
   resize:vertical;
 
   border:1px solid #25253d;
   border-radius:17px;
-
   outline:none;
 
   background:
@@ -377,10 +310,8 @@ textarea{
     );
 
   color:#fff;
-
   font-size:14px;
   line-height:1.9;
-
   transition:.2s;
 }
 
@@ -400,9 +331,7 @@ textarea:focus{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   margin-top:7px;
-
   color:#64748b;
   font-size:10px;
 }
@@ -412,10 +341,7 @@ textarea:focus{
   font-weight:900;
 }
 
-
-/* =========================
-   VOICE
-========================= */
+/* VOICE */
 
 .voice-grid{
   display:grid;
@@ -430,7 +356,6 @@ textarea:focus{
   border-radius:14px;
 
   background:rgba(8,8,22,.75);
-
   color:#cbd5e1;
 
   cursor:pointer;
@@ -471,21 +396,16 @@ textarea:focus{
   font-size:16px;
 }
 
-
-/* =========================
-   COLLAPSE
-========================= */
+/* COLLAPSE */
 
 .collapse-card{
   overflow:hidden;
-
   margin-top:10px;
 
   border:1px solid rgba(255,255,255,.08);
   border-radius:17px;
 
   background:rgba(8,8,22,.65);
-
   transition:.2s;
 }
 
@@ -499,13 +419,10 @@ textarea:focus{
   padding:14px 15px;
 
   border:0;
-
   background:transparent;
-
   color:#fff;
 
   cursor:pointer;
-
   text-align:left;
 }
 
@@ -524,7 +441,6 @@ textarea:focus{
   justify-content:center;
 
   border-radius:10px;
-
   font-size:16px;
 }
 
@@ -570,10 +486,7 @@ textarea:focus{
   display:block;
 }
 
-
-/* =========================
-   EMOTION
-========================= */
+/* EMOTION */
 
 .emotion-card{
   border-color:rgba(236,72,153,.18);
@@ -596,7 +509,6 @@ textarea:focus{
   border-radius:13px;
 
   background:rgba(8,8,22,.75);
-
   color:#94a3b8;
 
   cursor:pointer;
@@ -634,10 +546,7 @@ textarea:focus{
   font-weight:900;
 }
 
-
-/* =========================
-   SETTINGS
-========================= */
+/* SETTINGS */
 
 .settings-card{
   border-color:rgba(59,130,246,.20);
@@ -671,7 +580,6 @@ textarea:focus{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   margin-bottom:12px;
 }
 
@@ -683,7 +591,6 @@ textarea:focus{
 
 .control-value{
   min-width:43px;
-
   padding:4px 8px;
 
   text-align:center;
@@ -692,7 +599,6 @@ textarea:focus{
   border-radius:8px;
 
   background:rgba(99,102,241,.08);
-
   color:#a5b4fc;
 
   font-size:10px;
@@ -710,7 +616,6 @@ input[type="range"]{
 
   border-radius:99px;
   outline:none;
-
   background:#25253b;
 }
 
@@ -722,7 +627,6 @@ input[type="range"]::-webkit-slider-thumb{
   height:17px;
 
   border-radius:50%;
-
   border:2px solid #fff;
 
   background:#8b5cf6;
@@ -738,9 +642,7 @@ input[type="range"]::-moz-range-thumb{
   height:17px;
 
   border-radius:50%;
-
   border:2px solid #fff;
-
   background:#8b5cf6;
 
   cursor:pointer;
@@ -749,56 +651,29 @@ input[type="range"]::-moz-range-thumb{
 .range-labels{
   display:flex;
   justify-content:space-between;
-
   margin-top:7px;
 
   color:#475569;
-
   font-size:8px;
 }
 
+/* VOICE CLONE */
 
-/* =========================
-   VOICE CLONE
-========================= */
-
-.voice-clone-card{
-  overflow:hidden;
-
+.clone-card{
   margin-top:10px;
 
-  border:1px solid rgba(236,72,153,.25);
-  border-radius:19px;
+  border:1px solid rgba(168,85,247,.28);
 
   background:
     linear-gradient(
       145deg,
-      rgba(18,18,38,.90),
-      rgba(8,8,22,.78)
+      rgba(76,29,149,.13),
+      rgba(8,8,22,.72)
     );
-
-  box-shadow:
-    0 10px 35px rgba(236,72,153,.06);
 }
 
-.clone-icon{
-  width:32px;
-  height:32px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:10px;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(168,85,247,.18),
-      rgba(236,72,153,.16)
-    );
-
-  font-size:16px;
+.clone-card .collapse-icon{
+  background:rgba(168,85,247,.14);
 }
 
 .clone-tag{
@@ -806,206 +681,115 @@ input[type="range"]::-moz-range-thumb{
 
   border-radius:999px;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(168,85,247,.15),
-      rgba(236,72,153,.15)
-    );
-
-  color:#f0abfc;
+  background:rgba(236,72,153,.12);
+  color:#f9a8d4;
 
   font-size:8px;
   font-weight:950;
 }
 
-.clone-upload{
-  padding:24px 15px;
-
-  text-align:center;
-
-  border:1px dashed rgba(168,85,247,.35);
-  border-radius:17px;
-
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(168,85,247,.10),
-      transparent 65%
-    );
+.clone-content{
+  padding-top:2px;
 }
 
-.clone-upload-icon{
-  font-size:30px;
-  margin-bottom:7px;
-}
+.clone-info{
+  margin-bottom:12px;
+  padding:11px 12px;
 
-.clone-upload-title{
-  color:#f1f5f9;
-  font-size:13px;
-  font-weight:950;
-}
-
-.clone-upload-sub{
-  margin-top:4px;
-  color:#64748b;
-  font-size:9px;
-}
-
-.clone-upload-btn{
-  margin-top:13px;
-
-  padding:10px 17px;
-
-  border:1px solid rgba(129,140,248,.30);
-  border-radius:11px;
-
-  background:rgba(99,102,241,.10);
-
-  color:#c4b5fd;
-
-  font-size:10px;
-  font-weight:900;
-
-  cursor:pointer;
-}
-
-.clone-file{
-  display:none;
-
-  align-items:center;
-  gap:10px;
-
-  margin-top:10px;
-  padding:11px;
-
-  border:1px solid rgba(34,211,238,.18);
-  border-radius:13px;
-
-  background:rgba(34,211,238,.05);
-}
-
-.clone-file-icon{
-  width:34px;
-  height:34px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border-radius:9px;
-
-  background:rgba(34,211,238,.10);
-}
-
-.clone-file-info{
-  flex:1;
-  min-width:0;
-}
-
-.clone-file-name{
-  overflow:hidden;
-
-  color:#e2e8f0;
-
-  font-size:10px;
-  font-weight:900;
-
-  white-space:nowrap;
-  text-overflow:ellipsis;
-}
-
-.clone-file-size{
-  margin-top:2px;
-  color:#64748b;
-  font-size:8px;
-}
-
-.clone-remove{
-  width:30px;
-  height:30px;
-
-  border:1px solid rgba(239,68,68,.18);
-  border-radius:9px;
-
-  background:rgba(239,68,68,.08);
-
-  color:#fb7185;
-
-  cursor:pointer;
-}
-
-.clone-preview{
-  display:none;
-
-  margin-top:10px;
-  padding:12px;
-
-  border:1px solid rgba(34,211,238,.16);
-  border-radius:13px;
-
-  background:rgba(8,8,22,.70);
-}
-
-.clone-preview-title{
-  margin-bottom:8px;
-
-  color:#67e8f9;
-
-  font-size:10px;
-  font-weight:900;
-}
-
-.clone-preview audio{
-  width:100%;
-  height:38px;
-}
-
-.clone-name-box{
-  margin-top:10px;
-}
-
-.clone-label{
-  margin-bottom:7px;
-
-  color:#cbd5e1;
-
-  font-size:10px;
-  font-weight:900;
-}
-
-.clone-name-box input{
-  width:100%;
-
-  padding:12px;
-
-  border:1px solid #25253d;
+  border:1px solid rgba(168,85,247,.15);
   border-radius:12px;
+
+  background:rgba(15,23,42,.45);
+
+  color:#94a3b8;
+  font-size:9px;
+  line-height:1.7;
+}
+
+.clone-input{
+  width:100%;
+
+  padding:12px;
+
+  border:1px solid #292941;
+  border-radius:13px;
 
   outline:none;
 
   background:#080816;
-
   color:#fff;
 
-  font-size:11px;
+  font-size:12px;
 }
 
-.clone-name-box input:focus{
-  border-color:#a855f7;
+.clone-input:focus{
+  border-color:#8b5cf6;
 
   box-shadow:
-    0 0 0 3px rgba(168,85,247,.08);
+    0 0 0 3px rgba(139,92,246,.08);
 }
 
-.clone-name-box input::placeholder{
-  color:#475569;
+.file-box{
+  position:relative;
+
+  margin-top:9px;
+  padding:18px 12px;
+
+  border:1px dashed rgba(129,140,248,.35);
+  border-radius:15px;
+
+  background:rgba(15,23,42,.40);
+
+  text-align:center;
+  cursor:pointer;
+
+  transition:.2s;
 }
 
-.clone-create-btn{
+.file-box:hover{
+  border-color:#a855f7;
+  background:rgba(124,58,237,.07);
+}
+
+.file-box input{
+  position:absolute;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  opacity:0;
+  cursor:pointer;
+}
+
+.file-icon{
+  font-size:25px;
+  margin-bottom:6px;
+}
+
+.file-title{
+  color:#c4b5fd;
+  font-size:11px;
+  font-weight:900;
+}
+
+.file-name{
+  margin-top:5px;
+
+  color:#64748b;
+
+  font-size:9px;
+
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.clone-btn{
   width:100%;
 
-  margin-top:12px;
+  margin-top:10px;
   padding:13px;
 
   border:0;
@@ -1021,53 +805,56 @@ input[type="range"]::-moz-range-thumb{
 
   color:#fff;
 
-  font-size:11px;
+  font-size:12px;
   font-weight:950;
 
   cursor:pointer;
 
   box-shadow:
-    0 8px 25px rgba(168,85,247,.18);
+    0 8px 25px rgba(168,85,247,.20);
 }
 
-.my-voices{
-  margin-top:13px;
+.clone-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
 }
 
-.my-voices-title{
-  margin-bottom:8px;
+.clone-status{
+  min-height:18px;
 
-  color:#cbd5e1;
-
-  font-size:10px;
-  font-weight:900;
-}
-
-.no-clone{
-  padding:12px;
-
-  border:1px solid rgba(255,255,255,.06);
-  border-radius:11px;
-
-  background:rgba(8,8,22,.55);
-
-  color:#475569;
+  margin-top:8px;
 
   text-align:center;
 
+  color:#94a3b8;
+
   font-size:9px;
+  line-height:1.6;
 }
 
+.clone-result{
+  display:none;
 
-/* =========================
-   EXTRA
-========================= */
+  margin-top:10px;
+  padding:11px;
+
+  border:1px solid rgba(34,197,94,.18);
+  border-radius:12px;
+
+  background:rgba(34,197,94,.06);
+
+  color:#86efac;
+
+  font-size:9px;
+  word-break:break-word;
+}
+
+/* EXTRA */
 
 .extra-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-
   margin-top:10px;
 }
 
@@ -1090,9 +877,7 @@ input[type="range"]::-moz-range-thumb{
   padding:13px 14px;
 
   border:0;
-
   background:transparent;
-
   color:#fff;
 
   cursor:pointer;
@@ -1124,7 +909,6 @@ input[type="range"]::-moz-range-thumb{
 
 .extra-tag{
   padding:4px 7px;
-
   border-radius:999px;
 
   font-size:8px;
@@ -1133,11 +917,9 @@ input[type="range"]::-moz-range-thumb{
 
 .extra-content{
   display:none;
-
   padding:0 13px 13px;
 
   color:#64748b;
-
   font-size:9px;
   line-height:1.7;
 }
@@ -1181,10 +963,7 @@ input[type="range"]::-moz-range-thumb{
   color:#fbbf24;
 }
 
-
-/* =========================
-   GENERATE
-========================= */
+/* GENERATE */
 
 .generate-btn{
   width:100%;
@@ -1218,9 +997,6 @@ input[type="range"]::-moz-range-thumb{
 
 .generate-btn:hover{
   transform:translateY(-1px);
-
-  box-shadow:
-    0 15px 42px rgba(99,102,241,.32);
 }
 
 .generate-btn:active{
@@ -1230,13 +1006,9 @@ input[type="range"]::-moz-range-thumb{
 .generate-btn:disabled{
   opacity:.55;
   cursor:not-allowed;
-  transform:none;
 }
 
-
-/* =========================
-   LOADING
-========================= */
+/* LOADING */
 
 .loading{
   display:none;
@@ -1260,13 +1032,11 @@ input[type="range"]::-moz-range-thumb{
   position:relative;
 
   height:5px;
-
   margin-top:8px;
 
   overflow:hidden;
 
   border-radius:99px;
-
   background:#1e293b;
 }
 
@@ -1288,8 +1058,7 @@ input[type="range"]::-moz-range-thumb{
       #ec4899
     );
 
-  animation:
-    loading 1.2s infinite ease-in-out;
+  animation:loading 1.2s infinite ease-in-out;
 }
 
 @keyframes loading{
@@ -1302,31 +1071,22 @@ input[type="range"]::-moz-range-thumb{
   }
 }
 
-
-/* =========================
-   STATUS
-========================= */
+/* STATUS */
 
 .status{
   min-height:20px;
-
   margin-top:10px;
 
   text-align:center;
 
   color:#94a3b8;
-
   font-size:11px;
-
   line-height:1.6;
 
   word-break:break-word;
 }
 
-
-/* =========================
-   PLAYER
-========================= */
+/* PLAYER */
 
 .player{
   display:none;
@@ -1403,25 +1163,16 @@ audio{
   cursor:pointer;
 }
 
-
-/* =========================
-   FOOTER
-========================= */
+/* FOOTER */
 
 .footer{
   padding:12px;
-
   text-align:center;
-
   color:#334155;
-
   font-size:9px;
 }
 
-
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 @media(max-width:650px){
 
@@ -1475,19 +1226,12 @@ audio{
     font-size:29px;
   }
 }
-
 </style>
 </head>
-
 
 <body>
 
 <div class="container">
-
-
-<!-- =========================
-     HERO
-========================= -->
 
 <section class="hero">
 
@@ -1498,19 +1242,9 @@ audio{
     </div>
 
     <div class="logo">
-
-      <span class="logo-ynt">
-        YNT
-      </span>
-
-      <span class="logo-tts">
-        TTS
-      </span>
-
-      <span class="logo-voice">
-        Voice
-      </span>
-
+      <span class="logo-ynt">YNT</span>
+      <span class="logo-tts">TTS</span>
+      <span class="logo-voice">Voice</span>
     </div>
 
     <p class="hero-sub">
@@ -1518,7 +1252,6 @@ audio{
     </p>
 
     <div class="waveform">
-
       <span class="wave"></span>
       <span class="wave"></span>
       <span class="wave"></span>
@@ -1531,28 +1264,21 @@ audio{
       <span class="wave"></span>
       <span class="wave"></span>
       <span class="wave"></span>
-
     </div>
 
   </div>
 
 </section>
 
-
-<!-- =========================
-     TEXT INPUT
-========================= -->
+<!-- TEXT -->
 
 <section class="card">
 
   <div class="section-title">
 
-    <div class="section-icon">
-      📝
-    </div>
+    <div class="section-icon">📝</div>
 
     <div>
-
       <div class="section-name">
         မြန်မာစာထည့်ရန်
       </div>
@@ -1560,18 +1286,15 @@ audio{
       <div class="section-hint">
         Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
       </div>
-
     </div>
 
   </div>
-
 
   <textarea
     id="textInput"
     maxlength="5000"
     placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
   ></textarea>
-
 
   <div class="text-bottom">
 
@@ -1590,21 +1313,15 @@ audio{
 
 </section>
 
-
-<!-- =========================
-     VOICE
-========================= -->
+<!-- VOICE -->
 
 <section class="card">
 
   <div class="section-title">
 
-    <div class="section-icon">
-      🎙️
-    </div>
+    <div class="section-icon">🎙️</div>
 
     <div>
-
       <div class="section-name">
         Voice
       </div>
@@ -1612,69 +1329,60 @@ audio{
       <div class="section-hint">
         AI Voice Character ရွေးပါ
       </div>
-
     </div>
 
   </div>
 
-
   <div class="voice-grid">
 
-    <button
-      class="voice-btn"
+    <button class="voice-btn"
       data-voice="Zephyr"
-      type="button"
-    >
+      type="button">
+
       <span class="voice-icon">〽</span>
       <span class="voice-name">Zephyr</span>
+
     </button>
 
-
-    <button
-      class="voice-btn"
+    <button class="voice-btn"
       data-voice="Puck"
-      type="button"
-    >
+      type="button">
+
       <span class="voice-icon">〽</span>
       <span class="voice-name">Puck</span>
+
     </button>
 
-
-    <button
-      class="voice-btn"
+    <button class="voice-btn"
       data-voice="Charon"
-      type="button"
-    >
+      type="button">
+
       <span class="voice-icon">〽</span>
       <span class="voice-name">Charon</span>
+
     </button>
 
-
-    <button
-      class="voice-btn active"
+    <button class="voice-btn active"
       data-voice="Kore"
-      type="button"
-    >
+      type="button">
+
       <span class="voice-icon">〽</span>
       <span class="voice-name">Kore</span>
+
     </button>
 
-
-    <button
-      class="voice-btn"
+    <button class="voice-btn"
       data-voice="Leda"
-      type="button"
-    >
+      type="button">
+
       <span class="voice-icon">〽</span>
       <span class="voice-name">Leda</span>
+
     </button>
 
   </div>
 
-
-  <!-- =========================
-       EMOTION
-  ========================= -->
+  <!-- EMOTION -->
 
   <div
     class="collapse-card emotion-card"
@@ -1689,9 +1397,7 @@ audio{
 
       <div class="collapse-left">
 
-        <div class="collapse-icon">
-          😊
-        </div>
+        <div class="collapse-icon">😊</div>
 
         <div>
 
@@ -1707,7 +1413,6 @@ audio{
 
       </div>
 
-
       <div class="collapse-right">
 
         <span
@@ -1717,106 +1422,95 @@ audio{
           Natural
         </span>
 
-        <span class="chevron">
-          ▼
-        </span>
+        <span class="chevron">▼</span>
 
       </div>
 
     </button>
 
-
     <div class="collapse-content">
 
       <div class="emotion-grid">
 
-        <button
-          class="emotion-btn active"
+        <button class="emotion-btn active"
           data-emotion="natural"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😌</span>
           <span class="emotion-name">Natural</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="happy"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😄</span>
           <span class="emotion-name">Happy</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="sad"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😢</span>
           <span class="emotion-name">Sad</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="angry"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😡</span>
           <span class="emotion-name">Angry</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="excited"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">🤩</span>
           <span class="emotion-name">Excited</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="serious"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😐</span>
           <span class="emotion-name">Serious</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="calm"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">😌</span>
           <span class="emotion-name">Calm</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="whisper"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">🤫</span>
           <span class="emotion-name">Whisper</span>
+
         </button>
 
-
-        <button
-          class="emotion-btn"
+        <button class="emotion-btn"
           data-emotion="dramatic"
-          type="button"
-        >
+          type="button">
+
           <span class="emotion-icon">🎭</span>
           <span class="emotion-name">Dramatic</span>
+
         </button>
 
       </div>
@@ -1825,10 +1519,7 @@ audio{
 
   </div>
 
-
-  <!-- =========================
-       VOICE SETTINGS
-  ========================= -->
+  <!-- SETTINGS -->
 
   <div
     class="collapse-card settings-card"
@@ -1843,9 +1534,7 @@ audio{
 
       <div class="collapse-left">
 
-        <div class="collapse-icon">
-          🎚️
-        </div>
+        <div class="collapse-icon">🎚️</div>
 
         <div>
 
@@ -1861,7 +1550,6 @@ audio{
 
       </div>
 
-
       <div class="collapse-right">
 
         <span
@@ -1871,14 +1559,11 @@ audio{
           Speed 0 • Pitch 0
         </span>
 
-        <span class="chevron">
-          ▼
-        </span>
+        <span class="chevron">▼</span>
 
       </div>
 
     </button>
-
 
     <div class="collapse-content">
 
@@ -1917,7 +1602,6 @@ audio{
           </div>
 
         </div>
-
 
         <div class="control-box">
 
@@ -1959,25 +1643,22 @@ audio{
 
   </div>
 
-
-  <!-- =========================
-       VOICE CLONE
-  ========================= -->
+  <!-- VOICE CLONE -->
 
   <div
-    class="voice-clone-card"
-    id="voiceCloneCard"
+    class="collapse-card clone-card"
+    id="cloneCard"
   >
 
     <button
       class="collapse-header"
-      id="voiceCloneHeader"
+      id="cloneHeader"
       type="button"
     >
 
       <div class="collapse-left">
 
-        <div class="clone-icon">
+        <div class="collapse-icon">
           🧬
         </div>
 
@@ -1995,7 +1676,6 @@ audio{
 
       </div>
 
-
       <div class="collapse-right">
 
         <span class="clone-tag">
@@ -2010,154 +1690,75 @@ audio{
 
     </button>
 
+    <div class="collapse-content clone-content">
 
-    <div class="collapse-content">
+      <div class="clone-info">
+        🎙️ ကိုယ်ပိုင်အသံ sample ကို upload လုပ်ပြီး
+        Voice Clone ဖန်တီးနိုင်ပါတယ်။
+        ကိုယ်ပိုင်အသံ သို့မဟုတ် အသုံးပြုခွင့်ရှိတဲ့အသံကိုသာ အသုံးပြုပါ။
+      </div>
 
-
-      <div
-        class="clone-upload"
-        id="cloneUpload"
+      <input
+        class="clone-input"
+        id="cloneName"
+        type="text"
+        maxlength="80"
+        placeholder="Voice Clone အမည် — ဥပမာ My Voice"
       >
 
-        <div class="clone-upload-icon">
-          🎙️
-        </div>
-
-        <div class="clone-upload-title">
-          Upload Voice Sample
-        </div>
-
-        <div class="clone-upload-sub">
-          အသံ sample ဖိုင်တင်ပါ
-        </div>
-
+      <label
+        class="file-box"
+        for="cloneFile"
+      >
 
         <input
+          id="cloneFile"
           type="file"
-          id="voiceSample"
           accept="audio/*"
-          hidden
         >
 
+        <div class="file-icon">
+          🎧
+        </div>
 
-        <button
-          class="clone-upload-btn"
-          id="chooseVoiceBtn"
-          type="button"
+        <div class="file-title">
+          Voice Sample ရွေးရန်
+        </div>
+
+        <div
+          class="file-name"
+          id="cloneFileName"
         >
-          📁 Choose Audio
-        </button>
-
-      </div>
-
-
-      <div
-        class="clone-file"
-        id="cloneFile"
-      >
-
-        <div class="clone-file-icon">
-          🎵
+          MP3 / WAV / M4A / OGG / WEBM
         </div>
 
-        <div class="clone-file-info">
-
-          <div
-            class="clone-file-name"
-            id="cloneFileName"
-          >
-            No audio selected
-          </div>
-
-          <div
-            class="clone-file-size"
-            id="cloneFileSize"
-          >
-            —
-          </div>
-
-        </div>
-
-
-        <button
-          class="clone-remove"
-          id="removeVoiceBtn"
-          type="button"
-        >
-          ✕
-        </button>
-
-      </div>
-
-
-      <div
-        class="clone-preview"
-        id="clonePreview"
-      >
-
-        <div class="clone-preview-title">
-          🔊 Voice Sample Preview
-        </div>
-
-        <audio
-          id="voicePreview"
-          controls
-        ></audio>
-
-      </div>
-
-
-      <div class="clone-name-box">
-
-        <div class="clone-label">
-          ✨ Voice Name
-        </div>
-
-        <input
-          type="text"
-          id="cloneVoiceName"
-          maxlength="40"
-          placeholder="ဥပမာ — My Voice"
-        >
-
-      </div>
-
+      </label>
 
       <button
-        class="clone-create-btn"
-        id="createCloneBtn"
+        class="clone-btn"
+        id="cloneBtn"
         type="button"
       >
         🧬 Create Voice Clone
       </button>
 
+      <div
+        class="clone-status"
+        id="cloneStatus"
+      ></div>
 
-      <div class="my-voices">
-
-        <div class="my-voices-title">
-          🎙️ My Cloned Voices
-        </div>
-
-        <div
-          class="no-clone"
-          id="noClone"
-        >
-          လက်ရှိ Clone Voice မရှိသေးပါ
-        </div>
-
-      </div>
+      <div
+        class="clone-result"
+        id="cloneResult"
+      ></div>
 
     </div>
 
   </div>
 
-
-  <!-- =========================
-       SRT + PRO
-  ========================= -->
+  <!-- SRT + PRO -->
 
   <div class="extra-grid">
-
 
     <div
       class="extra-card srt-card"
@@ -2182,7 +1783,6 @@ audio{
 
         </div>
 
-
         <div class="collapse-right">
 
           <span class="extra-tag srt-tag">
@@ -2197,17 +1797,13 @@ audio{
 
       </button>
 
-
       <div class="extra-content">
-
         CapCut မှာ အသုံးပြုနိုင်မယ့်
         SRT Subtitle feature ကို
-        နောက်ပိုင်းမှာ ထည့်သွင်းနိုင်ပါမယ်။
-
+        နောက်ပိုင်းတွင် ထည့်သွင်းနိုင်ပါတယ်။
       </div>
 
     </div>
-
 
     <div
       class="extra-card pro-card"
@@ -2232,7 +1828,6 @@ audio{
 
         </div>
 
-
         <div class="collapse-right">
 
           <span class="extra-tag pro-tag">
@@ -2247,23 +1842,17 @@ audio{
 
       </button>
 
-
       <div class="extra-content">
-
         Premium Voice နှင့်
-        အခြား Pro Tools များကို
-        နောက်ပိုင်းမှာ ထည့်သွင်းနိုင်ပါမယ်။
-
+        အခြား Pro Tools များ
+        နောက်ပိုင်းတွင် ထည့်သွင်းနိုင်ပါတယ်။
       </div>
 
     </div>
 
   </div>
 
-
-  <!-- =========================
-       GENERATE
-  ========================= -->
+  <!-- GENERATE -->
 
   <button
     class="generate-btn"
@@ -2272,7 +1861,6 @@ audio{
   >
     ✨ Generate Voice
   </button>
-
 
   <div
     class="loading"
@@ -2290,12 +1878,10 @@ audio{
 
   </div>
 
-
   <div
     class="status"
     id="status"
   ></div>
-
 
   <div
     class="player"
@@ -2322,13 +1908,11 @@ audio{
 
     </div>
 
-
     <audio
       id="audioPlayer"
       controls
       preload="metadata"
     ></audio>
-
 
     <button
       class="download-btn"
@@ -2342,14 +1926,11 @@ audio{
 
 </section>
 
-
 <div class="footer">
   © 2026 YNT TTS Voice • AI Powered
 </div>
 
-
 </div>
-
 
 <script>
 
@@ -2359,7 +1940,11 @@ audio{
 
 let selectedVoice = "Kore";
 let selectedEmotion = "natural";
+
 let currentAudioURL = null;
+
+let clonedVoiceId = null;
+let clonedVoiceName = null;
 
 
 /* =========================
@@ -2412,6 +1997,33 @@ const downloadBtn =
   document.getElementById("downloadBtn");
 
 
+/* CLONE */
+
+const cloneHeader =
+  document.getElementById("cloneHeader");
+
+const cloneCard =
+  document.getElementById("cloneCard");
+
+const cloneName =
+  document.getElementById("cloneName");
+
+const cloneFile =
+  document.getElementById("cloneFile");
+
+const cloneFileName =
+  document.getElementById("cloneFileName");
+
+const cloneBtn =
+  document.getElementById("cloneBtn");
+
+const cloneStatus =
+  document.getElementById("cloneStatus");
+
+const cloneResult =
+  document.getElementById("cloneResult");
+
+
 /* =========================
    CHARACTER COUNTER
 ========================= */
@@ -2420,11 +2032,9 @@ textInput.addEventListener(
   "input",
   function(){
 
-    const length =
-      this.value.length;
-
     counter.textContent =
-      length + " / 5000";
+      this.value.length +
+      " / 5000";
 
   }
 );
@@ -2436,45 +2046,48 @@ textInput.addEventListener(
 
 document
   .querySelectorAll(".voice-btn")
-  .forEach(
-    function(button){
+  .forEach(function(button){
 
-      button.addEventListener(
-        "click",
-        function(){
+    button.addEventListener(
+      "click",
+      function(){
 
-          document
-            .querySelectorAll(".voice-btn")
-            .forEach(
-              function(item){
+        document
+          .querySelectorAll(".voice-btn")
+          .forEach(function(item){
 
-                item.classList.remove(
-                  "active"
-                );
-
-              }
+            item.classList.remove(
+              "active"
             );
 
-          this.classList.add(
-            "active"
-          );
+          });
 
-          selectedVoice =
-            this.dataset.voice;
+        this.classList.add(
+          "active"
+        );
 
-          status.textContent =
-            "🎙️ Voice: " +
-            selectedVoice;
+        selectedVoice =
+          this.dataset.voice;
 
-        }
-      );
+        /*
+         * Manual voice selected.
+         * Cloned voice remains available
+         * but Generate can later be connected
+         * to voice_id in the TTS backend.
+         */
 
-    }
-  );
+        status.textContent =
+          "🎙️ Voice: " +
+          selectedVoice;
+
+      }
+    );
+
+  });
 
 
 /* =========================
-   EMOTION
+   EMOTION COLLAPSE
 ========================= */
 
 document
@@ -2497,53 +2110,51 @@ document
 
 document
   .querySelectorAll(".emotion-btn")
-  .forEach(
-    function(button){
+  .forEach(function(button){
 
-      button.addEventListener(
-        "click",
-        function(){
+    button.addEventListener(
+      "click",
+      function(){
 
-          document
-            .querySelectorAll(".emotion-btn")
-            .forEach(
-              function(item){
+        document
+          .querySelectorAll(".emotion-btn")
+          .forEach(function(item){
 
-                item.classList.remove(
-                  "active"
-                );
-
-              }
+            item.classList.remove(
+              "active"
             );
 
-          this.classList.add(
-            "active"
-          );
+          });
 
-          selectedEmotion =
-            this.dataset.emotion;
+        this.classList.add(
+          "active"
+        );
 
-          const emotionName =
-            this
-              .querySelector(".emotion-name")
-              .textContent;
+        selectedEmotion =
+          this.dataset.emotion;
 
-          emotionValue.textContent =
-            emotionName;
+        const emotionName =
+          this
+            .querySelector(
+              ".emotion-name"
+            )
+            .textContent;
 
-          status.textContent =
-            "😊 Emotion: " +
-            emotionName;
+        emotionValue.textContent =
+          emotionName;
 
-        }
-      );
+        status.textContent =
+          "😊 Emotion: " +
+          emotionName;
 
-    }
-  );
+      }
+    );
+
+  });
 
 
 /* =========================
-   SETTINGS
+   SETTINGS COLLAPSE
 ========================= */
 
 document
@@ -2603,77 +2214,14 @@ pitch.addEventListener(
 
 
 /* =========================
-   VOICE CLONE UI
+   VOICE CLONE COLLAPSE
 ========================= */
 
-const voiceCloneCard =
-  document.getElementById(
-    "voiceCloneCard"
-  );
-
-const voiceCloneHeader =
-  document.getElementById(
-    "voiceCloneHeader"
-  );
-
-const voiceSample =
-  document.getElementById(
-    "voiceSample"
-  );
-
-const chooseVoiceBtn =
-  document.getElementById(
-    "chooseVoiceBtn"
-  );
-
-const cloneFile =
-  document.getElementById(
-    "cloneFile"
-  );
-
-const cloneFileName =
-  document.getElementById(
-    "cloneFileName"
-  );
-
-const cloneFileSize =
-  document.getElementById(
-    "cloneFileSize"
-  );
-
-const removeVoiceBtn =
-  document.getElementById(
-    "removeVoiceBtn"
-  );
-
-const clonePreview =
-  document.getElementById(
-    "clonePreview"
-  );
-
-const voicePreview =
-  document.getElementById(
-    "voicePreview"
-  );
-
-const cloneVoiceName =
-  document.getElementById(
-    "cloneVoiceName"
-  );
-
-const createCloneBtn =
-  document.getElementById(
-    "createCloneBtn"
-  );
-
-
-/* CLONE OPEN */
-
-voiceCloneHeader.addEventListener(
+cloneHeader.addEventListener(
   "click",
   function(){
 
-    voiceCloneCard.classList.toggle(
+    cloneCard.classList.toggle(
       "open"
     );
 
@@ -2681,171 +2229,300 @@ voiceCloneHeader.addEventListener(
 );
 
 
-/* CHOOSE */
+/* =========================
+   FILE SELECT
+========================= */
 
-chooseVoiceBtn.addEventListener(
-  "click",
-  function(){
-
-    voiceSample.click();
-
-  }
-);
-
-
-/* FILE */
-
-voiceSample.addEventListener(
+cloneFile.addEventListener(
   "change",
   function(){
 
     const file =
-      this.files[0];
+      this.files?.[0];
 
     if(!file){
+
+      cloneFileName.textContent =
+        "MP3 / WAV / M4A / OGG / WEBM";
+
       return;
     }
-
-    cloneFile.style.display =
-      "flex";
 
     cloneFileName.textContent =
       file.name;
 
-    cloneFileSize.textContent =
-      formatFileSize(
-        file.size
-      );
-
-
-    const audioURL =
-      URL.createObjectURL(
-        file
-      );
-
-    voicePreview.src =
-      audioURL;
-
-    clonePreview.style.display =
-      "block";
-
-  }
-);
-
-
-/* FILE SIZE */
-
-function formatFileSize(bytes){
-
-  if(bytes < 1024){
-
-    return (
-      bytes +
-      " B"
-    );
-
-  }
-
-  if(bytes < 1024 * 1024){
-
-    return (
-      (bytes / 1024)
-        .toFixed(1) +
-      " KB"
-    );
-
-  }
-
-  return (
-    (bytes / (1024 * 1024))
-      .toFixed(1) +
-    " MB"
-  );
-
-}
-
-
-/* REMOVE */
-
-removeVoiceBtn.addEventListener(
-  "click",
-  function(){
-
-    voiceSample.value =
-      "";
-
-    cloneFile.style.display =
-      "none";
-
-    clonePreview.style.display =
-      "none";
-
-    voicePreview.removeAttribute(
-      "src"
-    );
-
-    cloneVoiceName.value =
-      "";
-
-  }
-);
-
-
-/* CREATE CLONE UI */
-
-createCloneBtn.addEventListener(
-  "click",
-  function(){
-
-    const file =
-      voiceSample.files[0];
-
-    const name =
-      cloneVoiceName.value.trim();
-
-
-    if(!file){
-
-      status.textContent =
-        "⚠️ Voice Sample အရင်တင်ပါ။";
-
-      return;
-
-    }
-
-
-    if(!name){
-
-      status.textContent =
-        "⚠️ Voice Name ထည့်ပါ။";
-
-      cloneVoiceName.focus();
-
-      return;
-
-    }
-
-
-    status.textContent =
-      "✨ Voice Clone အတွက် ပြင်ဆင်နေပါသည်...";
-
-
-    setTimeout(
-      function(){
-
-        status.textContent =
-          "🎙️ Voice Clone UI အဆင်သင့်ဖြစ်ပါပြီ။";
-
-      },
-      700
-    );
+    cloneStatus.textContent =
+      "🎧 Audio sample ရွေးပြီးပါပြီ။";
 
   }
 );
 
 
 /* =========================
-   SRT
+   CREATE VOICE CLONE
+========================= */
+
+cloneBtn.addEventListener(
+  "click",
+  async function(){
+
+    const file =
+      cloneFile.files?.[0];
+
+    const name =
+      cloneName.value.trim();
+
+
+    /* FILE */
+
+    if(!file){
+
+      cloneStatus.textContent =
+        "⚠️ အရင်ဆုံး Voice Sample ရွေးပါ။";
+
+      return;
+    }
+
+
+    /* NAME */
+
+    const finalName =
+      name ||
+      "YNT Voice Clone";
+
+
+    /* SIZE */
+
+    if(
+      file.size >
+      25 * 1024 * 1024
+    ){
+
+      cloneStatus.textContent =
+        "⚠️ Audio file က 25MB ထက် မကြီးရပါ။";
+
+      return;
+    }
+
+
+    /* RESET */
+
+    cloneBtn.disabled =
+      true;
+
+    cloneStatus.textContent =
+      "✨ Voice Clone ဖန်တီးနေပါသည်...";
+
+    cloneResult.style.display =
+      "none";
+
+
+    try{
+
+      const formData =
+        new FormData();
+
+
+      /*
+       * IMPORTANT
+       *
+       * clone.js expects:
+       * file
+       * name
+       */
+
+      formData.append(
+        "file",
+        file,
+        file.name
+      );
+
+      formData.append(
+        "name",
+        finalName
+      );
+
+
+      const response =
+        await fetch(
+          "/api/clone",
+          {
+            method:"POST",
+            body:formData
+          }
+        );
+
+
+      const contentType =
+        response.headers.get(
+          "content-type"
+        ) || "";
+
+
+      let data;
+
+
+      if(
+        contentType.includes(
+          "application/json"
+        )
+      ){
+
+        data =
+          await response.json();
+
+      }else{
+
+        const text =
+          await response.text();
+
+        data = {
+          error:text
+        };
+
+      }
+
+
+      if(!response.ok){
+
+        throw new Error(
+          data?.error ||
+          "Voice Clone မအောင်မြင်ပါ။"
+        );
+
+      }
+
+
+      if(!data?.voice_id){
+
+        throw new Error(
+          "Voice ID မရရှိပါ။"
+        );
+
+      }
+
+
+      /* SAVE */
+
+      clonedVoiceId =
+        data.voice_id;
+
+      clonedVoiceName =
+        data.name ||
+        finalName;
+
+
+      /* SUCCESS */
+
+      cloneStatus.textContent =
+        "✅ Voice Clone အောင်မြင်ပါပြီ။";
+
+      cloneResult.innerHTML =
+        "🎙️ <b>" +
+        escapeHTML(
+          clonedVoiceName
+        ) +
+        "</b><br><br>" +
+        "Voice ID: " +
+        escapeHTML(
+          clonedVoiceId
+        );
+
+      cloneResult.style.display =
+        "block";
+
+
+      /*
+       * Keep cloned voice locally
+       * for the next TTS integration step.
+       */
+
+      localStorage.setItem(
+        "ynt_cloned_voice_id",
+        clonedVoiceId
+      );
+
+      localStorage.setItem(
+        "ynt_cloned_voice_name",
+        clonedVoiceName
+      );
+
+
+    }catch(error){
+
+      console.error(
+        "CLONE ERROR:",
+        error
+      );
+
+      cloneStatus.textContent =
+        "❌ " +
+        (
+          error?.message ||
+          "Voice Clone Error"
+        );
+
+    }finally{
+
+      cloneBtn.disabled =
+        false;
+
+    }
+
+  }
+);
+
+
+/* =========================
+   HTML ESCAPE
+========================= */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   LOAD SAVED CLONE
+========================= */
+
+(function(){
+
+  const savedId =
+    localStorage.getItem(
+      "ynt_cloned_voice_id"
+    );
+
+  const savedName =
+    localStorage.getItem(
+      "ynt_cloned_voice_name"
+    );
+
+  if(
+    savedId &&
+    savedName
+  ){
+
+    clonedVoiceId =
+      savedId;
+
+    clonedVoiceName =
+      savedName;
+
+  }
+
+})();
+
+
+/* =========================
+   SRT CARD
 ========================= */
 
 document
@@ -2863,7 +2540,7 @@ document
 
 
 /* =========================
-   PRO
+   PRO CARD
 ========================= */
 
 document
@@ -2930,6 +2607,41 @@ generateBtn.addEventListener(
 
     try{
 
+      const requestBody = {
+
+        text:text,
+
+        voice:selectedVoice,
+
+        emotion:selectedEmotion,
+
+        speed:Number(
+          speed.value
+        ),
+
+        pitch:Number(
+          pitch.value
+        )
+
+      };
+
+
+      /*
+       * If cloned voice exists,
+       * send its ID too.
+       *
+       * Current /api/tts can ignore this
+       * until we update it in the next step.
+       */
+
+      if(clonedVoiceId){
+
+        requestBody.voice_id =
+          clonedVoiceId;
+
+      }
+
+
       const response =
         await fetch(
           "/api/tts",
@@ -2941,23 +2653,9 @@ generateBtn.addEventListener(
                 "application/json"
             },
 
-            body:JSON.stringify({
-
-              text:text,
-
-              voice:selectedVoice,
-
-              emotion:selectedEmotion,
-
-              speed:Number(
-                speed.value
-              ),
-
-              pitch:Number(
-                pitch.value
-              )
-
-            })
+            body:JSON.stringify(
+              requestBody
+            )
 
           }
         );
@@ -3111,7 +2809,6 @@ generateBtn.addEventListener(
       generateBtn.disabled =
         false;
 
-
       setTimeout(
         function(){
 
@@ -3129,7 +2826,7 @@ generateBtn.addEventListener(
 
 
 /* =========================
-   DOWNLOAD
+   DOWNLOAD WAV
 ========================= */
 
 downloadBtn.addEventListener(
@@ -3142,7 +2839,6 @@ downloadBtn.addEventListener(
         "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
 
       return;
-
     }
 
 
