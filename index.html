@@ -36,7 +36,8 @@ body{
 
 button,
 textarea,
-input{
+input,
+select{
   font:inherit;
 }
 
@@ -128,12 +129,7 @@ button{
   justify-content:center;
   gap:8px;
   margin:16px 0 9px;
-
-  font-family:
-    "Segoe UI",
-    "Noto Sans Myanmar",
-    sans-serif;
-
+  font-family:"Segoe UI","Noto Sans Myanmar",sans-serif;
   font-size:clamp(34px,8vw,54px);
   font-weight:950;
   letter-spacing:-2.5px;
@@ -247,8 +243,6 @@ button{
     inset 0 1px 0 rgba(255,255,255,.04);
 }
 
-/* TITLE */
-
 .section-title{
   display:flex;
   align-items:center;
@@ -275,7 +269,6 @@ button{
     );
 
   border:1px solid rgba(129,140,248,.20);
-
   font-size:17px;
 }
 
@@ -289,8 +282,6 @@ button{
   color:#64748b;
   font-size:10px;
 }
-
-/* TEXT */
 
 textarea{
   width:100%;
@@ -963,6 +954,143 @@ input[type="range"]::-moz-range-thumb{
   color:#fbbf24;
 }
 
+/* SRT */
+
+.srt-content{
+  color:#94a3b8;
+}
+
+.srt-info{
+  padding:11px 12px;
+  margin-bottom:10px;
+
+  border:1px solid rgba(34,211,238,.12);
+  border-radius:12px;
+
+  background:rgba(15,23,42,.40);
+
+  font-size:9px;
+  line-height:1.7;
+}
+
+.srt-settings{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:10px;
+}
+
+.srt-control{
+  padding:10px;
+
+  border:1px solid #25253d;
+  border-radius:12px;
+
+  background:rgba(8,8,22,.75);
+}
+
+.srt-label{
+  display:block;
+  margin-bottom:6px;
+
+  color:#cbd5e1;
+  font-size:9px;
+  font-weight:900;
+}
+
+.srt-select{
+  width:100%;
+  padding:9px;
+
+  border:1px solid #292941;
+  border-radius:9px;
+
+  outline:none;
+
+  background:#080816;
+  color:#fff;
+
+  font-size:10px;
+}
+
+.srt-generate-btn{
+  width:100%;
+  padding:12px;
+
+  border:0;
+  border-radius:12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0891b2,
+      #2563eb,
+      #7c3aed
+    );
+
+  color:#fff;
+
+  font-size:11px;
+  font-weight:950;
+
+  cursor:pointer;
+}
+
+.srt-generate-btn:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
+.srt-preview{
+  display:none;
+
+  margin-top:10px;
+  padding:10px;
+
+  border:1px solid rgba(34,211,238,.15);
+  border-radius:12px;
+
+  background:#05050d;
+}
+
+.srt-preview textarea{
+  min-height:180px;
+  resize:vertical;
+
+  font-family:monospace;
+  font-size:10px;
+  line-height:1.7;
+}
+
+.srt-download-btn{
+  width:100%;
+
+  margin-top:8px;
+  padding:11px;
+
+  border:1px solid rgba(34,211,238,.25);
+  border-radius:11px;
+
+  background:rgba(34,211,238,.08);
+
+  color:#67e8f9;
+
+  font-size:10px;
+  font-weight:950;
+
+  cursor:pointer;
+}
+
+.srt-status{
+  min-height:18px;
+  margin-top:7px;
+
+  text-align:center;
+
+  color:#94a3b8;
+  font-size:9px;
+}
+
 /* GENERATE */
 
 .generate-btn{
@@ -1207,6 +1335,10 @@ audio{
     grid-template-columns:1fr;
   }
 
+  .srt-settings{
+    grid-template-columns:1fr;
+  }
+
   textarea{
     min-height:220px;
   }
@@ -1338,46 +1470,36 @@ audio{
     <button class="voice-btn"
       data-voice="Zephyr"
       type="button">
-
       <span class="voice-icon">〽</span>
       <span class="voice-name">Zephyr</span>
-
     </button>
 
     <button class="voice-btn"
       data-voice="Puck"
       type="button">
-
       <span class="voice-icon">〽</span>
       <span class="voice-name">Puck</span>
-
     </button>
 
     <button class="voice-btn"
       data-voice="Charon"
       type="button">
-
       <span class="voice-icon">〽</span>
       <span class="voice-name">Charon</span>
-
     </button>
 
     <button class="voice-btn active"
       data-voice="Kore"
       type="button">
-
       <span class="voice-icon">〽</span>
       <span class="voice-name">Kore</span>
-
     </button>
 
     <button class="voice-btn"
       data-voice="Leda"
       type="button">
-
       <span class="voice-icon">〽</span>
       <span class="voice-name">Leda</span>
-
     </button>
 
   </div>
@@ -1435,82 +1557,64 @@ audio{
         <button class="emotion-btn active"
           data-emotion="natural"
           type="button">
-
           <span class="emotion-icon">😌</span>
           <span class="emotion-name">Natural</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="happy"
           type="button">
-
           <span class="emotion-icon">😄</span>
           <span class="emotion-name">Happy</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="sad"
           type="button">
-
           <span class="emotion-icon">😢</span>
           <span class="emotion-name">Sad</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="angry"
           type="button">
-
           <span class="emotion-icon">😡</span>
           <span class="emotion-name">Angry</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="excited"
           type="button">
-
           <span class="emotion-icon">🤩</span>
           <span class="emotion-name">Excited</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="serious"
           type="button">
-
           <span class="emotion-icon">😐</span>
           <span class="emotion-name">Serious</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="calm"
           type="button">
-
           <span class="emotion-icon">😌</span>
           <span class="emotion-name">Calm</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="whisper"
           type="button">
-
           <span class="emotion-icon">🤫</span>
           <span class="emotion-name">Whisper</span>
-
         </button>
 
         <button class="emotion-btn"
           data-emotion="dramatic"
           type="button">
-
           <span class="emotion-icon">🎭</span>
           <span class="emotion-name">Dramatic</span>
-
         </button>
 
       </div>
@@ -1760,6 +1864,8 @@ audio{
 
   <div class="extra-grid">
 
+    <!-- SRT -->
+
     <div
       class="extra-card srt-card"
       id="srtCard"
@@ -1786,7 +1892,7 @@ audio{
         <div class="collapse-right">
 
           <span class="extra-tag srt-tag">
-            NEW
+            READY
           </span>
 
           <span class="extra-chevron">
@@ -1797,13 +1903,101 @@ audio{
 
       </button>
 
-      <div class="extra-content">
-        CapCut မှာ အသုံးပြုနိုင်မယ့်
-        SRT Subtitle feature ကို
-        နောက်ပိုင်းတွင် ထည့်သွင်းနိုင်ပါတယ်။
+      <div class="extra-content srt-content">
+
+        <div class="srt-info">
+          🩵 လက်ရှိထည့်ထားတဲ့ မြန်မာစာကို
+          SRT Subtitle အဖြစ် ပြောင်းပြီး
+          CapCut မှာ Import လုပ်နိုင်ပါတယ်။
+        </div>
+
+        <div class="srt-settings">
+
+          <div class="srt-control">
+
+            <label class="srt-label">
+              ⏱️ Subtitle တစ်ပိုင်းကြာချိန်
+            </label>
+
+            <select
+              class="srt-select"
+              id="srtDuration"
+            >
+              <option value="3">3 seconds</option>
+              <option value="4">4 seconds</option>
+              <option value="5" selected>5 seconds</option>
+              <option value="6">6 seconds</option>
+              <option value="8">8 seconds</option>
+              <option value="10">10 seconds</option>
+            </select>
+
+          </div>
+
+          <div class="srt-control">
+
+            <label class="srt-label">
+              📝 စာကြောင်းအလိုက်
+            </label>
+
+            <select
+              class="srt-select"
+              id="srtMode"
+            >
+              <option value="line" selected>
+                Line by Line
+              </option>
+
+              <option value="sentence">
+                Sentence
+              </option>
+
+              <option value="auto">
+                Auto
+              </option>
+            </select>
+
+          </div>
+
+        </div>
+
+        <button
+          class="srt-generate-btn"
+          id="srtGenerateBtn"
+          type="button"
+        >
+          🩵 Generate SRT Subtitle
+        </button>
+
+        <div
+          class="srt-status"
+          id="srtStatus"
+        ></div>
+
+        <div
+          class="srt-preview"
+          id="srtPreview"
+        >
+
+          <textarea
+            id="srtOutput"
+            readonly
+          ></textarea>
+
+          <button
+            class="srt-download-btn"
+            id="srtDownloadBtn"
+            type="button"
+          >
+            ⬇️ Download SRT
+          </button>
+
+        </div>
+
       </div>
 
     </div>
+
+    <!-- PRO -->
 
     <div
       class="extra-card pro-card"
@@ -2024,6 +2218,36 @@ const cloneResult =
   document.getElementById("cloneResult");
 
 
+/* SRT */
+
+const srtHeader =
+  document.getElementById("srtHeader");
+
+const srtCard =
+  document.getElementById("srtCard");
+
+const srtDuration =
+  document.getElementById("srtDuration");
+
+const srtMode =
+  document.getElementById("srtMode");
+
+const srtGenerateBtn =
+  document.getElementById("srtGenerateBtn");
+
+const srtStatus =
+  document.getElementById("srtStatus");
+
+const srtPreview =
+  document.getElementById("srtPreview");
+
+const srtOutput =
+  document.getElementById("srtOutput");
+
+const srtDownloadBtn =
+  document.getElementById("srtDownloadBtn");
+
+
 /* =========================
    CHARACTER COUNTER
 ========================= */
@@ -2068,13 +2292,6 @@ document
 
         selectedVoice =
           this.dataset.voice;
-
-        /*
-         * Manual voice selected.
-         * Cloned voice remains available
-         * but Generate can later be connected
-         * to voice_id in the TTS backend.
-         */
 
         status.textContent =
           "🎙️ Voice: " +
@@ -2252,7 +2469,7 @@ cloneFile.addEventListener(
       file.name;
 
     cloneStatus.textContent =
-      "🎧 Audio sample ရွေးပြီးပါပြီ။";
+      "🎧 Audio sample ရွေးပြီးပါပြီ.";
 
   }
 );
@@ -2272,9 +2489,6 @@ cloneBtn.addEventListener(
     const name =
       cloneName.value.trim();
 
-
-    /* FILE */
-
     if(!file){
 
       cloneStatus.textContent =
@@ -2283,15 +2497,9 @@ cloneBtn.addEventListener(
       return;
     }
 
-
-    /* NAME */
-
     const finalName =
       name ||
       "YNT Voice Clone";
-
-
-    /* SIZE */
 
     if(
       file.size >
@@ -2304,9 +2512,6 @@ cloneBtn.addEventListener(
       return;
     }
 
-
-    /* RESET */
-
     cloneBtn.disabled =
       true;
 
@@ -2316,20 +2521,10 @@ cloneBtn.addEventListener(
     cloneResult.style.display =
       "none";
 
-
     try{
 
       const formData =
         new FormData();
-
-
-      /*
-       * IMPORTANT
-       *
-       * clone.js expects:
-       * file
-       * name
-       */
 
       formData.append(
         "file",
@@ -2342,7 +2537,6 @@ cloneBtn.addEventListener(
         finalName
       );
 
-
       const response =
         await fetch(
           "/api/clone",
@@ -2352,15 +2546,12 @@ cloneBtn.addEventListener(
           }
         );
 
-
       const contentType =
         response.headers.get(
           "content-type"
         ) || "";
 
-
       let data;
-
 
       if(
         contentType.includes(
@@ -2382,7 +2573,6 @@ cloneBtn.addEventListener(
 
       }
 
-
       if(!response.ok){
 
         throw new Error(
@@ -2392,7 +2582,6 @@ cloneBtn.addEventListener(
 
       }
 
-
       if(!data?.voice_id){
 
         throw new Error(
@@ -2401,18 +2590,12 @@ cloneBtn.addEventListener(
 
       }
 
-
-      /* SAVE */
-
       clonedVoiceId =
         data.voice_id;
 
       clonedVoiceName =
         data.name ||
         finalName;
-
-
-      /* SUCCESS */
 
       cloneStatus.textContent =
         "✅ Voice Clone အောင်မြင်ပါပြီ။";
@@ -2431,12 +2614,6 @@ cloneBtn.addEventListener(
       cloneResult.style.display =
         "block";
 
-
-      /*
-       * Keep cloned voice locally
-       * for the next TTS integration step.
-       */
-
       localStorage.setItem(
         "ynt_cloned_voice_id",
         clonedVoiceId
@@ -2446,7 +2623,6 @@ cloneBtn.addEventListener(
         "ynt_cloned_voice_name",
         clonedVoiceName
       );
-
 
     }catch(error){
 
@@ -2522,21 +2698,19 @@ function escapeHTML(value){
 
 
 /* =========================
-   SRT CARD
+   SRT COLLAPSE
 ========================= */
 
-document
-  .getElementById("srtHeader")
-  .addEventListener(
-    "click",
-    function(){
+srtHeader.addEventListener(
+  "click",
+  function(){
 
-      document
-        .getElementById("srtCard")
-        .classList.toggle("open");
+    srtCard.classList.toggle(
+      "open"
+    );
 
-    }
-  );
+  }
+);
 
 
 /* =========================
@@ -2558,6 +2732,334 @@ document
 
 
 /* =========================
+   SRT TIME FORMAT
+========================= */
+
+function formatSRTTime(totalSeconds){
+
+  const milliseconds =
+    Math.round(
+      (totalSeconds % 1) * 1000
+    );
+
+  const total =
+    Math.floor(totalSeconds);
+
+  const seconds =
+    total % 60;
+
+  const minutes =
+    Math.floor(total / 60) % 60;
+
+  const hours =
+    Math.floor(total / 3600);
+
+  return (
+    String(hours).padStart(2,"0") +
+    ":" +
+    String(minutes).padStart(2,"0") +
+    ":" +
+    String(seconds).padStart(2,"0") +
+    "," +
+    String(milliseconds).padStart(3,"0")
+  );
+
+}
+
+
+/* =========================
+   SRT TEXT SPLIT
+========================= */
+
+function splitSubtitleText(text){
+
+  const mode =
+    srtMode.value;
+
+  let parts = [];
+
+  if(mode === "line"){
+
+    parts =
+      text
+        .split(/\r?\n/)
+        .map(function(item){
+          return item.trim();
+        })
+        .filter(Boolean);
+
+  }
+
+  else if(mode === "sentence"){
+
+    parts =
+      text
+        .replace(/\r?\n/g," ")
+        .split(
+          /(?<=[။!?])/u
+        )
+        .map(function(item){
+          return item.trim();
+        })
+        .filter(Boolean);
+
+  }
+
+  else{
+
+    const lines =
+      text
+        .split(/\r?\n/)
+        .map(function(item){
+          return item.trim();
+        })
+        .filter(Boolean);
+
+    if(lines.length > 1){
+
+      parts = lines;
+
+    }else{
+
+      parts =
+        text
+          .split(
+            /(?<=[။!?])/u
+          )
+          .map(function(item){
+            return item.trim();
+          })
+          .filter(Boolean);
+
+    }
+
+  }
+
+  /*
+   * If the user entered one very long
+   * paragraph, break it into smaller
+   * subtitle chunks.
+   */
+
+  const finalParts = [];
+
+  parts.forEach(function(part){
+
+    if(part.length <= 90){
+
+      finalParts.push(part);
+      return;
+
+    }
+
+    const words =
+      part.split(/\s+/);
+
+    let current = "";
+
+    words.forEach(function(word){
+
+      const test =
+        current
+          ? current + " " + word
+          : word;
+
+      if(test.length > 90){
+
+        if(current){
+
+          finalParts.push(
+            current
+          );
+
+        }
+
+        current =
+          word;
+
+      }else{
+
+        current =
+          test;
+
+      }
+
+    });
+
+    if(current){
+
+      finalParts.push(
+        current
+      );
+
+    }
+
+  });
+
+  return finalParts;
+
+}
+
+
+/* =========================
+   GENERATE SRT
+========================= */
+
+srtGenerateBtn.addEventListener(
+  "click",
+  function(){
+
+    const text =
+      textInput.value.trim();
+
+    if(!text){
+
+      srtStatus.textContent =
+        "⚠️ အရင်ဆုံး မြန်မာစာထည့်ပါ။";
+
+      textInput.focus();
+
+      return;
+
+    }
+
+    const parts =
+      splitSubtitleText(text);
+
+    if(!parts.length){
+
+      srtStatus.textContent =
+        "⚠️ Subtitle စာသားမတွေ့ပါ။";
+
+      return;
+
+    }
+
+    const duration =
+      Number(
+        srtDuration.value
+      );
+
+    let currentTime = 0;
+
+    const blocks =
+      parts.map(
+        function(part,index){
+
+          const start =
+            currentTime;
+
+          const end =
+            currentTime +
+            duration;
+
+          currentTime =
+            end;
+
+          return (
+            (index + 1) +
+            "\n" +
+            formatSRTTime(start) +
+            " --> " +
+            formatSRTTime(end) +
+            "\n" +
+            part +
+            "\n"
+          );
+
+        }
+      );
+
+    const srt =
+      blocks.join("\n");
+
+    srtOutput.value =
+      srt;
+
+    srtPreview.style.display =
+      "block";
+
+    srtStatus.textContent =
+      "✅ " +
+      parts.length +
+      " ခုသော Subtitle ကို ပြုလုပ်ပြီးပါပြီ။";
+
+  }
+);
+
+
+/* =========================
+   DOWNLOAD SRT
+========================= */
+
+srtDownloadBtn.addEventListener(
+  "click",
+  function(){
+
+    const srt =
+      srtOutput.value;
+
+    if(!srt){
+
+      srtStatus.textContent =
+        "⚠️ အရင်ဆုံး Generate SRT လုပ်ပါ။";
+
+      return;
+
+    }
+
+    /*
+     * UTF-8 BOM is included so Burmese
+     * characters display correctly in
+     * subtitle editors such as CapCut.
+     */
+
+    const blob =
+      new Blob(
+        [
+          "\uFEFF",
+          srt
+        ],
+        {
+          type:
+            "application/x-subrip;charset=utf-8"
+        }
+      );
+
+    const url =
+      URL.createObjectURL(
+        blob
+      );
+
+    const link =
+      document.createElement("a");
+
+    link.href =
+      url;
+
+    link.download =
+      "YNT-Subtitle.srt";
+
+    document.body.appendChild(
+      link
+    );
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(
+      url
+    );
+
+    srtStatus.textContent =
+      "✅ YNT-Subtitle.srt ကို Download လုပ်ပြီးပါပြီ။";
+
+  }
+);
+
+
+/* =========================
    GENERATE TTS
 ========================= */
 
@@ -2567,7 +3069,6 @@ generateBtn.addEventListener(
 
     const text =
       textInput.value.trim();
-
 
     if(!text){
 
@@ -2579,7 +3080,6 @@ generateBtn.addEventListener(
       return;
     }
 
-
     if(text.length > 5000){
 
       status.textContent =
@@ -2587,7 +3087,6 @@ generateBtn.addEventListener(
 
       return;
     }
-
 
     generateBtn.disabled =
       true;
@@ -2603,7 +3102,6 @@ generateBtn.addEventListener(
 
     loadingText.textContent =
       "✨ Voice ဖန်တီးနေပါသည်...";
-
 
     try{
 
@@ -2625,22 +3123,12 @@ generateBtn.addEventListener(
 
       };
 
-
-      /*
-       * If cloned voice exists,
-       * send its ID too.
-       *
-       * Current /api/tts can ignore this
-       * until we update it in the next step.
-       */
-
       if(clonedVoiceId){
 
         requestBody.voice_id =
           clonedVoiceId;
 
       }
-
 
       const response =
         await fetch(
@@ -2660,18 +3148,15 @@ generateBtn.addEventListener(
           }
         );
 
-
       const contentType =
         response.headers.get(
           "content-type"
         ) || "";
 
-
       if(!response.ok){
 
         let errorMessage =
           "TTS ပြုလုပ်၍မရပါ။";
-
 
         if(
           contentType.includes(
@@ -2700,13 +3185,11 @@ generateBtn.addEventListener(
 
         }
 
-
         throw new Error(
           errorMessage
         );
 
       }
-
 
       if(
         !contentType.includes(
@@ -2724,10 +3207,8 @@ generateBtn.addEventListener(
 
       }
 
-
       const audioBlob =
         await response.blob();
-
 
       if(
         !audioBlob ||
@@ -2740,7 +3221,6 @@ generateBtn.addEventListener(
 
       }
 
-
       if(currentAudioURL){
 
         URL.revokeObjectURL(
@@ -2749,28 +3229,22 @@ generateBtn.addEventListener(
 
       }
 
-
       currentAudioURL =
         URL.createObjectURL(
           audioBlob
         );
 
-
       audioPlayer.src =
         currentAudioURL;
-
 
       player.style.display =
         "block";
 
-
       loadingText.textContent =
         "✅ Voice ပြုလုပ်ပြီးပါပြီ။";
 
-
       status.textContent =
         "✅ YNT TTS Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
-
 
       setTimeout(
         function(){
@@ -2784,7 +3258,6 @@ generateBtn.addEventListener(
         150
       );
 
-
     }catch(error){
 
       console.error(
@@ -2792,10 +3265,8 @@ generateBtn.addEventListener(
         error
       );
 
-
       loadingText.textContent =
         "❌ Voice ပြုလုပ်၍မရပါ။";
-
 
       status.textContent =
         "❌ " +
@@ -2841,26 +3312,20 @@ downloadBtn.addEventListener(
       return;
     }
 
-
     const link =
       document.createElement("a");
-
 
     link.href =
       currentAudioURL;
 
-
     link.download =
       "YNT-TTS-Voice.wav";
-
 
     document.body.appendChild(
       link
     );
 
-
     link.click();
-
 
     link.remove();
 
