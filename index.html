@@ -8,6 +8,7 @@
 <title>YNT TTS Voice</title>
 
 <style>
+
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
@@ -50,6 +51,7 @@ button{
   margin:auto;
   padding:14px 12px 40px;
 }
+
 
 /* =========================
    HERO
@@ -139,8 +141,9 @@ button{
   letter-spacing:.6px;
 }
 
+
 /* =========================
-   NEON LOGO
+   LOGO
 ========================= */
 
 .logo{
@@ -211,12 +214,11 @@ button{
 
 .hero-sub{
   margin:0;
-
   color:#94a3b8;
-
   font-size:12px;
   line-height:1.8;
 }
+
 
 /* =========================
    WAVE
@@ -274,6 +276,7 @@ button{
   }
 }
 
+
 /* =========================
    CARD
 ========================= */
@@ -300,8 +303,9 @@ button{
     inset 0 1px 0 rgba(255,255,255,.04);
 }
 
+
 /* =========================
-   SECTION TITLE
+   SECTION
 ========================= */
 
 .section-title{
@@ -343,11 +347,10 @@ button{
 
 .section-hint{
   margin-top:2px;
-
   color:#64748b;
-
   font-size:10px;
 }
+
 
 /* =========================
    TEXT
@@ -401,7 +404,6 @@ textarea:focus{
   margin-top:7px;
 
   color:#64748b;
-
   font-size:10px;
 }
 
@@ -410,16 +412,14 @@ textarea:focus{
   font-weight:900;
 }
 
+
 /* =========================
    VOICE
 ========================= */
 
 .voice-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(5,1fr);
-
+  grid-template-columns:repeat(5,1fr);
   gap:8px;
 }
 
@@ -434,7 +434,6 @@ textarea:focus{
   color:#cbd5e1;
 
   cursor:pointer;
-
   transition:.18s;
 }
 
@@ -461,23 +460,20 @@ textarea:focus{
 
 .voice-name{
   display:block;
-
   font-size:12px;
   font-weight:900;
 }
 
 .voice-icon{
   display:block;
-
   margin-bottom:3px;
-
   color:#60a5fa;
-
   font-size:16px;
 }
 
+
 /* =========================
-   COLLAPSE CARD
+   COLLAPSE
 ========================= */
 
 .collapse-card{
@@ -539,9 +535,7 @@ textarea:focus{
 
 .collapse-sub{
   margin-top:2px;
-
   color:#64748b;
-
   font-size:9px;
 }
 
@@ -553,16 +547,13 @@ textarea:focus{
 
 .collapse-value{
   color:#c4b5fd;
-
   font-size:10px;
   font-weight:900;
 }
 
 .chevron{
   color:#94a3b8;
-
   font-size:15px;
-
   transition:.2s;
 }
 
@@ -572,13 +563,13 @@ textarea:focus{
 
 .collapse-content{
   display:none;
-
   padding:0 14px 15px;
 }
 
 .collapse-card.open .collapse-content{
   display:block;
 }
+
 
 /* =========================
    EMOTION
@@ -594,10 +585,7 @@ textarea:focus{
 
 .emotion-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
+  grid-template-columns:repeat(3,1fr);
   gap:7px;
 }
 
@@ -612,7 +600,6 @@ textarea:focus{
   color:#94a3b8;
 
   cursor:pointer;
-
   transition:.18s;
 }
 
@@ -638,9 +625,7 @@ textarea:focus{
 
 .emotion-icon{
   display:block;
-
   font-size:18px;
-
   margin-bottom:3px;
 }
 
@@ -648,6 +633,7 @@ textarea:focus{
   font-size:9px;
   font-weight:900;
 }
+
 
 /* =========================
    SETTINGS
@@ -663,10 +649,7 @@ textarea:focus{
 
 .settings-content{
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:10px;
 }
 
@@ -694,7 +677,6 @@ textarea:focus{
 
 .control-label{
   color:#cbd5e1;
-
   font-size:12px;
   font-weight:900;
 }
@@ -727,7 +709,6 @@ input[type="range"]{
   -webkit-appearance:none;
 
   border-radius:99px;
-
   outline:none;
 
   background:#25253b;
@@ -776,16 +757,315 @@ input[type="range"]::-moz-range-thumb{
   font-size:8px;
 }
 
+
 /* =========================
-   EXTRA CARDS
+   VOICE CLONE
+========================= */
+
+.voice-clone-card{
+  overflow:hidden;
+
+  margin-top:10px;
+
+  border:1px solid rgba(236,72,153,.25);
+  border-radius:19px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,18,38,.90),
+      rgba(8,8,22,.78)
+    );
+
+  box-shadow:
+    0 10px 35px rgba(236,72,153,.06);
+}
+
+.clone-icon{
+  width:32px;
+  height:32px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:10px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.18),
+      rgba(236,72,153,.16)
+    );
+
+  font-size:16px;
+}
+
+.clone-tag{
+  padding:4px 8px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(168,85,247,.15),
+      rgba(236,72,153,.15)
+    );
+
+  color:#f0abfc;
+
+  font-size:8px;
+  font-weight:950;
+}
+
+.clone-upload{
+  padding:24px 15px;
+
+  text-align:center;
+
+  border:1px dashed rgba(168,85,247,.35);
+  border-radius:17px;
+
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(168,85,247,.10),
+      transparent 65%
+    );
+}
+
+.clone-upload-icon{
+  font-size:30px;
+  margin-bottom:7px;
+}
+
+.clone-upload-title{
+  color:#f1f5f9;
+  font-size:13px;
+  font-weight:950;
+}
+
+.clone-upload-sub{
+  margin-top:4px;
+  color:#64748b;
+  font-size:9px;
+}
+
+.clone-upload-btn{
+  margin-top:13px;
+
+  padding:10px 17px;
+
+  border:1px solid rgba(129,140,248,.30);
+  border-radius:11px;
+
+  background:rgba(99,102,241,.10);
+
+  color:#c4b5fd;
+
+  font-size:10px;
+  font-weight:900;
+
+  cursor:pointer;
+}
+
+.clone-file{
+  display:none;
+
+  align-items:center;
+  gap:10px;
+
+  margin-top:10px;
+  padding:11px;
+
+  border:1px solid rgba(34,211,238,.18);
+  border-radius:13px;
+
+  background:rgba(34,211,238,.05);
+}
+
+.clone-file-icon{
+  width:34px;
+  height:34px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:9px;
+
+  background:rgba(34,211,238,.10);
+}
+
+.clone-file-info{
+  flex:1;
+  min-width:0;
+}
+
+.clone-file-name{
+  overflow:hidden;
+
+  color:#e2e8f0;
+
+  font-size:10px;
+  font-weight:900;
+
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.clone-file-size{
+  margin-top:2px;
+  color:#64748b;
+  font-size:8px;
+}
+
+.clone-remove{
+  width:30px;
+  height:30px;
+
+  border:1px solid rgba(239,68,68,.18);
+  border-radius:9px;
+
+  background:rgba(239,68,68,.08);
+
+  color:#fb7185;
+
+  cursor:pointer;
+}
+
+.clone-preview{
+  display:none;
+
+  margin-top:10px;
+  padding:12px;
+
+  border:1px solid rgba(34,211,238,.16);
+  border-radius:13px;
+
+  background:rgba(8,8,22,.70);
+}
+
+.clone-preview-title{
+  margin-bottom:8px;
+
+  color:#67e8f9;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.clone-preview audio{
+  width:100%;
+  height:38px;
+}
+
+.clone-name-box{
+  margin-top:10px;
+}
+
+.clone-label{
+  margin-bottom:7px;
+
+  color:#cbd5e1;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.clone-name-box input{
+  width:100%;
+
+  padding:12px;
+
+  border:1px solid #25253d;
+  border-radius:12px;
+
+  outline:none;
+
+  background:#080816;
+
+  color:#fff;
+
+  font-size:11px;
+}
+
+.clone-name-box input:focus{
+  border-color:#a855f7;
+
+  box-shadow:
+    0 0 0 3px rgba(168,85,247,.08);
+}
+
+.clone-name-box input::placeholder{
+  color:#475569;
+}
+
+.clone-create-btn{
+  width:100%;
+
+  margin-top:12px;
+  padding:13px;
+
+  border:0;
+  border-radius:13px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7c3aed,
+      #a855f7,
+      #ec4899
+    );
+
+  color:#fff;
+
+  font-size:11px;
+  font-weight:950;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 8px 25px rgba(168,85,247,.18);
+}
+
+.my-voices{
+  margin-top:13px;
+}
+
+.my-voices-title{
+  margin-bottom:8px;
+
+  color:#cbd5e1;
+
+  font-size:10px;
+  font-weight:900;
+}
+
+.no-clone{
+  padding:12px;
+
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:11px;
+
+  background:rgba(8,8,22,.55);
+
+  color:#475569;
+
+  text-align:center;
+
+  font-size:9px;
+}
+
+
+/* =========================
+   EXTRA
 ========================= */
 
 .extra-grid{
   display:grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns:1fr 1fr;
   gap:10px;
 
   margin-top:10px;
@@ -872,11 +1152,8 @@ input[type="range"]::-moz-range-thumb{
 
 .extra-chevron{
   transition:.2s;
-
   color:#64748b;
 }
-
-/* SRT */
 
 .srt-card{
   border-color:rgba(34,211,238,.22);
@@ -891,8 +1168,6 @@ input[type="range"]::-moz-range-thumb{
   color:#67e8f9;
 }
 
-/* PRO */
-
 .pro-card{
   border-color:rgba(245,158,11,.22);
 }
@@ -905,6 +1180,7 @@ input[type="range"]::-moz-range-thumb{
   background:rgba(245,158,11,.12);
   color:#fbbf24;
 }
+
 
 /* =========================
    GENERATE
@@ -957,6 +1233,7 @@ input[type="range"]::-moz-range-thumb{
   transform:none;
 }
 
+
 /* =========================
    LOADING
 ========================= */
@@ -975,9 +1252,7 @@ input[type="range"]::-moz-range-thumb{
 
 .loading-text{
   text-align:center;
-
   color:#cbd5e1;
-
   font-size:10px;
 }
 
@@ -1027,6 +1302,7 @@ input[type="range"]::-moz-range-thumb{
   }
 }
 
+
 /* =========================
    STATUS
 ========================= */
@@ -1046,6 +1322,7 @@ input[type="range"]::-moz-range-thumb{
 
   word-break:break-word;
 }
+
 
 /* =========================
    PLAYER
@@ -1098,9 +1375,7 @@ input[type="range"]::-moz-range-thumb{
 
 .player-sub{
   color:#64748b;
-
   font-size:9px;
-
   margin-top:2px;
 }
 
@@ -1128,9 +1403,6 @@ audio{
   cursor:pointer;
 }
 
-.download-btn:hover{
-  background:rgba(99,102,241,.18);
-}
 
 /* =========================
    FOOTER
@@ -1145,6 +1417,7 @@ audio{
 
   font-size:9px;
 }
+
 
 /* =========================
    MOBILE
@@ -1172,8 +1445,7 @@ audio{
   }
 
   .voice-grid{
-    grid-template-columns:
-      repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
   .settings-content{
@@ -1192,25 +1464,26 @@ audio{
 @media(max-width:400px){
 
   .voice-grid{
-    grid-template-columns:
-      repeat(2,1fr);
+    grid-template-columns:repeat(2,1fr);
   }
 
   .emotion-grid{
-    grid-template-columns:
-      repeat(3,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
   .logo{
     font-size:29px;
   }
 }
+
 </style>
 </head>
+
 
 <body>
 
 <div class="container">
+
 
 <!-- =========================
      HERO
@@ -1225,9 +1498,19 @@ audio{
     </div>
 
     <div class="logo">
-      <span class="logo-ynt">YNT</span>
-      <span class="logo-tts">TTS</span>
-      <span class="logo-voice">Voice</span>
+
+      <span class="logo-ynt">
+        YNT
+      </span>
+
+      <span class="logo-tts">
+        TTS
+      </span>
+
+      <span class="logo-voice">
+        Voice
+      </span>
+
     </div>
 
     <p class="hero-sub">
@@ -1235,6 +1518,7 @@ audio{
     </p>
 
     <div class="waveform">
+
       <span class="wave"></span>
       <span class="wave"></span>
       <span class="wave"></span>
@@ -1247,6 +1531,7 @@ audio{
       <span class="wave"></span>
       <span class="wave"></span>
       <span class="wave"></span>
+
     </div>
 
   </div>
@@ -1267,6 +1552,7 @@ audio{
     </div>
 
     <div>
+
       <div class="section-name">
         မြန်မာစာထည့်ရန်
       </div>
@@ -1274,15 +1560,18 @@ audio{
       <div class="section-hint">
         Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
       </div>
+
     </div>
 
   </div>
+
 
   <textarea
     id="textInput"
     maxlength="5000"
     placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
   ></textarea>
+
 
   <div class="text-bottom">
 
@@ -1315,6 +1604,7 @@ audio{
     </div>
 
     <div>
+
       <div class="section-name">
         Voice
       </div>
@@ -1322,6 +1612,7 @@ audio{
       <div class="section-hint">
         AI Voice Character ရွေးပါ
       </div>
+
     </div>
 
   </div>
@@ -1338,6 +1629,7 @@ audio{
       <span class="voice-name">Zephyr</span>
     </button>
 
+
     <button
       class="voice-btn"
       data-voice="Puck"
@@ -1346,6 +1638,7 @@ audio{
       <span class="voice-icon">〽</span>
       <span class="voice-name">Puck</span>
     </button>
+
 
     <button
       class="voice-btn"
@@ -1356,6 +1649,7 @@ audio{
       <span class="voice-name">Charon</span>
     </button>
 
+
     <button
       class="voice-btn active"
       data-voice="Kore"
@@ -1364,6 +1658,7 @@ audio{
       <span class="voice-icon">〽</span>
       <span class="voice-name">Kore</span>
     </button>
+
 
     <button
       class="voice-btn"
@@ -1378,7 +1673,7 @@ audio{
 
 
   <!-- =========================
-       EMOTION COLLAPSE
+       EMOTION
   ========================= -->
 
   <div
@@ -1444,6 +1739,7 @@ audio{
           <span class="emotion-name">Natural</span>
         </button>
 
+
         <button
           class="emotion-btn"
           data-emotion="happy"
@@ -1452,6 +1748,7 @@ audio{
           <span class="emotion-icon">😄</span>
           <span class="emotion-name">Happy</span>
         </button>
+
 
         <button
           class="emotion-btn"
@@ -1462,6 +1759,7 @@ audio{
           <span class="emotion-name">Sad</span>
         </button>
 
+
         <button
           class="emotion-btn"
           data-emotion="angry"
@@ -1470,6 +1768,7 @@ audio{
           <span class="emotion-icon">😡</span>
           <span class="emotion-name">Angry</span>
         </button>
+
 
         <button
           class="emotion-btn"
@@ -1480,6 +1779,7 @@ audio{
           <span class="emotion-name">Excited</span>
         </button>
 
+
         <button
           class="emotion-btn"
           data-emotion="serious"
@@ -1488,6 +1788,7 @@ audio{
           <span class="emotion-icon">😐</span>
           <span class="emotion-name">Serious</span>
         </button>
+
 
         <button
           class="emotion-btn"
@@ -1498,6 +1799,7 @@ audio{
           <span class="emotion-name">Calm</span>
         </button>
 
+
         <button
           class="emotion-btn"
           data-emotion="whisper"
@@ -1506,6 +1808,7 @@ audio{
           <span class="emotion-icon">🤫</span>
           <span class="emotion-name">Whisper</span>
         </button>
+
 
         <button
           class="emotion-btn"
@@ -1581,8 +1884,6 @@ audio{
 
       <div class="settings-content">
 
-        <!-- SPEED -->
-
         <div class="control-box">
 
           <div class="control-head">
@@ -1617,8 +1918,6 @@ audio{
 
         </div>
 
-
-        <!-- PITCH -->
 
         <div class="control-box">
 
@@ -1662,12 +1961,203 @@ audio{
 
 
   <!-- =========================
+       VOICE CLONE
+  ========================= -->
+
+  <div
+    class="voice-clone-card"
+    id="voiceCloneCard"
+  >
+
+    <button
+      class="collapse-header"
+      id="voiceCloneHeader"
+      type="button"
+    >
+
+      <div class="collapse-left">
+
+        <div class="clone-icon">
+          🧬
+        </div>
+
+        <div>
+
+          <div class="collapse-title">
+            Voice Clone
+          </div>
+
+          <div class="collapse-sub">
+            ကိုယ်ပိုင်အသံကို AI Voice အဖြစ် အသုံးပြုပါ
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="collapse-right">
+
+        <span class="clone-tag">
+          NEW
+        </span>
+
+        <span class="chevron">
+          ▼
+        </span>
+
+      </div>
+
+    </button>
+
+
+    <div class="collapse-content">
+
+
+      <div
+        class="clone-upload"
+        id="cloneUpload"
+      >
+
+        <div class="clone-upload-icon">
+          🎙️
+        </div>
+
+        <div class="clone-upload-title">
+          Upload Voice Sample
+        </div>
+
+        <div class="clone-upload-sub">
+          အသံ sample ဖိုင်တင်ပါ
+        </div>
+
+
+        <input
+          type="file"
+          id="voiceSample"
+          accept="audio/*"
+          hidden
+        >
+
+
+        <button
+          class="clone-upload-btn"
+          id="chooseVoiceBtn"
+          type="button"
+        >
+          📁 Choose Audio
+        </button>
+
+      </div>
+
+
+      <div
+        class="clone-file"
+        id="cloneFile"
+      >
+
+        <div class="clone-file-icon">
+          🎵
+        </div>
+
+        <div class="clone-file-info">
+
+          <div
+            class="clone-file-name"
+            id="cloneFileName"
+          >
+            No audio selected
+          </div>
+
+          <div
+            class="clone-file-size"
+            id="cloneFileSize"
+          >
+            —
+          </div>
+
+        </div>
+
+
+        <button
+          class="clone-remove"
+          id="removeVoiceBtn"
+          type="button"
+        >
+          ✕
+        </button>
+
+      </div>
+
+
+      <div
+        class="clone-preview"
+        id="clonePreview"
+      >
+
+        <div class="clone-preview-title">
+          🔊 Voice Sample Preview
+        </div>
+
+        <audio
+          id="voicePreview"
+          controls
+        ></audio>
+
+      </div>
+
+
+      <div class="clone-name-box">
+
+        <div class="clone-label">
+          ✨ Voice Name
+        </div>
+
+        <input
+          type="text"
+          id="cloneVoiceName"
+          maxlength="40"
+          placeholder="ဥပမာ — My Voice"
+        >
+
+      </div>
+
+
+      <button
+        class="clone-create-btn"
+        id="createCloneBtn"
+        type="button"
+      >
+        🧬 Create Voice Clone
+      </button>
+
+
+      <div class="my-voices">
+
+        <div class="my-voices-title">
+          🎙️ My Cloned Voices
+        </div>
+
+        <div
+          class="no-clone"
+          id="noClone"
+        >
+          လက်ရှိ Clone Voice မရှိသေးပါ
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
        SRT + PRO
   ========================= -->
 
   <div class="extra-grid">
 
-    <!-- SRT -->
 
     <div
       class="extra-card srt-card"
@@ -1692,6 +2182,7 @@ audio{
 
         </div>
 
+
         <div class="collapse-right">
 
           <span class="extra-tag srt-tag">
@@ -1709,16 +2200,14 @@ audio{
 
       <div class="extra-content">
 
-        CapCut မှာ တိုက်ရိုက်အသုံးပြုနိုင်မယ့်
-        SRT Subtitle feature ကို ဒီနေရာကနေ
-        အသုံးပြုနိုင်ပါမယ်။
+        CapCut မှာ အသုံးပြုနိုင်မယ့်
+        SRT Subtitle feature ကို
+        နောက်ပိုင်းမှာ ထည့်သွင်းနိုင်ပါမယ်။
 
       </div>
 
     </div>
 
-
-    <!-- PRO -->
 
     <div
       class="extra-card pro-card"
@@ -1743,6 +2232,7 @@ audio{
 
         </div>
 
+
         <div class="collapse-right">
 
           <span class="extra-tag pro-tag">
@@ -1760,9 +2250,9 @@ audio{
 
       <div class="extra-content">
 
-        နောက်ပိုင်းမှာ Premium Voice
-        နှင့် အခြား Pro Tools များ
-        ထည့်သွင်းနိုင်ရန် ပြင်ဆင်ထားပါတယ်။
+        Premium Voice နှင့်
+        အခြား Pro Tools များကို
+        နောက်ပိုင်းမှာ ထည့်သွင်းနိုင်ပါမယ်။
 
       </div>
 
@@ -1784,10 +2274,6 @@ audio{
   </button>
 
 
-  <!-- =========================
-       LOADING
-  ========================= -->
-
   <div
     class="loading"
     id="loading"
@@ -1797,7 +2283,7 @@ audio{
       class="loading-text"
       id="loadingText"
     >
-      🤖 Gemini AI က Voice ပြုလုပ်နေပါတယ်...
+      ✨ Voice ဖန်တီးနေပါသည်...
     </div>
 
     <div class="loading-bar"></div>
@@ -1805,19 +2291,11 @@ audio{
   </div>
 
 
-  <!-- =========================
-       STATUS
-  ========================= -->
-
   <div
     class="status"
     id="status"
   ></div>
 
-
-  <!-- =========================
-       AUDIO PLAYER
-  ========================= -->
 
   <div
     class="player"
@@ -1868,6 +2346,7 @@ audio{
 <div class="footer">
   © 2026 YNT TTS Voice • AI Powered
 </div>
+
 
 </div>
 
@@ -1995,7 +2474,7 @@ document
 
 
 /* =========================
-   EMOTION COLLAPSE
+   EMOTION
 ========================= */
 
 document
@@ -2064,7 +2543,7 @@ document
 
 
 /* =========================
-   SETTINGS COLLAPSE
+   SETTINGS
 ========================= */
 
 document
@@ -2124,7 +2603,249 @@ pitch.addEventListener(
 
 
 /* =========================
-   SRT CARD
+   VOICE CLONE UI
+========================= */
+
+const voiceCloneCard =
+  document.getElementById(
+    "voiceCloneCard"
+  );
+
+const voiceCloneHeader =
+  document.getElementById(
+    "voiceCloneHeader"
+  );
+
+const voiceSample =
+  document.getElementById(
+    "voiceSample"
+  );
+
+const chooseVoiceBtn =
+  document.getElementById(
+    "chooseVoiceBtn"
+  );
+
+const cloneFile =
+  document.getElementById(
+    "cloneFile"
+  );
+
+const cloneFileName =
+  document.getElementById(
+    "cloneFileName"
+  );
+
+const cloneFileSize =
+  document.getElementById(
+    "cloneFileSize"
+  );
+
+const removeVoiceBtn =
+  document.getElementById(
+    "removeVoiceBtn"
+  );
+
+const clonePreview =
+  document.getElementById(
+    "clonePreview"
+  );
+
+const voicePreview =
+  document.getElementById(
+    "voicePreview"
+  );
+
+const cloneVoiceName =
+  document.getElementById(
+    "cloneVoiceName"
+  );
+
+const createCloneBtn =
+  document.getElementById(
+    "createCloneBtn"
+  );
+
+
+/* CLONE OPEN */
+
+voiceCloneHeader.addEventListener(
+  "click",
+  function(){
+
+    voiceCloneCard.classList.toggle(
+      "open"
+    );
+
+  }
+);
+
+
+/* CHOOSE */
+
+chooseVoiceBtn.addEventListener(
+  "click",
+  function(){
+
+    voiceSample.click();
+
+  }
+);
+
+
+/* FILE */
+
+voiceSample.addEventListener(
+  "change",
+  function(){
+
+    const file =
+      this.files[0];
+
+    if(!file){
+      return;
+    }
+
+    cloneFile.style.display =
+      "flex";
+
+    cloneFileName.textContent =
+      file.name;
+
+    cloneFileSize.textContent =
+      formatFileSize(
+        file.size
+      );
+
+
+    const audioURL =
+      URL.createObjectURL(
+        file
+      );
+
+    voicePreview.src =
+      audioURL;
+
+    clonePreview.style.display =
+      "block";
+
+  }
+);
+
+
+/* FILE SIZE */
+
+function formatFileSize(bytes){
+
+  if(bytes < 1024){
+
+    return (
+      bytes +
+      " B"
+    );
+
+  }
+
+  if(bytes < 1024 * 1024){
+
+    return (
+      (bytes / 1024)
+        .toFixed(1) +
+      " KB"
+    );
+
+  }
+
+  return (
+    (bytes / (1024 * 1024))
+      .toFixed(1) +
+    " MB"
+  );
+
+}
+
+
+/* REMOVE */
+
+removeVoiceBtn.addEventListener(
+  "click",
+  function(){
+
+    voiceSample.value =
+      "";
+
+    cloneFile.style.display =
+      "none";
+
+    clonePreview.style.display =
+      "none";
+
+    voicePreview.removeAttribute(
+      "src"
+    );
+
+    cloneVoiceName.value =
+      "";
+
+  }
+);
+
+
+/* CREATE CLONE UI */
+
+createCloneBtn.addEventListener(
+  "click",
+  function(){
+
+    const file =
+      voiceSample.files[0];
+
+    const name =
+      cloneVoiceName.value.trim();
+
+
+    if(!file){
+
+      status.textContent =
+        "⚠️ Voice Sample အရင်တင်ပါ။";
+
+      return;
+
+    }
+
+
+    if(!name){
+
+      status.textContent =
+        "⚠️ Voice Name ထည့်ပါ။";
+
+      cloneVoiceName.focus();
+
+      return;
+
+    }
+
+
+    status.textContent =
+      "✨ Voice Clone အတွက် ပြင်ဆင်နေပါသည်...";
+
+
+    setTimeout(
+      function(){
+
+        status.textContent =
+          "🎙️ Voice Clone UI အဆင်သင့်ဖြစ်ပါပြီ။";
+
+      },
+      700
+    );
+
+  }
+);
+
+
+/* =========================
+   SRT
 ========================= */
 
 document
@@ -2142,7 +2863,7 @@ document
 
 
 /* =========================
-   PRO CARD
+   PRO
 ========================= */
 
 document
@@ -2171,8 +2892,6 @@ generateBtn.addEventListener(
       textInput.value.trim();
 
 
-    /* EMPTY */
-
     if(!text){
 
       status.textContent =
@@ -2184,8 +2903,6 @@ generateBtn.addEventListener(
     }
 
 
-    /* LIMIT */
-
     if(text.length > 5000){
 
       status.textContent =
@@ -2194,8 +2911,6 @@ generateBtn.addEventListener(
       return;
     }
 
-
-    /* RESET */
 
     generateBtn.disabled =
       true;
@@ -2210,15 +2925,10 @@ generateBtn.addEventListener(
       "";
 
     loadingText.textContent =
-      "🤖 Gemini AI က Voice ပြုလုပ်နေပါတယ်...";
+      "✨ Voice ဖန်တီးနေပါသည်...";
 
 
     try{
-
-      /*
-       * EXISTING BACKEND
-       * DO NOT CHANGE
-       */
 
       const response =
         await fetch(
@@ -2253,19 +2963,11 @@ generateBtn.addEventListener(
         );
 
 
-      /* =====================
-         CONTENT TYPE
-      ===================== */
-
       const contentType =
         response.headers.get(
           "content-type"
         ) || "";
 
-
-      /* =====================
-         ERROR
-      ===================== */
 
       if(!response.ok){
 
@@ -2308,10 +3010,6 @@ generateBtn.addEventListener(
       }
 
 
-      /* =====================
-         AUDIO CHECK
-      ===================== */
-
       if(
         !contentType.includes(
           "audio/"
@@ -2329,10 +3027,6 @@ generateBtn.addEventListener(
       }
 
 
-      /* =====================
-         AUDIO BLOB
-      ===================== */
-
       const audioBlob =
         await response.blob();
 
@@ -2349,10 +3043,6 @@ generateBtn.addEventListener(
       }
 
 
-      /* =====================
-         CLEAN OLD URL
-      ===================== */
-
       if(currentAudioURL){
 
         URL.revokeObjectURL(
@@ -2361,10 +3051,6 @@ generateBtn.addEventListener(
 
       }
 
-
-      /* =====================
-         CREATE AUDIO URL
-      ===================== */
 
       currentAudioURL =
         URL.createObjectURL(
@@ -2387,10 +3073,6 @@ generateBtn.addEventListener(
       status.textContent =
         "✅ YNT TTS Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
 
-
-      /* =====================
-         SCROLL PLAYER
-      ===================== */
 
       setTimeout(
         function(){
@@ -2447,7 +3129,7 @@ generateBtn.addEventListener(
 
 
 /* =========================
-   DOWNLOAD WAV
+   DOWNLOAD
 ========================= */
 
 downloadBtn.addEventListener(
@@ -2460,6 +3142,7 @@ downloadBtn.addEventListener(
         "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
 
       return;
+
     }
 
 
