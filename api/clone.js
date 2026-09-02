@@ -61,9 +61,7 @@ function parseMultipart(buffer, boundary) {
       .slice(0, headerEnd)
       .toString("utf8");
 
-    const body = part.slice(
-      headerEnd + 4
-    );
+    const body = part.slice(headerEnd + 4);
 
     const disposition = headerText.match(
       /Content-Disposition:[^\r\n]+/i
@@ -108,14 +106,74 @@ function parseMultipart(buffer, boundary) {
   return parts;
 }
 
+/* -----------------------------------------
+   Convert any API error into readable text
+------------------------------------------ */
+
+function readableError(error) {
+  if (!error) {
+    return "Voice Clone API Error";
+  }
+
+  if (typeof error === "string") {
+    return error;
+  }
+
+  if (typeof error === "number" || typeof error === "boolean") {
+    return String(error);
+  }
+
+  if (Array.isArray(error)) {
+    return error
+      .map(item => readableError(item))
+      .filter(Boolean)
+      .join(" | ");
+  }
+
+  if (typeof error === "object") {
+    if (typeof error.message === "string") {
+      return error.message;
+    }
+
+    if (typeof error.detail === "string") {
+      return error.detail;
+    }
+
+    if (typeof error.error === "string") {
+      return error.error;
+    }
+
+    if (typeof error.status === "string") {
+      return error.status;
+    }
+
+    if (Array.isArray(error.errors)) {
+      return error.errors
+        .map(item => readableError(item))
+        .filter(Boolean)
+        .join(" | ");
+    }
+
+    try {
+      return JSON.stringify(error);
+    } catch {
+      return "Voice Clone API Error";
+    }
+  }
+
+  return String(error);
+}
+
+/* -----------------------------------------
+   Main handler
+------------------------------------------ */
+
 export default async function handler(req, res) {
 
   if (req.method !== "POST") {
-
     return res.status(405).json({
       error: "POST method only",
     });
-
   }
 
   try {
@@ -124,12 +182,10 @@ export default async function handler(req, res) {
       process.env.ELEVENLABS_API_KEY;
 
     if (!apiKey) {
-
       return res.status(500).json({
         error:
           "ELEVENLABS_API_KEY မထည့်ရသေးပါ။",
       });
-
     }
 
     const contentType =
@@ -140,25 +196,25 @@ export default async function handler(req, res) {
         "multipart/form-data"
       )
     ) {
-
       return res.status(400).json({
         error:
           "multipart/form-data ဖြင့် audio file ပို့ပါ။",
       });
-
     }
 
     const boundary =
       getBoundary(contentType);
 
     if (!boundary) {
-
       return res.status(400).json({
         error:
           "Multipart boundary မတွေ့ပါ။",
       });
-
     }
+
+    /* -----------------------------------------
+       Read request body
+    ------------------------------------------ */
 
     const chunks = [];
 
@@ -173,13 +229,15 @@ export default async function handler(req, res) {
     const body = Buffer.concat(chunks);
 
     if (!body.length) {
-
       return res.status(400).json({
         error:
           "Voice sample file မတွေ့ပါ။",
       });
-
     }
+
+    /* -----------------------------------------
+       Parse multipart form
+    ------------------------------------------ */
 
     const parts =
       parseMultipart(
@@ -208,13 +266,15 @@ export default async function handler(req, res) {
         : "YNT Voice Clone";
 
     if (!audio) {
-
       return res.status(400).json({
         error:
           "Voice sample audio file ထည့်ပါ။",
       });
-
     }
+
+    /* -----------------------------------------
+       Allowed audio formats
+    ------------------------------------------ */
 
     const allowedTypes = [
       "audio/mpeg",
@@ -228,28 +288,36 @@ export default async function handler(req, res) {
       "audio/webm",
     ];
 
+    const detectedType =
+      (
+        audio.contentType ||
+        ""
+      ).toLowerCase();
+
     if (
-      audio.contentType &&
+      detectedType &&
+      detectedType !==
+        "application/octet-stream" &&
       !allowedTypes.includes(
-        audio.contentType.toLowerCase()
+        detectedType
       )
     ) {
-
       return res.status(400).json({
         error:
           "MP3 / WAV / M4A / OGG / WEBM audio file သုံးပါ။",
       });
-
     }
 
     if (audio.data.length === 0) {
-
       return res.status(400).json({
         error:
           "Audio file အလွတ်ဖြစ်နေပါတယ်။",
       });
-
     }
+
+    /* -----------------------------------------
+       Create ElevenLabs form
+    ------------------------------------------ */
 
     const form =
       new FormData();
@@ -259,21 +327,27 @@ export default async function handler(req, res) {
         [audio.data],
         {
           type:
-            audio.contentType ||
+            detectedType ||
             "audio/mpeg",
         }
       );
 
     form.append(
       "name",
-      voiceName || "YNT Voice Clone"
+      voiceName ||
+        "YNT Voice Clone"
     );
 
     form.append(
       "files[]",
       audioBlob,
-      audio.filename || "voice-sample.mp3"
+      audio.filename ||
+        "voice-sample.mp3"
     );
+
+    /* -----------------------------------------
+       Send to ElevenLabs
+    ------------------------------------------ */
 
     const response =
       await fetch(
@@ -302,43 +376,67 @@ export default async function handler(req, res) {
         "application/json"
       )
     ) {
-
       result =
         await response.json();
-
     } else {
-
       const text =
         await response.text();
 
       result = {
         error: text,
       };
-
     }
 
+    /* -----------------------------------------
+       ElevenLabs error
+    ------------------------------------------ */
+
     if (!response.ok) {
+
+      const errorMessage =
+        readableError(
+          result?.detail ??
+          result?.message ??
+          result?.error ??
+          result
+        );
+
+      console.error(
+        "ELEVENLABS CLONE ERROR:",
+        result
+      );
 
       return res.status(
         response.status
       ).json({
         error:
-          result?.detail ||
-          result?.message ||
-          result?.error ||
+          errorMessage ||
           "Voice Clone API Error",
       });
-
     }
+
+    /* -----------------------------------------
+       Check Voice ID
+    ------------------------------------------ */
 
     if (!result?.voice_id) {
 
+      console.error(
+        "ELEVENLABS RESPONSE:",
+        result
+      );
+
       return res.status(500).json({
         error:
-          "Voice ID မပြန်လာပါ။",
+          "Voice ID မပြန်လာပါ။ ElevenLabs response ကို စစ်ဆေးပါ။",
+        details:
+          readableError(result),
       });
-
     }
+
+    /* -----------------------------------------
+       Success
+    ------------------------------------------ */
 
     return res.status(200).json({
 
@@ -348,10 +446,12 @@ export default async function handler(req, res) {
         result.voice_id,
 
       requires_verification:
-        result.requires_verification || false,
+        result.requires_verification ||
+        false,
 
       name:
-        voiceName,
+        voiceName ||
+        "YNT Voice Clone",
 
     });
 
@@ -363,10 +463,11 @@ export default async function handler(req, res) {
     );
 
     return res.status(500).json({
-      error:
-        error?.message ||
-        "Voice Clone ပြုလုပ်ရာတွင် Error ဖြစ်နေပါတယ်။",
-    });
 
+      error:
+        readableError(error) ||
+        "Voice Clone ပြုလုပ်ရာတွင် Error ဖြစ်နေပါတယ်။",
+
+    });
   }
 }
