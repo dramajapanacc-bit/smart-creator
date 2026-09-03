@@ -7,511 +7,549 @@
 <title>YNT Creator</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
+*{
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent;
+}
+
+html{
+ scroll-behavior:smooth;
+}
+
 body{
- margin:0;min-height:100vh;color:#fff;
- font-family:"Noto Sans Myanmar","Myanmar Text","Segoe UI",sans-serif;
+ margin:0;
+ min-height:100vh;
+ color:#fff;
  background:
- radial-gradient(circle at 10% 0%,rgba(37,99,235,.18),transparent 28%),
- radial-gradient(circle at 90% 0%,rgba(168,85,247,.2),transparent 30%),
- radial-gradient(circle at 50% 100%,rgba(236,72,153,.1),transparent 35%),
- #05050d
+ radial-gradient(circle at top left,#24134d 0,#0d0b20 32%,#070714 72%);
+ font-family:
+ "Noto Sans Myanmar",
+ "Myanmar Text",
+ system-ui,
+ -apple-system,
+ BlinkMacSystemFont,
+ "Segoe UI",
+ sans-serif;
 }
-button,textarea,input{font:inherit}
-button{touch-action:manipulation}
-.container{width:100%;max-width:1050px;margin:auto;padding:14px 12px 40px}
 
-.hero,.card,.extra-card{
- border:1px solid rgba(255,255,255,.08);
- border-radius:22px;
- background:linear-gradient(145deg,rgba(18,18,38,.88),rgba(8,8,21,.78));
- backdrop-filter:blur(22px);
- -webkit-backdrop-filter:blur(22px);
- box-shadow:0 16px 50px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.04)
+button,
+input,
+textarea,
+select{
+ font:inherit;
 }
+
+button{
+ cursor:pointer;
+}
+
+.container{
+ width:min(100%,920px);
+ margin:auto;
+ padding:20px 14px 70px;
+}
+
+/* HERO */
+
 .hero{
- position:relative;overflow:hidden;padding:30px 18px 24px;
- margin-bottom:14px;text-align:center;border-radius:28px
+ text-align:center;
+ padding:28px 10px 22px;
 }
+
 .badge{
- display:inline-flex;padding:7px 13px;
- border:1px solid rgba(129,140,248,.28);
- border-radius:999px;background:rgba(99,102,241,.1);
- color:#c4b5fd;font-size:10px;font-weight:900;letter-spacing:.6px
+ display:inline-flex;
+ align-items:center;
+ gap:6px;
+ padding:7px 13px;
+ border:1px solid rgba(255,255,255,.13);
+ border-radius:999px;
+ background:rgba(255,255,255,.06);
+ color:#d8caff;
+ font-size:12px;
+ font-weight:700;
+ letter-spacing:.4px;
 }
+
 .logo{
- display:flex;justify-content:center;gap:8px;margin:16px 0 9px;
- font-size:clamp(34px,8vw,54px);font-weight:950;
- letter-spacing:-2.5px;line-height:1
-}
-.logo-ynt{color:#22d3ee}
-.logo-creator{color:#a855f7}
-.hero-sub{margin:0;color:#94a3b8;font-size:12px;line-height:1.8}
-
-.waveform{
- display:flex;align-items:center;justify-content:center;
- gap:4px;height:36px;margin-top:13px
-}
-.wave{
- width:3px;border-radius:99px;
- background:linear-gradient(180deg,#22d3ee,#8b5cf6,#ec4899);
- animation:wave 1.1s ease-in-out infinite
-}
-.wave:nth-child(1){height:10px}.wave:nth-child(2){height:19px}
-.wave:nth-child(3){height:29px}.wave:nth-child(4){height:17px}
-.wave:nth-child(5){height:35px}.wave:nth-child(6){height:23px}
-.wave:nth-child(7){height:30px}.wave:nth-child(8){height:15px}
-.wave:nth-child(9){height:27px}.wave:nth-child(10){height:19px}
-.wave:nth-child(11){height:32px}.wave:nth-child(12){height:12px}
-@keyframes wave{
- 0%,100%{transform:scaleY(.55);opacity:.45}
- 50%{transform:scaleY(1);opacity:1}
+ margin:13px 0 5px;
+ font-size:38px;
+ line-height:1.1;
+ font-weight:900;
+ background:linear-gradient(90deg,#fff,#bca4ff,#7ee7ff);
+ -webkit-background-clip:text;
+ background-clip:text;
+ color:transparent;
 }
 
-.card{margin-bottom:12px;padding:17px}
-.section-title{
- display:flex;align-items:center;gap:10px;margin-bottom:13px
+.subtitle{
+ margin:0 auto;
+ max-width:650px;
+ color:#aaa8bd;
+ font-size:14px;
+ line-height:1.8;
 }
-.section-icon,.collapse-icon,.extra-icon{
- display:flex;align-items:center;justify-content:center
+
+/* CARDS */
+
+.card{
+ margin-top:15px;
+ padding:18px;
+ border:1px solid rgba(255,255,255,.10);
+ border-radius:20px;
+ background:rgba(16,15,35,.78);
+ box-shadow:
+ 0 18px 55px rgba(0,0,0,.25),
+ inset 0 1px 0 rgba(255,255,255,.04);
+ backdrop-filter:blur(15px);
 }
-.section-icon{
- width:38px;height:38px;border-radius:12px;
- background:rgba(99,102,241,.14);font-size:17px
+
+.card-title{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:10px;
+ margin-bottom:14px;
 }
-.section-name{font-size:16px;font-weight:950}
-.section-hint,.collapse-sub{
- color:#64748b;font-size:10px;margin-top:2px
+
+.card-title h2{
+ margin:0;
+ font-size:18px;
+}
+
+.card-title p{
+ margin:3px 0 0;
+ color:#8f8ca3;
+ font-size:12px;
+}
+
+.section-label{
+ margin:0 0 8px;
+ color:#bdb8d1;
+ font-size:13px;
+ font-weight:700;
+}
+
+/* VIDEO */
+
+.video-box{
+ position:relative;
+ min-height:210px;
+ border:1px dashed rgba(164,133,255,.35);
+ border-radius:16px;
+ background:rgba(0,0,0,.18);
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ overflow:hidden;
+}
+
+.video-placeholder{
+ text-align:center;
+ padding:30px 18px;
+}
+
+.video-icon{
+ font-size:42px;
+ margin-bottom:8px;
+}
+
+.video-placeholder strong{
+ display:block;
+ font-size:15px;
+}
+
+.video-placeholder span{
+ display:block;
+ margin-top:5px;
+ color:#858195;
+ font-size:12px;
+}
+
+#videoPreview{
+ display:none;
+ width:100%;
+ max-height:390px;
+ background:#000;
+}
+
+.file-btn{
+ display:inline-flex;
+ align-items:center;
+ justify-content:center;
+ margin-top:15px;
+ padding:11px 17px;
+ border:0;
+ border-radius:12px;
+ color:#fff;
+ background:linear-gradient(135deg,#6c43ff,#8b5cf6);
+ font-weight:800;
+ box-shadow:0 8px 22px rgba(109,67,255,.28);
+}
+
+.file-btn:active{
+ transform:scale(.98);
+}
+
+#videoFile{
+ display:none;
+}
+
+.video-info{
+ display:none;
+ margin-top:12px;
+ padding:11px 12px;
+ border-radius:12px;
+ background:rgba(255,255,255,.045);
+ color:#aaa6ba;
+ font-size:12px;
+ line-height:1.7;
+}
+
+.video-info b{
+ color:#fff;
+}
+
+.video-status{
+ min-height:20px;
+ margin-top:9px;
+ color:#9e9aae;
+ font-size:12px;
+ line-height:1.6;
+}
+
+.video-actions{
+ display:flex;
+ gap:8px;
+ flex-wrap:wrap;
+ margin-top:10px;
+}
+
+.btn{
+ min-height:44px;
+ padding:10px 15px;
+ border:1px solid rgba(255,255,255,.10);
+ border-radius:12px;
+ color:#fff;
+ background:rgba(255,255,255,.055);
+ font-weight:800;
+}
+
+.btn:disabled{
+ opacity:.45;
+ cursor:not-allowed;
+}
+
+.btn-primary{
+ border:0;
+ background:linear-gradient(135deg,#6840ff,#9a5cff);
+ box-shadow:0 8px 22px rgba(111,72,255,.22);
+}
+
+.btn-danger{
+ color:#ff9b9b;
+ border-color:rgba(255,90,90,.18);
+}
+
+/* SCRIPT */
+
+.script-wrap{
+ margin-top:15px;
 }
 
 textarea{
- width:100%;min-height:230px;padding:16px;resize:vertical;
- border:1px solid #25253d;border-radius:17px;outline:none;
- background:#080816;color:#fff;font-size:14px;line-height:1.9
-}
-textarea::placeholder{color:#475569}
-textarea:focus{
- border-color:#6366f1;
- box-shadow:0 0 0 3px rgba(99,102,241,.1)
-}
-.text-bottom{
- display:flex;justify-content:space-between;
- margin-top:7px;color:#64748b;font-size:10px
-}
-.counter{color:#818cf8;font-weight:900}
-
-/* VIDEO PROJECT */
-.video-project{
- border-color:rgba(34,211,238,.25);
- background:linear-gradient(
-  145deg,
-  rgba(8,47,73,.22),
-  rgba(8,8,22,.78)
- )
-}
-.video-project .section-icon{
- background:rgba(34,211,238,.12)
-}
-.video-upload{
- position:relative;
- padding:22px 14px;
- border:1px dashed rgba(34,211,238,.35);
- border-radius:17px;
- background:rgba(8,8,22,.55);
- text-align:center;
- cursor:pointer
-}
-.video-upload input{
- position:absolute;
- inset:0;
  width:100%;
- height:100%;
- opacity:0;
- cursor:pointer
-}
-.video-upload-icon{font-size:31px}
-.video-upload-title{
- margin-top:6px;
- color:#67e8f9;
- font-size:12px;
- font-weight:950
-}
-.video-upload-sub{
- margin-top:5px;
- color:#64748b;
- font-size:9px;
- line-height:1.6
-}
-.video-preview-wrap{
- display:none;
- margin-top:12px;
- overflow:hidden;
- border:1px solid rgba(34,211,238,.18);
- border-radius:17px;
- background:#030712
-}
-#videoPreview{
- display:block;
- width:100%;
- max-height:390px;
- background:#000
-}
-.video-info{
- padding:11px 12px;
- color:#94a3b8;
- font-size:10px;
- line-height:1.8
-}
-.video-info b{color:#e2e8f0}
-.video-actions{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:8px;
- margin-top:10px
-}
-.ai-script-btn{
- width:100%;
+ min-height:170px;
+ resize:vertical;
  padding:14px;
- border:0;
+ border:1px solid rgba(255,255,255,.09);
  border-radius:14px;
+ outline:none;
  color:#fff;
- font-weight:950;
- cursor:pointer;
- background:linear-gradient(135deg,#0891b2,#7c3aed,#db2777);
- box-shadow:0 10px 28px rgba(99,102,241,.18)
+ background:rgba(0,0,0,.24);
+ line-height:1.8;
 }
-.ai-script-btn:disabled{opacity:.55;cursor:not-allowed}
-.remove-video-btn{
- width:100%;
- padding:14px;
- border:1px solid rgba(248,113,113,.25);
- border-radius:14px;
- background:rgba(127,29,29,.12);
- color:#fca5a5;
- font-weight:900;
- cursor:pointer
+
+textarea:focus,
+input:focus{
+ border-color:rgba(137,99,255,.65);
+ box-shadow:0 0 0 3px rgba(137,99,255,.10);
 }
-.video-status{
- display:none;
- margin-top:10px;
- padding:10px 12px;
- border-radius:12px;
- background:rgba(15,23,42,.6);
- color:#94a3b8;
- font-size:10px;
- line-height:1.7;
-}
-.script-box{
- margin-top:13px;
- padding:13px;
- border:1px solid rgba(168,85,247,.22);
- border-radius:17px;
- background:rgba(76,29,149,.08)
-}
-.script-box-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:9px;
- color:#e9d5ff;
- font-size:12px;
- font-weight:950
-}
-.script-box-title span{
- color:#64748b;
- font-size:9px;
- font-weight:700
-}
-#videoScript{
- min-height:240px;
- margin:0;
- border-color:#32204d
-}
-#videoScript:focus{border-color:#a855f7}
-.script-note{
- margin-top:7px;
- color:#64748b;
- font-size:9px;
- line-height:1.6
+
+.counter{
+ margin-top:6px;
+ text-align:right;
+ color:#777486;
+ font-size:11px;
 }
 
 /* VOICE */
+
 .voice-grid{
- display:grid;grid-template-columns:repeat(5,1fr);gap:8px
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:8px;
 }
+
 .voice-btn{
- min-height:58px;border:1px solid #292941;border-radius:14px;
- background:rgba(8,8,22,.75);color:#cbd5e1;cursor:pointer
-}
-.voice-btn.active{
- border-color:#8b5cf6;
- background:rgba(124,58,237,.25);
- color:#fff
-}
-.voice-name{display:block;font-size:12px;font-weight:900}
-.voice-icon{display:block;margin-bottom:3px;color:#60a5fa;font-size:16px}
-
-.collapse-card{
- overflow:hidden;margin-top:10px;
+ min-height:48px;
+ padding:7px 4px;
  border:1px solid rgba(255,255,255,.08);
- border-radius:17px;background:rgba(8,8,22,.65)
-}
-.collapse-header,.extra-header{
- width:100%;display:flex;align-items:center;
- justify-content:space-between;padding:14px 15px;
- border:0;background:transparent;color:#fff;
- cursor:pointer;text-align:left
-}
-.collapse-left,.extra-left{
- display:flex;align-items:center;gap:10px
-}
-.collapse-icon,.extra-icon{
- width:32px;height:32px;border-radius:10px
-}
-.collapse-title,.extra-title{
- font-size:13px;font-weight:950
-}
-.collapse-right{
- display:flex;align-items:center;gap:9px
-}
-.collapse-value{
- color:#c4b5fd;font-size:10px;font-weight:900
-}
-.chevron,.extra-chevron{
- color:#94a3b8;transition:.2s
-}
-.collapse-card.open .chevron,
-.extra-card.open .extra-chevron{
- transform:rotate(180deg)
-}
-.collapse-content,.extra-content{
- display:none;padding:0 14px 15px
-}
-.collapse-card.open .collapse-content,
-.extra-card.open .extra-content{
- display:block
+ border-radius:12px;
+ color:#c4c0d0;
+ background:rgba(255,255,255,.035);
+ font-size:12px;
+ font-weight:800;
 }
 
-.emotion-card{border-color:rgba(236,72,153,.18)}
-.emotion-card .collapse-icon{background:rgba(236,72,153,.12)}
+.voice-btn.active{
+ color:#fff;
+ border-color:#8761ff;
+ background:linear-gradient(
+  135deg,
+  rgba(112,69,255,.35),
+  rgba(142,88,255,.12)
+ );
+ box-shadow:0 0 0 1px rgba(135,97,255,.12);
+}
+
+/* COLLAPSE */
+
+.collapse{
+ overflow:hidden;
+}
+
+.collapse-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:13px 0;
+ color:#fff;
+ font-weight:800;
+ cursor:pointer;
+}
+
+.arrow{
+ color:#8e89a0;
+ transition:.2s;
+}
+
+.collapse.open .arrow{
+ transform:rotate(180deg);
+}
+
+.collapse-body{
+ display:none;
+ padding:2px 0 10px;
+}
+
+.collapse.open .collapse-body{
+ display:block;
+}
+
+/* EMOTION */
+
 .emotion-grid{
- display:grid;grid-template-columns:repeat(3,1fr);gap:7px
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:8px;
 }
-.emotion-btn{
- min-height:58px;border:1px solid #292941;border-radius:13px;
- background:rgba(8,8,22,.75);color:#94a3b8;cursor:pointer
-}
-.emotion-btn.active{
- border-color:#c084fc;
- background:rgba(168,85,247,.2);
- color:#fff
-}
-.emotion-icon{display:block;font-size:18px}
-.emotion-name{font-size:9px;font-weight:900}
 
-.settings-card{border-color:rgba(59,130,246,.2)}
-.settings-card .collapse-icon{background:rgba(37,99,235,.13)}
-.settings-content{
- display:grid;grid-template-columns:1fr 1fr;gap:10px
+.emotion-btn{
+ min-height:42px;
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:11px;
+ color:#aaa5b9;
+ background:rgba(255,255,255,.035);
+ font-size:12px;
+ font-weight:700;
 }
-.control-box{
- padding:14px;border:1px solid #25253d;
- border-radius:15px;background:#0b0b20
+
+.emotion-btn.active{
+ color:#fff;
+ border-color:#7250df;
+ background:rgba(114,80,223,.22);
 }
-.control-head{
- display:flex;justify-content:space-between;margin-bottom:12px
+
+/* SETTINGS */
+
+.setting{
+ margin:12px 0;
 }
-.control-label{color:#cbd5e1;font-size:12px;font-weight:900}
-.control-value{
- padding:4px 8px;border:1px solid rgba(129,140,248,.2);
- border-radius:8px;color:#a5b4fc;font-size:10px;font-weight:900
+
+.setting-top{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ margin-bottom:8px;
+ color:#aaa6b8;
+ font-size:12px;
 }
-input[type=range]{
- width:100%;height:5px;appearance:none;
- border-radius:99px;background:#25253b
+
+.setting-value{
+ color:#fff;
+ font-weight:800;
 }
-input[type=range]::-webkit-slider-thumb{
- appearance:none;width:17px;height:17px;border-radius:50%;
- border:2px solid #fff;background:#8b5cf6
+
+input[type="range"]{
+ width:100%;
+ accent-color:#8259ff;
 }
-.range-labels{
- display:flex;justify-content:space-between;
- margin-top:7px;color:#475569;font-size:8px
+
+/* GENERATE */
+
+.generate-btn{
+ width:100%;
+ min-height:54px;
+ margin-top:16px;
+ border:0;
+ border-radius:15px;
+ color:#fff;
+ background:linear-gradient(135deg,#6d42ff,#9b5bff);
+ font-size:15px;
+ font-weight:900;
+ box-shadow:0 12px 28px rgba(109,66,255,.28);
+}
+
+.generate-btn:disabled{
+ opacity:.5;
+ box-shadow:none;
+}
+
+/* LOADING */
+
+.loading{
+ display:none;
+ margin-top:14px;
+ padding:13px;
+ border-radius:13px;
+ background:rgba(123,79,255,.10);
+ border:1px solid rgba(123,79,255,.16);
+ text-align:center;
+ color:#cfc6ff;
+ font-size:13px;
+}
+
+/* STATUS */
+
+.status{
+ min-height:20px;
+ margin-top:10px;
+ text-align:center;
+ color:#a8a3b7;
+ font-size:12px;
+ line-height:1.6;
+}
+
+/* AUDIO */
+
+.audio-box{
+ display:none;
+ margin-top:15px;
+ padding:14px;
+ border-radius:14px;
+ background:rgba(255,255,255,.045);
+}
+
+#audioPlayer{
+ width:100%;
+}
+
+.download-btn{
+ width:100%;
+ margin-top:10px;
+ min-height:45px;
+ border:1px solid rgba(255,255,255,.10);
+ border-radius:12px;
+ color:#fff;
+ background:rgba(255,255,255,.06);
+ font-weight:800;
+}
+
+/* SRT */
+
+.srt-info{
+ color:#898596;
+ font-size:12px;
+ line-height:1.7;
+}
+
+.srt-btn{
+ width:100%;
+ margin-top:10px;
+ min-height:45px;
+ border:1px solid rgba(255,255,255,.10);
+ border-radius:12px;
+ color:#fff;
+ background:rgba(255,255,255,.05);
+ font-weight:800;
 }
 
 /* CLONE */
-.clone-card{
- border-color:rgba(168,85,247,.28);
- background:linear-gradient(145deg,rgba(76,29,149,.13),rgba(8,8,22,.72))
-}
-.clone-card .collapse-icon{background:rgba(168,85,247,.14)}
-.clone-tag{
- padding:4px 8px;border-radius:999px;
- background:rgba(236,72,153,.12);
- color:#f9a8d4;font-size:8px;font-weight:950
-}
-.clone-input{
- width:100%;padding:12px;border:1px solid #292941;
- border-radius:13px;outline:none;background:#080816;
- color:#fff;font-size:12px
-}
-.file-box{
- position:relative;margin-top:9px;padding:18px 12px;
- border:1px dashed rgba(129,140,248,.35);
- border-radius:15px;background:rgba(15,23,42,.4);
- text-align:center;cursor:pointer
-}
-.file-box input{
- position:absolute;inset:0;width:100%;height:100%;opacity:0
-}
-.file-icon{font-size:25px}
-.file-title{color:#c4b5fd;font-size:11px;font-weight:900}
-.file-name{
- margin-top:5px;color:#64748b;font-size:9px;
- overflow:hidden;text-overflow:ellipsis;white-space:nowrap
-}
-.clone-btn,.generate-btn{
- width:100%;border:0;color:#fff;font-weight:950;cursor:pointer
-}
-.clone-btn{
- margin-top:10px;padding:13px;border-radius:13px;
- background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899)
-}
-.clone-btn:disabled{opacity:.55}
-.clone-result{
- display:none;margin-top:9px;padding:10px;
- border-radius:12px;font-size:9px;line-height:1.7;
- word-break:break-word;
- background:rgba(99,102,241,.08);
- border:1px solid rgba(129,140,248,.18);
- color:#cbd5e1
+
+.clone-note{
+ color:#8d8999;
+ font-size:12px;
+ line-height:1.7;
 }
 
-/* EXTRA */
-.extra-grid{
- display:grid;grid-template-columns:1fr 1fr;
- gap:10px;margin-top:10px
+.clone-status{
+ margin-top:8px;
+ min-height:18px;
+ color:#a8a2b8;
+ font-size:12px;
 }
-.extra-card{overflow:hidden}
-.extra-icon{font-size:16px}
-.extra-title{font-size:12px}
-.extra-tag{
- padding:4px 7px;border-radius:999px;
- font-size:8px;font-weight:900
-}
-.srt-card{border-color:rgba(34,211,238,.22)}
-.srt-card .extra-icon{background:rgba(34,211,238,.12)}
-.srt-tag{background:rgba(34,211,238,.12);color:#67e8f9}
-.pro-card{border-color:rgba(245,158,11,.3)}
-.pro-card .extra-icon{background:rgba(245,158,11,.15)}
-.pro-tag{background:rgba(245,158,11,.13);color:#fbbf24}
-.extra-content{
- color:#64748b;font-size:9px;line-height:1.7
-}
-.pro-banner,.pro-plan{
- padding:13px;border:1px solid rgba(245,158,11,.2);
- border-radius:14px;background:rgba(120,53,15,.12)
-}
-.pro-banner-title,.pro-plan-title{
- color:#fef3c7;font-weight:950;font-size:13px
-}
-.pro-banner-sub{margin-top:5px}
-.pro-feature-grid{
- display:grid;grid-template-columns:1fr 1fr;
- gap:8px;margin-top:10px
-}
-.pro-feature{
- padding:12px;border:1px solid rgba(255,255,255,.07);
- border-radius:13px;background:rgba(15,23,42,.45)
-}
-.pro-feature-icon{font-size:20px}
-.pro-feature-title{color:#e2e8f0;font-size:10px;font-weight:950}
-.pro-feature-sub{margin-top:3px;font-size:8px}
-.pro-plan{margin-top:10px}
-.pro-list{margin:10px 0 0;padding:0;list-style:none}
-.pro-list li{padding:5px 0}
-.pro-list li:before{
- content:"✓";margin-right:7px;color:#fbbf24
-}
-.pro-upgrade-btn{
- width:100%;margin-top:10px;padding:13px;border:0;
- border-radius:13px;
- background:linear-gradient(135deg,#92400e,#d97706,#eab308);
- color:#fff;font-weight:950
-}
-.pro-note{text-align:center;margin-top:8px;font-size:8px}
 
-.generate-btn{
- margin-top:14px;padding:17px;border-radius:17px;
- background:linear-gradient(135deg,#2563eb,#7c3aed,#db2777);
- font-size:15px;
- box-shadow:0 12px 35px rgba(99,102,241,.24)
-}
-.generate-btn:disabled{opacity:.55}
+/* FOOTER */
 
-.loading{
- display:none;margin-top:12px;padding:12px;
- border-radius:14px;background:rgba(15,23,42,.55)
+.footer{
+ margin-top:30px;
+ text-align:center;
+ color:#625e70;
+ font-size:11px;
+ line-height:1.8;
 }
-.loading-text{text-align:center;color:#cbd5e1;font-size:10px}
-.loading-bar{
- height:5px;margin-top:8px;overflow:hidden;
- border-radius:99px;background:#1e293b
-}
-.loading-bar:after{
- content:"";display:block;width:35%;height:100%;
- background:linear-gradient(90deg,#38bdf8,#8b5cf6,#ec4899);
- animation:load 1.2s infinite
-}
-@keyframes load{
- from{transform:translateX(-120%)}
- to{transform:translateX(400%)}
-}
-.status{
- min-height:20px;margin-top:10px;text-align:center;
- color:#94a3b8;font-size:11px;line-height:1.6;
- word-break:break-word
-}
-.player{
- display:none;margin-top:13px;padding:15px;
- border:1px solid rgba(99,102,241,.22);
- border-radius:19px;background:rgba(37,99,235,.08)
-}
-.player-top{
- display:flex;align-items:center;gap:10px;margin-bottom:9px
-}
-.player-icon{
- width:37px;height:37px;display:flex;
- align-items:center;justify-content:center;
- border-radius:11px;background:rgba(99,102,241,.15)
-}
-.player-title{font-size:12px;font-weight:900}
-.player-sub{color:#64748b;font-size:9px;margin-top:2px}
-audio{width:100%;height:40px}
-.download-btn{
- width:100%;margin-top:10px;padding:12px;
- border:1px solid rgba(129,140,248,.3);
- border-radius:13px;background:rgba(99,102,241,.1);
- color:#c4b5fd;font-weight:900
-}
-.footer{padding:12px;text-align:center;color:#334155;font-size:9px}
+
+/* MOBILE */
 
 @media(max-width:650px){
- .container{padding:9px 8px 28px}
- .hero{padding:27px 14px 21px;border-radius:23px}
- .card{padding:14px}
- .logo{font-size:32px}
- .voice-grid{grid-template-columns:repeat(3,1fr)}
- .settings-content,.extra-grid{grid-template-columns:1fr}
- .pro-feature-grid{grid-template-columns:1fr 1fr}
- textarea{min-height:220px}
+
+ .container{
+  padding:12px 10px 50px;
+ }
+
+ .hero{
+  padding-top:22px;
+ }
+
+ .logo{
+  font-size:31px;
+ }
+
+ .voice-grid{
+  grid-template-columns:repeat(3,1fr);
+ }
+
+ .emotion-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+
+ .card{
+  padding:15px;
+  border-radius:17px;
+ }
+
+ .video-box{
+  min-height:190px;
+ }
+
 }
-@media(max-width:400px){
- .voice-grid{grid-template-columns:repeat(2,1fr)}
- .logo{font-size:29px}
- .pro-feature-grid{grid-template-columns:1fr}
- .video-actions{grid-template-columns:1fr}
+
+@media(max-width:380px){
+
+ .voice-grid{
+  grid-template-columns:repeat(2,1fr);
+ }
+
 }
 </style>
 </head>
@@ -520,494 +558,392 @@ audio{width:100%;height:40px}
 
 <div class="container">
 
-<section class="hero">
- <div class="badge">✨ AI POWERED CREATOR</div>
+ <!-- HERO -->
 
- <div class="logo">
-  <span class="logo-ynt">YNT</span>
-  <span class="logo-creator">Creator</span>
- </div>
+ <header class="hero">
 
- <p class="hero-sub">
-  Video ကို AI Script အဖြစ်ပြောင်းပြီး သဘာဝကျတဲ့ AI Voice ဖန်တီးပါ
- </p>
-
- <div class="waveform">
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i>
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i>
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i>
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i>
- </div>
-</section>
-
-
-<!-- VIDEO PROJECT -->
-<section class="card video-project">
-
- <div class="section-title">
-  <div class="section-icon">🎬</div>
-
-  <div>
-   <div class="section-name">Video Project</div>
-   <div class="section-hint">
-    Video တင်ပြီး AI နဲ့ Movie Recap Script ရေးခိုင်းနိုင်ပါတယ်
-   </div>
-  </div>
- </div>
-
- <label class="video-upload" for="videoFile">
-  <input
-   id="videoFile"
-   type="file"
-   accept="video/mp4,video/webm,video/quicktime,video/x-matroska"
-  >
-
-  <div class="video-upload-icon">🎥</div>
-
-  <div class="video-upload-title">
-   Video ရွေးရန် / Upload လုပ်ရန်
+  <div class="badge">
+   ✨ AI POWERED CREATOR
   </div>
 
-  <div class="video-upload-sub">
-   MP4 / WEBM / MOV / MKV<br>
-   Maximum video duration — 5 minutes
-  </div>
- </label>
-
- <div class="video-preview-wrap" id="videoPreviewWrap">
-
-  <video
-   id="videoPreview"
-   controls
-   playsinline
-   preload="metadata"
-  ></video>
-
-  <div class="video-info">
-   <div>📁 File — <b id="videoFileName">-</b></div>
-   <div>⏱️ Duration — <b id="videoDuration">-</b></div>
+  <div class="logo">
+   YNT Creator
   </div>
 
- </div>
+  <p class="subtitle">
+   Video ကို AI Script အဖြစ်ပြောင်းပြီး
+   သဘာဝကျတဲ့ AI Voice ဖန်တီးပါ
+  </p>
 
- <div class="video-actions">
-
-  <button
-   class="ai-script-btn"
-   id="aiScriptBtn"
-   type="button"
-   disabled
-  >
-   🤖 AI Script ရေးပေးပါ
-  </button>
-
-  <button
-   class="remove-video-btn"
-   id="removeVideoBtn"
-   type="button"
-   style="display:none"
-  >
-   🗑️ Video ဖယ်မယ်
-  </button>
-
- </div>
-
- <div class="video-status" id="videoStatus"></div>
-
- <div class="script-box">
-
-  <div class="script-box-title">
-   <span>📝 Movie Recap Script</span>
-   <span id="scriptCounter">0 / 5000</span>
-  </div>
-
-  <textarea
-   id="videoScript"
-   maxlength="5000"
-   placeholder="Video တင်ပြီး 🤖 AI Script ရေးပေးပါ ကိုနှိပ်ပါ။
-
-AI က Video ထဲက Scene / Dialogue / Story ကို ခွဲခြမ်းပြီး Movie Recap Script ရေးပေးပါမယ်။ ရလာတဲ့ Script ကို ဒီနေရာမှာ ကိုယ်တိုင်ပြင်ပြီး Generate Voice လုပ်နိုင်ပါတယ်။"
-  ></textarea>
-
-  <div class="script-note">
-   💡 AI ရေးပေးတဲ့ Script ကို မင်းစိတ်ကြိုက်ပြင်ပြီးနောက်
-   အောက်က Generate Voice ကိုနှိပ်နိုင်ပါတယ်။
-  </div>
-
- </div>
-
-</section>
+ </header>
 
 
-<!-- NORMAL TEXT -->
-<section class="card">
+ <!-- VIDEO PROJECT -->
 
- <div class="section-title">
-  <div class="section-icon">📝</div>
+ <section class="card">
 
-  <div>
-   <div class="section-name">မြန်မာစာထည့်ရန်</div>
-   <div class="section-hint">
-    Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
-   </div>
-  </div>
- </div>
+  <div class="card-title">
 
- <textarea
-  id="textInput"
-  maxlength="5000"
-  placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
- ></textarea>
-
- <div class="text-bottom">
-  <span>Maximum 5,000 characters</span>
-  <span class="counter" id="counter">0 / 5000</span>
- </div>
-
-
- <div class="section-title" style="margin-top:18px">
-
-  <div class="section-icon">🎙️</div>
-
-  <div>
-   <div class="section-name">Voice</div>
-   <div class="section-hint">
-    AI Voice Character ရွေးပါ
-   </div>
-  </div>
-
- </div>
-
- <div class="voice-grid">
-
-  <button class="voice-btn" data-voice="Zephyr" type="button">
-   <span class="voice-icon">〽</span>
-   <span class="voice-name">Zephyr</span>
-  </button>
-
-  <button class="voice-btn" data-voice="Puck" type="button">
-   <span class="voice-icon">〽</span>
-   <span class="voice-name">Puck</span>
-  </button>
-
-  <button class="voice-btn" data-voice="Charon" type="button">
-   <span class="voice-icon">〽</span>
-   <span class="voice-name">Charon</span>
-  </button>
-
-  <button class="voice-btn active" data-voice="Kore" type="button">
-   <span class="voice-icon">〽</span>
-   <span class="voice-name">Kore</span>
-  </button>
-
-  <button class="voice-btn" data-voice="Leda" type="button">
-   <span class="voice-icon">〽</span>
-   <span class="voice-name">Leda</span>
-  </button>
-
- </div>
-
-
- <!-- EMOTION -->
- <div class="collapse-card emotion-card" id="emotionCard">
-
-  <button
-   class="collapse-header"
-   id="emotionHeader"
-   type="button"
-  >
-
-   <div class="collapse-left">
-    <div class="collapse-icon">😊</div>
-
-    <div>
-     <div class="collapse-title">Emotion</div>
-     <div class="collapse-sub">
-      Voice ရဲ့ ခံစားချက်ကို ရွေးပါ
-     </div>
-    </div>
-   </div>
-
-   <div class="collapse-right">
-    <span class="collapse-value" id="emotionValue">
-     Natural
-    </span>
-
-    <span class="chevron">▼</span>
-   </div>
-
-  </button>
-
-  <div class="collapse-content">
-
-   <div class="emotion-grid">
-
-    <button class="emotion-btn active" data-emotion="natural" type="button">
-     😌<br><span class="emotion-name">Natural</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="happy" type="button">
-     😄<br><span class="emotion-name">Happy</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="sad" type="button">
-     😢<br><span class="emotion-name">Sad</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="angry" type="button">
-     😡<br><span class="emotion-name">Angry</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="excited" type="button">
-     🤩<br><span class="emotion-name">Excited</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="serious" type="button">
-     😐<br><span class="emotion-name">Serious</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="calm" type="button">
-     😌<br><span class="emotion-name">Calm</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="whisper" type="button">
-     🤫<br><span class="emotion-name">Whisper</span>
-    </button>
-
-    <button class="emotion-btn" data-emotion="dramatic" type="button">
-     🎭<br><span class="emotion-name">Dramatic</span>
-    </button>
-
+   <div>
+    <h2>🎬 Video + Script</h2>
+    <p>Video ထည့်ပြီး AI နဲ့ Script ရေးခိုင်းနိုင်ပါတယ်</p>
    </div>
 
   </div>
 
- </div>
 
-
- <!-- SETTINGS -->
- <div class="collapse-card settings-card" id="settingsCard">
-
-  <button
-   class="collapse-header"
-   id="settingsHeader"
-   type="button"
-  >
-
-   <div class="collapse-left">
-
-    <div class="collapse-icon">🎚️</div>
-
-    <div>
-     <div class="collapse-title">Voice Settings</div>
-     <div class="collapse-sub">
-      Speed နှင့် Pitch ကို ချိန်ညှိပါ
-     </div>
-    </div>
-
-   </div>
-
-   <div class="collapse-right">
-    <span class="collapse-value" id="settingsValue">
-     Speed 0 • Pitch 0
-    </span>
-
-    <span class="chevron">▼</span>
-   </div>
-
-  </button>
-
-  <div class="collapse-content">
-
-   <div class="settings-content">
-
-    <div class="control-box">
-
-     <div class="control-head">
-      <span class="control-label">⚡ Speed</span>
-      <span class="control-value" id="speedValue">0</span>
-     </div>
-
-     <input
-      type="range"
-      id="speed"
-      min="-5"
-      max="5"
-      value="0"
-     >
-
-     <div class="range-labels">
-      <span>Very Slow</span>
-      <span>Normal</span>
-      <span>Fast</span>
-     </div>
-
-    </div>
-
-
-    <div class="control-box">
-
-     <div class="control-head">
-      <span class="control-label">🎵 Pitch</span>
-      <span class="control-value" id="pitchValue">0</span>
-     </div>
-
-     <input
-      type="range"
-      id="pitch"
-      min="-5"
-      max="5"
-      value="0"
-     >
-
-     <div class="range-labels">
-      <span>Deep</span>
-      <span>Normal</span>
-      <span>High</span>
-     </div>
-
-    </div>
-
-   </div>
-
-  </div>
-
- </div>
-
-
- <!-- VOICE CLONE -->
- <div class="collapse-card clone-card" id="cloneCard">
-
-  <button
-   class="collapse-header"
-   id="cloneHeader"
-   type="button"
-  >
-
-   <div class="collapse-left">
-
-    <div class="collapse-icon">🧬</div>
-
-    <div>
-     <div class="collapse-title">Voice Clone</div>
-     <div class="collapse-sub">
-      ကိုယ်ပိုင်အသံကို AI Voice အဖြစ် အသုံးပြုပါ
-     </div>
-    </div>
-
-   </div>
-
-   <div class="collapse-right">
-    <span class="clone-tag">NEW</span>
-    <span class="chevron">▼</span>
-   </div>
-
-  </button>
-
-  <div class="collapse-content">
-
-   <input
-    class="clone-input"
-    id="cloneName"
-    type="text"
-    maxlength="80"
-    placeholder="Voice Clone အမည် — ဥပမာ My Voice"
-   >
-
-   <label class="file-box" for="cloneFile">
-
-    <input
-     id="cloneFile"
-     type="file"
-     accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/wave,audio/mp4,audio/m4a,audio/ogg,audio/webm"
-    >
-
-    <div class="file-icon">🎧</div>
-
-    <div class="file-title">
-     Voice Sample ရွေးရန်
-    </div>
-
-    <div class="file-name" id="cloneFileName">
-     MP3 / WAV / M4A / OGG / WEBM
-    </div>
-
-   </label>
-
-   <button
-    class="clone-btn"
-    id="cloneBtn"
-    type="button"
-   >
-    🧬 Create Voice Clone
-   </button>
+  <div class="video-box">
 
    <div
-    class="clone-result"
-    id="cloneResult"
-   ></div>
+    class="video-placeholder"
+    id="videoPlaceholder"
+   >
+
+    <div class="video-icon">
+     🎥
+    </div>
+
+    <strong>
+     Video ထည့်ပါ
+    </strong>
+
+    <span>
+     MP4 / WebM / MOV / MKV · အများဆုံး 5 မိနစ်
+    </span>
+
+    <label class="file-btn">
+     📁 Video ရွေးမယ်
+     <input
+      id="videoFile"
+      type="file"
+      accept="video/mp4,video/webm,video/quicktime,video/x-matroska,.mp4,.webm,.mov,.mkv"
+     >
+    </label>
+
+   </div>
+
+   <video
+    id="videoPreview"
+    controls
+    playsinline
+   ></video>
 
   </div>
 
- </div>
+
+  <div
+   class="video-info"
+   id="videoInfo"
+  >
+   📄 File:
+   <b id="videoFileName">-</b>
+   <br>
+
+   ⏱ Duration:
+   <b id="videoDuration">-</b>
+  </div>
 
 
- <!-- SRT + PRO -->
- <div class="extra-grid">
+  <div
+   class="video-status"
+   id="videoStatus"
+  ></div>
 
-  <div class="extra-card srt-card" id="srtCard">
+
+  <div class="video-actions">
 
    <button
-    class="extra-header"
-    id="srtHeader"
-    type="button"
+    class="btn btn-primary"
+    id="aiScriptBtn"
+    disabled
    >
-
-    <div class="extra-left">
-
-     <div class="extra-icon">🩵</div>
-
-     <div class="extra-title">
-      SRT Subtitle
-     </div>
-
-    </div>
-
-    <div class="collapse-right">
-     <span class="extra-tag srt-tag">READY</span>
-     <span class="extra-chevron">▼</span>
-    </div>
-
+    🤖 AI Script ရေးပေးပါ
    </button>
 
-   <div class="extra-content">
+   <button
+    class="btn btn-danger"
+    id="removeVideoBtn"
+    style="display:none"
+   >
+    🗑 Video ဖယ်မယ်
+   </button>
 
-    <div>
-     ထည့်ထားတဲ့ မြန်မာစာကို SRT Subtitle အဖြစ်
-     ပြောင်းပြီး CapCut မှာ Import လုပ်နိုင်ပါတယ်။
+  </div>
+
+
+  <div class="script-wrap">
+
+   <p class="section-label">
+    📝 Script
+   </p>
+
+   <textarea
+    id="videoScript"
+    maxlength="5000"
+    placeholder="AI Script ရလာရင် ဒီနေရာမှာ ပေါ်လာပါမယ်။ ကိုယ်တိုင်လည်း ပြင်ရေးနိုင်ပါတယ်..."
+   ></textarea>
+
+   <div class="counter">
+    <span id="videoScriptCounter">0</span> / 5000
+   </div>
+
+  </div>
+
+ </section>
+
+
+ <!-- VOICE -->
+
+ <section class="card">
+
+  <div class="card-title">
+
+   <div>
+    <h2>🎙 AI Voice</h2>
+    <p>Script ကို သဘာဝကျတဲ့ Voice အဖြစ်ပြောင်းပါ</p>
+   </div>
+
+  </div>
+
+
+  <p class="section-label">
+   Voice
+  </p>
+
+  <div class="voice-grid">
+
+   <button
+    class="voice-btn"
+    data-voice="Zephyr"
+   >
+    Zephyr
+   </button>
+
+   <button
+    class="voice-btn"
+    data-voice="Puck"
+   >
+    Puck
+   </button>
+
+   <button
+    class="voice-btn"
+    data-voice="Charon"
+   >
+    Charon
+   </button>
+
+   <button
+    class="voice-btn active"
+    data-voice="Kore"
+   >
+    Kore
+   </button>
+
+   <button
+    class="voice-btn"
+    data-voice="Leda"
+   >
+    Leda
+   </button>
+
+  </div>
+
+
+  <!-- EMOTION -->
+
+  <div class="collapse">
+
+   <div class="collapse-head">
+
+    <span>
+     🎭 Emotion
+    </span>
+
+    <span class="arrow">
+     ▼
+    </span>
+
+   </div>
+
+   <div class="collapse-body">
+
+    <div class="emotion-grid">
+
+     <button
+      class="emotion-btn active"
+      data-emotion="natural"
+     >
+      Natural
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="happy"
+     >
+      Happy
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="sad"
+     >
+      Sad
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="angry"
+     >
+      Angry
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="excited"
+     >
+      Excited
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="serious"
+     >
+      Serious
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="calm"
+     >
+      Calm
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="whisper"
+     >
+      Whisper
+     </button>
+
+     <button
+      class="emotion-btn"
+      data-emotion="dramatic"
+     >
+      Dramatic
+     </button>
+
     </div>
 
-    <div style="margin-top:10px">
-     ⏱️ Subtitle တစ်ပိုင်းကြာချိန် —
-     <b style="color:#e2e8f0">5 seconds</b>
+   </div>
+
+  </div>
+
+
+  <!-- SETTINGS -->
+
+  <div class="collapse">
+
+   <div class="collapse-head">
+
+    <span>
+     ⚙️ Voice Settings
+    </span>
+
+    <span class="arrow">
+     ▼
+    </span>
+
+   </div>
+
+   <div class="collapse-body">
+
+    <div class="setting">
+
+     <div class="setting-top">
+
+      <span>
+       Speed
+      </span>
+
+      <span
+       class="setting-value"
+       id="speedValue"
+      >
+       0
+      </span>
+
+     </div>
+
+     <input
+      id="speed"
+      type="range"
+      min="-5"
+      max="5"
+      value="0"
+     >
+
     </div>
 
-    <div style="margin-top:7px">
-     📝 စာကြောင်းအလိုက် —
-     <b style="color:#e2e8f0">Line by Line</b>
+
+    <div class="setting">
+
+     <div class="setting-top">
+
+      <span>
+       Pitch
+      </span>
+
+      <span
+       class="setting-value"
+       id="pitchValue"
+      >
+       0
+      </span>
+
+     </div>
+
+     <input
+      id="pitch"
+      type="range"
+      min="-5"
+      max="5"
+      value="0"
+     >
+
     </div>
 
-    <button
-     id="generateSrtBtn"
-     type="button"
-     style="width:100%;margin-top:10px;padding:13px;border:0;border-radius:13px;background:linear-gradient(135deg,#0891b2,#06b6d4,#2563eb);color:#fff;font-weight:950"
-    >
-     🩵 Generate SRT Subtitle
-    </button>
+   </div>
+
+  </div>
+
+
+  <!-- CLONE -->
+
+  <div class="collapse">
+
+   <div class="collapse-head">
+
+    <span>
+     🧬 Voice Clone
+    </span>
+
+    <span class="arrow">
+     ▼
+    </span>
+
+   </div>
+
+   <div class="collapse-body">
+
+    <p class="clone-note">
+     Voice Clone ကို အသုံးပြုရန် သင့်လက်ရှိ Voice Clone API setup
+     နှင့် subscription support လိုအပ်နိုင်ပါတယ်။
+    </p>
 
     <div
-     id="srtResult"
-     style="display:none;margin-top:10px;padding:11px;border-radius:12px;border:1px solid rgba(34,211,238,.18);background:rgba(34,211,238,.05);color:#67e8f9;font-size:9px"
+     class="clone-status"
+     id="cloneStatus"
     ></div>
 
    </div>
@@ -1015,462 +951,283 @@ AI က Video ထဲက Scene / Dialogue / Story ကို ခွဲခြမ်�
   </div>
 
 
-  <div class="extra-card pro-card" id="proCard">
-
-   <button
-    class="extra-header"
-    id="proHeader"
-    type="button"
-   >
-
-    <div class="extra-left">
-
-     <div class="extra-icon">👑</div>
-
-     <div class="extra-title">
-      Pro Features
-     </div>
-
-    </div>
-
-    <div class="collapse-right">
-     <span class="extra-tag pro-tag">PRO</span>
-     <span class="extra-chevron">▼</span>
-    </div>
-
-   </button>
-
-   <div class="extra-content">
-
-    <div class="pro-banner">
-     <div class="pro-banner-title">
-      👑 YNT Creator Pro
-     </div>
-
-     <div class="pro-banner-sub">
-      Professional Voice Creation အတွက် Premium Tools တွေကို အသုံးပြုနိုင်ပါမယ်။
-     </div>
-    </div>
-
-    <div class="pro-feature-grid">
-
-     <div class="pro-feature">
-      🎙️
-      <div class="pro-feature-title">Premium Voice</div>
-      <div class="pro-feature-sub">ပိုမိုသဘာဝကျတဲ့ Premium AI Voice များ</div>
-     </div>
-
-     <div class="pro-feature">
-      ⚡
-      <div class="pro-feature-title">Fast Generation</div>
-      <div class="pro-feature-sub">Voice Generation ကို ပိုမိုမြန်ဆန်စွာ</div>
-     </div>
-
-     <div class="pro-feature">
-      🎚️
-      <div class="pro-feature-title">Advanced Control</div>
-      <div class="pro-feature-sub">Voice Settings ကို ပိုမိုတိကျစွာ ချိန်ညှိနိုင်ခြင်း</div>
-     </div>
-
-     <div class="pro-feature">
-      🎬
-      <div class="pro-feature-title">Long Text</div>
-      <div class="pro-feature-sub">ရှည်လျားတဲ့ Script တွေအတွက် Support</div>
-     </div>
-
-     <div class="pro-feature">
-      🎧
-      <div class="pro-feature-title">HD Audio</div>
-      <div class="pro-feature-sub">Content Creation အတွက် အရည်အသွေးမြင့် Audio</div>
-     </div>
-
-     <div class="pro-feature">
-      🧠
-      <div class="pro-feature-title">AI Enhancement</div>
-      <div class="pro-feature-sub">Voice Quality ပိုကောင်းအောင် AI Processing</div>
-     </div>
-
-    </div>
-
-    <div class="pro-plan">
-
-     <div class="pro-plan-title">
-      👑 PRO ACCESS
-     </div>
-
-     <ul class="pro-list">
-      <li>Premium AI Voice</li>
-      <li>Advanced Voice Control</li>
-      <li>HD Audio Generation</li>
-      <li>Long Script Support</li>
-      <li>Priority Generation</li>
-     </ul>
-
-     <button
-      class="pro-upgrade-btn"
-      id="proUpgradeBtn"
-      type="button"
-     >
-      👑 Upgrade to Pro
-     </button>
-
-     <div class="pro-note">
-      Pro payment / activation ကို နောက်အဆင့်မှာ ချိတ်ဆက်မယ်။
-     </div>
-
-    </div>
-
-   </div>
-
-  </div>
-
- </div>
-
-
- <!-- GENERATE -->
- <button
-  class="generate-btn"
-  id="generateBtn"
-  type="button"
- >
-  ✨ Generate Voice
- </button>
-
- <div class="loading" id="loading">
-
-  <div
-   class="loading-text"
-   id="loadingText"
-  >
-   ✨ Voice ဖန်တီးနေပါသည်...
-  </div>
-
-  <div class="loading-bar"></div>
-
- </div>
-
- <div class="status" id="status"></div>
-
- <div class="player" id="player">
-
-  <div class="player-top">
-
-   <div class="player-icon">
-    🔊
-   </div>
-
-   <div>
-    <div class="player-title">
-     YNT Creator Voice Ready
-    </div>
-
-    <div class="player-sub">
-     Generated Myanmar Voice
-    </div>
-   </div>
-
-  </div>
-
-  <audio
-   id="audioPlayer"
-   controls
-   preload="metadata"
-  ></audio>
+  <!-- GENERATE -->
 
   <button
-   class="download-btn"
-   id="downloadBtn"
-   type="button"
+   class="generate-btn"
+   id="generateBtn"
   >
-   ⬇️ Download WAV
+   🎙 Generate Voice
   </button>
 
+
+  <div
+   class="loading"
+   id="loading"
+  >
+   ⏳ Voice ဖန်တီးနေပါတယ်...
+  </div>
+
+
+  <div
+   class="status"
+   id="status"
+  ></div>
+
+
+  <!-- AUDIO -->
+
+  <div
+   class="audio-box"
+   id="audioBox"
+  >
+
+   <audio
+    id="audioPlayer"
+    controls
+   ></audio>
+
+   <button
+    class="download-btn"
+    id="downloadBtn"
+   >
+    ⬇️ WAV Download
+   </button>
+
+  </div>
+
+ </section>
+
+
+ <!-- SRT -->
+
+ <section class="card">
+
+  <div class="card-title">
+
+   <div>
+    <h2>🎞 SRT Subtitle</h2>
+    <p>Script ကနေ subtitle ဖိုင်ဖန်တီးပါ</p>
+   </div>
+
+  </div>
+
+  <div class="srt-info">
+
+   Script ထဲက စာကြောင်းတွေကို အခြေခံပြီး
+   SRT subtitle ဖိုင်ဖန်တီးပေးပါမယ်။
+   လက်ရှိ version မှာ line တစ်ကြောင်းကို
+   ပုံမှန် duration နဲ့ ခွဲပေးထားပါတယ်။
+
+  </div>
+
+  <button
+   class="srt-btn"
+   id="srtBtn"
+  >
+   🎞 SRT ဖန်တီးမယ်
+  </button>
+
+ </section>
+
+
+ <div class="footer">
+  © YNT Creator · AI Creator Tools
  </div>
-
-</section>
-
-<div class="footer">
- © 2026 YNT Creator • AI Powered
-</div>
 
 </div>
 
 
 <script>
-/* =========================
-   BASIC STATE
-========================= */
-
-let selectedVoice="Kore";
-let selectedEmotion="natural";
-let currentAudioURL=null;
-let clonedVoiceId=null;
-
-let currentVideoURL=null;
-let currentVideoDuration=0;
-let currentGeminiFileName=null;
-
-const $=id=>document.getElementById(id);
-
-const textInput=$("textInput");
-const counter=$("counter");
-
-const speed=$("speed");
-const pitch=$("pitch");
-
-const speedValue=$("speedValue");
-const pitchValue=$("pitchValue");
-const settingsValue=$("settingsValue");
-
-const emotionValue=$("emotionValue");
-
-const generateBtn=$("generateBtn");
-const loading=$("loading");
-const status=$("status");
-
-const player=$("player");
-const audioPlayer=$("audioPlayer");
-const downloadBtn=$("downloadBtn");
-
-const cloneFile=$("cloneFile");
-const cloneName=$("cloneName");
-const cloneBtn=$("cloneBtn");
-const cloneResult=$("cloneResult");
-
-const videoFile=$("videoFile");
-const videoPreview=$("videoPreview");
-const videoPreviewWrap=$("videoPreviewWrap");
-const videoFileName=$("videoFileName");
-const videoDuration=$("videoDuration");
-const videoStatus=$("videoStatus");
-const aiScriptBtn=$("aiScriptBtn");
-const removeVideoBtn=$("removeVideoBtn");
-const videoScript=$("videoScript");
-const scriptCounter=$("scriptCounter");
+"use strict";
 
 
 /* =========================
-   NORMAL TEXT
+   STATE
 ========================= */
 
-textInput.addEventListener("input",()=>{
- counter.textContent=textInput.value.length+" / 5000";
-});
+let selectedVoice = "Kore";
+let selectedEmotion = "natural";
+
+let currentAudioURL = null;
+
+let clonedVoiceId = null;
+
+let currentVideoURL = null;
+let currentVideoDuration = 0;
+
+let currentGeminiFileName = null;
+
+const $ = id => document.getElementById(id);
 
 
 /* =========================
-   VIDEO SCRIPT COUNTER
+   ELEMENTS
 ========================= */
 
-videoScript.addEventListener("input",()=>{
- scriptCounter.textContent=
-  videoScript.value.length+" / 5000";
-});
+const videoFile = $("videoFile");
+const videoPreview = $("videoPreview");
+const videoPlaceholder = $("videoPlaceholder");
+const videoInfo = $("videoInfo");
+const videoFileName = $("videoFileName");
+const videoDuration = $("videoDuration");
+const videoStatus = $("videoStatus");
+const aiScriptBtn = $("aiScriptBtn");
+const removeVideoBtn = $("removeVideoBtn");
+const videoScript = $("videoScript");
+const videoScriptCounter = $("videoScriptCounter");
+
+const generateBtn = $("generateBtn");
+const loading = $("loading");
+const status = $("status");
+
+const audioBox = $("audioBox");
+const audioPlayer = $("audioPlayer");
+const downloadBtn = $("downloadBtn");
+
+const speed = $("speed");
+const pitch = $("pitch");
+const speedValue = $("speedValue");
+const pitchValue = $("pitchValue");
+
+const srtBtn = $("srtBtn");
 
 
 /* =========================
-   VOICE
+   HELPERS
 ========================= */
 
-document.querySelectorAll(".voice-btn").forEach(btn=>{
-
- btn.addEventListener("click",()=>{
-
-  document
-   .querySelectorAll(".voice-btn")
-   .forEach(x=>x.classList.remove("active"));
-
-  btn.classList.add("active");
-
-  selectedVoice=btn.dataset.voice;
-
-  status.textContent=
-   "🎙️ Voice: "+selectedVoice;
- });
-
-});
-
-
-/* =========================
-   COLLAPSE
-========================= */
-
-function toggle(id){
- $(id).classList.toggle("open");
+function showVideoStatus(message){
+ videoStatus.textContent = message || "";
 }
-
-$("emotionHeader").onclick=()=>{
- toggle("emotionCard");
-};
-
-$("settingsHeader").onclick=()=>{
- toggle("settingsCard");
-};
-
-$("cloneHeader").onclick=()=>{
- toggle("cloneCard");
-};
-
-$("srtHeader").onclick=()=>{
- toggle("srtCard");
-};
-
-$("proHeader").onclick=()=>{
- toggle("proCard");
-};
-
-
-/* =========================
-   EMOTION
-========================= */
-
-document
- .querySelectorAll(".emotion-btn")
- .forEach(btn=>{
-
-  btn.addEventListener("click",()=>{
-
-   document
-    .querySelectorAll(".emotion-btn")
-    .forEach(x=>x.classList.remove("active"));
-
-   btn.classList.add("active");
-
-   selectedEmotion=btn.dataset.emotion;
-
-   emotionValue.textContent=
-    btn.querySelector(".emotion-name").textContent;
-  });
-
- });
-
-
-/* =========================
-   SETTINGS
-========================= */
-
-function updateSettings(){
-
- settingsValue.textContent=
-  `Speed ${speed.value} • Pitch ${pitch.value}`;
-}
-
-speed.oninput=()=>{
- speedValue.textContent=speed.value;
- updateSettings();
-};
-
-pitch.oninput=()=>{
- pitchValue.textContent=pitch.value;
- updateSettings();
-};
-
-
-/* =========================================================
-   VIDEO PROJECT
-========================================================= */
 
 function formatDuration(seconds){
 
- seconds=Math.floor(seconds);
+ if(!Number.isFinite(seconds)){
+  return "-";
+ }
 
- const m=Math.floor(seconds/60);
- const s=seconds%60;
+ seconds = Math.floor(seconds);
 
- return String(m).padStart(2,"0")+
-  ":"+
+ const m = Math.floor(seconds / 60);
+ const s = seconds % 60;
+
+ return String(m).padStart(2,"0") +
+  ":" +
   String(s).padStart(2,"0");
 }
 
+function escapeHtml(text){
 
-function showVideoStatus(message,type="normal"){
+ return String(text)
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+}
 
- videoStatus.style.display="block";
-
- if(type==="error"){
-  videoStatus.style.color="#fca5a5";
-  videoStatus.style.borderColor=
-   "rgba(248,113,113,.2)";
- }else if(type==="success"){
-  videoStatus.style.color="#86efac";
-  videoStatus.style.borderColor=
-   "rgba(34,197,94,.2)";
- }else{
-  videoStatus.style.color="#94a3b8";
-  videoStatus.style.borderColor=
-   "rgba(255,255,255,.08)";
- }
-
- videoStatus.textContent=message;
+function sleep(ms){
+ return new Promise(resolve => setTimeout(resolve,ms));
 }
 
 
-videoFile.addEventListener("change",()=>{
+/* =========================
+   VIDEO FILE
+========================= */
 
- const file=videoFile.files?.[0];
+videoFile.addEventListener("change",function(){
+
+ const file = this.files && this.files[0];
 
  if(!file){
   return;
  }
 
- currentGeminiFileName=null;
+ if(
+  !file.type.startsWith("video/") &&
+  !/\.(mp4|webm|mov|mkv)$/i.test(file.name)
+ ){
 
- if(!file.type.startsWith("video/")){
+  alert("Video file မဟုတ်ပါ။");
 
-  showVideoStatus(
-   "❌ Video File မဟုတ်ပါ။ MP4 / WEBM / MOV / MKV ဖိုင်ကိုရွေးပါ။",
-   "error"
-  );
+  this.value = "";
 
-  videoFile.value="";
   return;
  }
 
 
- currentVideoURL=URL.createObjectURL(file);
+ if(currentVideoURL){
 
- videoPreview.src=currentVideoURL;
+  URL.revokeObjectURL(currentVideoURL);
 
- videoFileName.textContent=file.name;
-
- videoPreviewWrap.style.display="block";
-
- removeVideoBtn.style.display="block";
-
- aiScriptBtn.disabled=true;
-
- showVideoStatus(
-  "⏳ Video Duration ကို စစ်နေပါသည်..."
- );
+  currentVideoURL = null;
+ }
 
 
- videoPreview.onloadedmetadata=()=>{
+ currentVideoURL = URL.createObjectURL(file);
 
-  currentVideoDuration=videoPreview.duration;
+ videoPreview.src = currentVideoURL;
 
-  videoDuration.textContent=
+ videoPreview.style.display = "block";
+
+ videoPlaceholder.style.display = "none";
+
+ videoInfo.style.display = "block";
+
+ removeVideoBtn.style.display = "inline-flex";
+
+ aiScriptBtn.disabled = true;
+
+ showVideoStatus("⏳ Video duration စစ်နေပါတယ်...");
+
+
+ videoFileName.textContent = file.name;
+
+
+ videoPreview.onloadedmetadata = function(){
+
+  currentVideoDuration = videoPreview.duration;
+
+  videoDuration.textContent =
    formatDuration(currentVideoDuration);
 
-  if(currentVideoDuration>300){
+
+  if(
+   !Number.isFinite(currentVideoDuration) ||
+   currentVideoDuration <= 0
+  ){
 
    showVideoStatus(
-    "❌ Video က 5 minutes ထက်ကျော်နေပါတယ်။ 5 minutes အောက် Video တစ်ခုရွေးပါ။",
-    "error"
+    "❌ Video duration ဖတ်မရပါ။"
    );
 
-   aiScriptBtn.disabled=true;
+   aiScriptBtn.disabled = true;
 
    return;
   }
 
 
-  aiScriptBtn.disabled=false;
+  if(currentVideoDuration > 300){
+
+   showVideoStatus(
+    "❌ Video အရှည် 5 မိနစ်ထက် မပိုရပါ။"
+   );
+
+   aiScriptBtn.disabled = true;
+
+   return;
+  }
+
+
+  aiScriptBtn.disabled = false;
 
   showVideoStatus(
-   "✅ Video အဆင်ပြေပါတယ်။ 🤖 AI Script ရေးပေးပါ ကိုနှိပ်နိုင်ပါပြီ။",
-   "success"
+   "✅ Video အဆင်ပြေပါတယ်။ AI Script ရေးနိုင်ပါပြီ။"
   );
+
  };
+
 });
 
 
@@ -1478,119 +1235,287 @@ videoFile.addEventListener("change",()=>{
    REMOVE VIDEO
 ========================= */
 
-removeVideoBtn.onclick=()=>{
+function removeVideo(){
 
  if(currentVideoURL){
+
   URL.revokeObjectURL(currentVideoURL);
+
+  currentVideoURL = null;
  }
 
- currentVideoURL=null;
- currentVideoDuration=0;
- currentGeminiFileName=null;
+ videoPreview.pause();
 
- videoFile.value="";
  videoPreview.removeAttribute("src");
+
  videoPreview.load();
 
- videoPreviewWrap.style.display="none";
+ videoPreview.style.display = "none";
 
- videoFileName.textContent="-";
- videoDuration.textContent="-";
+ videoPlaceholder.style.display = "flex";
 
- aiScriptBtn.disabled=true;
+ videoInfo.style.display = "none";
 
- removeVideoBtn.style.display="none";
+ removeVideoBtn.style.display = "none";
 
- videoStatus.style.display="none";
-};
+ aiScriptBtn.disabled = true;
+
+ videoFile.value = "";
+
+ currentVideoDuration = 0;
+
+ currentGeminiFileName = null;
+
+ videoFileName.textContent = "-";
+ videoDuration.textContent = "-";
+
+ showVideoStatus("");
+
+}
+
+removeVideoBtn.addEventListener(
+ "click",
+ removeVideo
+);
 
 
-/* =========================================================
+/* =========================
+   SCRIPT COUNTER
+========================= */
+
+function updateScriptCounter(){
+
+ const length =
+  videoScript.value.length;
+
+ videoScriptCounter.textContent =
+  length.toLocaleString();
+
+}
+
+videoScript.addEventListener(
+ "input",
+ updateScriptCounter
+);
+
+updateScriptCounter();
+
+
+/* =========================
+   GEMINI CHUNK UPLOAD
+========================= */
+
+async function uploadVideoToGemini(
+ uploadUrl,
+ file
+){
+
+ /*
+  * Vercel Function payload limit
+  * ကို မကျော်စေရန် 4MB chunks သုံးထားပါတယ်။
+  */
+
+ const CHUNK_SIZE =
+  4 * 1024 * 1024;
+
+ let offset = 0;
+
+ let uploadedFile = null;
+
+
+ while(offset < file.size){
+
+  const end =
+   Math.min(
+    offset + CHUNK_SIZE,
+    file.size
+   );
+
+  const chunk =
+   file.slice(
+    offset,
+    end
+   );
+
+  const isFinal =
+   end >= file.size;
+
+
+  const endpoint =
+   "/api/video-upload-chunk" +
+   "?uploadUrl=" +
+   encodeURIComponent(uploadUrl) +
+   "&offset=" +
+   offset +
+   "&finalize=" +
+   (isFinal ? "1" : "0");
+
+
+  showVideoStatus(
+   "⏳ Gemini Upload — " +
+   Math.round(
+    (end / file.size) * 100
+   ) +
+   "%"
+  );
+
+
+  const response =
+   await fetch(
+    endpoint,
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/octet-stream",
+
+      "X-Video-Mime":
+       file.type ||
+       "video/mp4"
+     },
+
+     body:chunk
+    }
+   );
+
+
+  const data =
+   await response
+    .json()
+    .catch(
+     () => ({})
+    );
+
+
+  if(!response.ok){
+
+   throw new Error(
+    data?.error ||
+    "Gemini Video Upload Failed"
+   );
+
+  }
+
+
+  if(data?.file){
+
+   uploadedFile =
+    data.file;
+
+  }
+
+
+  offset = end;
+
+ }
+
+
+ if(!uploadedFile?.name){
+
+  throw new Error(
+   "Gemini က Uploaded File Information မပြန်ပေးပါ။"
+  );
+
+ }
+
+
+ return uploadedFile;
+
+}
+
+
+/* =========================
    AI SCRIPT
-========================================================= */
+========================= */
 
-aiScriptBtn.onclick=async()=>{
+async function createAIScript(){
 
- const file=videoFile.files?.[0];
+ const file =
+  videoFile.files &&
+  videoFile.files[0];
+
 
  if(!file){
 
-  showVideoStatus(
-   "⚠️ Video အရင်ရွေးပါ။",
-   "error"
+  alert("အရင် Video ရွေးပါ။");
+
+  return;
+ }
+
+
+ if(
+  currentVideoDuration <= 0 ||
+  currentVideoDuration > 300
+ ){
+
+  alert(
+   "Video အရှည် 5 မိနစ်အတွင်း ဖြစ်ရပါမယ်။"
   );
 
   return;
  }
 
 
- if(currentVideoDuration>300){
+ aiScriptBtn.disabled = true;
 
-  showVideoStatus(
-   "❌ Video က 5 minutes ထက်ကျော်နေပါတယ်။",
-   "error"
-  );
+ removeVideoBtn.disabled = true;
 
-  return;
- }
-
-
- aiScriptBtn.disabled=true;
-
- removeVideoBtn.disabled=true;
-
- aiScriptBtn.textContent=
-  "⏳ AI Script ရေးနေပါသည်...";
-
-
- showVideoStatus(
-  "⏳ Video ကို AI ဆီပို့ပြီး Scene / Story / Dialogue တွေကို ခွဲခြမ်းနေပါသည်..."
- );
+ videoScript.disabled = true;
 
 
  try{
 
-  /*
-   * Step 1
-   * Ask backend to create a Gemini resumable
-   * upload session.
-   */
-
-  const startResponse=
-   await fetch("/api/video-upload-start",{
-
-    method:"POST",
-
-    headers:{
-     "Content-Type":"application/json"
-    },
-
-    body:JSON.stringify({
-
-     fileName:file.name,
-
-     size:file.size,
-
-     mimeType:file.type ||
-      "video/mp4"
-
-    })
-
-   });
+  showVideoStatus(
+   "⏳ Gemini Upload Session ဖန်တီးနေပါတယ်..."
+  );
 
 
-  const startData=
+  /* STEP 1
+     Get Gemini resumable upload URL
+  */
+
+  const startResponse =
+   await fetch(
+    "/api/video-upload-start",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+
+      fileName:file.name,
+
+      size:file.size,
+
+      mimeType:
+       file.type ||
+       "video/mp4"
+
+     })
+    }
+   );
+
+
+  const startData =
    await startResponse
     .json()
-    .catch(()=>({}));
+    .catch(
+     () => ({})
+    );
 
 
   if(!startResponse.ok){
 
    throw new Error(
     startData?.error ||
-    "Video Upload Session ပြုလုပ်၍မရပါ။"
+    "Gemini Upload Session ဖန်တီးမရပါ။"
    );
+
   }
 
 
@@ -1599,542 +1524,317 @@ aiScriptBtn.onclick=async()=>{
    throw new Error(
     "Gemini Upload URL မရပါ။"
    );
+
   }
 
 
-  showVideoStatus(
-   "⏳ Video ကို Gemini သို့ Upload လုပ်နေပါသည်..."
-  );
+  /* STEP 2
+     Upload video chunks
+  */
 
-
-  /*
-   * Step 2
-   * Upload video directly from browser
-   * to Gemini resumable upload URL.
-   */
-
-  const uploadedFile=
+  const uploadedFile =
    await uploadVideoToGemini(
     startData.uploadUrl,
     file
    );
 
 
-  if(!uploadedFile?.name){
-
-   throw new Error(
-    "Gemini File Upload မအောင်မြင်ပါ။"
-   );
-  }
-
-
-  currentGeminiFileName=
+  currentGeminiFileName =
    uploadedFile.name;
 
 
   showVideoStatus(
-   "⏳ Video Upload ပြီးပါပြီ။ AI က Script ရေးနေပါသည်..."
+   "⏳ Video ကို AI က Analyze လုပ်နေပါတယ်..."
   );
 
 
-  /*
-   * Step 3
-   * Tell backend which Gemini File to analyze.
-   */
+  /* STEP 3
+     Ask backend to generate Myanmar script
+  */
 
-  const scriptResponse=
-   await fetch("/api/video-script",{
+  const scriptResponse =
+   await fetch(
+    "/api/video-script",
+    {
+     method:"POST",
 
-    method:"POST",
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
 
-    headers:{
-     "Content-Type":"application/json"
-    },
+     body:JSON.stringify({
 
-    body:JSON.stringify({
+      fileName:
+       uploadedFile.name,
 
-     fileName:uploadedFile.name,
+      mimeType:
+       uploadedFile.mimeType ||
+       file.type ||
+       "video/mp4"
 
-     mimeType:
-      uploadedFile.mimeType ||
-      file.type ||
-      "video/mp4"
-
-    })
-
-   });
+     })
+    }
+   );
 
 
-  const scriptData=
+  const scriptData =
    await scriptResponse
     .json()
-    .catch(()=>({}));
+    .catch(
+     () => ({})
+    );
 
 
   if(!scriptResponse.ok){
 
    throw new Error(
     scriptData?.error ||
-    "AI Script ပြုလုပ်၍မရပါ။"
+    "AI Script ဖန်တီးမရပါ။"
    );
+
   }
 
 
-  const script=
-   String(scriptData?.script||"").trim();
+  const script =
+   String(
+    scriptData?.script ||
+    ""
+   ).trim();
 
 
   if(!script){
 
    throw new Error(
-    "AI က Script အလွတ်ပဲ ပြန်ပေးပါတယ်။"
+    "AI က Script အလွတ်ပြန်ပေးပါတယ်။"
    );
+
   }
 
 
-  videoScript.value=
-   script.slice(0,5000);
+  videoScript.value =
+   script.slice(
+    0,
+    5000
+   );
 
 
-  scriptCounter.textContent=
-   videoScript.value.length+
-   " / 5000";
+  updateScriptCounter();
 
 
   showVideoStatus(
-   "✅ AI Movie Recap Script အောင်မြင်စွာ ရပါပြီ။ Script ကို အောက်မှာ စိတ်ကြိုက်ပြင်နိုင်ပါတယ်။",
-   "success"
+   "✅ AI Script ရပါပြီ။ လိုသလို ပြင်ပြီး Voice Generate လုပ်နိုင်ပါပြီ။"
   );
 
 
-  videoScript.focus();
+  /* Scroll to script */
+
+  videoScript.scrollIntoView({
+   behavior:"smooth",
+   block:"center"
+  });
 
 
  }catch(error){
 
-  console.error(error);
+  console.error(
+   "AI Script Error:",
+   error
+  );
+
 
   showVideoStatus(
-   "❌ "+(
+   "❌ " +
+   (
     error?.message ||
     "AI Script Error ဖြစ်နေပါတယ်။"
-   ),
-   "error"
+   )
   );
+
 
  }finally{
 
-  aiScriptBtn.disabled=false;
+  aiScriptBtn.disabled =
+   false;
 
-  removeVideoBtn.disabled=false;
+  removeVideoBtn.disabled =
+   false;
 
-  aiScriptBtn.textContent=
-   "🤖 AI Script ရေးပေးပါ";
+  videoScript.disabled =
+   false;
+
  }
-};
 
-
-/* =========================================================
-   DIRECT GEMINI UPLOAD
-========================================================= */
-
-function uploadVideoToGemini(uploadUrl,file){
-
- return new Promise((resolve,reject)=>{
-
-  const xhr=new XMLHttpRequest();
-
-  xhr.open("POST",uploadUrl,true);
-
-  xhr.setRequestHeader(
-   "X-Goog-Upload-Offset",
-   "0"
-  );
-
-  xhr.setRequestHeader(
-   "X-Goog-Upload-Command",
-   "upload, finalize"
-  );
-
-  xhr.setRequestHeader(
-   "Content-Type",
-   file.type || "video/mp4"
-  );
-
-
-  xhr.upload.onprogress=(event)=>{
-
-   if(event.lengthComputable){
-
-    const percent=
-     Math.round(
-      (event.loaded/event.total)*100
-     );
-
-    showVideoStatus(
-     "⏳ Gemini Upload — "+percent+"%"
-    );
-   }
-  };
-
-
-  xhr.onload=()=>{
-
-   let data={};
-
-   try{
-    data=JSON.parse(xhr.responseText||"{}");
-   }catch(e){}
-
-
-   if(xhr.status>=200 && xhr.status<300){
-
-    resolve(data.file||data);
-
-   }else{
-
-    reject(
-     new Error(
-      data?.error?.message ||
-      data?.error ||
-      "Gemini Video Upload Failed"
-     )
-    );
-   }
-  };
-
-
-  xhr.onerror=()=>{
-
-   reject(
-    new Error(
-     "Video Upload Network Error ဖြစ်နေပါတယ်။"
-    )
-   );
-  };
-
-
-  xhr.onabort=()=>{
-
-   reject(
-    new Error(
-     "Video Upload ရပ်သွားပါတယ်။"
-    )
-   );
-  };
-
-
-  xhr.send(file);
-
- });
 }
 
-
-/* =========================================================
-   VOICE CLONE
-========================================================= */
-
-cloneFile.onchange=()=>{
-
- const f=cloneFile.files?.[0];
-
- $("cloneFileName").textContent=
-  f
-   ? f.name
-   : "MP3 / WAV / M4A / OGG / WEBM";
-
- cloneResult.style.display="none";
-};
+aiScriptBtn.addEventListener(
+ "click",
+ createAIScript
+);
 
 
-cloneBtn.onclick=async()=>{
+/* =========================
+   VOICE SELECT
+========================= */
 
- const file=cloneFile.files?.[0];
+document
+ .querySelectorAll(".voice-btn")
+ .forEach(button => {
 
- if(!file){
+  button.addEventListener(
+   "click",
+   function(){
 
-  status.textContent=
-   "⚠️ Voice Sample အရင်ရွေးပါ။";
+    document
+     .querySelectorAll(".voice-btn")
+     .forEach(btn =>
+      btn.classList.remove(
+       "active"
+      )
+     );
 
-  return;
- }
+    this.classList.add(
+     "active"
+    );
 
+    selectedVoice =
+     this.dataset.voice;
 
- if(file.size>25*1024*1024){
-
-  status.textContent=
-   "❌ Voice Sample ဖိုင်အရွယ်အစား 25MB အောက်ထားပါ။";
-
-  return;
- }
-
-
- cloneBtn.disabled=true;
-
- cloneBtn.textContent=
-  "⏳ Voice Clone ပြုလုပ်နေပါသည်...";
-
- cloneResult.style.display="block";
-
- cloneResult.textContent=
-  "⏳ Voice sample ကို ElevenLabs သို့ ပို့နေပါသည်...";
-
- status.textContent="";
-
-
- try{
-
-  const form=new FormData();
-
-  form.append(
-   "file",
-   file,
-   file.name
+   }
   );
-
-  form.append(
-   "name",
-   cloneName.value.trim() ||
-   "YNT Voice Clone"
-  );
-
-
-  const response=
-   await fetch(
-    "/api/clone",
-    {
-     method:"POST",
-     body:form
-    }
-   );
-
-
-  const data=
-   await response
-    .json()
-    .catch(()=>({}));
-
-
-  if(!response.ok){
-
-   throw new Error(
-    data?.error ||
-    "Voice Clone API Error"
-   );
-  }
-
-
-  if(!data?.voice_id){
-
-   throw new Error(
-    "Voice ID မပြန်လာပါ။"
-   );
-  }
-
-
-  clonedVoiceId=
-   data.voice_id;
-
-
-  cloneResult.innerHTML=
-   "✅ Voice Clone အောင်မြင်ပါပြီ။<br><br>"+
-   "<b>Voice ID:</b> "+
-   escapeHTML(clonedVoiceId)+
-   "<br><br>"+
-   "⚠️ Clone voice ကို TTS မှာအသုံးပြုနိုင်အောင် TTS backend ကို Voice ID လက်ခံအောင် နောက်တစ်ဆင့်မှာ ချိတ်ပါမယ်။";
-
-
-  status.textContent=
-   "✅ Voice Clone အောင်မြင်စွာ ဖန်တီးပြီးပါပြီ။";
-
-
- }catch(e){
-
-  cloneResult.textContent=
-   "❌ "+
-   (e?.message||
-   "Voice Clone ပြုလုပ်၍မရပါ။");
-
-  status.textContent=
-   "❌ "+
-   (e?.message||
-   "Voice Clone Error ဖြစ်နေပါတယ်။");
-
- }finally{
-
-  cloneBtn.disabled=false;
-
-  cloneBtn.textContent=
-   "🧬 Create Voice Clone";
- }
-};
-
-
-/* =========================================================
-   SRT
-========================================================= */
-
-$("generateSrtBtn").onclick=()=>{
-
- /*
-  * If AI Script exists, use it.
-  * Otherwise use normal text box.
-  */
-
- const source=
-  videoScript.value.trim() ||
-  textInput.value.trim();
-
-
- const lines=
-  source
-   .split(/\n+/)
-   .map(x=>x.trim())
-   .filter(Boolean);
-
-
- const result=$("srtResult");
-
-
- if(!source){
-
-  result.style.display="block";
-
-  result.textContent=
-   "⚠️ အရင်ဆုံး မြန်မာစာ သို့မဟုတ် AI Script ထည့်ပါ။";
-
-  return;
- }
-
-
- let srt="";
-
-
- const ft=s=>{
-
-  const h=Math.floor(s/3600);
-
-  const m=Math.floor(
-   (s%3600)/60
-  );
-
-  const x=s%60;
-
-  return String(h).padStart(2,"0")+
-   ":"+
-   String(m).padStart(2,"0")+
-   ":"+
-   String(x).padStart(2,"0")+
-   ",000";
- };
-
-
- lines.forEach((line,i)=>{
-
-  srt+=
-   `${i+1}\n`+
-   `${ft(i*5)} --> ${ft(i*5+5)}\n`+
-   `${line}\n\n`;
 
  });
 
 
- result.style.display="block";
+/* =========================
+   EMOTION SELECT
+========================= */
 
+document
+ .querySelectorAll(".emotion-btn")
+ .forEach(button => {
 
- result.innerHTML=
-  "✅ "+
-  lines.length+
-  " ခုသော Subtitle ကို ပြုလုပ်ပြီးပါပြီ။"+
-  "<br><pre style='white-space:pre-wrap;color:#cbd5e1'>"+
-  escapeHTML(srt)+
-  "</pre>"+
-  "<button id='downloadSrtBtn' style='width:100%;padding:11px;border:0;border-radius:11px;background:#0891b2;color:white;font-weight:900'>"+
-  "⬇️ Download SRT"+
-  "</button>";
+  button.addEventListener(
+   "click",
+   function(){
 
+    document
+     .querySelectorAll(".emotion-btn")
+     .forEach(btn =>
+      btn.classList.remove(
+       "active"
+      )
+     );
 
- $("downloadSrtBtn").onclick=()=>{
+    this.classList.add(
+     "active"
+    );
 
-  const u=
-   URL.createObjectURL(
-    new Blob(
-     [srt],
-     {
-      type:"text/plain;charset=utf-8"
-     }
-    )
-   );
+    selectedEmotion =
+     this.dataset.emotion;
 
-
-  const a=
-   document.createElement("a");
-
-  a.href=u;
-
-  a.download=
-   "YNT-Creator-Subtitle.srt";
-
-  a.click();
-
-
-  setTimeout(
-   ()=>URL.revokeObjectURL(u),
-   500
+   }
   );
- };
 
-};
-
-
-/* =========================================================
-   PRO
-========================================================= */
-
-$("proUpgradeBtn").onclick=()=>{
-
- status.textContent=
-  "👑 Pro Features ကို နောက်အဆင့်မှာ Activation / Payment နဲ့ ချိတ်ဆက်မယ်။";
-};
+ });
 
 
-/* =========================================================
+/* =========================
+   COLLAPSE
+========================= */
+
+document
+ .querySelectorAll(".collapse-head")
+ .forEach(head => {
+
+  head.addEventListener(
+   "click",
+   function(){
+
+    const parent =
+     this.parentElement;
+
+    parent.classList.toggle(
+     "open"
+    );
+
+   }
+  );
+
+ });
+
+
+/* =========================
+   SPEED / PITCH
+========================= */
+
+speed.addEventListener(
+ "input",
+ function(){
+
+  speedValue.textContent =
+   this.value;
+
+ }
+);
+
+pitch.addEventListener(
+ "input",
+ function(){
+
+  pitchValue.textContent =
+   this.value;
+
+ }
+);
+
+
+/* =========================
    GENERATE VOICE
-========================================================= */
+========================= */
 
-generateBtn.onclick=async()=>{
+async function generateVoice(){
 
- /*
-  * AI Script ရှိရင် AI Script ကို အသုံးပြုမယ်။
-  * မရှိရင် ပုံမှန် Text Box ကို အသုံးပြုမယ်။
-  */
-
- const text=
+ const text =
   videoScript.value.trim() ||
-  textInput.value.trim();
+  "";
 
 
  if(!text){
 
-  status.textContent=
-   "⚠️ အရင်ဆုံး မြန်မာစာ သို့မဟုတ် AI Script ထည့်ပါ။";
+  status.textContent =
+   "❌ Script မရှိသေးပါ။";
+
+  videoScript.focus();
 
   return;
  }
 
 
- generateBtn.disabled=true;
+ if(text.length > 5000){
 
- loading.style.display="block";
+  status.textContent =
+   "❌ Script စာလုံးရေ 5000 ထက် မကျော်ရပါ။";
 
- player.style.display="none";
+  return;
+ }
 
- status.textContent="";
+
+ generateBtn.disabled = true;
+
+ loading.style.display =
+  "block";
+
+ audioBox.style.display =
+  "none";
+
+ status.textContent =
+  "";
 
 
  try{
 
-  const response=
+  const response =
    await fetch(
     "/api/tts",
     {
@@ -2147,44 +1847,85 @@ generateBtn.onclick=async()=>{
 
      body:JSON.stringify({
 
-      text,
+      text:text,
 
-      voice:selectedVoice,
+      voice:
+       selectedVoice,
 
-      emotion:selectedEmotion,
+      emotion:
+       selectedEmotion,
 
-      speed:Number(speed.value),
+      speed:
+       Number(speed.value),
 
-      pitch:Number(pitch.value)
+      pitch:
+       Number(pitch.value)
 
      })
     }
    );
 
 
+  const contentType =
+   response.headers.get(
+    "content-type"
+   ) || "";
+
+
   if(!response.ok){
 
-   const d=
-    await response
-     .json()
-     .catch(()=>({}));
+   let errorMessage =
+    "Voice Generate Failed";
+
+   if(
+    contentType.includes(
+     "application/json"
+    )
+   ){
+
+    const data =
+     await response
+      .json()
+      .catch(
+       () => ({})
+      );
+
+    errorMessage =
+     data?.error ||
+     errorMessage;
+
+   }else{
+
+    const text =
+     await response.text()
+      .catch(
+       () => ""
+      );
+
+    if(text){
+     errorMessage =
+      text;
+    }
+
+   }
 
    throw new Error(
-    d?.error ||
-    "TTS ပြုလုပ်၍မရပါ။"
+    errorMessage
    );
+
   }
 
 
-  const blob=
+  const blob =
    await response.blob();
 
 
   if(!blob.size){
 
    throw new Error(
-    "Audio Data အလွတ်ဖြစ်နေပါတယ်။"
+    "Audio file အလွတ်ဖြစ်နေပါတယ်။"
    );
+
   }
 
 
@@ -2193,113 +1934,294 @@ generateBtn.onclick=async()=>{
    URL.revokeObjectURL(
     currentAudioURL
    );
+
   }
 
 
-  currentAudioURL=
-   URL.createObjectURL(blob);
+  currentAudioURL =
+   URL.createObjectURL(
+    blob
+   );
 
 
-  audioPlayer.src=
+  audioPlayer.src =
    currentAudioURL;
 
 
-  player.style.display=
+  audioBox.style.display =
    "block";
 
 
-  status.textContent=
-   "✅ YNT Creator Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
+  downloadBtn.onclick =
+   function(){
+
+    const a =
+     document.createElement(
+      "a"
+     );
+
+    a.href =
+     currentAudioURL;
+
+    a.download =
+     "ynt-creator-voice.wav";
+
+    document.body.appendChild(a);
+
+    a.click();
+
+    a.remove();
+
+   };
 
 
- }catch(e){
+  status.textContent =
+   "✅ Voice ဖန်တီးပြီးပါပြီ။";
 
-  status.textContent=
-   "❌ "+
+
+  audioPlayer.scrollIntoView({
+   behavior:"smooth",
+   block:"center"
+  });
+
+
+ }catch(error){
+
+  console.error(
+   "TTS Error:",
+   error
+  );
+
+
+  status.textContent =
+   "❌ " +
    (
-    e?.message||
-    "TTS Error ဖြစ်နေပါတယ်။"
+    error?.message ||
+    "Voice Generate Error ဖြစ်နေပါတယ်။"
    );
+
 
  }finally{
 
-  generateBtn.disabled=false;
+  generateBtn.disabled =
+   false;
 
-  setTimeout(
-   ()=>{
-    loading.style.display="none";
-   },
-   800
-  );
+  loading.style.display =
+   "none";
+
  }
-};
+
+}
+
+generateBtn.addEventListener(
+ "click",
+ generateVoice
+);
 
 
-/* =========================================================
-   DOWNLOAD WAV
-========================================================= */
+/* =========================
+   SRT
+========================= */
 
-downloadBtn.onclick=()=>{
+function secondsToSrtTime(seconds){
 
- if(!currentAudioURL){
+ seconds =
+  Math.max(
+   0,
+   Number(seconds) || 0
+  );
 
-  status.textContent=
-   "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
+
+ const hours =
+  Math.floor(
+   seconds / 3600
+  );
+
+ const minutes =
+  Math.floor(
+   (seconds % 3600) / 60
+  );
+
+ const secs =
+  Math.floor(
+   seconds % 60
+  );
+
+ const ms =
+  Math.floor(
+   (seconds % 1) * 1000
+  );
+
+
+ return (
+  String(hours).padStart(2,"0") +
+  ":" +
+  String(minutes).padStart(2,"0") +
+  ":" +
+  String(secs).padStart(2,"0") +
+  "," +
+  String(ms).padStart(3,"0")
+ );
+
+}
+
+
+function createSrt(){
+
+ const text =
+  videoScript.value.trim();
+
+
+ if(!text){
+
+  status.textContent =
+   "❌ SRT အတွက် Script မရှိသေးပါ။";
 
   return;
  }
 
 
- const a=
-  document.createElement("a");
+ const lines =
+  text
+   .split(/\r?\n/)
+   .map(
+    line => line.trim()
+   )
+   .filter(Boolean);
 
- a.href=
-  currentAudioURL;
 
- a.download=
-  "YNT-Creator-Voice.wav";
+ if(!lines.length){
+
+  status.textContent =
+   "❌ SRT ဖန်တီးရန် စာမရှိပါ။";
+
+  return;
+ }
+
+
+ /*
+  * လက်ရှိ SRT version
+  * တစ်ကြောင်း 5 seconds ခန့်
+  */
+
+ const SRT_DURATION =
+  5;
+
+
+ let srt =
+  "";
+
+
+ lines.forEach(
+  (line,index) => {
+
+   const start =
+    index *
+    SRT_DURATION;
+
+   const end =
+    start +
+    SRT_DURATION;
+
+
+   srt +=
+    (index + 1) +
+    "\n" +
+    secondsToSrtTime(start) +
+    " --> " +
+    secondsToSrtTime(end) +
+    "\n" +
+    line +
+    "\n\n";
+
+  }
+ );
+
+
+ const blob =
+  new Blob(
+   [srt],
+   {
+    type:
+     "application/x-subrip;charset=utf-8"
+   }
+  );
+
+
+ const url =
+  URL.createObjectURL(blob);
+
+
+ const a =
+  document.createElement(
+   "a"
+  );
+
+ a.href = url;
+
+ a.download =
+  "ynt-creator-subtitle.srt";
+
+ document.body.appendChild(a);
 
  a.click();
-};
+
+ a.remove();
+
+ URL.revokeObjectURL(url);
 
 
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
+ status.textContent =
+  "✅ SRT ဖိုင် ဖန်တီးပြီးပါပြီ။";
 
-function escapeHTML(v){
-
- return String(v)
-  .replaceAll("&","&amp;")
-  .replaceAll("<","&lt;")
-  .replaceAll(">","&gt;")
-  .replaceAll('"',"&quot;")
-  .replaceAll("'","&#039;");
 }
 
+srtBtn.addEventListener(
+ "click",
+ createSrt
+);
 
-/* =========================================================
+
+/* =========================
    CLEANUP
-========================================================= */
+========================= */
 
 window.addEventListener(
  "beforeunload",
- ()=>{
-
-  if(currentAudioURL){
-   URL.revokeObjectURL(
-    currentAudioURL
-   );
-  }
+ function(){
 
   if(currentVideoURL){
+
    URL.revokeObjectURL(
     currentVideoURL
    );
+
+  }
+
+  if(currentAudioURL){
+
+   URL.revokeObjectURL(
+    currentAudioURL
+   );
+
   }
 
  }
 );
+
+
+/* =========================
+   INITIAL
+========================= */
+
+speedValue.textContent =
+ speed.value;
+
+pitchValue.textContent =
+ pitch.value;
+
+updateScriptCounter();
+
 </script>
 
 </body>
