@@ -138,7 +138,6 @@ async function generateLine(text, voice, apiKey) {
 
         lastError = errorMessage;
 
-        // Quota / rate limit
         if (isQuotaError(errorMessage)) {
           if (attempt < MAX_RETRIES) {
             const delay =
@@ -210,15 +209,21 @@ export default async function handler(req, res) {
   }
 
   try {
+    /*
+     * IMPORTANT:
+     * Pro Dialogue uses its own Gemini API key.
+     * Free TTS continues using GEMINI_API_KEY
+     * inside api/tts.js.
+     */
     const apiKey =
-      process.env.GEMINI_API_KEY;
+      process.env.GEMINI_PRO_DIALOGUE_KEY;
 
     if (!apiKey) {
       return res
         .status(500)
         .json({
           error:
-            "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
+            "GEMINI_PRO_DIALOGUE_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
         });
     }
 
@@ -321,7 +326,6 @@ export default async function handler(req, res) {
         });
     }
 
-    // Prevent accidental huge request count
     if (
       lines.length >
       MAX_LINES_PER_GENERATE
@@ -421,7 +425,7 @@ export default async function handler(req, res) {
             .status(429)
             .json({
               error:
-                "Gemini API quota ပြည့်နေပါပြီ။ ခဏစောင့်ပြီး ပြန်စမ်းပါ။"
+                "ဒီ Pro Multi-Voice အတွက် သတ်မှတ်ထားတဲ့ Gemini API quota ပြည့်နေပါပြီ။ ခဏစောင့်ပြီး ပြန်စမ်းပါ။"
             });
         }
 
@@ -507,7 +511,7 @@ export default async function handler(req, res) {
         .status(429)
         .json({
           error:
-            "Gemini API quota ပြည့်နေပါပြီ။ ခဏစောင့်ပြီး ပြန်စမ်းပါ။"
+            "ဒီ Pro Multi-Voice အတွက် သတ်မှတ်ထားတဲ့ Gemini API quota ပြည့်နေပါပြီ။ ခဏစောင့်ပြီး ပြန်စမ်းပါ။"
         });
     }
 
