@@ -41,15 +41,22 @@ export default async function handler(req, res) {
      * ==========================================
      * API KEY
      * ==========================================
+     *
+     * Use GEMINI_API_KEY first.
+     * If it doesn't exist, use GEMINI_PRO_DIALOGUE_KEY.
+     *
+     * API key stays on the server and is never
+     * exposed to the frontend.
      */
 
     const apiKey =
-      process.env.GEMINI_API_KEY;
+      process.env.GEMINI_API_KEY ||
+      process.env.GEMINI_PRO_DIALOGUE_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
         error:
-          "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကိုစစ်ပါ။"
+          "Gemini API Key မတွေ့ပါ။ Vercel Environment Variables ကိုစစ်ပါ။"
       });
     }
 
