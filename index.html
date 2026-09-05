@@ -9,11 +9,27 @@
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth}
-body{margin:0;min-height:100vh;color:#fff;font-family:"Noto Sans Myanmar","Myanmar Text","Segoe UI",sans-serif;background:radial-gradient(circle at 10% 0%,rgba(37,99,235,.18),transparent 28%),radial-gradient(circle at 90% 0%,rgba(168,85,247,.2),transparent 30%),radial-gradient(circle at 50% 100%,rgba(236,72,153,.1),transparent 35%),#05050d}
+body{
+margin:0;
+min-height:100vh;
+color:#fff;
+font-family:"Noto Sans Myanmar","Myanmar Text","Segoe UI",sans-serif;
+background:
+radial-gradient(circle at 10% 0%,rgba(37,99,235,.18),transparent 28%),
+radial-gradient(circle at 90% 0%,rgba(168,85,247,.2),transparent 30%),
+radial-gradient(circle at 50% 100%,rgba(236,72,153,.1),transparent 35%),
+#05050d
+}
+
 button,textarea,input{font:inherit}
 button{touch-action:manipulation}
 
-.container{width:100%;max-width:1050px;margin:auto;padding:14px 12px 40px}
+.container{
+width:100%;
+max-width:1050px;
+margin:auto;
+padding:14px 12px 40px
+}
 
 .hero,.card,.extra-card{
 border:1px solid rgba(255,255,255,.08);
@@ -21,7 +37,9 @@ border-radius:22px;
 background:linear-gradient(145deg,rgba(18,18,38,.88),rgba(8,8,21,.78));
 backdrop-filter:blur(22px);
 -webkit-backdrop-filter:blur(22px);
-box-shadow:0 16px 50px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.04)
+box-shadow:
+0 16px 50px rgba(0,0,0,.25),
+inset 0 1px 0 rgba(255,255,255,.04)
 }
 
 .hero{
@@ -384,7 +402,11 @@ font-size:8px
 
 .clone-card{
 border-color:rgba(168,85,247,.28);
-background:linear-gradient(145deg,rgba(76,29,149,.13),rgba(8,8,22,.72))
+background:linear-gradient(
+145deg,
+rgba(76,29,149,.13),
+rgba(8,8,22,.72)
+)
 }
 
 .clone-card .collapse-icon{
@@ -459,7 +481,12 @@ cursor:pointer
 margin-top:10px;
 padding:13px;
 border-radius:13px;
-background:linear-gradient(135deg,#7c3aed,#a855f7,#ec4899)
+background:linear-gradient(
+135deg,
+#7c3aed,
+#a855f7,
+#ec4899
+)
 }
 
 .clone-btn:disabled{
@@ -609,7 +636,12 @@ margin-top:10px;
 padding:13px;
 border:0;
 border-radius:13px;
-background:linear-gradient(135deg,#92400e,#d97706,#eab308);
+background:linear-gradient(
+135deg,
+#92400e,
+#d97706,
+#eab308
+);
 color:#fff;
 font-weight:950
 }
@@ -620,107 +652,16 @@ margin-top:8px;
 font-size:8px
 }
 
-.pro-dialogue-box{
-margin-top:10px;
-padding:13px;
-border:1px solid rgba(245,158,11,.22);
-border-radius:14px;
-background:rgba(15,23,42,.45)
-}
-
-.pro-dialogue-title{
-color:#fef3c7;
-font-size:12px;
-font-weight:950
-}
-
-.pro-dialogue-sub{
-margin-top:3px;
-color:#94a3b8;
-font-size:9px
-}
-
-.speaker-row{
-display:grid;
-grid-template-columns:1fr 1.2fr;
-gap:8px;
-align-items:center;
-margin-top:8px
-}
-
-.speaker-label{
-color:#cbd5e1;
-font-size:10px;
-font-weight:900
-}
-
-.speaker-select{
-width:100%;
-padding:10px;
-border:1px solid #292941;
-border-radius:11px;
-background:#080816;
-color:#fff;
-outline:none
-}
-
-.add-speaker-btn{
-width:100%;
-margin-top:8px;
-padding:10px;
-border:1px dashed rgba(245,158,11,.3);
-border-radius:11px;
-background:rgba(120,53,15,.1);
-color:#fbbf24;
-font-weight:900
-}
-
-.dialogue-input{
-min-height:145px;
-margin-top:9px;
-font-size:11px;
-line-height:1.8
-}
-
-.dialogue-hint{
-margin-top:6px;
-color:#64748b;
-font-size:8px;
-line-height:1.5
-}
-
-.dialogue-generate-btn{
-width:100%;
-margin-top:9px;
-padding:13px;
-border:0;
-border-radius:12px;
-background:linear-gradient(135deg,#92400e,#d97706,#eab308);
-color:#fff;
-font-weight:950
-}
-
-.dialogue-generate-btn:disabled{
-opacity:.55
-}
-
-.dialogue-result{
-display:none;
-margin-top:9px;
-padding:10px;
-border-radius:12px;
-background:rgba(245,158,11,.06);
-border:1px solid rgba(245,158,11,.18);
-color:#fde68a;
-font-size:9px;
-line-height:1.7
-}
-
 .generate-btn{
 margin-top:12px;
 padding:15px;
 border-radius:15px;
-background:linear-gradient(135deg,#2563eb,#7c3aed,#ec4899);
+background:linear-gradient(
+135deg,
+#2563eb,
+#7c3aed,
+#ec4899
+);
 font-size:14px
 }
 
@@ -749,7 +690,12 @@ font-weight:900
 height:3px;
 margin-top:10px;
 border-radius:99px;
-background:linear-gradient(90deg,#22d3ee,#8b5cf6,#ec4899);
+background:linear-gradient(
+90deg,
+#22d3ee,
+#8b5cf6,
+#ec4899
+);
 animation:load 1.2s linear infinite
 }
 
@@ -829,20 +775,56 @@ to{transform:translateX(400%)}
 }
 
 @media(max-width:650px){
-.container{padding:9px 8px 28px}
-.hero{padding:27px 14px 21px;border-radius:23px}
-.card{padding:14px}
-.logo{font-size:32px}
-.voice-grid{grid-template-columns:repeat(3,1fr)}
-.settings-content,.extra-grid{grid-template-columns:1fr}
-.pro-feature-grid{grid-template-columns:1fr 1fr}
-textarea{min-height:220px}
+
+.container{
+padding:9px 8px 28px
+}
+
+.hero{
+padding:27px 14px 21px;
+border-radius:23px
+}
+
+.card{
+padding:14px
+}
+
+.logo{
+font-size:32px
+}
+
+.voice-grid{
+grid-template-columns:repeat(3,1fr)
+}
+
+.settings-content,.extra-grid{
+grid-template-columns:1fr
+}
+
+.pro-feature-grid{
+grid-template-columns:1fr 1fr
+}
+
+textarea{
+min-height:220px
+}
+
 }
 
 @media(max-width:400px){
-.voice-grid{grid-template-columns:repeat(2,1fr)}
-.logo{font-size:29px}
-.pro-feature-grid{grid-template-columns:1fr}
+
+.voice-grid{
+grid-template-columns:repeat(2,1fr)
+}
+
+.logo{
+font-size:29px
+}
+
+.pro-feature-grid{
+grid-template-columns:1fr
+}
+
 }
 </style>
 </head>
@@ -853,7 +835,9 @@ textarea{min-height:220px}
 
 <section class="hero">
 
-<div class="badge">✨ AI POWERED TEXT TO SPEECH</div>
+<div class="badge">
+✨ AI POWERED TEXT TO SPEECH
+</div>
 
 <div class="logo">
 <span class="logo-ynt">YNT</span>
@@ -886,15 +870,25 @@ textarea{min-height:220px}
 <section class="card">
 
 <div class="section-title">
-<div class="section-icon">📝</div>
+
+<div class="section-icon">
+📝
+</div>
 
 <div>
-<div class="section-name">မြန်မာစာထည့်ရန်</div>
+
+<div class="section-name">
+မြန်မာစာထည့်ရန်
+</div>
+
 <div class="section-hint">
 Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
 </div>
+
 </div>
+
 </div>
+
 
 <textarea
 id="textInput"
@@ -902,21 +896,42 @@ maxlength="5000"
 placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
 ></textarea>
 
+
 <div class="text-bottom">
-<span>Maximum 5,000 characters</span>
-<span class="counter" id="counter">0 / 5000</span>
+
+<span>
+Maximum 5,000 characters
+</span>
+
+<span
+class="counter"
+id="counter"
+>
+0 / 5000
+</span>
+
 </div>
 
 
-<div class="section-title" style="margin-top:18px">
+<div
+class="section-title"
+style="margin-top:18px"
+>
 
-<div class="section-icon">🎙️</div>
+<div class="section-icon">
+🎙️
+</div>
 
 <div>
-<div class="section-name">Voice</div>
+
+<div class="section-name">
+Voice
+</div>
+
 <div class="section-hint">
 AI Voice Character ရွေးပါ
 </div>
+
 </div>
 
 </div>
@@ -924,58 +939,136 @@ AI Voice Character ရွေးပါ
 
 <div class="voice-grid">
 
-<button class="voice-btn" data-voice="Zephyr" type="button">
-<span class="voice-icon">〽</span>
-<span class="voice-name">Zephyr</span>
+<button
+class="voice-btn"
+data-voice="Zephyr"
+type="button"
+>
+
+<span class="voice-icon">
+〽
+</span>
+
+<span class="voice-name">
+Zephyr
+</span>
+
 </button>
 
-<button class="voice-btn" data-voice="Puck" type="button">
-<span class="voice-icon">〽</span>
-<span class="voice-name">Puck</span>
+
+<button
+class="voice-btn"
+data-voice="Puck"
+type="button"
+>
+
+<span class="voice-icon">
+〽
+</span>
+
+<span class="voice-name">
+Puck
+</span>
+
 </button>
 
-<button class="voice-btn" data-voice="Charon" type="button">
-<span class="voice-icon">〽</span>
-<span class="voice-name">Charon</span>
+
+<button
+class="voice-btn"
+data-voice="Charon"
+type="button"
+>
+
+<span class="voice-icon">
+〽
+</span>
+
+<span class="voice-name">
+Charon
+</span>
+
 </button>
 
-<button class="voice-btn active" data-voice="Kore" type="button">
-<span class="voice-icon">〽</span>
-<span class="voice-name">Kore</span>
+
+<button
+class="voice-btn active"
+data-voice="Kore"
+type="button"
+>
+
+<span class="voice-icon">
+〽
+</span>
+
+<span class="voice-name">
+Kore
+</span>
+
 </button>
 
-<button class="voice-btn" data-voice="Leda" type="button">
-<span class="voice-icon">〽</span>
-<span class="voice-name">Leda</span>
+
+<button
+class="voice-btn"
+data-voice="Leda"
+type="button"
+>
+
+<span class="voice-icon">
+〽
+</span>
+
+<span class="voice-name">
+Leda
+</span>
+
 </button>
 
 </div>
 
 
-<div class="collapse-card emotion-card" id="emotionCard">
+<div
+class="collapse-card emotion-card"
+id="emotionCard"
+>
 
-<button class="collapse-header" id="emotionHeader" type="button">
+<button
+class="collapse-header"
+id="emotionHeader"
+type="button"
+>
 
 <div class="collapse-left">
 
-<div class="collapse-icon">😊</div>
+<div class="collapse-icon">
+😊
+</div>
 
 <div>
-<div class="collapse-title">Emotion</div>
+
+<div class="collapse-title">
+Emotion
+</div>
+
 <div class="collapse-sub">
 Voice ရဲ့ ခံစားချက်ကို ရွေးပါ
 </div>
+
 </div>
 
 </div>
 
 <div class="collapse-right">
 
-<span class="collapse-value" id="emotionValue">
+<span
+class="collapse-value"
+id="emotionValue"
+>
 Natural
 </span>
 
-<span class="chevron">▼</span>
+<span class="chevron">
+▼
+</span>
 
 </div>
 
@@ -986,49 +1079,111 @@ Natural
 
 <div class="emotion-grid">
 
-<button class="emotion-btn active" data-emotion="natural" type="button">
+<button
+class="emotion-btn active"
+data-emotion="natural"
+type="button"
+>
 😌<br>
-<span class="emotion-name">Natural</span>
+<span class="emotion-name">
+Natural
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="happy" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="happy"
+type="button"
+>
 😄<br>
-<span class="emotion-name">Happy</span>
+<span class="emotion-name">
+Happy
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="sad" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="sad"
+type="button"
+>
 😢<br>
-<span class="emotion-name">Sad</span>
+<span class="emotion-name">
+Sad
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="angry" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="angry"
+type="button"
+>
 😡<br>
-<span class="emotion-name">Angry</span>
+<span class="emotion-name">
+Angry
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="excited" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="excited"
+type="button"
+>
 🤩<br>
-<span class="emotion-name">Excited</span>
+<span class="emotion-name">
+Excited
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="serious" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="serious"
+type="button"
+>
 😐<br>
-<span class="emotion-name">Serious</span>
+<span class="emotion-name">
+Serious
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="calm" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="calm"
+type="button"
+>
 😌<br>
-<span class="emotion-name">Calm</span>
+<span class="emotion-name">
+Calm
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="whisper" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="whisper"
+type="button"
+>
 🤫<br>
-<span class="emotion-name">Whisper</span>
+<span class="emotion-name">
+Whisper
+</span>
 </button>
 
-<button class="emotion-btn" data-emotion="dramatic" type="button">
+
+<button
+class="emotion-btn"
+data-emotion="dramatic"
+type="button"
+>
 🎭<br>
-<span class="emotion-name">Dramatic</span>
+<span class="emotion-name">
+Dramatic
+</span>
 </button>
 
 </div>
@@ -1038,30 +1193,49 @@ Natural
 </div>
 
 
-<div class="collapse-card settings-card" id="settingsCard">
+<div
+class="collapse-card settings-card"
+id="settingsCard"
+>
 
-<button class="collapse-header" id="settingsHeader" type="button">
+<button
+class="collapse-header"
+id="settingsHeader"
+type="button"
+>
 
 <div class="collapse-left">
 
-<div class="collapse-icon">🎚️</div>
+<div class="collapse-icon">
+🎚️
+</div>
 
 <div>
-<div class="collapse-title">Voice Settings</div>
+
+<div class="collapse-title">
+Voice Settings
+</div>
+
 <div class="collapse-sub">
 Speed နှင့် Pitch ကို ချိန်ညှိပါ
 </div>
+
 </div>
 
 </div>
 
 <div class="collapse-right">
 
-<span class="collapse-value" id="settingsValue">
+<span
+class="collapse-value"
+id="settingsValue"
+>
 Speed 0 • Pitch 0
 </span>
 
-<span class="chevron">▼</span>
+<span class="chevron">
+▼
+</span>
 
 </div>
 
@@ -1076,13 +1250,19 @@ Speed 0 • Pitch 0
 
 <div class="control-head">
 
-<span class="control-label">⚡ Speed</span>
+<span class="control-label">
+⚡ Speed
+</span>
 
-<span class="control-value" id="speedValue">
+<span
+class="control-value"
+id="speedValue"
+>
 0
 </span>
 
 </div>
+
 
 <input
 type="range"
@@ -1092,10 +1272,21 @@ max="5"
 value="0"
 >
 
+
 <div class="range-labels">
-<span>Very Slow</span>
-<span>Normal</span>
-<span>Fast</span>
+
+<span>
+Very Slow
+</span>
+
+<span>
+Normal
+</span>
+
+<span>
+Fast
+</span>
+
 </div>
 
 </div>
@@ -1105,13 +1296,19 @@ value="0"
 
 <div class="control-head">
 
-<span class="control-label">🎵 Pitch</span>
+<span class="control-label">
+🎵 Pitch
+</span>
 
-<span class="control-value" id="pitchValue">
+<span
+class="control-value"
+id="pitchValue"
+>
 0
 </span>
 
 </div>
+
 
 <input
 type="range"
@@ -1121,11 +1318,20 @@ max="5"
 value="0"
 >
 
+
 <div class="range-labels">
-<span>Deep</span>
-<span>Normal</span>
-<span>High</span>
-</div>
+
+<span>
+Deep
+</span>
+
+<span>
+Normal
+</span>
+
+<span>
+High
+</span>
 
 </div>
 
@@ -1135,29 +1341,49 @@ value="0"
 
 </div>
 
+</div>
 
-<div class="collapse-card clone-card" id="cloneCard">
 
-<button class="collapse-header" id="cloneHeader" type="button">
+<div
+class="collapse-card clone-card"
+id="cloneCard"
+>
+
+<button
+class="collapse-header"
+id="cloneHeader"
+type="button"
+>
 
 <div class="collapse-left">
 
-<div class="collapse-icon">🧬</div>
+<div class="collapse-icon">
+🧬
+</div>
 
 <div>
-<div class="collapse-title">Voice Clone</div>
+
+<div class="collapse-title">
+Voice Clone
+</div>
+
 <div class="collapse-sub">
 ကိုယ်ပိုင်အသံကို AI Voice အဖြစ် အသုံးပြုပါ
 </div>
+
 </div>
 
 </div>
 
 <div class="collapse-right">
 
-<span class="clone-tag">NEW</span>
+<span class="clone-tag">
+NEW
+</span>
 
-<span class="chevron">▼</span>
+<span class="chevron">
+▼
+</span>
 
 </div>
 
@@ -1174,7 +1400,11 @@ maxlength="80"
 placeholder="Voice Clone အမည် — ဥပမာ My Voice"
 >
 
-<label class="file-box" for="cloneFile">
+
+<label
+class="file-box"
+for="cloneFile"
+>
 
 <input
 id="cloneFile"
@@ -1182,13 +1412,19 @@ type="file"
 accept="audio/mpeg,audio/mp3,audio/wav,audio/x-wav,audio/wave,audio/mp4,audio/m4a,audio/ogg,audio/webm"
 >
 
-<div class="file-icon">🎧</div>
+
+<div class="file-icon">
+🎧
+</div>
 
 <div class="file-title">
 Voice Sample ရွေးရန်
 </div>
 
-<div class="file-name" id="cloneFileName">
+<div
+class="file-name"
+id="cloneFileName"
+>
 MP3 / WAV / M4A / OGG / WEBM
 </div>
 
@@ -1203,6 +1439,7 @@ type="button"
 🧬 Create Voice Clone
 </button>
 
+
 <div
 class="clone-result"
 id="cloneResult"
@@ -1216,7 +1453,10 @@ id="cloneResult"
 <div class="extra-grid">
 
 
-<div class="extra-card srt-card" id="srtCard">
+<div
+class="extra-card srt-card"
+id="srtCard"
+>
 
 <button
 class="extra-header"
@@ -1226,7 +1466,9 @@ type="button"
 
 <div class="extra-left">
 
-<div class="extra-icon">🩵</div>
+<div class="extra-icon">
+🩵
+</div>
 
 <div class="extra-title">
 SRT Subtitle
@@ -1257,12 +1499,16 @@ READY
 
 <div style="margin-top:10px">
 ⏱️ Subtitle တစ်ပိုင်းကြာချိန် —
-<b style="color:#e2e8f0">5 seconds</b>
+<b style="color:#e2e8f0">
+5 seconds
+</b>
 </div>
 
 <div style="margin-top:7px">
 📝 စာကြောင်းအလိုက် —
-<b style="color:#e2e8f0">Line by Line</b>
+<b style="color:#e2e8f0">
+Line by Line
+</b>
 </div>
 
 
@@ -1274,6 +1520,7 @@ style="width:100%;margin-top:10px;padding:13px;border:0;border-radius:13px;backg
 🩵 Generate SRT Subtitle
 </button>
 
+
 <div
 id="srtResult"
 style="display:none;margin-top:10px;padding:11px;border-radius:12px;border:1px solid rgba(34,211,238,.18);background:rgba(34,211,238,.05);color:#67e8f9;font-size:9px"
@@ -1284,7 +1531,10 @@ style="display:none;margin-top:10px;padding:11px;border-radius:12px;border:1px s
 </div>
 
 
-<div class="extra-card pro-card" id="proCard">
+<div
+class="extra-card pro-card"
+id="proCard"
+>
 
 <button
 class="extra-header"
@@ -1294,7 +1544,9 @@ type="button"
 
 <div class="extra-left">
 
-<div class="extra-icon">👑</div>
+<div class="extra-icon">
+👑
+</div>
 
 <div class="extra-title">
 Pro Features
@@ -1337,194 +1589,73 @@ Professional Voice Creation အတွက် Premium Tools တွေကို အ
 
 
 <div class="pro-feature">
-🎙️
-<div class="pro-feature-title">
-Multi-Voice Dialogue
-</div>
-<div class="pro-feature-sub">
-Speaker 2–3 ယောက်ကို Voice မတူအောင် တစ်ခါတည်းအသုံးပြုနိုင်ခြင်း
-</div>
-</div>
-
-
-<div class="pro-feature">
 🎬
+
 <div class="pro-feature-title">
 Long Text
 </div>
+
 <div class="pro-feature-sub">
 ရှည်လျားတဲ့ Script တွေအတွက် Support
 </div>
+
 </div>
 
 
 <div class="pro-feature">
 ⚡
+
 <div class="pro-feature-title">
 Batch Generate
 </div>
+
 <div class="pro-feature-sub">
 Script အပိုင်းများစွာကို တစ်ခါတည်း Generate လုပ်နိုင်ခြင်း
 </div>
+
 </div>
 
 
 <div class="pro-feature">
 🎚️
+
 <div class="pro-feature-title">
 Advanced Control
 </div>
+
 <div class="pro-feature-sub">
 Voice Settings ကို ပိုမိုတိကျစွာ ချိန်ညှိနိုင်ခြင်း
 </div>
+
 </div>
 
 
 <div class="pro-feature">
 🎧
+
 <div class="pro-feature-title">
 HD Audio
 </div>
+
 <div class="pro-feature-sub">
 Content Creation အတွက် အရည်အသွေးမြင့် Audio
 </div>
+
 </div>
 
 
 <div class="pro-feature">
 🧬
+
 <div class="pro-feature-title">
 Voice Clone
 </div>
+
 <div class="pro-feature-sub">
-ကိုယ်ပိုင် Voice Clone ကို Pro TTS မှာ အသုံးပြုနိုင်ခြင်း
-</div>
-</div>
-
+ကိုယ်ပိုင် Voice Clone Feature
 </div>
 
-
-<div
-class="pro-dialogue-box"
-id="proDialogueBox"
->
-
-<div class="pro-dialogue-title">
-🎙️ Multi-Voice Dialogue
 </div>
-
-<div class="pro-dialogue-sub">
-Dialogue အတွက် Speaker တစ်ယောက်ချင်းစီရဲ့ Voice ကို ရွေးပါ
-</div>
-
-
-<div class="speaker-row">
-
-<div class="speaker-label">
-Speaker 1
-</div>
-
-<select
-class="speaker-select"
-id="speaker1Voice"
->
-
-<option>Kore</option>
-<option>Zephyr</option>
-<option>Puck</option>
-<option>Charon</option>
-<option>Leda</option>
-
-</select>
-
-</div>
-
-
-<div class="speaker-row">
-
-<div class="speaker-label">
-Speaker 2
-</div>
-
-<select
-class="speaker-select"
-id="speaker2Voice"
->
-
-<option>Puck</option>
-<option>Zephyr</option>
-<option>Charon</option>
-<option>Kore</option>
-<option>Leda</option>
-
-</select>
-
-</div>
-
-
-<div
-class="speaker-row"
-id="speaker3Row"
-style="display:none"
->
-
-<div class="speaker-label">
-Speaker 3
-</div>
-
-<select
-class="speaker-select"
-id="speaker3Voice"
->
-
-<option>Leda</option>
-<option>Zephyr</option>
-<option>Puck</option>
-<option>Charon</option>
-<option>Kore</option>
-
-</select>
-
-</div>
-
-
-<button
-class="add-speaker-btn"
-id="addSpeakerBtn"
-type="button"
->
-＋ Add Speaker 3
-</button>
-
-
-<textarea
-class="dialogue-input"
-id="dialogueInput"
-maxlength="10000"
-placeholder="Speaker 1: မင်္ဂလာပါ။
-Speaker 2: မင်္ဂလာပါ။
-Speaker 1: ဒီနေ့ ဘယ်သွားမလဲ?"
-></textarea>
-
-
-<div class="dialogue-hint">
-Format: Speaker 1: စာသား / Speaker 2: စာသား / Speaker 3: စာသား
-</div>
-
-
-<button
-class="dialogue-generate-btn"
-id="dialogueGenerateBtn"
-type="button"
->
-👑 Generate Multi-Voice
-</button>
-
-
-<div
-class="dialogue-result"
-id="dialogueResult"
-></div>
 
 </div>
 
@@ -1538,11 +1669,25 @@ id="dialogueResult"
 
 <ul class="pro-list">
 
-<li>Premium AI Voice</li>
-<li>Advanced Voice Control</li>
-<li>HD Audio Generation</li>
-<li>Long Script Support</li>
-<li>Priority Generation</li>
+<li>
+Premium AI Voice
+</li>
+
+<li>
+Advanced Voice Control
+</li>
+
+<li>
+HD Audio Generation
+</li>
+
+<li>
+Long Script Support
+</li>
+
+<li>
+Priority Generation
+</li>
 
 </ul>
 
@@ -1665,7 +1810,6 @@ let selectedEmotion="natural";
 let currentAudioURL=null;
 let currentDownloadName="YNT-TTS-Voice.wav";
 let clonedVoiceId=null;
-let speaker3Enabled=false;
 
 
 const $=id=>document.getElementById(id);
@@ -1702,32 +1846,43 @@ const cloneBtn=$("cloneBtn");
 const cloneResult=$("cloneResult");
 
 
-textInput.addEventListener("input",()=>{
+textInput.addEventListener(
+"input",
+()=>{
 
 counter.textContent=
-textInput.value.length+" / 5000";
+textInput.value.length+
+" / 5000";
 
-});
+}
+);
 
 
 document
 .querySelectorAll(".voice-btn")
 .forEach(b=>{
 
-b.addEventListener("click",()=>{
+b.addEventListener(
+"click",
+()=>{
 
 document
 .querySelectorAll(".voice-btn")
-.forEach(x=>x.classList.remove("active"));
+.forEach(x=>
+x.classList.remove("active")
+);
 
 b.classList.add("active");
 
-selectedVoice=b.dataset.voice;
+selectedVoice=
+b.dataset.voice;
 
 status.textContent=
-"🎙️ Voice: "+selectedVoice;
+"🎙️ Voice: "+
+selectedVoice;
 
-});
+}
+);
 
 });
 
@@ -1764,20 +1919,27 @@ document
 .querySelectorAll(".emotion-btn")
 .forEach(b=>{
 
-b.addEventListener("click",()=>{
+b.addEventListener(
+"click",
+()=>{
 
 document
 .querySelectorAll(".emotion-btn")
-.forEach(x=>x.classList.remove("active"));
+.forEach(x=>
+x.classList.remove("active")
+);
 
 b.classList.add("active");
 
-selectedEmotion=b.dataset.emotion;
+selectedEmotion=
+b.dataset.emotion;
 
 emotionValue.textContent=
-b.querySelector(".emotion-name").textContent;
+b.querySelector(".emotion-name")
+.textContent;
 
-});
+}
+);
 
 });
 
@@ -1792,7 +1954,8 @@ settingsValue.textContent=
 
 speed.oninput=()=>{
 
-speedValue.textContent=speed.value;
+speedValue.textContent=
+speed.value;
 
 updateSettings();
 
@@ -1801,7 +1964,8 @@ updateSettings();
 
 pitch.oninput=()=>{
 
-pitchValue.textContent=pitch.value;
+pitchValue.textContent=
+pitch.value;
 
 updateSettings();
 
@@ -1810,21 +1974,24 @@ updateSettings();
 
 cloneFile.onchange=()=>{
 
-const f=cloneFile.files?.[0];
+const f=
+cloneFile.files?.[0];
 
 $("cloneFileName").textContent=
 f
 ?f.name
 :"MP3 / WAV / M4A / OGG / WEBM";
 
-cloneResult.style.display="none";
+cloneResult.style.display=
+"none";
 
 };
 
 
 cloneBtn.onclick=async()=>{
 
-const file=cloneFile.files?.[0];
+const file=
+cloneFile.files?.[0];
 
 
 if(!file){
@@ -1837,7 +2004,9 @@ return;
 }
 
 
-if(file.size>25*1024*1024){
+if(file.size>
+25*1024*1024
+){
 
 status.textContent=
 "❌ Voice Sample ဖိုင်အရွယ်အစား 25MB အောက်ထားပါ။";
@@ -1852,7 +2021,8 @@ cloneBtn.disabled=true;
 cloneBtn.textContent=
 "⏳ Voice Clone ပြုလုပ်နေပါသည်...";
 
-cloneResult.style.display="block";
+cloneResult.style.display=
+"block";
 
 cloneResult.textContent=
 "⏳ Voice sample ကို ElevenLabs သို့ ပို့နေပါသည်...";
@@ -1862,7 +2032,9 @@ status.textContent="";
 
 try{
 
-const form=new FormData();
+const form=
+new FormData();
+
 
 form.append(
 "file",
@@ -1870,13 +2042,18 @@ file,
 file.name
 );
 
+
 form.append(
 "name",
-(cloneName.value.trim()||"YNT Voice Clone")
+(
+cloneName.value.trim()||
+"YNT Voice Clone"
+)
 );
 
 
-const response=await fetch(
+const response=
+await fetch(
 "/api/clone",
 {
 method:"POST",
@@ -1910,7 +2087,8 @@ throw new Error(
 }
 
 
-clonedVoiceId=data.voice_id;
+clonedVoiceId=
+data.voice_id;
 
 
 cloneResult.innerHTML=
@@ -1929,18 +2107,24 @@ status.textContent=
 
 cloneResult.textContent=
 "❌ "+
-(e?.message||
-"Voice Clone ပြုလုပ်၍မရပါ။");
+(
+e?.message||
+"Voice Clone ပြုလုပ်၍မရပါ။"
+);
+
 
 status.textContent=
 "❌ "+
-(e?.message||
-"Voice Clone Error ဖြစ်နေပါတယ်။");
+(
+e?.message||
+"Voice Clone Error ဖြစ်နေပါတယ်။"
+);
 
 
 }finally{
 
-cloneBtn.disabled=false;
+cloneBtn.disabled=
+false;
 
 cloneBtn.textContent=
 "🧬 Create Voice Clone";
@@ -1960,12 +2144,14 @@ textInput.value
 .filter(Boolean);
 
 
-const result=$("srtResult");
+const result=
+$("srtResult");
 
 
 if(!textInput.value.trim()){
 
-result.style.display="block";
+result.style.display=
+"block";
 
 result.textContent=
 "⚠️ အရင်ဆုံး မြန်မာစာထည့်ပါ။";
@@ -1980,12 +2166,14 @@ let srt="";
 
 const ft=s=>{
 
-const h=Math.floor(s/3600);
+const h=
+Math.floor(s/3600);
 
 const m=
 Math.floor((s%3600)/60);
 
-const x=s%60;
+const x=
+s%60;
 
 
 return String(h).padStart(2,"0")+
@@ -1998,7 +2186,8 @@ String(x).padStart(2,"0")+
 };
 
 
-lines.forEach((line,i)=>{
+lines.forEach(
+(line,i)=>{
 
 srt+=
 `${i+1}
@@ -2007,16 +2196,18 @@ ${line}
 
 `;
 
-});
+}
+);
 
 
-result.style.display="block";
+result.style.display=
+"block";
 
 
 result.innerHTML=
 "✅ "+
 lines.length+
-" ခုသော Subtitle ကို ပြုလုပ်ပြီးပါပြီ။"+
+" ခုသော Subtitle ကို ပြုလုပ်ပြီးပါပြီ."+
 "<br><pre style='white-space:pre-wrap;color:#cbd5e1'>"+
 escapeHTML(srt)+
 "</pre>"+
@@ -2036,7 +2227,8 @@ type:"text/plain;charset=utf-8"
 );
 
 
-const a=document.createElement("a");
+const a=
+document.createElement("a");
 
 a.href=u;
 
@@ -2065,350 +2257,6 @@ status.textContent=
 
 
 /* =========================
-   SPEAKER 3
-========================= */
-
-$("addSpeakerBtn").onclick=()=>{
-
-speaker3Enabled=
-!speaker3Enabled;
-
-
-$("speaker3Row").style.display=
-speaker3Enabled
-?"grid"
-:"none";
-
-
-$("addSpeakerBtn").textContent=
-speaker3Enabled
-?"− Remove Speaker 3"
-:"＋ Add Speaker 3";
-
-};
-
-
-/* =========================
-   STEP 4
-   PRO MULTI-VOICE
-========================= */
-
-$("dialogueGenerateBtn").onclick=async()=>{
-
-const dialogue=
-$("dialogueInput")
-.value
-.trim();
-
-const result=
-$("dialogueResult");
-
-const speaker1Voice=
-$("speaker1Voice").value;
-
-const speaker2Voice=
-$("speaker2Voice").value;
-
-const speaker3Voice=
-$("speaker3Voice").value;
-
-
-/* EMPTY CHECK */
-
-if(!dialogue){
-
-result.style.display="block";
-
-result.textContent=
-"⚠️ Dialogue စာသားအရင်ထည့်ပါ။";
-
-$("dialogueInput").focus();
-
-return;
-
-}
-
-
-/* LENGTH CHECK */
-
-if(dialogue.length>10000){
-
-result.style.display="block";
-
-result.textContent=
-"❌ Pro Dialogue သည် စာလုံး 10,000 အထိသာ ခွင့်ပြုထားပါသည်။";
-
-return;
-
-}
-
-
-/* LINE CHECK */
-
-const lines=
-dialogue
-.split(/\r?\n/)
-.map(x=>x.trim())
-.filter(Boolean);
-
-
-if(!lines.length){
-
-result.style.display="block";
-
-result.textContent=
-"⚠️ Dialogue စာသားမရှိပါ။";
-
-return;
-
-}
-
-
-/* FORMAT CHECK */
-
-for(const line of lines){
-
-const match=
-line.match(
-/^Speaker\s*([123])\s*:\s*(.+)$/i
-);
-
-
-if(!match){
-
-result.style.display="block";
-
-result.textContent=
-"⚠️ Format မမှန်ပါ။ Speaker 1: စာသား ပုံစံဖြင့် ထည့်ပါ။";
-
-return;
-
-}
-
-
-const speaker=
-Number(match[1]);
-
-const text=
-match[2].trim();
-
-
-if(!text){
-
-result.style.display="block";
-
-result.textContent=
-`⚠️ Speaker ${speaker} စာသားမရှိပါ။`;
-
-return;
-
-}
-
-
-if(
-speaker===3 &&
-!speaker3Enabled
-){
-
-result.style.display="block";
-
-result.textContent=
-"⚠️ Speaker 3 ကို အသုံးပြုရန် Add Speaker 3 ကို အရင်ဖွင့်ပါ။";
-
-return;
-
-}
-
-}
-
-
-/* LOADING */
-
-$("dialogueGenerateBtn").disabled=true;
-
-$("dialogueGenerateBtn").textContent=
-"⏳ Generating Multi-Voice...";
-
-result.style.display="block";
-
-result.textContent=
-"⏳ Speaker အသံများကို Generate လုပ်နေပါသည်...";
-
-
-loading.style.display="block";
-
-loadingText.textContent=
-"👑 Pro Multi-Voice ဖန်တီးနေပါသည်...";
-
-player.style.display="none";
-
-status.textContent="";
-
-
-try{
-
-/* API REQUEST */
-
-const response=
-await fetch(
-"/api/pro-dialogue",
-{
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-dialogue:dialogue,
-
-speaker1Voice:
-speaker1Voice,
-
-speaker2Voice:
-speaker2Voice,
-
-speaker3Voice:
-speaker3Voice,
-
-speaker3Enabled:
-speaker3Enabled
-
-})
-
-}
-);
-
-
-/* ERROR RESPONSE */
-
-if(!response.ok){
-
-let data={};
-
-try{
-
-data=
-await response.json();
-
-}catch(_){}
-
-
-throw new Error(
-data?.error||
-"Pro Multi-Voice Generate မအောင်မြင်ပါ။"
-);
-
-}
-
-
-/* AUDIO BLOB */
-
-const blob=
-await response.blob();
-
-
-if(!blob.size){
-
-throw new Error(
-"Audio Data အလွတ်ဖြစ်နေပါတယ်။"
-);
-
-}
-
-
-/* OLD URL CLEANUP */
-
-if(currentAudioURL){
-
-URL.revokeObjectURL(
-currentAudioURL
-);
-
-}
-
-
-/* NEW AUDIO */
-
-currentAudioURL=
-URL.createObjectURL(blob);
-
-
-/* PLAYER */
-
-audioPlayer.src=
-currentAudioURL;
-
-player.style.display=
-"block";
-
-
-/* DOWNLOAD NAME */
-
-currentDownloadName=
-"YNT-Pro-Dialogue.wav";
-
-
-/* PLAYER LABEL */
-
-playerSub.textContent=
-"Generated Pro Multi-Voice Dialogue";
-
-
-/* RESULT */
-
-result.textContent=
-"✅ Pro Multi-Voice Dialogue အောင်မြင်စွာ Generate ပြုလုပ်ပြီးပါပြီ။";
-
-
-status.textContent=
-"✅ Pro Multi-Voice Audio Ready";
-
-
-}catch(e){
-
-result.textContent=
-"❌ "+
-(
-e?.message||
-"Multi-Voice Generate Error ဖြစ်နေပါတယ်။"
-);
-
-
-status.textContent=
-"❌ "+
-(
-e?.message||
-"Multi-Voice Generate Error"
-);
-
-
-}finally{
-
-$("dialogueGenerateBtn").disabled=
-false;
-
-$("dialogueGenerateBtn").textContent=
-"👑 Generate Multi-Voice";
-
-
-loadingText.textContent=
-"✨ Voice ဖန်တီးနေပါသည်...";
-
-setTimeout(()=>{
-
-loading.style.display=
-"none";
-
-},800);
-
-}
-
-};
-
-
-/* =========================
    NORMAL TTS
 ========================= */
 
@@ -2430,7 +2278,8 @@ return;
 }
 
 
-generateBtn.disabled=true;
+generateBtn.disabled=
+true;
 
 loading.style.display=
 "block";
@@ -2550,12 +2399,15 @@ generateBtn.disabled=
 false;
 
 
-setTimeout(()=>{
+setTimeout(
+()=>{
 
 loading.style.display=
 "none";
 
-},800);
+},
+800
+);
 
 }
 
