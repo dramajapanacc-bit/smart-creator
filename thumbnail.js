@@ -1,8 +1,6 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({
-      error: "Method not allowed"
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
@@ -12,9 +10,9 @@ export default async function handler(req, res) {
       aspectRatio = "16:9"
     } = req.body || {};
 
-    if (!title && !prompt) {
+    if (!title.trim() && !prompt.trim()) {
       return res.status(400).json({
-        error: "Title or prompt is required"
+        error: "Movie Name ထည့်ပါ။"
       });
     }
 
@@ -24,40 +22,50 @@ export default async function handler(req, res) {
       });
     }
 
-    // API Key ကို Frontend မှာမထားဘဲ Vercel Environment Variable ကနေယူမယ်
     const apiKey =
       process.env.GEMINI_API_KEY ||
       process.env.GEMINI_PRO_DIALOGUE_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "Gemini API key is not configured"
+        error: "GEMINI_API_KEY မထည့်ရသေးပါ။"
       });
     }
 
     const model = "gemini-2.5-flash-image";
 
+    // Prompt မထည့်ရင် Auto Style
+    const autoStyle = `
+MrBeast style viral YouTube thumbnail,
+cinematic movie recap,
+ultra realistic,
+dramatic red and blue lighting,
+high contrast,
+shocked facial expression,
+big yellow title space,
+clickbait composition,
+professional YouTube thumbnail,
+no watermark,
+no logo
+`;
+
     const finalPrompt = `
-Create a professional, eye-catching video thumbnail.
+Create a ${aspectRatio} professional YouTube thumbnail.
 
-Aspect ratio: ${aspectRatio}
-
-Main topic/title:
+Movie title:
 ${title}
 
-Visual style:
-${prompt}
+Style:
+${prompt.trim() || autoStyle}
 
 Requirements:
-- Cinematic and professional composition
+- Ultra realistic
+- Cinematic composition
 - Strong focal subject
-- High contrast and attractive lighting
-- Designed for mobile viewing
-- Make the main subject immediately understandable
-- Leave suitable visual space for title text
-- No random logos
+- Mobile friendly
+- Leave space for bold title text
 - No watermark
-- Make the image visually dramatic and engaging
+- No random logo
 `;
 
     const response = await fetch(
@@ -71,11 +79,7 @@ Requirements:
         body: JSON.stringify({
           contents: [
             {
-              parts: [
-                {
-                  text: finalPrompt
-                }
-              ]
+              parts: [{ text: finalPrompt }]
             }
           ],
           generationConfig: {
@@ -88,42 +92,31 @@ Requirements:
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini Thumbnail Error:", data);
-
       return res.status(response.status).json({
-        error:
-          data?.error?.message ||
-          "Gemini image generation failed"
+        error: data?.error?.message || "Thumbnail Generate Failed"
       });
     }
 
-    const parts =
-      data?.candidates?.[0]?.content?.parts || [];
-
-    const imagePart = parts.find(
-      (part) => part.inlineData
-    );
+    const imagePart =
+      data?.candidates?.[0]?.content?.parts?.find(
+        part => part.inlineData
+      );
 
     if (!imagePart?.inlineData?.data) {
       return res.status(502).json({
-        error: "No image was returned by Gemini"
+        error: "Gemini က Image မပြန်ပေးပါ။"
       });
     }
 
     return res.status(200).json({
       imageBase64: imagePart.inlineData.data,
-      mimeType:
-        imagePart.inlineData.mimeType ||
-        "image/png"
+      mimeType: imagePart.inlineData.mimeType || "image/png"
     });
 
-  } catch (error) {
-    console.error("Thumbnail API Error:", error);
-
+  } catch (err) {
+    console.error(err);
     return res.status(500).json({
-      error:
-        error?.message ||
-        "Thumbnail generation failed"
+      error: err.message || "Thumbnail Generate Failed"
     });
   }
 }
