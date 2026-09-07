@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YNT Thumbnail Studio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fabric@5.3.0/dist/fabric.min.js"></script>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif;background:#0b0b16;color:#fff}
+.toolbar{position:sticky;top:0;background:#111827;padding:10px;display:flex;gap:8px;flex-wrap:wrap;z-index:100}
+.toolbar input,.toolbar button,.toolbar select{padding:10px;border:none;border-radius:10px}
+.toolbar button{background:#7c3aed;color:#fff;font-weight:bold}
+.toolbar button:hover{background:#9333ea}
+#titleInput{flex:1;min-width:160px}
+.wrap{display:flex;justify-content:center;padding:15px}
+canvas{max-width:100%;height:auto;border-radius:16px;box-shadow:0 0 30px rgba(255,0,80,.35)}
+.tip{text-align:center;padding:10px;color:#94a3b8;font-size:13px}
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+<input type="file" id="upload" accept="image/*">
+<input id="titleInput" placeholder="Movie Title">
+<select id="ratio">
+<option value="16:9">16:9</option>
+<option value="9:16">9:16</option>
+</select>
+<button id="autoBtn">🔥 Auto</button>
+<button id="circleBtn">🔴 Circle</button>
+<button id="arrowBtn">➡ Arrow</button>
+<button id="downloadBtn">💾 PNG</button>
+</div>
+
+<div class="wrap">
+<canvas id="canvas"></canvas>
+</div>
+
+<div class="tip">
+Upload → Title → 🔥 Auto → Download
+</div>
+
+<script>
+const canvas=new fabric.Canvas("canvas",{preserveObjectStacking:true});
+
+function setRatio(v){
+ if(v==="9:16"){
+   canvas.setWidth(720);
+   canvas.setHeight(1280);
+ }else{
+   canvas.setWidth(1280);
+   canvas.setHeight(720);
+ }
+ canvas.setBackgroundColor("#111827",canvas.renderAll.bind(canvas));
+}
+setRatio("16:9");
+
+document.getElementById("ratio").onchange=e=>setRatio(e.target.value);
+
+document.getElementById("upload").onchange=e=>{
+ const file=e.target.files[0];
+ if(!file)return;
+ const r=new FileReader();
+ r.onload=f=>{
+   fabric.Image.fromURL(f.target.result,img=>{
+     const scale=Math.max(canvas.width/img.width,canvas.height/img.height);
+     img.scale(scale);
+     canvas.setBackgroundImage(img,canvas.renderAll.bind(canvas),{
+       originX:"left",
+       originY:"top"
+     });
+   });
+ };
+ r.readAsDataURL(file);
+};
+
+function glow(color,blur){
+ return new fabric.Shadow({
+   color,blur,offsetX:0,offsetY:0
+ });
+}
+
+function addCircle(){
+ const c=new fabric.Circle({
+   left:canvas.width/2-130,
+   top:110,
+   radius:130,
+   fill:"transparent",
+   stroke:"#ff1f1f",
+   strokeWidth:12,
+   shadow:glow("#ff1f1f",35)
+ });
+ canvas.add(c);
+ canvas.setActiveObject(c);
+}
+
+function addArrow(x,y,a=0){
+ const line=new fabric.Line([0,0,180,0],{
+   stroke:"#ff1f1f",
+   strokeWidth:10
+ });
+ const head=new fabric.Triangle({
+   left:160,
+   top:-15,
+   width:35,
+   height:35,
+   angle:90,
+   fill:"#ff1f1f"
+ });
+ const g=new fabric.Group([line,head],{
+   left:x,
+   top:y,
+   angle:a
+ });
+ g.shadow=glow("#ff1f1f",25);
+ canvas.add(g);
+}
+
+document.getElementById("circleBtn").onclick=addCircle;
+
+document.getElementById("arrowBtn").onclick=()=>addArrow(820,170);
+
+document.getElementById("autoBtn").onclick=()=>{
+ const title=document.getElementById("titleInput").value||"MOVIE RECAP";
+
+ canvas.getObjects().forEach(o=>canvas.remove(o));
+
+ const overlay=new fabric.Rect({
+   left:0,
+   top:0,
+   width:canvas.width,
+   height:canvas.height,
+   fill:"rgba(0,0,0,.22)"
+ });
+ canvas.add(overlay);
+
+ addCircle();
+ addArrow(canvas.width-370,170,0);
+ addArrow(220,400,210);
+
+ const txt=new fabric.Textbox(title,{
+   left:45,
+   top:canvas.height-180,
+   width:540,
+   fontFamily:"Anton",
+   fontSize:90,
+   fill:"#FFD400",
+   stroke:"#000",
+   strokeWidth:4,
+   shadow:glow("#FFD400",25)
+ });
+ canvas.add(txt);
+
+ const sub=new fabric.Text("MOVIE RECAP",{
+   left:55,
+   top:canvas.height-70,
+   fontFamily:"Bangers",
+   fontSize:40,
+   fill:"#fff",
+   stroke:"#000",
+   strokeWidth:2
+ });
+ canvas.add(sub);
+};
+
+document.getElementById("downloadBtn").onclick=()=>{
+ const a=document.createElement("a");
+ a.download="thumbnail.png";
+ a.href=canvas.toDataURL({format:"png",quality:1});
+ a.click();
+};
+</script>
+
+</body>
+</html>
