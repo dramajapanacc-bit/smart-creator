@@ -4,68 +4,72 @@ export default async function handler(req, res) {
   }
 
   try {
-    const {
-      title = "",
-      prompt = "",
-      aspectRatio = "16:9"
-    } = req.body || {};
+    const { title = "", prompt = "", aspectRatio = "16:9" } = req.body || {};
 
-    if (!title.trim()) {
-      return res.status(400).json({
-        error: "Movie Name ထည့်ပါ။"
-      });
+    if (!title && !prompt) {
+      return res.status(400).json({ error: "Title is required" });
     }
 
-    const hfToken = process.env.HF_TOKEN;
+    const apiKey = process.env.OPENAI_API_KEY;
 
-    if (!hfToken) {
-      return res.status(500).json({
-        error: "HF_TOKEN မတွေ့ပါ။"
-      });
+    if (!apiKey) {
+      return res.status(500).json({ error: "OPENAI_API_KEY not found" });
     }
-
-    const size =
-      aspectRatio === "9:16"
-        ? "720x1280"
-        : "1280x720";
 
     const finalPrompt = `
-${title}
-${prompt || "MrBeast viral YouTube thumbnail, cinematic movie recap, ultra realistic, shocked face, dramatic red and blue lighting, giant yellow title area, high contrast"}
+Create an ultra-viral YouTube Movie Recap thumbnail.
 
-Aspect ratio: ${aspectRatio}
-Image size: ${size}
-    `;
+Movie title: ${title}
+
+Extra style: ${prompt}
+
+Requirements:
+- Main character should be the biggest subject.
+- Add a glowing RED circle around the main character's face.
+- Add thick curved RED arrows pointing to the face.
+- 2–4 supporting characters around the edges.
+- Dramatic cinematic lighting.
+- Teal & orange color grading.
+- Smoke, sparks and explosions.
+- Huge bold yellow title with black outline.
+- MrBeast-style composition.
+- ${aspectRatio} aspect ratio.
+- No watermark.
+`;
 
     const response = await fetch(
-      "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-dev",
+      "https://api.openai.com/v1/images/generations",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${hfToken}`,
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          inputs: finalPrompt
+          model: "gpt-image-1",
+          prompt: finalPrompt,
+          size: aspectRatio === "9:16" ? "1024x1792" : "1536x1024",
+          quality: "high"
         })
       }
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      const text = await response.text();
       return res.status(response.status).json({
-        error: text
+        error: data?.error?.message || "Image generation failed"
       });
     }
 
-    const buffer = Buffer.from(await response.arrayBuffer());
-
-    res.setHeader("Content-Type", "image/png");
-    return res.status(200).send(buffer);
+    return res.status(200).json({
+      imageBase64: data.data[0].b64_json,
+      mimeType: "image/png"
+    });
 
   } catch (err) {
     return res.status(500).json({
-      error: err.message
+      error: err.message || "Server error"
     });
   }
 }
