@@ -116,7 +116,7 @@ $("emotionHeader").onclick=()=>toggle("emotionCard");
 $("settingsHeader").onclick=()=>toggle("settingsCard");
 $("cloneHeader").onclick=()=>toggle("cloneCard");
 $("srtHeader").onclick=()=>toggle("srtCard");
-
+$("thumbnailHeader").onclick=()=>toggle("thumbnailCard");
 document.querySelectorAll(".emotion-btn").forEach(b=>b.addEventListener("click",()=>{
  document.querySelectorAll(".emotion-btn").forEach(x=>x.classList.remove("active"));
  b.classList.add("active");selectedEmotion=b.dataset.emotion;
