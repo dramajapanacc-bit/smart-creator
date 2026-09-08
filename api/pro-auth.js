@@ -1,14 +1,16 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
+      ok: false,
       error: "Method not allowed"
     });
   }
 
   try {
-    const { key } = req.body || {};
+    // Frontend က accessKey ပို့တာနဲ့ ကိုက်အောင် ပြင်ထားတယ်
+    const { accessKey } = req.body || {};
 
-    if (!key) {
+    if (!accessKey) {
       return res.status(400).json({
         ok: false,
         error: "PRO Key ထည့်ပါ။"
@@ -26,7 +28,7 @@ export default async function handler(req, res) {
       });
     }
 
-    if (key !== proKey) {
+    if (accessKey !== proKey) {
       return res.status(401).json({
         ok: false,
         error: "PRO Key မှားနေပါတယ်။"
