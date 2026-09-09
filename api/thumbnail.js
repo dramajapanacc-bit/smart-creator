@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
   try {
     // =========================
-    // POLLINATIONS API KEY
+    // API KEY
     // =========================
     const apiKey =
       process.env.POLLINATIONS_API_KEY;
@@ -32,12 +32,12 @@ export default async function handler(req, res) {
     if (!apiKey) {
       return res.status(500).json({
         error:
-          "POLLINATIONS_API_KEY မတွေ့ပါ။ Environment Variables ထဲ ထည့်ပါ။"
+          "POLLINATIONS_API_KEY မတွေ့ပါ။ Environment Variables ကို စစ်ပါ။"
       });
     }
 
     // =========================
-    // RECEIVE DATA
+    // INPUT
     // =========================
     const {
       text,
@@ -55,6 +55,8 @@ export default async function handler(req, res) {
       });
     }
 
+    const title = text.trim();
+
     const ratio =
       aspectRatio === "9:16"
         ? "9:16"
@@ -69,57 +71,90 @@ export default async function handler(req, res) {
       "Epic, dramatic, and cinematic with high contrast";
 
     // =========================
-    // PROMPT
+    // AI VISUAL PROMPT
     // =========================
     const prompt = `
-Create a professional YouTube thumbnail.
+Create a professional cinematic YouTube thumbnail based on the meaning and story implied by this Myanmar title:
 
-TITLE TEXT:
-"${text.trim()}"
+"${title}"
 
-TEXT COLOR:
-${color}
+IMPORTANT:
+Understand the Myanmar title semantically.
+
+Do NOT simply create a generic image.
+
+Analyze the title and visually represent:
+- The main subject
+- The people or characters implied
+- The location or environment
+- The action
+- The emotion
+- The danger, conflict or mystery
+- The most important visual idea in the title
+
+The image must LOOK like a scene from a movie related to the title.
 
 DESIGN STYLE:
 ${design}
 
+TEXT COLOR PREFERENCE:
+${color}
+
 ASPECT RATIO:
 ${ratio}
 
-IMPORTANT:
-- Make the title highly visible.
-- Use large bold typography.
-- Make the main subject large and clear.
-- Use cinematic lighting.
-- Use strong contrast.
-- Make the composition professional.
-- Make the image visually exciting.
-- Keep the title away from the edges.
-- Do not add random text.
-- Do not add logos.
-- Do not add watermarks.
-- Make it suitable for a professional YouTube thumbnail.
+VERY IMPORTANT TEXT RULE:
+Do NOT generate any written text, letters, subtitles, logos, captions,
+watermarks or random typography inside the AI-generated image.
+
+The website will add the exact Myanmar title separately.
+
+VISUAL REQUIREMENTS:
+- Cinematic movie-poster quality
+- Strong storytelling composition
+- Large clear main subject
+- Dramatic lighting
+- Strong depth
+- High contrast
+- Professional YouTube thumbnail composition
+- Visually exciting
+- Emotionally expressive
+- Main subject must be immediately understandable
+- Leave some clean space for the website to place the title later
+- No random text
+- No fake text
+- No watermark
+- No logo
+
+Create ONLY the visual background/image.
 `;
 
     // =========================
-    // POLLINATIONS IMAGE API
+    // POLLINATIONS
     // =========================
-
     const encodedPrompt =
       encodeURIComponent(prompt);
+
+    const width =
+      ratio === "9:16"
+        ? 768
+        : 1280;
+
+    const height =
+      ratio === "9:16"
+        ? 1365
+        : 720;
 
     const imageUrl =
       `https://gen.pollinations.ai/image/${encodedPrompt}` +
       `?model=flux` +
-      `&aspectRatio=${encodeURIComponent(ratio)}` +
-      `&width=${ratio === "9:16" ? 768 : 1280}` +
-      `&height=${ratio === "9:16" ? 1365 : 720}` +
+      `&width=${width}` +
+      `&height=${height}` +
       `&key=${encodeURIComponent(apiKey)}`;
 
     // =========================
-    // FETCH IMAGE
+    // REQUEST IMAGE
     // =========================
-
     const imageResponse =
       await fetch(imageUrl);
 
@@ -136,15 +171,14 @@ IMPORTANT:
         imageResponse.status || 500
       ).json({
         error:
-          "Pollinations AI Thumbnail Generate မအောင်မြင်ပါ။ " +
+          "AI Thumbnail Generate မအောင်မြင်ပါ။ " +
           errorText
       });
     }
 
     // =========================
-    // CONVERT IMAGE TO BASE64
+    // IMAGE → BASE64
     // =========================
-
     const arrayBuffer =
       await imageResponse.arrayBuffer();
 
@@ -162,14 +196,19 @@ IMPORTANT:
     // =========================
     // SUCCESS
     // =========================
-
     return res.status(200).json({
       success: true,
 
       image:
         `data:${mimeType};base64,${base64}`,
 
-      aspectRatio: ratio
+      title: title,
+
+      aspectRatio: ratio,
+
+      textColor: color,
+
+      style: design
     });
 
   } catch (error) {
