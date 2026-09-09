@@ -1,8 +1,16 @@
 export default async function handler(req, res) {
+  // =========================
   // CORS
+  // =========================
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "POST, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type"
+  );
 
   if (req.method === "OPTIONS") {
     return res.status(204).end();
@@ -15,25 +23,28 @@ export default async function handler(req, res) {
   }
 
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    // =========================
+    // POLLINATIONS API KEY
+    // =========================
+    const apiKey =
+      process.env.POLLINATIONS_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
         error:
-          "GEMINI_API_KEY မတွေ့ပါ။ Environment Variables ကို စစ်ပါ။"
+          "POLLINATIONS_API_KEY မတွေ့ပါ။ Environment Variables ထဲ ထည့်ပါ။"
       });
     }
 
+    // =========================
+    // RECEIVE DATA
+    // =========================
     const {
       text,
       textColor,
       style,
       aspectRatio
     } = req.body || {};
-
-    // =========================
-    // CHECK TEXT
-    // =========================
 
     if (
       typeof text !== "string" ||
@@ -44,24 +55,10 @@ export default async function handler(req, res) {
       });
     }
 
-    // =========================
-    // ASPECT RATIO
-    // =========================
-
     const ratio =
       aspectRatio === "9:16"
         ? "9:16"
         : "16:9";
-
-    // Gemini API protobuf enum value
-    const apiAspectRatio =
-      ratio === "9:16"
-        ? "ASPECT_RATIO_NINE_BY_SIXTEEN"
-        : "ASPECT_RATIO_SIXTEEN_BY_NINE";
-
-    // =========================
-    // DEFAULT SETTINGS
-    // =========================
 
     const color =
       textColor ||
@@ -74,11 +71,10 @@ export default async function handler(req, res) {
     // =========================
     // PROMPT
     // =========================
-
     const prompt = `
-Create a professional AI-generated thumbnail.
+Create a professional YouTube thumbnail.
 
-EXACT THUMBNAIL TITLE:
+TITLE TEXT:
 "${text.trim()}"
 
 TEXT COLOR:
@@ -87,115 +83,81 @@ ${color}
 DESIGN STYLE:
 ${design}
 
-TARGET ASPECT RATIO:
+ASPECT RATIO:
 ${ratio}
 
-IMPORTANT REQUIREMENTS:
-
-- Create a professional YouTube/social media thumbnail.
-- Make the main visual directly relevant to the title.
+IMPORTANT:
+- Make the title highly visible.
+- Use large bold typography.
 - Make the main subject large and clear.
 - Use cinematic lighting.
 - Use strong contrast.
-- Make the requested title highly readable.
-- Keep the title safely inside the image.
-- Use the requested text color style.
+- Make the composition professional.
+- Make the image visually exciting.
+- Keep the title away from the edges.
 - Do not add random text.
-- Do not add random logos.
+- Do not add logos.
 - Do not add watermarks.
-- Do not add unnecessary small text.
-- Make the composition look professionally designed.
-- The final image should look like a real professional thumbnail.
+- Make it suitable for a professional YouTube thumbnail.
 `;
 
     // =========================
-    // GEMINI IMAGE API
+    // POLLINATIONS IMAGE API
     // =========================
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
-      {
-        method: "POST",
+    const encodedPrompt =
+      encodeURIComponent(prompt);
 
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [
-                {
-                  text: prompt
-                }
-              ]
-            }
-          ],
-
-          generationConfig: {
-            responseModalities: [
-              "TEXT",
-              "IMAGE"
-            ],
-
-            responseFormat: {
-              image: {
-                aspectRatio: apiAspectRatio
-              }
-            }
-          }
-        })
-      }
-    );
+    const imageUrl =
+      `https://gen.pollinations.ai/image/${encodedPrompt}` +
+      `?model=flux` +
+      `&aspectRatio=${encodeURIComponent(ratio)}` +
+      `&width=${ratio === "9:16" ? 768 : 1280}` +
+      `&height=${ratio === "9:16" ? 1365 : 720}` +
+      `&key=${encodeURIComponent(apiKey)}`;
 
     // =========================
-    // READ RESPONSE
+    // FETCH IMAGE
     // =========================
 
-    const data = await response.json();
+    const imageResponse =
+      await fetch(imageUrl);
 
-    if (!response.ok) {
+    if (!imageResponse.ok) {
+      const errorText =
+        await imageResponse.text();
+
       console.error(
-        "Gemini Thumbnail Error:",
-        JSON.stringify(data)
+        "Pollinations Error:",
+        errorText
       );
 
       return res.status(
-        response.status || 500
+        imageResponse.status || 500
       ).json({
         error:
-          data?.error?.message ||
-          "Gemini Thumbnail API Error ဖြစ်နေပါသည်။"
+          "Pollinations AI Thumbnail Generate မအောင်မြင်ပါ။ " +
+          errorText
       });
     }
 
     // =========================
-    // FIND IMAGE
+    // CONVERT IMAGE TO BASE64
     // =========================
 
-    const parts =
-      data?.candidates?.[0]?.content?.parts || [];
+    const arrayBuffer =
+      await imageResponse.arrayBuffer();
 
-    const imagePart =
-      parts.find(
-        (part) =>
-          part?.inlineData?.data
-      );
+    const buffer =
+      Buffer.from(arrayBuffer);
 
-    if (!imagePart) {
-      return res.status(500).json({
-        error:
-          "Gemini က Thumbnail ပုံပြန်မပေးပါ။"
-      });
-    }
+    const mimeType =
+      imageResponse.headers.get(
+        "content-type"
+      ) || "image/jpeg";
 
-    const imageMimeType =
-      imagePart.inlineData.mimeType ||
-      "image/png";
-
-    const imageBase64 =
-      imagePart.inlineData.data;
+    const base64 =
+      buffer.toString("base64");
 
     // =========================
     // SUCCESS
@@ -205,7 +167,7 @@ IMPORTANT REQUIREMENTS:
       success: true,
 
       image:
-        `data:${imageMimeType};base64,${imageBase64}`,
+        `data:${mimeType};base64,${base64}`,
 
       aspectRatio: ratio
     });
@@ -219,7 +181,7 @@ IMPORTANT REQUIREMENTS:
     return res.status(500).json({
       error:
         error?.message ||
-        "Thumbnail ဖန်တီးရာတွင် Server Error ဖြစ်နေပါသည်။"
+        "AI Thumbnail ဖန်တီးရာတွင် Server Error ဖြစ်နေပါသည်။"
     });
   }
 }
