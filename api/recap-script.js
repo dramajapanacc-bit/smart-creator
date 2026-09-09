@@ -1,4 +1,9 @@
+// ============================================
+// API Route: /api/recap-script (Vercel Compatible)
+// ============================================
+
 export default async function handler(req, res) {
+  // CORS သတ်မှတ်ပါ
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -18,12 +23,14 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
     }
 
+    // Body ကနေ Data ယူပါ (File System မသုံးပါ)
     const { audioBase64, frames, language, style } = req.body;
 
     if (!audioBase64) {
       return res.status(400).json({ error: 'No audio data provided' });
     }
 
+    // Gemini Prompt ဆောက်ပါ
     const prompt = `
 You are an expert scriptwriter. Analyze this video's audio and visual frames to create a Myanmar (Burmese) recap script.
 
@@ -41,6 +48,7 @@ CRITICAL INSTRUCTIONS:
 9. Return ONLY the Myanmar script text
 `;
 
+    // Gemini API Payload ဆောက်ပါ
     const geminiPayload = {
       contents: [{
         parts: [
@@ -57,6 +65,7 @@ CRITICAL INSTRUCTIONS:
       }
     };
 
+    // Gemini API ကိုခေါ်ပါ
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`,
       {
@@ -69,7 +78,7 @@ CRITICAL INSTRUCTIONS:
     if (!response.ok) {
       const errorText = await response.text();
       console.error('Gemini API Error:', errorText);
-      return res.status(500).json({ error: 'Gemini API error' });
+      return res.status(500).json({ error: 'Gemini API error: ' + errorText });
     }
 
     const data = await response.json();
