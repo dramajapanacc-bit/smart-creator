@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     if (!apiKey) {
       return res.status(500).json({
         error:
-          "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
+          "GEMINI_API_KEY မတွေ့ပါ။ Environment Variables ကို စစ်ပါ။"
       });
     }
 
@@ -31,6 +31,10 @@ export default async function handler(req, res) {
       aspectRatio
     } = req.body || {};
 
+    // =========================
+    // CHECK TEXT
+    // =========================
+
     if (
       typeof text !== "string" ||
       !text.trim()
@@ -40,10 +44,24 @@ export default async function handler(req, res) {
       });
     }
 
+    // =========================
+    // ASPECT RATIO
+    // =========================
+
     const ratio =
       aspectRatio === "9:16"
         ? "9:16"
         : "16:9";
+
+    // Gemini API protobuf enum value
+    const apiAspectRatio =
+      ratio === "9:16"
+        ? "ASPECT_RATIO_NINE_BY_SIXTEEN"
+        : "ASPECT_RATIO_SIXTEEN_BY_NINE";
+
+    // =========================
+    // DEFAULT SETTINGS
+    // =========================
 
     const color =
       textColor ||
@@ -52,6 +70,10 @@ export default async function handler(req, res) {
     const design =
       style ||
       "Epic, dramatic, and cinematic with high contrast";
+
+    // =========================
+    // PROMPT
+    // =========================
 
     const prompt = `
 Create a professional AI-generated thumbnail.
@@ -65,24 +87,30 @@ ${color}
 DESIGN STYLE:
 ${design}
 
-ASPECT RATIO:
+TARGET ASPECT RATIO:
 ${ratio}
 
 IMPORTANT REQUIREMENTS:
+
 - Create a professional YouTube/social media thumbnail.
 - Make the main visual directly relevant to the title.
 - Make the main subject large and clear.
 - Use cinematic lighting.
 - Use strong contrast.
 - Make the requested title highly readable.
-- Keep the title safely inside the image edges.
+- Keep the title safely inside the image.
 - Use the requested text color style.
 - Do not add random text.
 - Do not add random logos.
 - Do not add watermarks.
 - Do not add unnecessary small text.
-- Make it look professionally designed.
+- Make the composition look professionally designed.
+- The final image should look like a real professional thumbnail.
 `;
+
+    // =========================
+    // GEMINI IMAGE API
+    // =========================
 
     const response = await fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
@@ -113,13 +141,17 @@ IMPORTANT REQUIREMENTS:
 
             responseFormat: {
               image: {
-                aspectRatio: ratio
+                aspectRatio: apiAspectRatio
               }
             }
           }
         })
       }
     );
+
+    // =========================
+    // READ RESPONSE
+    // =========================
 
     const data = await response.json();
 
@@ -137,6 +169,10 @@ IMPORTANT REQUIREMENTS:
           "Gemini Thumbnail API Error ဖြစ်နေပါသည်။"
       });
     }
+
+    // =========================
+    // FIND IMAGE
+    // =========================
 
     const parts =
       data?.candidates?.[0]?.content?.parts || [];
@@ -161,11 +197,17 @@ IMPORTANT REQUIREMENTS:
     const imageBase64 =
       imagePart.inlineData.data;
 
+    // =========================
+    // SUCCESS
+    // =========================
+
     return res.status(200).json({
       success: true,
 
       image:
-        `data:${imageMimeType};base64,${imageBase64}`
+        `data:${imageMimeType};base64,${imageBase64}`,
+
+      aspectRatio: ratio
     });
 
   } catch (error) {
