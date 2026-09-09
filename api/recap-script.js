@@ -1,10 +1,4 @@
-// ============================================
-// API Route: /api/recap-script
-// Video ကနေ Myanmar Recap Script ထုတ်ပေးမယ်
-// ============================================
-
 export default async function handler(req, res) {
-  // CORS သတ်မှတ်ပါ
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
@@ -24,14 +18,12 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
     }
 
-    // Body ကနေ Data ယူပါ
     const { audioBase64, frames, language, style } = req.body;
 
     if (!audioBase64) {
       return res.status(400).json({ error: 'No audio data provided' });
     }
 
-    // Gemini Prompt ဆောက်ပါ
     const prompt = `
 You are an expert scriptwriter. Analyze this video's audio and visual frames to create a Myanmar (Burmese) recap script.
 
@@ -49,7 +41,6 @@ CRITICAL INSTRUCTIONS:
 9. Return ONLY the Myanmar script text
 `;
 
-    // Gemini API ကိုခေါ်ပါ
     const geminiPayload = {
       contents: [{
         parts: [
