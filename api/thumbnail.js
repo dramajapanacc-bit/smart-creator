@@ -31,8 +31,10 @@ export default async function handler(req, res) {
       aspectRatio
     } = req.body || {};
 
-    // Thumbnail text စစ်မယ်
-    if (typeof text !== "string" || !text.trim()) {
+    if (
+      typeof text !== "string" ||
+      !text.trim()
+    ) {
       return res.status(400).json({
         error: "Thumbnail စာသားထည့်ပါ။"
       });
@@ -54,7 +56,7 @@ export default async function handler(req, res) {
     const prompt = `
 Create a professional AI-generated thumbnail.
 
-THUMBNAIL TEXT:
+EXACT THUMBNAIL TITLE:
 "${text.trim()}"
 
 TEXT COLOR:
@@ -66,28 +68,32 @@ ${design}
 ASPECT RATIO:
 ${ratio}
 
-IMPORTANT:
+IMPORTANT REQUIREMENTS:
 - Create a professional YouTube/social media thumbnail.
+- Make the main visual directly relevant to the title.
 - Make the main subject large and clear.
-- Make the thumbnail cinematic and eye-catching.
-- Use dramatic lighting and strong contrast.
-- Make the requested thumbnail text highly readable.
-- Keep text safely inside the image.
+- Use cinematic lighting.
+- Use strong contrast.
+- Make the requested title highly readable.
+- Keep the title safely inside the image edges.
+- Use the requested text color style.
 - Do not add random text.
 - Do not add random logos.
 - Do not add watermarks.
 - Do not add unnecessary small text.
-- Make the composition look professionally designed.
+- Make it look professionally designed.
 `;
 
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey
         },
+
         body: JSON.stringify({
           contents: [
             {
@@ -98,11 +104,18 @@ IMPORTANT:
               ]
             }
           ],
+
           generationConfig: {
             responseModalities: [
               "TEXT",
               "IMAGE"
-            ]
+            ],
+
+            responseFormat: {
+              image: {
+                aspectRatio: ratio
+              }
+            }
           }
         })
       }
@@ -116,7 +129,9 @@ IMPORTANT:
         JSON.stringify(data)
       );
 
-      return res.status(response.status || 500).json({
+      return res.status(
+        response.status || 500
+      ).json({
         error:
           data?.error?.message ||
           "Gemini Thumbnail API Error ဖြစ်နေပါသည်။"
@@ -126,10 +141,11 @@ IMPORTANT:
     const parts =
       data?.candidates?.[0]?.content?.parts || [];
 
-    const imagePart = parts.find(
-      (part) =>
-        part?.inlineData?.data
-    );
+    const imagePart =
+      parts.find(
+        (part) =>
+          part?.inlineData?.data
+      );
 
     if (!imagePart) {
       return res.status(500).json({
@@ -147,6 +163,7 @@ IMPORTANT:
 
     return res.status(200).json({
       success: true,
+
       image:
         `data:${imageMimeType};base64,${imageBase64}`
     });
