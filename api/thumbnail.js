@@ -19,7 +19,8 @@ export default async function handler(req, res) {
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "GEMINI_API_KEY မတွေ့ပါ။ GitHub/Vercel Environment Variables ကို စစ်ပါ။"
+        error:
+          "GEMINI_API_KEY မတွေ့ပါ။ Vercel Environment Variables ကို စစ်ပါ။"
       });
     }
 
@@ -30,7 +31,8 @@ export default async function handler(req, res) {
       aspectRatio
     } = req.body || {};
 
-    if (!text || !text.trim()) {
+    // Thumbnail text စစ်မယ်
+    if (typeof text !== "string" || !text.trim()) {
       return res.status(400).json({
         error: "Thumbnail စာသားထည့်ပါ။"
       });
@@ -50,11 +52,9 @@ export default async function handler(req, res) {
       "Epic, dramatic, and cinematic with high contrast";
 
     const prompt = `
-Create a professional, highly attractive YouTube/social media thumbnail.
+Create a professional AI-generated thumbnail.
 
-IMPORTANT:
-The thumbnail must visually represent this exact title/topic:
-
+THUMBNAIL TEXT:
 "${text.trim()}"
 
 TEXT COLOR:
@@ -66,21 +66,22 @@ ${design}
 ASPECT RATIO:
 ${ratio}
 
-Requirements:
-- Create a cinematic, professional and eye-catching thumbnail.
-- Make the main subject large and visually clear.
+IMPORTANT:
+- Create a professional YouTube/social media thumbnail.
+- Make the main subject large and clear.
+- Make the thumbnail cinematic and eye-catching.
 - Use dramatic lighting and strong contrast.
-- Make the title text extremely readable.
-- Keep important text away from the edges.
-- Use the requested text color style.
-- Do not create unnecessary small text.
-- Do not add random logos or watermarks.
-- Make the image suitable for a professional YouTube thumbnail.
-- The overall composition should look like a real professionally designed thumbnail.
+- Make the requested thumbnail text highly readable.
+- Keep text safely inside the image.
+- Do not add random text.
+- Do not add random logos.
+- Do not add watermarks.
+- Do not add unnecessary small text.
+- Make the composition look professionally designed.
 `;
 
     const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent",
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent",
       {
         method: "POST",
         headers: {
@@ -98,12 +99,10 @@ Requirements:
             }
           ],
           generationConfig: {
-            responseModalities: ["TEXT", "IMAGE"],
-            responseFormat: {
-              image: {
-                aspectRatio: ratio
-              }
-            }
+            responseModalities: [
+              "TEXT",
+              "IMAGE"
+            ]
           }
         })
       }
@@ -139,7 +138,7 @@ Requirements:
       });
     }
 
-    const mimeType =
+    const imageMimeType =
       imagePart.inlineData.mimeType ||
       "image/png";
 
@@ -148,7 +147,8 @@ Requirements:
 
     return res.status(200).json({
       success: true,
-      image: `data:${mimeType};base64,${imageBase64}`
+      image:
+        `data:${imageMimeType};base64,${imageBase64}`
     });
 
   } catch (error) {
