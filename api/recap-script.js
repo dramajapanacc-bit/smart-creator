@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'GEMINI_API_KEY not configured' });
     }
 
-    // Body ကနေ Data ယူပါ (File System မသုံးပါ)
+    // Body ကနေ Data ယူပါ
     const { audioBase64, frames, language, style } = req.body;
 
     if (!audioBase64) {
@@ -65,9 +65,12 @@ CRITICAL INSTRUCTIONS:
       }
     };
 
+    // ✅ ပြင်ဆင်ထားတဲ့ Model Name - အလုပ်လုပ်နေတဲ့ Model ကိုသုံးပါ
+    const MODEL_NAME = 'gemini-1.5-flash';  // ဒါမှမဟုတ် 'gemini-1.5-pro'
+
     // Gemini API ကိုခေါ်ပါ
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
