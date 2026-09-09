@@ -46,6 +46,113 @@
 </section><div class="footer">© 2026 YNT TTS Voice • AI Powered</div>
 </div>
 <script>
+// ============================================
+// Client-side Video Processing for 150MB Support
+// ============================================
+
+// Video ကနေ Audio ထုတ်ယူခြင်း
+async function extractAudioFromVideo(file) {
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 8000 });
+  const arrayBuffer = await file.arrayBuffer();
+  const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+  
+  const channelData = audioBuffer.getChannelData(0);
+  const sampleCount = Math.min(channelData.length, 8000 * 600); // 10 min max
+  
+  // WAV ဖိုင်အဖြစ်ပြောင်းပါ
+  const wavBuffer = new ArrayBuffer(44 + sampleCount * 2);
+  const view = new DataView(wavBuffer);
+  
+  const writeString = (offset, string) => {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  };
+  
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + sampleCount * 2, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, 1, true);
+  view.setUint32(24, 8000, true);
+  view.setUint32(28, 8000 * 2, true);
+  view.setUint16(32, 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, sampleCount * 2, true);
+  
+  let offset = 44;
+  for (let i = 0; i < sampleCount; i++) {
+    let s = Math.max(-1, Math.min(1, channelData[i]));
+    view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+    offset += 2;
+  }
+  
+  let binary = '';
+  const bytes = new Uint8Array(wavBuffer);
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
+// Video ကနေ Frames ထုတ်ယူခြင်း
+async function extractVideoFrames(file, numFrames = 12) {
+  return new Promise((resolve) => {
+    const video = document.createElement('video');
+    const url = URL.createObjectURL(file);
+    video.src = url;
+    video.muted = true;
+    video.playsInline = true;
+    
+    video.onloadeddata = async () => {
+      const frames = [];
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = 640;
+      canvas.height = (video.videoHeight / video.videoWidth) * 640;
+      
+      const duration = video.duration || 0;
+      if (duration === 0) {
+        resolve([]);
+        return;
+      }
+      
+      const interval = duration / (numFrames + 1);
+      
+      for (let i = 1; i <= numFrames; i++) {
+        const time = i * interval;
+        video.currentTime = time;
+        await new Promise(res => {
+          const timeout = setTimeout(res, 1000);
+          const onSeeked = () => {
+            clearTimeout(timeout);
+            video.removeEventListener('seeked', onSeeked);
+            res();
+          };
+          video.addEventListener('seeked', onSeeked);
+        });
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const base64 = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
+        frames.push(base64);
+      }
+      URL.revokeObjectURL(url);
+      resolve(frames);
+    };
+    video.onerror = () => resolve([]);
+  });
+}
+
+// Video ကို Process လုပ်ပြီး Audio + Frames ထုတ်ယူခြင်း
+async function processVideoForRecap(file) {
+  const audioBase64 = await extractAudioFromVideo(file);
+  const frames = await extractVideoFrames(file, 12);
+  return { audioBase64, frames };
+}
+
 let selectedVoice="Kore",selectedEmotion="natural",currentAudioURL=null,currentSrt="";const MAX_TEXT=5000,$=id=>document.getElementById(id);const textInput=$("textInput"),counter=$("counter"),speed=$("speed"),pitch=$("pitch"),speedValue=$("speedValue"),pitchValue=$("pitchValue"),settingsValue=$("settingsValue"),emotionValue=$("emotionValue"),generateBtn=$("generateBtn"),loading=$("loading"),status=$("status"),player=$("player"),audioPlayer=$("audioPlayer"),downloadBtn=$("downloadBtn");
 textInput.addEventListener("input",()=>counter.textContent=textInput.value.length+" / "+MAX_TEXT);document.querySelectorAll(".voice-btn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".voice-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedVoice=b.dataset.voice;status.textContent="🎙️ Voice: "+selectedVoice}));function toggle(id){$(id).classList.toggle("open")}$("emotionHeader").onclick=()=>toggle("emotionCard");$("settingsHeader").onclick=()=>toggle("settingsCard");$("videoSrtHeader").onclick=()=>toggle("videoSrtCard");$("thumbnailHeader").onclick=()=>toggle("thumbnailCard");document.querySelectorAll(".emotion-btn").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll(".emotion-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");selectedEmotion=b.dataset.emotion;emotionValue.textContent=b.querySelector(".emotion-name").textContent}));function updateSettings(){settingsValue.textContent=`Speed ${speed.value} • Pitch ${pitch.value}`}speed.oninput=()=>{speedValue.textContent=speed.value;updateSettings()};pitch.oninput=()=>{pitchValue.textContent=pitch.value;updateSettings()};
 const videoFile=$("videoFile"),videoDrop=$("videoDrop"),videoMeta=$("videoMeta"),videoThumb=$("videoThumb"),videoFileName=$("videoFileName"),videoDuration=$("videoDuration"),generateVideoSrtBtn=$("generateVideoSrtBtn"),srtProgress=$("srtProgress"),srtProgressText=$("srtProgressText"),videoSrtResult=$("videoSrtResult"),videoSrtPreview=$("videoSrtPreview"),downloadVideoSrtBtn=$("downloadVideoSrtBtn"),videoSrtError=$("videoSrtError"),srtResultCount=$("srtResultCount");let selectedVideo=null,videoObjectURL=null;
@@ -93,8 +200,74 @@ $("recapHeader").onclick=()=>toggle("recapCard");
 function setRecapVideo(file){if(!file)return;if(!file.type.startsWith("video/")){recapError.textContent="⚠️ Video ဖိုင်ပဲ ရွေးပေးပါ။";return}recapVideo=file;recapError.textContent="";if(recapVideoURL)URL.revokeObjectURL(recapVideoURL);recapVideoURL=URL.createObjectURL(file);recapVideoThumb.src=recapVideoURL;recapVideoThumb.onloadedmetadata=()=>{recapVideoDuration.textContent="⏱️ "+Math.round(recapVideoThumb.duration)+" sec"};recapVideoName.textContent=file.name;recapVideoMeta.classList.add("show");status.textContent="🎬 Recap Video ရွေးပြီးပါပြီ။"}
 recapVideoFile.onchange=()=>setRecapVideo(recapVideoFile.files?.[0]);
 ["dragenter","dragover"].forEach(ev=>recapVideoDrop.addEventListener(ev,e=>{e.preventDefault();recapVideoDrop.classList.add("drag")}));["dragleave","drop"].forEach(ev=>recapVideoDrop.addEventListener(ev,e=>{e.preventDefault();recapVideoDrop.classList.remove("drag")}));recapVideoDrop.addEventListener("drop",e=>setRecapVideo(e.dataTransfer.files?.[0]));
-async function readRecapResponse(r){const type=r.headers.get("content-type")||"";if(type.includes("application/json")){const d=await r.json();return d?.script||d?.text||d?.result||d?.recapScript||""}return await r.text()}
-generateRecapBtn.onclick=async()=>{if(!recapVideo){recapError.textContent="⚠️ အရင်ဆုံး Video ဖိုင်ထည့်ပေးပါ။";return}recapError.textContent="";recapResultBox.classList.remove("show");generateRecapBtn.disabled=true;recapProgress.classList.add("show");recapProgressText.textContent="🎬 Video ကို AI အတွက် ပို့နေပါသည်...";try{const fd=new FormData();fd.append("video",recapVideo);fd.append("file",recapVideo);fd.append("language",$("recapLanguage").value);fd.append("style",$("recapStyle").value);let r=await fetch("/api/recap-script",{method:"POST",body:fd});if(!r.ok){let msg="Recap Script Generate မအောင်မြင်ပါ။";try{const d=await r.json();msg=d?.error||msg}catch(e){}throw new Error(msg)}recapProgressText.textContent="🧠 AI က ဇာတ်လမ်းကို ခွဲခြမ်းပြီး Script ရေးနေပါသည်...";const script=String(await readRecapResponse(r)).trim();if(!script)throw new Error("AI Recap Script မရရှိပါ။ Backend /api/recap-script ကို စစ်ပေးပါ။");recapScriptOutput.value=script;recapResultBox.classList.add("show");textInput.value=script.slice(0,MAX_TEXT);counter.textContent=textInput.value.length+" / "+MAX_TEXT;status.textContent="✅ Myanmar Recap Script ရပါပြီ။ TTS Box ထဲလည်း ထည့်ပြီးပါပြီ။"}catch(e){console.error(e);recapError.textContent="❌ "+(e?.message||"Generate မအောင်မြင်ပါ။");status.textContent="❌ Recap Script Generate မအောင်မြင်ပါ။"}finally{recapProgress.classList.remove("show");generateRecapBtn.disabled=false}};
+
+// ============================================
+// Generate Button - 150MB Support Version
+// ============================================
+
+generateRecapBtn.onclick = async () => {
+  if (!recapVideo) {
+    recapError.textContent = "⚠️ အရင်ဆုံး Video ဖိုင်ထည့်ပေးပါ။";
+    return;
+  }
+
+  recapError.textContent = "";
+  recapResultBox.classList.remove("show");
+  generateRecapBtn.disabled = true;
+  recapProgress.classList.add("show");
+  recapProgressText.textContent = "🎬 Video ကို AI အတွက် ပြင်ဆင်နေပါသည်...";
+
+  try {
+    // ၁။ Video ကို Client-side မှာ ခွဲထုတ်ပါ
+    recapProgressText.textContent = "🎧 Video ကနေ အသံနဲ့ ပုံရိပ်တွေကို ခွဲထုတ်နေပါသည်...";
+    const { audioBase64, frames } = await processVideoForRecap(recapVideo);
+
+    // ၂။ API ကိုပို့ပါ
+    recapProgressText.textContent = "🧠 AI က ဇာတ်လမ်းကို ခွဲခြမ်းပြီး Script ရေးနေပါသည်...";
+    
+    const response = await fetch('/api/recap-script', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        audioBase64,
+        frames,
+        language: document.getElementById('recapLanguage')?.value || 'my-MM',
+        style: document.getElementById('recapStyle')?.value || 'Myanmar Movie Recap'
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'API Error');
+    }
+
+    if (!data.script) {
+      throw new Error('Script မရရှိပါ');
+    }
+
+    // ၃။ Result ပြပါ
+    const script = data.script;
+    recapScriptOutput.value = script;
+    recapResultBox.classList.add('show');
+
+    if (textInput) {
+      textInput.value = script.slice(0, MAX_TEXT);
+      counter.textContent = textInput.value.length + " / " + MAX_TEXT;
+    }
+
+    status.textContent = "✅ Myanmar Recap Script ရပါပြီ။";
+    recapError.textContent = "";
+
+  } catch (error) {
+    console.error('Recap Error:', error);
+    recapError.textContent = "❌ " + (error.message || "Generate မအောင်မြင်ပါ။");
+    status.textContent = "❌ Recap Script Generate မအောင်မြင်ပါ။";
+  } finally {
+    recapProgress.classList.remove('show');
+    generateRecapBtn.disabled = false;
+  }
+};
 recapScriptOutput.addEventListener("input",()=>{const v=recapScriptOutput.value;if(v.length<=MAX_TEXT){textInput.value=v;counter.textContent=v.length+" / "+MAX_TEXT}});copyRecapBtn.onclick=async()=>{const t=recapScriptOutput.value.trim();if(!t)return;try{await navigator.clipboard.writeText(t);status.textContent="📋 Recap Script Copied!"}catch(e){recapScriptOutput.focus();recapScriptOutput.select();document.execCommand("copy");status.textContent="📋 Recap Script Copied!"}};sendRecapToTtsBtn.onclick=()=>{const t=recapScriptOutput.value.trim();if(!t)return;textInput.value=t.slice(0,MAX_TEXT);counter.textContent=textInput.value.length+" / "+MAX_TEXT;textInput.scrollIntoView({behavior:"smooth",block:"center"});textInput.focus();status.textContent="🎙️ Recap Script ကို TTS စာထည့်ရန်နေရာထဲ ထည့်ပြီးပါပြီ။"};
 /* Thumbnail Prompt Maker: title meaning determines background, characters, mood and scene. */
 const movieTitle=$("movieTitle"),movieStyle=$("movieStyle"),movieRatio=$("movieRatio"),generateMoviePromptBtn=$("generateMoviePromptBtn"),promptOutput=$("promptOutput"),copyPromptBtn=$("copyPromptBtn"),thumbStatus=$("thumbStatus");let generatedMoviePrompt="";
