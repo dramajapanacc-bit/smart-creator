@@ -8,244 +8,883 @@
 <title>YNT AI Box</title>
 
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{
+ box-sizing:border-box;
+ -webkit-tap-highlight-color:transparent
+}
+
 html{scroll-behavior:smooth}
+
 body{
- margin:0;min-height:100vh;color:#fff;
+ margin:0;
+ min-height:100vh;
+ color:#fff;
  font-family:"Noto Sans Myanmar","Myanmar Text","Segoe UI",sans-serif;
  background:
  radial-gradient(circle at 10% 0%,rgba(37,99,235,.18),transparent 28%),
- radial-gradient(circle at 90% 0%,rgba(168,85,247,.2),transparent 30%),
+ radial-gradient(circle at 90% 0%,rgba(168,85,247,.20),transparent 30%),
  #05050d
 }
+
 button,textarea,input,select{font:inherit}
 button{touch-action:manipulation}
-.container{width:100%;max-width:1050px;margin:auto;padding:14px 12px 40px}
+
+.container{
+ width:100%;
+ max-width:1050px;
+ margin:auto;
+ padding:14px 12px 40px
+}
 
 .hero,.card,.extra-card{
  border:1px solid rgba(255,255,255,.08);
  border-radius:22px;
- background:linear-gradient(145deg,rgba(18,18,38,.88),rgba(8,8,21,.78));
+ background:linear-gradient(
+  145deg,
+  rgba(18,18,38,.88),
+  rgba(8,8,21,.78)
+ );
  backdrop-filter:blur(22px);
- box-shadow:0 16px 50px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.04)
+ box-shadow:
+  0 16px 50px rgba(0,0,0,.25),
+  inset 0 1px 0 rgba(255,255,255,.04)
 }
-.hero{padding:30px 18px 24px;margin-bottom:14px;text-align:center}
+
+.hero{
+ padding:30px 18px 24px;
+ margin-bottom:14px;
+ text-align:center
+}
+
 .badge{
- display:inline-flex;padding:7px 13px;border:1px solid rgba(129,140,248,.28);
- border-radius:999px;background:rgba(99,102,241,.1);
- color:#c4b5fd;font-size:10px;font-weight:900
+ display:inline-flex;
+ padding:7px 13px;
+ border:1px solid rgba(129,140,248,.28);
+ border-radius:999px;
+ background:rgba(99,102,241,.1);
+ color:#c4b5fd;
+ font-size:10px;
+ font-weight:900
 }
-.logo{display:flex;justify-content:center;gap:8px;margin:16px 0 9px;font-size:clamp(34px,8vw,54px);font-weight:950;letter-spacing:-2.5px;line-height:1}
+
+.logo{
+ display:flex;
+ justify-content:center;
+ gap:8px;
+ margin:16px 0 9px;
+ font-size:clamp(34px,8vw,54px);
+ font-weight:950;
+ letter-spacing:-2.5px;
+ line-height:1
+}
+
 .logo-ynt{color:#22d3ee}
 .logo-ai{color:#a855f7}
 .logo-box{color:#ec4899}
-.hero-sub{margin:0;color:#94a3b8;font-size:12px;line-height:1.8}
 
-.waveform{display:flex;align-items:center;justify-content:center;gap:4px;height:36px;margin-top:13px}
-.wave{width:3px;border-radius:99px;background:linear-gradient(180deg,#22d3ee,#8b5cf6,#ec4899);animation:wave 1.1s ease-in-out infinite}
-.wave:nth-child(1){height:10px}.wave:nth-child(2){height:19px}.wave:nth-child(3){height:29px}
-.wave:nth-child(4){height:17px}.wave:nth-child(5){height:35px}.wave:nth-child(6){height:23px}
-.wave:nth-child(7){height:30px}.wave:nth-child(8){height:15px}.wave:nth-child(9){height:27px}
-.wave:nth-child(10){height:19px}.wave:nth-child(11){height:32px}.wave:nth-child(12){height:12px}
-@keyframes wave{0%,100%{transform:scaleY(.55);opacity:.45}50%{transform:scaleY(1);opacity:1}}
+.hero-sub{
+ margin:0;
+ color:#94a3b8;
+ font-size:12px;
+ line-height:1.8
+}
 
-.card{padding:17px}
-.section-title{display:flex;align-items:center;gap:10px;margin-bottom:13px}
-.section-icon,.collapse-icon,.extra-icon{display:flex;align-items:center;justify-content:center}
-.section-icon{width:38px;height:38px;border-radius:12px;background:rgba(99,102,241,.14);font-size:17px}
-.section-name{font-size:16px;font-weight:950}
-.section-hint,.collapse-sub{color:#64748b;font-size:10px;margin-top:2px}
+.waveform{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ gap:4px;
+ height:36px;
+ margin-top:13px
+}
+
+.wave{
+ width:3px;
+ border-radius:99px;
+ background:linear-gradient(
+  180deg,
+  #22d3ee,
+  #8b5cf6,
+  #ec4899
+ );
+ animation:wave 1.1s ease-in-out infinite
+}
+
+.wave:nth-child(1){height:10px}
+.wave:nth-child(2){height:19px}
+.wave:nth-child(3){height:29px}
+.wave:nth-child(4){height:17px}
+.wave:nth-child(5){height:35px}
+.wave:nth-child(6){height:23px}
+.wave:nth-child(7){height:30px}
+.wave:nth-child(8){height:15px}
+.wave:nth-child(9){height:27px}
+.wave:nth-child(10){height:19px}
+.wave:nth-child(11){height:32px}
+.wave:nth-child(12){height:12px}
+
+@keyframes wave{
+ 0%,100%{
+  transform:scaleY(.55);
+  opacity:.45
+ }
+ 50%{
+  transform:scaleY(1);
+  opacity:1
+ }
+}
+
+.card{
+ padding:17px
+}
+
+.section-title{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:13px
+}
+
+.section-icon,
+.collapse-icon,
+.extra-icon{
+ display:flex;
+ align-items:center;
+ justify-content:center
+}
+
+.section-icon{
+ width:38px;
+ height:38px;
+ border-radius:12px;
+ background:rgba(99,102,241,.14);
+ font-size:17px
+}
+
+.section-name{
+ font-size:16px;
+ font-weight:950
+}
+
+.section-hint,
+.collapse-sub{
+ color:#64748b;
+ font-size:10px;
+ margin-top:2px
+}
 
 textarea{
- width:100%;min-height:230px;padding:16px;resize:vertical;
- border:1px solid #25253d;border-radius:17px;outline:none;
- background:#080816;color:#fff;font-size:14px;line-height:1.9
+ width:100%;
+ min-height:230px;
+ padding:16px;
+ resize:vertical;
+ border:1px solid #25253d;
+ border-radius:17px;
+ outline:none;
+ background:#080816;
+ color:#fff;
+ font-size:14px;
+ line-height:1.9
 }
-textarea::placeholder{color:#475569}
-.text-bottom{display:flex;justify-content:space-between;margin-top:7px;color:#64748b;font-size:10px}
-.counter{color:#818cf8;font-weight:900}
 
-.voice-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.voice-btn{
- min-height:58px;border:1px solid #292941;border-radius:14px;
- background:rgba(8,8,22,.75);color:#cbd5e1;cursor:pointer
+textarea::placeholder{color:#475569}
+
+.text-bottom{
+ display:flex;
+ justify-content:space-between;
+ margin-top:7px;
+ color:#64748b;
+ font-size:10px
 }
-.voice-btn.active{border-color:#8b5cf6;background:rgba(124,58,237,.25);color:#fff}
-.voice-name{display:block;font-size:12px;font-weight:900}
-.voice-icon{display:block;margin-bottom:3px;color:#60a5fa;font-size:16px}
+
+.counter{
+ color:#818cf8;
+ font-weight:900
+}
+
+/* =========================
+   VOICE
+========================= */
+
+.voice-grid{
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ gap:8px
+}
+
+.voice-btn{
+ min-height:58px;
+ border:1px solid #292941;
+ border-radius:14px;
+ background:rgba(8,8,22,.75);
+ color:#cbd5e1;
+ cursor:pointer
+}
+
+.voice-btn.active{
+ border-color:#8b5cf6;
+ background:rgba(124,58,237,.25);
+ color:#fff
+}
+
+.voice-name{
+ display:block;
+ font-size:12px;
+ font-weight:900
+}
+
+.voice-icon{
+ display:block;
+ margin-bottom:3px;
+ color:#60a5fa;
+ font-size:16px
+}
+
+/* =========================
+   COLLAPSE
+========================= */
 
 .collapse-card{
- overflow:hidden;margin-top:10px;border:1px solid rgba(255,255,255,.08);
- border-radius:17px;background:rgba(8,8,22,.65)
+ overflow:hidden;
+ margin-top:10px;
+ border:1px solid rgba(255,255,255,.08);
+ border-radius:17px;
+ background:rgba(8,8,22,.65)
 }
-.collapse-header,.extra-header{
- width:100%;display:flex;align-items:center;justify-content:space-between;
- padding:14px 15px;border:0;background:transparent;color:#fff;
- cursor:pointer;text-align:left
-}
-.collapse-left,.extra-left{display:flex;align-items:center;gap:10px}
-.collapse-icon,.extra-icon{width:32px;height:32px;border-radius:10px}
-.collapse-title,.extra-title{font-size:13px;font-weight:950}
-.collapse-right{display:flex;align-items:center;gap:9px}
-.collapse-value{color:#c4b5fd;font-size:10px;font-weight:900}
-.chevron,.extra-chevron{color:#94a3b8;transition:.2s}
-.collapse-card.open .chevron,.extra-card.open .extra-chevron{transform:rotate(180deg)}
-.collapse-content,.extra-content{display:none;padding:0 14px 15px}
-.collapse-card.open .collapse-content,.extra-card.open .extra-content{display:block}
 
-.emotion-card{border-color:rgba(236,72,153,.18)}
-.emotion-card .collapse-icon{background:rgba(236,72,153,.12)}
-.emotion-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.collapse-header,
+.extra-header{
+ width:100%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:14px 15px;
+ border:0;
+ background:transparent;
+ color:#fff;
+ cursor:pointer;
+ text-align:left
+}
+
+.collapse-left,
+.extra-left{
+ display:flex;
+ align-items:center;
+ gap:10px
+}
+
+.collapse-icon,
+.extra-icon{
+ width:32px;
+ height:32px;
+ border-radius:10px
+}
+
+.collapse-title,
+.extra-title{
+ font-size:13px;
+ font-weight:950
+}
+
+.collapse-right{
+ display:flex;
+ align-items:center;
+ gap:9px
+}
+
+.collapse-value{
+ color:#c4b5fd;
+ font-size:10px;
+ font-weight:900
+}
+
+.chevron,
+.extra-chevron{
+ color:#94a3b8;
+ transition:.2s
+}
+
+.collapse-card.open .chevron,
+.extra-card.open .extra-chevron{
+ transform:rotate(180deg)
+}
+
+.collapse-content,
+.extra-content{
+ display:none;
+ padding:0 14px 15px
+}
+
+.collapse-card.open .collapse-content,
+.extra-card.open .extra-content{
+ display:block
+}
+
+/* =========================
+   EMOTION
+========================= */
+
+.emotion-card{
+ border-color:rgba(236,72,153,.18)
+}
+
+.emotion-card .collapse-icon{
+ background:rgba(236,72,153,.12)
+}
+
+.emotion-grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:7px
+}
+
 .emotion-btn{
- min-height:58px;border:1px solid #292941;border-radius:13px;
- background:rgba(8,8,22,.75);color:#94a3b8;cursor:pointer
+ min-height:58px;
+ border:1px solid #292941;
+ border-radius:13px;
+ background:rgba(8,8,22,.75);
+ color:#94a3b8;
+ cursor:pointer
 }
-.emotion-btn.active{border-color:#c084fc;background:rgba(168,85,247,.2);color:#fff}
-.emotion-name{font-size:9px;font-weight:900}
 
-.settings-card{border-color:rgba(59,130,246,.2)}
-.settings-card .collapse-icon{background:rgba(37,99,235,.13)}
-.settings-content{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.control-box{padding:14px;border:1px solid #25253d;border-radius:15px;background:#0b0b20}
-.control-head{display:flex;justify-content:space-between;margin-bottom:12px}
-.control-label{color:#cbd5e1;font-size:12px;font-weight:900}
+.emotion-btn.active{
+ border-color:#c084fc;
+ background:rgba(168,85,247,.2);
+ color:#fff
+}
+
+.emotion-name{
+ font-size:9px;
+ font-weight:900
+}
+
+/* =========================
+   SETTINGS
+========================= */
+
+.settings-card{
+ border-color:rgba(59,130,246,.2)
+}
+
+.settings-card .collapse-icon{
+ background:rgba(37,99,235,.13)
+}
+
+.settings-content{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:10px
+}
+
+.control-box{
+ padding:14px;
+ border:1px solid #25253d;
+ border-radius:15px;
+ background:#0b0b20
+}
+
+.control-head{
+ display:flex;
+ justify-content:space-between;
+ margin-bottom:12px
+}
+
+.control-label{
+ color:#cbd5e1;
+ font-size:12px;
+ font-weight:900
+}
+
 .control-value{
- padding:4px 8px;border:1px solid rgba(129,140,248,.2);
- border-radius:8px;color:#a5b4fc;font-size:10px;font-weight:900
+ padding:4px 8px;
+ border:1px solid rgba(129,140,248,.2);
+ border-radius:8px;
+ color:#a5b4fc;
+ font-size:10px;
+ font-weight:900
 }
-input[type=range]{
- width:100%;height:5px;appearance:none;border-radius:99px;background:#25253b
-}
-input[type=range]::-webkit-slider-thumb{
- appearance:none;width:17px;height:17px;border-radius:50%;
- border:2px solid #fff;background:#8b5cf6
-}
-.range-labels{display:flex;justify-content:space-between;margin-top:7px;color:#475569;font-size:8px}
 
-.extra-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-.extra-card{overflow:hidden}
-.extra-icon{font-size:16px}
-.extra-title{font-size:12px}
+input[type=range]{
+ width:100%;
+ height:5px;
+ appearance:none;
+ border-radius:99px;
+ background:#25253b
+}
+
+input[type=range]::-webkit-slider-thumb{
+ appearance:none;
+ width:17px;
+ height:17px;
+ border-radius:50%;
+ border:2px solid #fff;
+ background:#8b5cf6
+}
+
+.range-labels{
+ display:flex;
+ justify-content:space-between;
+ margin-top:7px;
+ color:#475569;
+ font-size:8px
+}
+
+/* =========================
+   EXTRA
+========================= */
+
+.extra-grid{
+ display:grid;
+ grid-template-columns:1fr;
+ gap:10px;
+ margin-top:10px
+}
+
+.extra-card{
+ overflow:hidden
+}
+
+.extra-icon{
+ font-size:16px
+}
+
+.extra-title{
+ font-size:12px
+}
+
+/* =========================
+   GENERATE VOICE
+========================= */
 
 .generate-btn{
- width:100%;margin-top:14px;padding:17px;border-radius:17px;
- border:0;background:linear-gradient(135deg,#2563eb,#7c3aed,#db2777);
- color:#fff;font-weight:950;cursor:pointer;font-size:15px;
+ width:100%;
+ margin-top:14px;
+ padding:17px;
+ border-radius:17px;
+ border:0;
+ background:linear-gradient(
+  135deg,
+  #2563eb,
+  #7c3aed,
+  #db2777
+ );
+ color:#fff;
+ font-weight:950;
+ cursor:pointer;
+ font-size:15px;
  box-shadow:0 12px 35px rgba(99,102,241,.24)
 }
-.generate-btn:disabled{opacity:.55}
 
-.loading{display:none;margin-top:12px;padding:12px;border-radius:14px;background:rgba(15,23,42,.55)}
-.loading-text{text-align:center;color:#cbd5e1;font-size:10px}
-.loading-bar{height:5px;margin-top:8px;overflow:hidden;border-radius:99px;background:#1e293b}
+.generate-btn:disabled{
+ opacity:.55
+}
+
+.loading{
+ display:none;
+ margin-top:12px;
+ padding:12px;
+ border-radius:14px;
+ background:rgba(15,23,42,.55)
+}
+
+.loading-text{
+ text-align:center;
+ color:#cbd5e1;
+ font-size:10px
+}
+
+.loading-bar{
+ height:5px;
+ margin-top:8px;
+ overflow:hidden;
+ border-radius:99px;
+ background:#1e293b
+}
+
 .loading-bar:after{
- content:"";display:block;width:35%;height:100%;
- background:linear-gradient(90deg,#38bdf8,#8b5cf6,#ec4899);
+ content:"";
+ display:block;
+ width:35%;
+ height:100%;
+ background:linear-gradient(
+  90deg,
+  #38bdf8,
+  #8b5cf6,
+  #ec4899
+ );
  animation:load 1.2s infinite
 }
-@keyframes load{from{transform:translateX(-120%)}to{transform:translateX(400%)}}
 
-.status,.thumb-status,.video-status{
- min-height:20px;margin-top:10px;text-align:center;
- color:#94a3b8;font-size:10px;line-height:1.6;word-break:break-word
+@keyframes load{
+ from{transform:translateX(-120%)}
+ to{transform:translateX(400%)}
+}
+
+.status,
+.thumb-status,
+.video-status{
+ min-height:20px;
+ margin-top:10px;
+ text-align:center;
+ color:#94a3b8;
+ font-size:10px;
+ line-height:1.6;
+ word-break:break-word
 }
 
 .player{
- display:none;margin-top:13px;padding:15px;
- border:1px solid rgba(99,102,241,.22);border-radius:19px;
+ display:none;
+ margin-top:13px;
+ padding:15px;
+ border:1px solid rgba(99,102,241,.22);
+ border-radius:19px;
  background:rgba(37,99,235,.08)
 }
-.player-top{display:flex;align-items:center;gap:10px;margin-bottom:9px}
-.player-icon{
- width:37px;height:37px;display:flex;align-items:center;
- justify-content:center;border-radius:11px;background:rgba(99,102,241,.15)
-}
-.player-title{font-size:12px;font-weight:900}
-.player-sub{color:#64748b;font-size:9px;margin-top:2px}
-audio{width:100%;height:40px}
-.download-btn{
- width:100%;margin-top:10px;padding:12px;border:1px solid rgba(129,140,248,.3);
- border-radius:13px;background:rgba(99,102,241,.1);color:#c4b5fd;font-weight:900
+
+.player-top{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ margin-bottom:9px
 }
 
-.footer{padding:12px;text-align:center;color:#334155;font-size:9px}
+.player-icon{
+ width:37px;
+ height:37px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:11px;
+ background:rgba(99,102,241,.15)
+}
+
+.player-title{
+ font-size:12px;
+ font-weight:900
+}
+
+.player-sub{
+ color:#64748b;
+ font-size:9px;
+ margin-top:2px
+}
+
+audio{
+ width:100%;
+ height:40px
+}
+
+.download-btn{
+ width:100%;
+ margin-top:10px;
+ padding:12px;
+ border:1px solid rgba(129,140,248,.3);
+ border-radius:13px;
+ background:rgba(99,102,241,.1);
+ color:#c4b5fd;
+ font-weight:900
+}
 
 /* =========================
-   THUMBNAIL PROMPT MAKER
+   THUMBNAIL
 ========================= */
+
 .thumbnail-pro-card{
  border-color:rgba(245,158,11,.3);
- background:linear-gradient(145deg,rgba(120,53,15,.1),rgba(8,8,22,.78))
+ background:linear-gradient(
+  145deg,
+  rgba(120,53,15,.1),
+  rgba(8,8,22,.78)
+ )
 }
-.thumbnail-pro-card .collapse-icon{background:rgba(245,158,11,.13)}
-.thumbnail-pro-card .collapse-title{color:#fef3c7}
+
+.thumbnail-pro-card .collapse-icon{
+ background:rgba(245,158,11,.13)
+}
+
+.thumbnail-pro-card .collapse-title{
+ color:#fef3c7
+}
 
 .pro-banner{
- padding:14px;border:1px solid rgba(245,158,11,.2);
- border-radius:14px;background:rgba(120,53,15,.1);margin-bottom:12px
+ padding:14px;
+ border:1px solid rgba(245,158,11,.2);
+ border-radius:14px;
+ background:rgba(120,53,15,.1);
+ margin-bottom:12px
 }
-.pro-banner-title{color:#fef3c7;font-size:14px;font-weight:950}
-.pro-banner-sub{margin-top:5px;color:#94a3b8;font-size:10px;line-height:1.7}
+
+.pro-banner-title{
+ color:#fef3c7;
+ font-size:14px;
+ font-weight:950
+}
+
+.pro-banner-sub{
+ margin-top:5px;
+ color:#94a3b8;
+ font-size:10px;
+ line-height:1.7
+}
 
 .thumb-label{
- display:block;margin:7px 0 6px;color:#94a3b8;
- font-size:10px;font-weight:900
+ display:block;
+ margin:7px 0 6px;
+ color:#94a3b8;
+ font-size:10px;
+ font-weight:900
 }
-.thumb-input,.thumb-select{
- width:100%;padding:14px;margin-bottom:10px;
- border-radius:14px;border:1px solid rgba(148,163,184,.16);
- outline:none;background:#1a1a2e;color:#fff;font-size:14px
-}
-.thumb-select option{background:#11111f;color:#fff}
 
-.thumb-generate-prompt,.video-generate{
- width:100%;margin-top:4px;padding:14px;border:0;border-radius:16px;
- background:linear-gradient(90deg,#4f46e5,#d946ef);
- color:#fff;font-weight:950;font-size:15px;cursor:pointer
+.thumb-input,
+.thumb-select{
+ width:100%;
+ padding:14px;
+ margin-bottom:10px;
+ border-radius:14px;
+ border:1px solid rgba(148,163,184,.16);
+ outline:none;
+ background:#1a1a2e;
+ color:#fff;
+ font-size:14px
 }
-.thumb-output,.video-output{
- width:100%;min-height:250px;margin-top:12px;padding:14px;
- border-radius:14px;border:1px solid rgba(148,163,184,.14);
- outline:none;background:#0f172a;color:#fff;font-size:11px;
- line-height:1.8;resize:vertical
+
+.thumb-select option{
+ background:#11111f;
+ color:#fff
 }
+
+.thumb-generate-prompt,
+.video-generate{
+ width:100%;
+ margin-top:4px;
+ padding:14px;
+ border:0;
+ border-radius:16px;
+ background:linear-gradient(
+  90deg,
+  #4f46e5,
+  #d946ef
+ );
+ color:#fff;
+ font-weight:950;
+ font-size:15px;
+ cursor:pointer
+}
+
+.thumb-output,
+.video-output{
+ width:100%;
+ min-height:250px;
+ margin-top:12px;
+ padding:14px;
+ border-radius:14px;
+ border:1px solid rgba(148,163,184,.14);
+ outline:none;
+ background:#0f172a;
+ color:#fff;
+ font-size:11px;
+ line-height:1.8;
+ resize:vertical
+}
+
 .thumb-copy{
- width:100%;margin-top:10px;padding:12px;border:0;border-radius:14px;
- background:#2563eb;color:#fff;font-weight:950;cursor:pointer
+ width:100%;
+ margin-top:10px;
+ padding:12px;
+ border:0;
+ border-radius:14px;
+ background:#2563eb;
+ color:#fff;
+ font-weight:950;
+ cursor:pointer
 }
 
 /* =========================
    VIDEO PROMPT MAKER
 ========================= */
+
 .video-card{
  border-color:rgba(34,211,238,.28);
- background:linear-gradient(145deg,rgba(8,145,178,.08),rgba(8,8,22,.78))
+ background:linear-gradient(
+  145deg,
+  rgba(8,145,178,.08),
+  rgba(8,8,22,.78)
+ )
 }
-.video-card .extra-icon{background:rgba(34,211,238,.12)}
+
+.video-card .extra-icon{
+ background:rgba(34,211,238,.12)
+}
+
+/* =========================
+   CLICKABLE VIDEO OPTION CARDS
+========================= */
+
+.option-card{
+ margin-top:10px;
+ overflow:hidden;
+ border:1px solid rgba(255,255,255,.09);
+ border-radius:18px;
+ background:linear-gradient(
+  145deg,
+  rgba(15,23,42,.9),
+  rgba(8,8,22,.75)
+ )
+}
+
+.option-card-header{
+ width:100%;
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:15px;
+ border:0;
+ background:transparent;
+ color:#fff;
+ cursor:pointer;
+ text-align:left
+}
+
+.option-left{
+ display:flex;
+ align-items:center;
+ gap:11px
+}
+
+.option-main-icon{
+ width:38px;
+ height:38px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ border-radius:12px;
+ background:rgba(34,211,238,.1);
+ font-size:18px
+}
+
+.option-title{
+ font-size:13px;
+ font-weight:950
+}
+
+.option-sub{
+ margin-top:3px;
+ color:#64748b;
+ font-size:9px
+}
+
+.option-selected{
+ color:#67e8f9;
+ font-size:9px;
+ font-weight:900
+}
+
+.option-arrow{
+ color:#94a3b8;
+ transition:.2s
+}
+
+.option-card.open .option-arrow{
+ transform:rotate(180deg)
+}
+
+.option-card-content{
+ display:none;
+ padding:0 12px 13px
+}
+
+.option-card.open .option-card-content{
+ display:block
+}
+
+/* STYLE CARDS */
 
 .style-grid{
  display:grid;
  grid-template-columns:repeat(2,1fr);
- gap:8px;
- margin-bottom:10px
+ gap:8px
 }
+
 .style-btn{
- min-height:60px;
- padding:8px;
+ min-height:68px;
+ padding:10px;
  border:1px solid #292941;
- border-radius:13px;
- background:rgba(8,8,22,.75);
+ border-radius:14px;
+ background:rgba(8,8,22,.8);
  color:#94a3b8;
  cursor:pointer;
- text-align:left
+ text-align:left;
+ transition:.18s
 }
+
+.style-btn:hover{
+ border-color:rgba(34,211,238,.4)
+}
+
 .style-btn.active{
  border-color:#22d3ee;
  background:rgba(34,211,238,.12);
+ color:#fff;
+ box-shadow:0 0 0 1px rgba(34,211,238,.06)
+}
+
+.style-btn strong{
+ display:block;
+ font-size:11px
+}
+
+.style-btn small{
+ display:block;
+ margin-top:4px;
+ color:#64748b;
+ font-size:8px;
+ line-height:1.4
+}
+
+/* SCENE CARDS */
+
+.scene-grid{
+ display:grid;
+ grid-template-columns:repeat(2,1fr);
+ gap:8px
+}
+
+.scene-btn{
+ min-height:70px;
+ padding:9px;
+ border:1px solid #292941;
+ border-radius:14px;
+ background:rgba(8,8,22,.8);
+ color:#94a3b8;
+ cursor:pointer;
+ text-align:left;
+ transition:.18s
+}
+
+.scene-btn:hover{
+ border-color:rgba(168,85,247,.5)
+}
+
+.scene-btn.active{
+ border-color:#a855f7;
+ background:rgba(168,85,247,.14);
  color:#fff
 }
-.style-btn strong{display:block;font-size:11px}
-.style-btn small{display:block;margin-top:3px;color:#64748b;font-size:8px}
+
+.scene-btn strong{
+ display:block;
+ font-size:11px
+}
+
+.scene-btn small{
+ display:block;
+ margin-top:4px;
+ color:#64748b;
+ font-size:8px;
+ line-height:1.4
+}
+
+/* SELECT */
 
 .output-tabs{
  display:grid;
@@ -253,6 +892,7 @@ audio{width:100%;height:40px}
  gap:7px;
  margin-top:12px
 }
+
 .output-tab{
  padding:11px;
  border:1px solid #292941;
@@ -263,6 +903,7 @@ audio{width:100%;height:40px}
  font-weight:900;
  cursor:pointer
 }
+
 .output-tab.active{
  border-color:#8b5cf6;
  color:#fff;
@@ -270,448 +911,1529 @@ audio{width:100%;height:40px}
 }
 
 .video-copy{
- width:100%;margin-top:10px;padding:12px;
- border:0;border-radius:14px;background:#7c3aed;
- color:#fff;font-weight:950;cursor:pointer
+ width:100%;
+ margin-top:10px;
+ padding:12px;
+ border:0;
+ border-radius:14px;
+ background:#7c3aed;
+ color:#fff;
+ font-weight:950;
+ cursor:pointer
 }
 
 .prompt-note{
- margin-top:10px;padding:10px;border-radius:12px;
+ margin-top:10px;
+ padding:10px;
+ border-radius:12px;
  background:rgba(34,211,238,.06);
  border:1px solid rgba(34,211,238,.12);
- color:#64748b;font-size:9px;line-height:1.7
+ color:#64748b;
+ font-size:9px;
+ line-height:1.7
 }
 
-/* responsive */
+/* =========================
+   RESPONSIVE
+========================= */
+
 @media(max-width:650px){
- .container{padding:9px 8px 28px}
- .hero{padding:27px 14px 21px;border-radius:23px}
- .card{padding:14px}
- .logo{font-size:32px}
- .voice-grid{grid-template-columns:repeat(3,1fr)}
- .settings-content{grid-template-columns:1fr}
- textarea{min-height:220px}
- .style-grid{grid-template-columns:1fr 1fr}
+
+ .container{
+  padding:9px 8px 28px
+ }
+
+ .hero{
+  padding:27px 14px 21px;
+  border-radius:23px
+ }
+
+ .card{
+  padding:14px
+ }
+
+ .logo{
+  font-size:32px
+ }
+
+ .voice-grid{
+  grid-template-columns:repeat(3,1fr)
+ }
+
+ .settings-content{
+  grid-template-columns:1fr
+ }
+
+ textarea{
+  min-height:220px
+ }
+
+ .style-grid,
+ .scene-grid{
+  grid-template-columns:1fr 1fr
+ }
 }
+
 @media(max-width:400px){
- .voice-grid{grid-template-columns:repeat(2,1fr)}
- .logo{font-size:29px}
- .style-grid{grid-template-columns:1fr}
+
+ .voice-grid{
+  grid-template-columns:repeat(2,1fr)
+ }
+
+ .logo{
+  font-size:29px
+ }
+
+ .style-grid,
+ .scene-grid{
+  grid-template-columns:1fr
+ }
 }
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
+<!-- =========================
+     HERO
+========================= -->
+
 <section class="hero">
- <div class="badge">✨ AI POWERED CREATOR TOOLKIT</div>
+
+ <div class="badge">
+  ✨ AI POWERED CREATOR TOOLKIT
+ </div>
+
  <div class="logo">
   <span class="logo-ynt">YNT</span>
   <span class="logo-ai">AI</span>
   <span class="logo-box">Box</span>
  </div>
- <p class="hero-sub">Myanmar Creator အတွက် Voice • Thumbnail Prompt • Video Prompt</p>
+
+ <p class="hero-sub">
+  Myanmar Creator အတွက် Voice • Thumbnail Prompt • Video Prompt
+ </p>
+
  <div class="waveform">
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
-  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
+  <i class="wave"></i>
  </div>
+
 </section>
 
+
 <!-- =========================
-     TTS
+     MAIN CARD
 ========================= -->
+
 <section class="card">
 
+<!-- TEXT -->
+
 <div class="section-title">
+
  <div class="section-icon">📝</div>
+
  <div>
-  <div class="section-name">မြန်မာစာထည့်ရန်</div>
-  <div class="section-hint">Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ</div>
+  <div class="section-name">
+   မြန်မာစာထည့်ရန်
+  </div>
+
+  <div class="section-hint">
+   Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
+  </div>
  </div>
+
 </div>
 
-<textarea id="textInput" maxlength="5000"
- placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."></textarea>
+<textarea
+ id="textInput"
+ maxlength="5000"
+ placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
+></textarea>
 
 <div class="text-bottom">
  <span>Maximum 5,000 characters</span>
- <span class="counter" id="counter">0 / 5000</span>
+ <span class="counter" id="counter">
+  0 / 5000
+ </span>
 </div>
 
+
+<!-- =========================
+     VOICE
+========================= -->
+
 <div class="section-title" style="margin-top:18px">
+
  <div class="section-icon">🎙️</div>
+
  <div>
-  <div class="section-name">Voice</div>
-  <div class="section-hint">AI Voice Character ရွေးပါ</div>
+  <div class="section-name">
+   Voice
+  </div>
+
+  <div class="section-hint">
+   AI Voice Character ရွေးပါ
+  </div>
  </div>
+
 </div>
 
 <div class="voice-grid">
- <button class="voice-btn" data-voice="Zephyr" type="button">
-  <span class="voice-icon">〽</span><span class="voice-name">Zephyr</span>
+
+ <button class="voice-btn"
+  data-voice="Zephyr"
+  type="button">
+  <span class="voice-icon">〽</span>
+  <span class="voice-name">Zephyr</span>
  </button>
- <button class="voice-btn" data-voice="Puck" type="button">
-  <span class="voice-icon">〽</span><span class="voice-name">Puck</span>
+
+ <button class="voice-btn"
+  data-voice="Puck"
+  type="button">
+  <span class="voice-icon">〽</span>
+  <span class="voice-name">Puck</span>
  </button>
- <button class="voice-btn" data-voice="Charon" type="button">
-  <span class="voice-icon">〽</span><span class="voice-name">Charon</span>
+
+ <button class="voice-btn"
+  data-voice="Charon"
+  type="button">
+  <span class="voice-icon">〽</span>
+  <span class="voice-name">Charon</span>
  </button>
- <button class="voice-btn active" data-voice="Kore" type="button">
-  <span class="voice-icon">〽</span><span class="voice-name">Kore</span>
+
+ <button class="voice-btn active"
+  data-voice="Kore"
+  type="button">
+  <span class="voice-icon">〽</span>
+  <span class="voice-name">Kore</span>
  </button>
- <button class="voice-btn" data-voice="Leda" type="button">
-  <span class="voice-icon">〽</span><span class="voice-name">Leda</span>
+
+ <button class="voice-btn"
+  data-voice="Leda"
+  type="button">
+  <span class="voice-icon">〽</span>
+  <span class="voice-name">Leda</span>
  </button>
+
 </div>
 
-<!-- EMOTION -->
-<div class="collapse-card emotion-card" id="emotionCard">
-<button class="collapse-header" id="emotionHeader" type="button">
+
+<!-- =========================
+     EMOTION
+========================= -->
+
+<div class="collapse-card emotion-card"
+ id="emotionCard">
+
+<button
+ class="collapse-header"
+ id="emotionHeader"
+ type="button"
+>
+
  <div class="collapse-left">
+
   <div class="collapse-icon">😊</div>
+
   <div>
-   <div class="collapse-title">Emotion</div>
-   <div class="collapse-sub">Voice ရဲ့ ခံစားချက်ကို ရွေးပါ</div>
+
+   <div class="collapse-title">
+    Emotion
+   </div>
+
+   <div class="collapse-sub">
+    Voice ရဲ့ ခံစားချက်ကို ရွေးပါ
+   </div>
+
   </div>
+
  </div>
+
  <div class="collapse-right">
-  <span class="collapse-value" id="emotionValue">Natural</span>
-  <span class="chevron">▼</span>
+
+  <span
+   class="collapse-value"
+   id="emotionValue"
+  >
+   Natural
+  </span>
+
+  <span class="chevron">
+   ▼
+  </span>
+
  </div>
+
 </button>
 
 <div class="collapse-content">
+
  <div class="emotion-grid">
-  <button class="emotion-btn active" data-emotion="natural" type="button">😌<br><span class="emotion-name">Natural</span></button>
-  <button class="emotion-btn" data-emotion="happy" type="button">😄<br><span class="emotion-name">Happy</span></button>
-  <button class="emotion-btn" data-emotion="sad" type="button">😢<br><span class="emotion-name">Sad</span></button>
-  <button class="emotion-btn" data-emotion="angry" type="button">😡<br><span class="emotion-name">Angry</span></button>
-  <button class="emotion-btn" data-emotion="excited" type="button">🤩<br><span class="emotion-name">Excited</span></button>
-  <button class="emotion-btn" data-emotion="serious" type="button">😐<br><span class="emotion-name">Serious</span></button>
-  <button class="emotion-btn" data-emotion="calm" type="button">😌<br><span class="emotion-name">Calm</span></button>
-  <button class="emotion-btn" data-emotion="whisper" type="button">🤫<br><span class="emotion-name">Whisper</span></button>
-  <button class="emotion-btn" data-emotion="dramatic" type="button">🎭<br><span class="emotion-name">Dramatic</span></button>
+
+  <button
+   class="emotion-btn active"
+   data-emotion="natural"
+   type="button"
+  >
+   😌<br>
+   <span class="emotion-name">Natural</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="happy"
+   type="button"
+  >
+   😄<br>
+   <span class="emotion-name">Happy</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="sad"
+   type="button"
+  >
+   😢<br>
+   <span class="emotion-name">Sad</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="angry"
+   type="button"
+  >
+   😡<br>
+   <span class="emotion-name">Angry</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="excited"
+   type="button"
+  >
+   🤩<br>
+   <span class="emotion-name">Excited</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="serious"
+   type="button"
+  >
+   😐<br>
+   <span class="emotion-name">Serious</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="calm"
+   type="button"
+  >
+   😌<br>
+   <span class="emotion-name">Calm</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="whisper"
+   type="button"
+  >
+   🤫<br>
+   <span class="emotion-name">Whisper</span>
+  </button>
+
+  <button
+   class="emotion-btn"
+   data-emotion="dramatic"
+   type="button"
+  >
+   🎭<br>
+   <span class="emotion-name">Dramatic</span>
+  </button>
+
  </div>
-</div>
+
 </div>
 
-<!-- SETTINGS -->
-<div class="collapse-card settings-card" id="settingsCard">
-<button class="collapse-header" id="settingsHeader" type="button">
+</div>
+
+
+<!-- =========================
+     SETTINGS
+========================= -->
+
+<div class="collapse-card settings-card"
+ id="settingsCard">
+
+<button
+ class="collapse-header"
+ id="settingsHeader"
+ type="button"
+>
+
  <div class="collapse-left">
+
   <div class="collapse-icon">🎚️</div>
+
   <div>
-   <div class="collapse-title">Voice Settings</div>
-   <div class="collapse-sub">Speed နှင့် Pitch ကို ချိန်ညှိပါ</div>
+
+   <div class="collapse-title">
+    Voice Settings
+   </div>
+
+   <div class="collapse-sub">
+    Speed နှင့် Pitch ကို ချိန်ညှိပါ
+   </div>
+
   </div>
+
  </div>
+
  <div class="collapse-right">
-  <span class="collapse-value" id="settingsValue">Speed 0 • Pitch 0</span>
-  <span class="chevron">▼</span>
+
+  <span
+   class="collapse-value"
+   id="settingsValue"
+  >
+   Speed 0 • Pitch 0
+  </span>
+
+  <span class="chevron">
+   ▼
+  </span>
+
  </div>
+
 </button>
 
 <div class="collapse-content">
+
  <div class="settings-content">
-  <div class="control-box">
-   <div class="control-head">
-    <span class="control-label">⚡ Speed</span>
-    <span class="control-value" id="speedValue">0</span>
-   </div>
-   <input type="range" id="speed" min="-5" max="5" value="0">
-   <div class="range-labels"><span>Very Slow</span><span>Normal</span><span>Fast</span></div>
-  </div>
 
   <div class="control-box">
+
    <div class="control-head">
-    <span class="control-label">🎵 Pitch</span>
-    <span class="control-value" id="pitchValue">0</span>
+    <span class="control-label">
+     ⚡ Speed
+    </span>
+
+    <span
+     class="control-value"
+     id="speedValue"
+    >
+     0
+    </span>
    </div>
-   <input type="range" id="pitch" min="-5" max="5" value="0">
-   <div class="range-labels"><span>Deep</span><span>Normal</span><span>High</span></div>
+
+   <input
+    type="range"
+    id="speed"
+    min="-5"
+    max="5"
+    value="0"
+   >
+
+   <div class="range-labels">
+    <span>Very Slow</span>
+    <span>Normal</span>
+    <span>Fast</span>
+   </div>
+
   </div>
+
+
+  <div class="control-box">
+
+   <div class="control-head">
+
+    <span class="control-label">
+     🎵 Pitch
+    </span>
+
+    <span
+     class="control-value"
+     id="pitchValue"
+    >
+     0
+    </span>
+
+   </div>
+
+   <input
+    type="range"
+    id="pitch"
+    min="-5"
+    max="5"
+    value="0"
+   >
+
+   <div class="range-labels">
+    <span>Deep</span>
+    <span>Normal</span>
+    <span>High</span>
+   </div>
+
+  </div>
+
  </div>
+
 </div>
+
 </div>
+
 
 <!-- =========================
      THUMBNAIL PROMPT MAKER
 ========================= -->
-<div class="collapse-card thumbnail-pro-card" id="thumbnailCard">
 
-<button class="collapse-header" id="thumbnailHeader" type="button">
+<div
+ class="collapse-card thumbnail-pro-card"
+ id="thumbnailCard"
+>
+
+<button
+ class="collapse-header"
+ id="thumbnailHeader"
+ type="button"
+>
+
  <div class="collapse-left">
-  <div class="collapse-icon">🎨</div>
-  <div>
-   <div class="collapse-title">Thumbnail Prompt Maker</div>
-   <div class="collapse-sub">Thumbnail AI Prompt ဖန်တီးရန်</div>
+
+  <div class="collapse-icon">
+   🎨
   </div>
+
+  <div>
+
+   <div class="collapse-title">
+    Thumbnail Prompt Maker
+   </div>
+
+   <div class="collapse-sub">
+    Thumbnail AI Prompt ဖန်တီးရန်
+   </div>
+
+  </div>
+
  </div>
 
  <div class="collapse-right">
-  <span class="clone-tag" style="background:rgba(245,158,11,.12);color:#fbbf24;border:1px solid rgba(245,158,11,.22);padding:4px 8px;border-radius:999px;font-size:8px;font-weight:950">PRO</span>
+
+  <span
+   style="
+    background:rgba(245,158,11,.12);
+    color:#fbbf24;
+    border:1px solid rgba(245,158,11,.22);
+    padding:4px 8px;
+    border-radius:999px;
+    font-size:8px;
+    font-weight:950
+   "
+  >
+   PRO
+  </span>
+
   <span class="chevron">▼</span>
+
  </div>
+
 </button>
+
 
 <div class="collapse-content">
 
-<div class="pro-banner">
- <div class="pro-banner-title">👑 YNT Creator PRO</div>
- <div class="pro-banner-sub">
-  Movie Title၊ Text Color၊ Design Style၊ Font Style နဲ့ YNT Signature ပါဝင်တဲ့ Thumbnail Prompt ကို ဖန်တီးပါ။
+ <div class="pro-banner">
+
+  <div class="pro-banner-title">
+   👑 YNT Creator PRO
+  </div>
+
+  <div class="pro-banner-sub">
+   Movie Title၊ Text Color၊ Design Style၊
+   Font Style နဲ့ YNT Signature ပါဝင်တဲ့
+   Thumbnail Prompt ကို ဖန်တီးပါ။
+  </div>
+
  </div>
+
+
+ <label class="thumb-label">
+  🎬 Movie Title
+ </label>
+
+ <input
+  id="movieTitle"
+  class="thumb-input"
+  type="text"
+  maxlength="200"
+  placeholder="ဥပမာ - မုန်တိုင်းထဲက လျှို့ဝှက်ချက်"
+ >
+
+
+ <label class="thumb-label">
+  🎨 Text Color
+ </label>
+
+ <select
+  id="movieColor"
+  class="thumb-select"
+ >
+
+  <option value="Bright White">
+   ⚪ Bright White
+  </option>
+
+  <option value="Neon Cyan">
+   💠 Neon Cyan
+  </option>
+
+  <option value="Bright Yellow">
+   🟡 Bright Yellow
+  </option>
+
+  <option value="Blood Red">
+   🔴 Blood Red
+  </option>
+
+  <option value="Electric Blue">
+   🔵 Electric Blue
+  </option>
+
+  <option value="Luxury Gold">
+   🟨 Luxury Gold
+  </option>
+
+  <option value="Glowing Green">
+   🟢 Glowing Green
+  </option>
+
+  <option value="Vibrant Magenta">
+   🟣 Vibrant Magenta
+  </option>
+
+  <option value="Sunset Orange">
+   🟠 Sunset Orange
+  </option>
+
+  <option value="Metallic Silver">
+   ⚙️ Metallic Silver
+  </option>
+
+ </select>
+
+
+ <label class="thumb-label">
+  ✨ Design Style
+ </label>
+
+ <select
+  id="movieStyle"
+  class="thumb-select"
+ >
+
+  <option value="Epic cinematic">
+   🎬 Epic Cinematic
+  </option>
+
+  <option value="Action blockbuster">
+   💥 Action Blockbuster
+  </option>
+
+  <option value="Dark horror">
+   👻 Dark Horror
+  </option>
+
+  <option value="Mystery thriller">
+   🕵️ Mystery Thriller
+  </option>
+
+  <option value="Romantic drama">
+   ❤️ Romantic Drama
+  </option>
+
+  <option value="Fantasy adventure">
+   🧙 Fantasy Adventure
+  </option>
+
+  <option value="War cinematic">
+   ⚔️ War Cinematic
+  </option>
+
+  <option value="Anime dynamic">
+   ⚡ Anime Dynamic
+  </option>
+
+  <option value="Documentary realistic">
+   📽️ Documentary Realistic
+  </option>
+
+  <option value="Luxury professional">
+   💎 Luxury Professional
+  </option>
+
+ </select>
+
+
+ <label class="thumb-label">
+  🔤 Font Style
+ </label>
+
+ <select
+  id="movieFont"
+  class="thumb-select"
+ >
+
+  <option value="Bold Myanmar cinematic display font">
+   🔥 Bold Myanmar Cinematic
+  </option>
+
+  <option value="Heavy condensed headline font">
+   🖤 Heavy Condensed
+  </option>
+
+  <option value="Modern clean Myanmar display font">
+   ✨ Modern Clean
+  </option>
+
+  <option value="Elegant premium Myanmar display font">
+   💎 Elegant Premium
+  </option>
+
+  <option value="Handwritten dramatic Myanmar display font">
+   ✍️ Handwritten Dramatic
+  </option>
+
+  <option value="Strong action headline font">
+   💥 Action Headline
+  </option>
+
+  <option value="Horror distorted display font">
+   👻 Horror Distorted
+  </option>
+
+  <option value="Playful comedy display font">
+   😂 Playful Comedy
+  </option>
+
+  <option value="Anime inspired dynamic display font">
+   ⚡ Anime Dynamic
+  </option>
+
+  <option value="Luxury gold display font">
+   👑 Luxury Gold
+  </option>
+
+ </select>
+
+
+ <label class="thumb-label">
+  📐 Aspect Ratio
+ </label>
+
+ <select
+  id="movieRatio"
+  class="thumb-select"
+ >
+
+  <option value="16:9">
+   🖥️ 16:9 — YouTube
+  </option>
+
+  <option value="9:16">
+   📱 9:16 — Shorts / Reels
+  </option>
+
+ </select>
+
+
+ <button
+  id="generateMoviePromptBtn"
+  class="thumb-generate-prompt"
+  type="button"
+ >
+  ✨ Generate Thumbnail Prompt
+ </button>
+
+
+ <textarea
+  id="promptOutput"
+  class="thumb-output"
+  readonly
+  placeholder="Generated Thumbnail Prompt..."
+ ></textarea>
+
+
+ <button
+  id="copyPromptBtn"
+  class="thumb-copy"
+  type="button"
+ >
+  📋 Copy Prompt
+ </button>
+
+
+ <div
+  id="thumbStatus"
+  class="thumb-status"
+ ></div>
+
 </div>
 
-<label class="thumb-label">🎬 Movie Title</label>
-<input id="movieTitle" class="thumb-input" type="text" maxlength="200"
- placeholder="ဥပမာ - မုန်တိုင်းထဲက လျှို့ဝှက်ချက်">
-
-<label class="thumb-label">🎨 Text Color</label>
-<select id="movieColor" class="thumb-select">
- <option value="Bright White">⚪ Bright White</option>
- <option value="Neon Cyan">💠 Neon Cyan</option>
- <option value="Bright Yellow">🟡 Bright Yellow</option>
- <option value="Blood Red">🔴 Blood Red</option>
- <option value="Electric Blue">🔵 Electric Blue</option>
- <option value="Luxury Gold">🟨 Luxury Gold</option>
- <option value="Glowing Green">🟢 Glowing Green</option>
- <option value="Vibrant Magenta">🟣 Vibrant Magenta</option>
- <option value="Sunset Orange">🟠 Sunset Orange</option>
- <option value="Metallic Silver">⚙️ Metallic Silver</option>
-</select>
-
-<label class="thumb-label">✨ Design Style</label>
-<select id="movieStyle" class="thumb-select">
- <option value="Epic cinematic">🎬 Epic Cinematic</option>
- <option value="Action blockbuster">💥 Action Blockbuster</option>
- <option value="Dark horror">👻 Dark Horror</option>
- <option value="Mystery thriller">🕵️ Mystery Thriller</option>
- <option value="Romantic drama">❤️ Romantic Drama</option>
- <option value="Fantasy adventure">🧙 Fantasy Adventure</option>
- <option value="War cinematic">⚔️ War Cinematic</option>
- <option value="Anime dynamic">⚡ Anime Dynamic</option>
- <option value="Documentary realistic">📽️ Documentary Realistic</option>
- <option value="Luxury professional">💎 Luxury Professional</option>
-</select>
-
-<label class="thumb-label">🔤 Font Style</label>
-<select id="movieFont" class="thumb-select">
- <option value="Bold Myanmar cinematic display font">🔥 Bold Myanmar Cinematic</option>
- <option value="Heavy condensed headline font">🖤 Heavy Condensed</option>
- <option value="Modern clean Myanmar display font">✨ Modern Clean</option>
- <option value="Elegant premium Myanmar display font">💎 Elegant Premium</option>
- <option value="Handwritten dramatic Myanmar display font">✍️ Handwritten Dramatic</option>
- <option value="Strong action headline font">💥 Action Headline</option>
- <option value="Horror distorted display font">👻 Horror Distorted</option>
- <option value="Playful comedy display font">😂 Playful Comedy</option>
- <option value="Anime inspired dynamic display font">⚡ Anime Dynamic</option>
- <option value="Luxury gold display font">👑 Luxury Gold</option>
-</select>
-
-<label class="thumb-label">📐 Aspect Ratio</label>
-<select id="movieRatio" class="thumb-select">
- <option value="16:9">🖥️ 16:9 — YouTube</option>
- <option value="9:16">📱 9:16 — Shorts / Reels</option>
-</select>
-
-<button id="generateMoviePromptBtn" class="thumb-generate-prompt" type="button">
- ✨ Generate Thumbnail Prompt
-</button>
-
-<textarea id="promptOutput" class="thumb-output" readonly
- placeholder="Generated Thumbnail Prompt..."></textarea>
-
-<button id="copyPromptBtn" class="thumb-copy" type="button">
- 📋 Copy Prompt
-</button>
-
-<div id="thumbStatus" class="thumb-status"></div>
-
 </div>
-</div>
+
 
 <!-- =========================
      VIDEO PROMPT MAKER
 ========================= -->
-<div class="extra-card video-card" id="videoPromptCard">
 
-<button class="extra-header" id="videoPromptHeader" type="button">
+<div
+ class="extra-card video-card"
+ id="videoPromptCard"
+>
+
+<button
+ class="extra-header"
+ id="videoPromptHeader"
+ type="button"
+>
+
  <div class="extra-left">
-  <div class="extra-icon">🎬</div>
-  <div>
-   <div class="extra-title">Video Prompt Maker</div>
-   <div class="section-hint">AI Video အတွက် Image Prompt + Motion Prompt</div>
+
+  <div class="extra-icon">
+   🎬
   </div>
+
+  <div>
+
+   <div class="extra-title">
+    Video Prompt Maker
+   </div>
+
+   <div class="section-hint">
+    AI Video အတွက် Prompt Studio
+   </div>
+
+  </div>
+
  </div>
- <span class="extra-chevron">▼</span>
+
+ <span class="extra-chevron">
+  ▼
+ </span>
+
 </button>
+
 
 <div class="extra-content">
 
-<div class="pro-banner" style="border-color:rgba(34,211,238,.18);background:rgba(8,145,178,.08)">
- <div class="pro-banner-title" style="color:#cffafe">🎬 YNT Video Prompt Studio</div>
- <div class="pro-banner-sub">
-  Flow AI တစ်ခုတည်းမဟုတ်ဘဲ AI Video Generator အမျိုးမျိုးမှာ အသုံးပြုနိုင်တဲ့ Prompt ကို ဖန်တီးပေးပါမယ်။
+ <div
+  class="pro-banner"
+  style="
+   border-color:rgba(34,211,238,.18);
+   background:rgba(8,145,178,.08)
+  "
+ >
+
+  <div
+   class="pro-banner-title"
+   style="color:#cffafe"
+  >
+   🎬 YNT Video Prompt Studio
+  </div>
+
+  <div class="pro-banner-sub">
+   Video Style နဲ့ Video Scene ကို Card နှိပ်ပြီး
+   အထဲက option ရွေးနိုင်ပါတယ်။
+   Flow AI တစ်ခုတည်းမဟုတ်ဘဲ AI Video Generator
+   အမျိုးမျိုးအတွက် Prompt ထုတ်ပေးနိုင်ပါတယ်။
+  </div>
+
  </div>
-</div>
 
-<label class="thumb-label">📝 Video Idea / Scene</label>
-<input id="videoIdea" class="thumb-input" maxlength="500"
- placeholder="ဥပမာ - မိုးရွာနေတဲ့ညမှာ လူငယ်တစ်ယောက်က လမ်းပေါ်မှာ အံ့အားသင့်နေသည်">
 
-<label class="thumb-label">🎭 Video Style</label>
+ <!-- VIDEO IDEA -->
 
-<div class="style-grid" id="styleGrid">
+ <label class="thumb-label">
+  📝 Video Idea / Scene
+ </label>
 
-<button class="style-btn active" data-vstyle="cinematic" type="button">
- <strong>🎬 Cinematic</strong>
- <small>Movie quality visual</small>
-</button>
+ <input
+  id="videoIdea"
+  class="thumb-input"
+  maxlength="500"
+  placeholder="ဥပမာ - လူငယ်တစ်ယောက်က ကားတစ်စီးကို ပြုပြင်နေသည်"
+ >
 
-<button class="style-btn" data-vstyle="action" type="button">
- <strong>💥 Action</strong>
- <small>Fast & powerful</small>
-</button>
 
-<button class="style-btn" data-vstyle="comedy" type="button">
- <strong>😂 Comedy</strong>
- <small>Funny viral scene</small>
-</button>
+ <!-- =========================
+      VIDEO STYLE CARD
+ ========================= -->
 
-<button class="style-btn" data-vstyle="anime" type="button">
- <strong>⚡ Anime</strong>
- <small>Dynamic anime</small>
-</button>
+ <div
+  class="option-card"
+  id="styleOptionCard"
+ >
 
-<button class="style-btn" data-vstyle="horror" type="button">
- <strong>👻 Horror</strong>
- <small>Dark scary mood</small>
-</button>
+  <button
+   class="option-card-header"
+   id="styleOptionHeader"
+   type="button"
+  >
 
-<button class="style-btn" data-vstyle="romance" type="button">
- <strong>❤️ Romance</strong>
- <small>Emotional love</small>
-</button>
+   <div class="option-left">
 
-<button class="style-btn" data-vstyle="drama" type="button">
- <strong>🎭 Drama</strong>
- <small>Emotional story</small>
-</button>
+    <div class="option-main-icon">
+     🎭
+    </div>
 
-<button class="style-btn" data-vstyle="fantasy" type="button">
- <strong>🧙 Fantasy</strong>
- <small>Magic adventure</small>
-</button>
+    <div>
 
-<button class="style-btn" data-vstyle="documentary" type="button">
- <strong>📽️ Documentary</strong>
- <small>Realistic footage</small>
-</button>
+     <div class="option-title">
+      Video Style — Card ရွေးပါ
+     </div>
 
-<button class="style-btn" data-vstyle="shop" type="button">
- <strong>🛍️ Product Sales</strong>
- <small>Short-form selling video</small>
-</button>
+     <div class="option-sub">
+      Card ကိုနှိပ်မှ Style များ ပေါ်မည်
+     </div>
 
-</div>
+    </div>
 
-<label class="thumb-label">🗣️ Dialogue Mode</label>
-<select id="dialogueMode" class="thumb-select">
- <option value="none">🔇 No Dialogue</option>
- <option value="burmese">🇲🇲 Natural Myanmar Dialogue</option>
- <option value="funny">😂 Funny Myanmar Dialogue</option>
- <option value="sales">🛍️ Myanmar Sales Dialogue</option>
- <option value="narration">🎙️ Myanmar Narration</option>
-</select>
+   </div>
 
-<label class="thumb-label">🤖 Target Video AI</label>
-<select id="videoAI" class="thumb-select">
- <option value="universal">🌐 Universal AI Video</option>
- <option value="flow">✨ Flow AI</option>
- <option value="veo">🎥 Google Veo</option>
- <option value="kling">🎞️ Kling</option>
- <option value="runway">🎬 Runway</option>
- <option value="pika">⚡ Pika</option>
- <option value="luma">🌌 Luma</option>
-</select>
+   <div
+    style="
+     display:flex;
+     align-items:center;
+     gap:8px
+    "
+   >
 
-<label class="thumb-label">📐 Aspect Ratio</label>
-<select id="videoRatio" class="thumb-select">
- <option value="9:16">📱 9:16 — Shorts / Reels</option>
- <option value="16:9">🖥️ 16:9 — YouTube</option>
-</select>
+    <span
+     class="option-selected"
+     id="styleSelected"
+    >
+     Cinematic
+    </span>
 
-<button id="generateVideoPromptBtn" class="video-generate" type="button">
- 🎬 Generate Video Prompt
-</button>
+    <span class="option-arrow">
+     ▼
+    </span>
 
-<div class="output-tabs">
- <button id="imageTab" class="output-tab active" type="button">
-  🎨 Image Prompt
+   </div>
+
+  </button>
+
+
+  <div class="option-card-content">
+
+   <div
+    class="style-grid"
+    id="styleGrid"
+   >
+
+    <button
+     class="style-btn active"
+     data-vstyle="cinematic"
+     type="button"
+    >
+     <strong>🎬 Cinematic</strong>
+     <small>Movie quality visual</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="action"
+     type="button"
+    >
+     <strong>💥 Action</strong>
+     <small>Fast powerful action</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="comedy"
+     type="button"
+    >
+     <strong>😂 Comedy</strong>
+     <small>Funny viral scene</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="anime"
+     type="button"
+    >
+     <strong>⚡ Anime</strong>
+     <small>Dynamic anime</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="horror"
+     type="button"
+    >
+     <strong>👻 Horror</strong>
+     <small>Dark scary mood</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="romance"
+     type="button"
+    >
+     <strong>❤️ Romance</strong>
+     <small>Emotional love</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="drama"
+     type="button"
+    >
+     <strong>🎭 Drama</strong>
+     <small>Emotional story</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="fantasy"
+     type="button"
+    >
+     <strong>🧙 Fantasy</strong>
+     <small>Magic adventure</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="documentary"
+     type="button"
+    >
+     <strong>📽️ Documentary</strong>
+     <small>Realistic footage</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="shop"
+     type="button"
+    >
+     <strong>🛍️ Product Sales</strong>
+     <small>Short-form selling video</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="vlog"
+     type="button"
+    >
+     <strong>📱 Vlog</strong>
+     <small>Natural creator style</small>
+    </button>
+
+    <button
+     class="style-btn"
+     data-vstyle="music"
+     type="button"
+    >
+     <strong>🎵 Music Video</strong>
+     <small>Stylish music scene</small>
+    </button>
+
+   </div>
+
+  </div>
+
+ </div>
+
+
+ <!-- =========================
+      VIDEO SCENE CARD
+ ========================= -->
+
+ <div
+  class="option-card"
+  id="sceneOptionCard"
+ >
+
+  <button
+   class="option-card-header"
+   id="sceneOptionHeader"
+   type="button"
+  >
+
+   <div class="option-left">
+
+    <div
+     class="option-main-icon"
+     style="background:rgba(168,85,247,.12)"
+    >
+     🛠️
+    </div>
+
+    <div>
+
+     <div class="option-title">
+      Video Scene — လုပ်ဆောင်ချက်ရွေးပါ
+     </div>
+
+     <div class="option-sub">
+      လုပ်ဆောင်မယ့် Scene / Action ကိုရွေးပါ
+     </div>
+
+    </div>
+
+   </div>
+
+   <div
+    style="
+     display:flex;
+     align-items:center;
+     gap:8px
+    "
+   >
+
+    <span
+     class="option-selected"
+     id="sceneSelected"
+     style="color:#c084fc"
+    >
+     Custom Scene
+    </span>
+
+    <span class="option-arrow">
+     ▼
+    </span>
+
+   </div>
+
+  </button>
+
+
+  <div class="option-card-content">
+
+   <div
+    class="scene-grid"
+    id="sceneGrid"
+   >
+
+    <button
+     class="scene-btn active"
+     data-scene="custom"
+     type="button"
+    >
+     <strong>✨ Custom Scene</strong>
+     <small>ကိုယ်တိုင်ရေးထားတဲ့ scene</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="car_build"
+     type="button"
+    >
+     <strong>🚗 ကားပြုလုပ်နည်း</strong>
+     <small>ကားတည်ဆောက် / ပြုပြင်နေသော scene</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="planting"
+     type="button"
+    >
+     <strong>🌱 အပင်စိုက်နည်း</strong>
+     <small>မြေပြင်ဆင်ပြီး အပင်စိုက်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="flower_picking"
+     type="button"
+    >
+     <strong>🌸 ပန်းခူးနေခြင်း</strong>
+     <small>ပန်းခြံထဲမှာ ပန်းပွင့်တွေခူးနေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="cooking"
+     type="button"
+    >
+     <strong>🍳 ချက်ပြုတ်နည်း</strong>
+     <small>အစားအစာပြင်ဆင် / ချက်ပြုတ်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="craft"
+     type="button"
+    >
+     <strong>🧰 လက်မှုပစ္စည်းလုပ်နည်း</strong>
+     <small>ပစ္စည်းတစ်ခုကို အဆင့်လိုက်လုပ်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="farming"
+     type="button"
+    >
+     <strong>🚜 စိုက်ပျိုးရေး</strong>
+     <small>လယ်ယာလုပ်ငန်းလုပ်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="cleaning"
+     type="button"
+    >
+     <strong>🧹 သန့်ရှင်းရေး</strong>
+     <small>ပစ္စည်း / အခန်း သန့်ရှင်းနေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="repair"
+     type="button"
+    >
+     <strong>🔧 ပြုပြင်နည်း</strong>
+     <small>ပျက်နေတဲ့ပစ္စည်း ပြုပြင်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="building"
+     type="button"
+    >
+     <strong>🏗️ တည်ဆောက်နည်း</strong>
+     <small>အဆောက်အအုံ / ပစ္စည်း တည်ဆောက်ခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="beauty"
+     type="button"
+    >
+     <strong>💄 Beauty / Makeup</strong>
+     <small>မိတ်ကပ် / အလှပြင်နေခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="product_demo"
+     type="button"
+    >
+     <strong>📦 Product Demonstration</strong>
+     <small>ပစ္စည်းအသုံးပြုပုံ ပြသခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="howto"
+     type="button"
+    >
+     <strong>📚 How-To Tutorial</strong>
+     <small>အဆင့်လိုက် သင်ကြားပြသခြင်း</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="before_after"
+     type="button"
+    >
+     <strong>🔄 Before / After</strong>
+     <small>မလုပ်ခင် / လုပ်ပြီးနောက်</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="satisfying"
+     type="button"
+    >
+     <strong>✨ Satisfying Process</strong>
+     <small>ကြည့်ရတာစိတ်ကျေနပ်စရာ process</small>
+    </button>
+
+    <button
+     class="scene-btn"
+     data-scene="viral"
+     type="button"
+    >
+     <strong>🔥 Viral Short Scene</strong>
+     <small>Short-form viral action</small>
+    </button>
+
+   </div>
+
+  </div>
+
+ </div>
+
+
+ <!-- =========================
+      DIALOGUE
+ ========================= -->
+
+ <label class="thumb-label">
+  🗣️ Dialogue Mode
+ </label>
+
+ <select
+  id="dialogueMode"
+  class="thumb-select"
+ >
+
+  <option value="none">
+   🔇 No Dialogue
+  </option>
+
+  <option value="burmese">
+   🇲🇲 Natural Myanmar Dialogue
+  </option>
+
+  <option value="funny">
+   😂 Funny Myanmar Dialogue
+  </option>
+
+  <option value="sales">
+   🛍️ Myanmar Sales Dialogue
+  </option>
+
+  <option value="narration">
+   🎙️ Myanmar Narration
+  </option>
+
+ </select>
+
+
+ <!-- AI -->
+
+ <label class="thumb-label">
+  🤖 Target Video AI
+ </label>
+
+ <select
+  id="videoAI"
+  class="thumb-select"
+ >
+
+  <option value="universal">
+   🌐 Universal AI Video
+  </option>
+
+  <option value="flow">
+   ✨ Flow AI
+  </option>
+
+  <option value="veo">
+   🎥 Google Veo
+  </option>
+
+  <option value="kling">
+   🎞️ Kling
+  </option>
+
+  <option value="runway">
+   🎬 Runway
+  </option>
+
+  <option value="pika">
+   ⚡ Pika
+  </option>
+
+  <option value="luma">
+   🌌 Luma
+  </option>
+
+ </select>
+
+
+ <!-- RATIO -->
+
+ <label class="thumb-label">
+  📐 Aspect Ratio
+ </label>
+
+ <select
+  id="videoRatio"
+  class="thumb-select"
+ >
+
+  <option value="9:16">
+   📱 9:16 — Shorts / Reels
+  </option>
+
+  <option value="16:9">
+   🖥️ 16:9 — YouTube
+  </option>
+
+ </select>
+
+
+ <button
+  id="generateVideoPromptBtn"
+  class="video-generate"
+  type="button"
+ >
+  🎬 Generate Video Prompt
  </button>
- <button id="motionTab" class="output-tab" type="button">
-  🎬 Video Motion Prompt
+
+
+ <div class="output-tabs">
+
+  <button
+   id="imageTab"
+   class="output-tab active"
+   type="button"
+  >
+   🎨 Image Prompt
+  </button>
+
+  <button
+   id="motionTab"
+   class="output-tab"
+   type="button"
+  >
+   🎬 Video Motion Prompt
+  </button>
+
+ </div>
+
+
+ <textarea
+  id="videoOutput"
+  class="video-output"
+  readonly
+  placeholder="Generated Image Prompt..."
+ ></textarea>
+
+
+ <button
+  id="copyVideoPromptBtn"
+  class="video-copy"
+  type="button"
+ >
+  📋 Copy Video Prompt
  </button>
+
+
+ <div class="prompt-note">
+  💡 Myanmar Dialogue ပါတဲ့ Prompt တွေမှာ
+  သဘာဝကျတဲ့ မြန်မာစကား၊ တိုတိုရှင်းရှင်း
+  ပြောစကားတွေကို ထည့်ပေးထားပါတယ်။
+  TikTok / platform logo မထည့်ပါ။
+ </div>
+
+
+ <div
+  id="videoStatus"
+  class="video-status"
+ ></div>
+
 </div>
 
-<textarea id="videoOutput" class="video-output" readonly
- placeholder="Generated Image Prompt..."></textarea>
-
-<button id="copyVideoPromptBtn" class="video-copy" type="button">
- 📋 Copy Video Prompt
-</button>
-
-<div class="prompt-note">
- 💡 Myanmar Dialogue ပါတဲ့ Prompt တွေမှာ လူတွေပြောမယ့်စကားကို
- သဘာဝကျတဲ့ မြန်မာစကားအဖြစ် တိုတိုရှင်းရှင်း ထည့်ပေးထားပါတယ်။
 </div>
 
-<div id="videoStatus" class="video-status"></div>
-
-</div>
-</div>
 
 <!-- =========================
-     VOICE GENERATE
+     GENERATE VOICE
 ========================= -->
 
-<button class="generate-btn" id="generateBtn" type="button">
+<button
+ class="generate-btn"
+ id="generateBtn"
+ type="button"
+>
  ✨ Generate Voice
 </button>
 
-<div class="loading" id="loading">
- <div class="loading-text">✨ Voice ဖန်တီးနေပါသည်...</div>
- <div class="loading-bar"></div>
-</div>
 
-<div class="status" id="status"></div>
+<div
+ class="loading"
+ id="loading"
+>
 
-<div class="player" id="player">
- <div class="player-top">
-  <div class="player-icon">🔊</div>
-  <div>
-   <div class="player-title">YNT AI Box Voice Ready</div>
-   <div class="player-sub">Generated Myanmar Voice</div>
-  </div>
+ <div class="loading-text">
+  ✨ Voice ဖန်တီးနေပါသည်...
  </div>
 
- <audio id="audioPlayer" controls preload="metadata"></audio>
+ <div class="loading-bar"></div>
 
- <button class="download-btn" id="downloadBtn" type="button">
+</div>
+
+
+<div
+ class="status"
+ id="status"
+></div>
+
+
+<div
+ class="player"
+ id="player"
+>
+
+ <div class="player-top">
+
+  <div class="player-icon">
+   🔊
+  </div>
+
+  <div>
+
+   <div class="player-title">
+    YNT AI Box Voice Ready
+   </div>
+
+   <div class="player-sub">
+    Generated Myanmar Voice
+   </div>
+
+  </div>
+
+ </div>
+
+
+ <audio
+  id="audioPlayer"
+  controls
+  preload="metadata"
+ ></audio>
+
+
+ <button
+  class="download-btn"
+  id="downloadBtn"
+  type="button"
+ >
   ⬇️ Download WAV
  </button>
+
 </div>
 
 </section>
 
-<div class="footer">© 2026 YNT AI Box • AI Creator Toolkit</div>
+
+<div class="footer">
+ © 2026 YNT AI Box • AI Creator Toolkit
+</div>
 
 </div>
 
+
 <script>
+
 /* =========================================================
    BASIC
 ========================================================= */
@@ -720,159 +2442,299 @@ let selectedVoice="Kore";
 let selectedEmotion="natural";
 let currentAudioURL=null;
 
+let selectedVideoStyle="cinematic";
+let selectedVideoScene="custom";
+let videoOutputMode="image";
+
 const MAX_TEXT=5000;
+
 const $=id=>document.getElementById(id);
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
 
 const textInput=$("textInput");
 const counter=$("counter");
+
 const speed=$("speed");
 const pitch=$("pitch");
+
 const speedValue=$("speedValue");
 const pitchValue=$("pitchValue");
 const settingsValue=$("settingsValue");
 
 const emotionValue=$("emotionValue");
+
 const generateBtn=$("generateBtn");
 const loading=$("loading");
 const status=$("status");
+
 const player=$("player");
 const audioPlayer=$("audioPlayer");
 const downloadBtn=$("downloadBtn");
 
+
+/* =========================================================
+   TEXT COUNTER
+========================================================= */
+
 textInput.addEventListener("input",()=>{
- counter.textContent=textInput.value.length+" / "+MAX_TEXT;
+
+ counter.textContent=
+  textInput.value.length+
+  " / "+
+  MAX_TEXT;
+
 });
+
 
 /* =========================================================
    VOICE
 ========================================================= */
 
-document.querySelectorAll(".voice-btn").forEach(btn=>{
+document
+.querySelectorAll(".voice-btn")
+.forEach(btn=>{
+
  btn.addEventListener("click",()=>{
-  document.querySelectorAll(".voice-btn")
-   .forEach(x=>x.classList.remove("active"));
+
+  document
+  .querySelectorAll(".voice-btn")
+  .forEach(x=>
+   x.classList.remove("active")
+  );
 
   btn.classList.add("active");
-  selectedVoice=btn.dataset.voice;
-  status.textContent="🎙️ Voice: "+selectedVoice;
+
+  selectedVoice=
+   btn.dataset.voice;
+
+  status.textContent=
+   "🎙️ Voice: "+
+   selectedVoice;
+
  });
+
 });
+
 
 /* =========================================================
    COLLAPSE
 ========================================================= */
 
 function toggle(id){
+
  $(id).classList.toggle("open");
+
 }
 
-$("emotionHeader").onclick=()=>toggle("emotionCard");
-$("settingsHeader").onclick=()=>toggle("settingsCard");
-$("thumbnailHeader").onclick=()=>toggle("thumbnailCard");
-$("videoPromptHeader").onclick=()=>toggle("videoPromptCard");
+
+$("emotionHeader").onclick=()=>
+ toggle("emotionCard");
+
+$("settingsHeader").onclick=()=>
+ toggle("settingsCard");
+
+$("thumbnailHeader").onclick=()=>
+ toggle("thumbnailCard");
+
+$("videoPromptHeader").onclick=()=>
+ toggle("videoPromptCard");
+
 
 /* =========================================================
    EMOTION
 ========================================================= */
 
-document.querySelectorAll(".emotion-btn").forEach(btn=>{
+document
+.querySelectorAll(".emotion-btn")
+.forEach(btn=>{
+
  btn.addEventListener("click",()=>{
-  document.querySelectorAll(".emotion-btn")
-   .forEach(x=>x.classList.remove("active"));
+
+  document
+  .querySelectorAll(".emotion-btn")
+  .forEach(x=>
+   x.classList.remove("active")
+  );
 
   btn.classList.add("active");
-  selectedEmotion=btn.dataset.emotion;
+
+  selectedEmotion=
+   btn.dataset.emotion;
 
   emotionValue.textContent=
-   btn.querySelector(".emotion-name").textContent;
+   btn.querySelector(
+    ".emotion-name"
+   ).textContent;
+
  });
+
 });
+
 
 /* =========================================================
    SPEED / PITCH
 ========================================================= */
 
 function updateSettings(){
+
  settingsValue.textContent=
   `Speed ${speed.value} • Pitch ${pitch.value}`;
+
 }
 
 speed.oninput=()=>{
- speedValue.textContent=speed.value;
+
+ speedValue.textContent=
+  speed.value;
+
  updateSettings();
+
 };
 
 pitch.oninput=()=>{
- pitchValue.textContent=pitch.value;
+
+ pitchValue.textContent=
+  pitch.value;
+
  updateSettings();
+
 };
+
 
 /* =========================================================
    TTS
 ========================================================= */
 
 generateBtn.onclick=async()=>{
- const text=textInput.value.trim();
+
+ const text=
+  textInput.value.trim();
 
  if(!text){
-  status.textContent="⚠️ စာထည့်ပေးပါ။";
+
+  status.textContent=
+   "⚠️ စာထည့်ပေးပါ။";
+
   textInput.focus();
+
   return;
  }
 
  if(text.length>MAX_TEXT){
-  status.textContent="⚠️ စာလုံးရေ 5,000 အထိပဲ အသုံးပြုနိုင်ပါတယ်။";
+
+  status.textContent=
+   "⚠️ စာလုံးရေ 5,000 အထိပဲ အသုံးပြုနိုင်ပါတယ်။";
+
   return;
  }
 
  generateBtn.disabled=true;
- loading.style.display="block";
+
+ loading.style.display=
+  "block";
+
  status.textContent="";
- player.style.display="none";
+
+ player.style.display=
+  "none";
 
  try{
 
-  const response=await fetch("/api/tts",{
-   method:"POST",
-   headers:{
-    "Content-Type":"application/json"
-   },
-   body:JSON.stringify({
-    text,
-    voice:selectedVoice,
-    emotion:selectedEmotion,
-    speed:Number(speed.value),
-    pitch:Number(pitch.value)
-   })
-  });
+  const response=
+   await fetch(
+    "/api/tts",
+    {
+     method:"POST",
+
+     headers:{
+      "Content-Type":
+       "application/json"
+     },
+
+     body:JSON.stringify({
+
+      text,
+
+      voice:
+       selectedVoice,
+
+      emotion:
+       selectedEmotion,
+
+      speed:
+       Number(speed.value),
+
+      pitch:
+       Number(pitch.value)
+
+     })
+    }
+   );
+
 
   if(!response.ok){
-   let message="TTS Generate မအောင်မြင်ပါ။";
+
+   let message=
+    "TTS Generate မအောင်မြင်ပါ။";
 
    try{
-    const data=await response.json();
-    if(data?.error) message="❌ "+data.error;
+
+    const data=
+     await response.json();
+
+    if(data?.error){
+
+     message=
+      "❌ "+
+      data.error;
+
+    }
+
    }catch(e){}
 
    throw new Error(message);
+
   }
 
-  const blob=await response.blob();
+
+  const blob=
+   await response.blob();
+
 
   if(!blob.size){
-   throw new Error("❌ Audio file မရရှိပါ။");
+
+   throw new Error(
+    "❌ Audio file မရရှိပါ။"
+   );
+
   }
+
 
   if(currentAudioURL){
-   URL.revokeObjectURL(currentAudioURL);
+
+   URL.revokeObjectURL(
+    currentAudioURL
+   );
+
   }
 
-  currentAudioURL=URL.createObjectURL(blob);
-  audioPlayer.src=currentAudioURL;
 
-  player.style.display="block";
+  currentAudioURL=
+   URL.createObjectURL(blob);
+
+  audioPlayer.src=
+   currentAudioURL;
+
+  player.style.display=
+   "block";
+
   status.textContent=
    "✅ YNT AI Box Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
+
 
  }catch(error){
 
@@ -882,58 +2744,111 @@ generateBtn.onclick=async()=>{
 
  }finally{
 
-  loading.style.display="none";
-  generateBtn.disabled=false;
- }
-};
+  loading.style.display=
+   "none";
 
-downloadBtn.onclick=()=>{
- if(!currentAudioURL){
-  status.textContent=
-   "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
-  return;
+  generateBtn.disabled=
+   false;
+
  }
 
- const a=document.createElement("a");
- a.href=currentAudioURL;
- a.download="YNT-AI-Box-Voice.wav";
- document.body.appendChild(a);
- a.click();
- a.remove();
 };
+
 
 /* =========================================================
-   THUMBNAIL PROMPT MAKER
+   DOWNLOAD VOICE
 ========================================================= */
 
-const movieTitle=$("movieTitle");
-const movieColor=$("movieColor");
-const movieStyle=$("movieStyle");
-const movieFont=$("movieFont");
-const movieRatio=$("movieRatio");
+downloadBtn.onclick=()=>{
 
-const generateMoviePromptBtn=$("generateMoviePromptBtn");
-const promptOutput=$("promptOutput");
-const copyPromptBtn=$("copyPromptBtn");
-const thumbStatus=$("thumbStatus");
+ if(!currentAudioURL){
+
+  status.textContent=
+   "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
+
+  return;
+
+ }
+
+ const a=
+  document.createElement("a");
+
+ a.href=
+  currentAudioURL;
+
+ a.download=
+  "YNT-AI-Box-Voice.wav";
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+};
+
+
+/* =========================================================
+   THUMBNAIL
+========================================================= */
+
+const movieTitle=
+ $("movieTitle");
+
+const movieColor=
+ $("movieColor");
+
+const movieStyle=
+ $("movieStyle");
+
+const movieFont=
+ $("movieFont");
+
+const movieRatio=
+ $("movieRatio");
+
+const generateMoviePromptBtn=
+ $("generateMoviePromptBtn");
+
+const promptOutput=
+ $("promptOutput");
+
+const copyPromptBtn=
+ $("copyPromptBtn");
+
+const thumbStatus=
+ $("thumbStatus");
 
 let generatedMoviePrompt="";
 
+
 function generateMoviePrompt(){
 
- const title=movieTitle.value.trim();
+ const title=
+  movieTitle.value.trim();
 
  if(!title){
+
   thumbStatus.textContent=
    "⚠️ Movie Title ထည့်ပေးပါ။";
+
   movieTitle.focus();
+
   return;
  }
 
- const color=movieColor.value;
- const style=movieStyle.value;
- const font=movieFont.value;
- const ratio=movieRatio.value;
+ const color=
+  movieColor.value;
+
+ const style=
+  movieStyle.value;
+
+ const font=
+  movieFont.value;
+
+ const ratio=
+  movieRatio.value;
+
 
  const composition=
   ratio==="9:16"
@@ -941,6 +2856,7 @@ function generateMoviePrompt(){
   "Create a vertical 9:16 composition optimized for Shorts and Reels."
   :
   "Create a widescreen 16:9 composition optimized for YouTube.";
+
 
  generatedMoviePrompt=
 `Create a professional, highly detailed cinematic thumbnail.
@@ -990,7 +2906,7 @@ TITLE TYPOGRAPHY:
 - Do not cover important faces.
 
 YNT SIGNATURE:
-Add a small elegant "YNT" signature/logo in the bottom-right corner.
+Add a small elegant "YNT" signature/logo near the bottom-right corner.
 The YNT signature should be stylish, clean and subtle.
 It must not cover the main subject.
 It must remain clearly visible.
@@ -998,7 +2914,7 @@ It must remain clearly visible.
 IMPORTANT:
 - No random text.
 - No extra words.
-- No "MOVIE RECAP" text.
+- No MOVIE RECAP text.
 - No TikTok logo.
 - No platform logos.
 - No watermark other than the small YNT signature.
@@ -1011,444 +2927,801 @@ IMPORTANT:
 - Mobile-friendly.
 - Eye-catching but clean.`;
 
- promptOutput.value=generatedMoviePrompt;
+
+ promptOutput.value=
+  generatedMoviePrompt;
+
  thumbStatus.textContent=
   "✅ Thumbnail Prompt ပြုလုပ်ပြီးပါပြီ။";
+
 }
 
-generateMoviePromptBtn.onclick=generateMoviePrompt;
+
+generateMoviePromptBtn.onclick=
+ generateMoviePrompt;
+
 
 /* =========================================================
-   COPY THUMBNAIL PROMPT
+   COPY THUMBNAIL
 ========================================================= */
 
 copyPromptBtn.onclick=async()=>{
 
  if(!promptOutput.value.trim()){
+
   generateMoviePrompt();
+
  }
 
- const text=promptOutput.value.trim();
+ const text=
+  promptOutput.value.trim();
 
  if(!text)return;
 
  try{
 
   await navigator.clipboard.writeText(text);
-  thumbStatus.textContent="📋 Prompt Copied!";
+
+  thumbStatus.textContent=
+   "📋 Prompt Copied!";
 
  }catch(e){
 
   promptOutput.focus();
+
   promptOutput.select();
+
   document.execCommand("copy");
-  thumbStatus.textContent="📋 Prompt Copied!";
+
+  thumbStatus.textContent=
+   "📋 Prompt Copied!";
 
  }
+
 };
 
+
 /* =========================================================
-   VIDEO PROMPT MAKER
+   VIDEO PROMPT ELEMENTS
 ========================================================= */
 
-let selectedVideoStyle="cinematic";
-let videoOutputMode="image";
+const videoIdea=
+ $("videoIdea");
 
-const videoIdea=$("videoIdea");
-const dialogueMode=$("dialogueMode");
-const videoAI=$("videoAI");
-const videoRatio=$("videoRatio");
+const dialogueMode=
+ $("dialogueMode");
 
-const generateVideoPromptBtn=$("generateVideoPromptBtn");
-const videoOutput=$("videoOutput");
-const copyVideoPromptBtn=$("copyVideoPromptBtn");
-const videoStatus=$("videoStatus");
+const videoAI=
+ $("videoAI");
 
-document.querySelectorAll(".style-btn").forEach(btn=>{
+const videoRatio=
+ $("videoRatio");
 
- btn.addEventListener("click",()=>{
+const generateVideoPromptBtn=
+ $("generateVideoPromptBtn");
 
-  document.querySelectorAll(".style-btn")
-   .forEach(x=>x.classList.remove("active"));
+const videoOutput=
+ $("videoOutput");
 
-  btn.classList.add("active");
+const copyVideoPromptBtn=
+ $("copyVideoPromptBtn");
 
-  selectedVideoStyle=btn.dataset.vstyle;
+const videoStatus=
+ $("videoStatus");
 
-  videoStatus.textContent=
-   "🎭 Style: "+btn.querySelector("strong").textContent;
- });
-});
+const styleOptionCard=
+ $("styleOptionCard");
+
+const sceneOptionCard=
+ $("sceneOptionCard");
+
+const styleSelected=
+ $("styleSelected");
+
+const sceneSelected=
+ $("sceneSelected");
+
 
 /* =========================================================
-   STYLE DESCRIPTIONS
+   STYLE CARD OPEN/CLOSE
+========================================================= */
+
+$("styleOptionHeader").onclick=()=>{
+
+ styleOptionCard.classList.toggle(
+  "open"
+ );
+
+};
+
+
+/* =========================================================
+   SCENE CARD OPEN/CLOSE
+========================================================= */
+
+$("sceneOptionHeader").onclick=()=>{
+
+ sceneOptionCard.classList.toggle(
+  "open"
+ );
+
+};
+
+
+/* =========================================================
+   VIDEO STYLES
 ========================================================= */
 
 const videoStyles={
 
  cinematic:
-`cinematic movie quality, realistic characters, dramatic composition,
-natural camera movement, cinematic lighting, realistic environment,
-shallow depth of field and professional film look`,
+`cinematic movie quality, realistic characters,
+dramatic composition, natural camera movement,
+cinematic lighting, realistic environment,
+shallow depth of field, professional film look`,
 
  action:
 `high-energy action sequence, dynamic camera movement,
-fast motion, strong physical movement, dramatic lighting,
-impactful composition and blockbuster movie feeling`,
+fast physical movement, powerful action choreography,
+dramatic lighting, impact shots, blockbuster movie feeling`,
 
  comedy:
-`funny viral comedy scene, exaggerated but believable facial expressions,
+`funny viral comedy scene, believable exaggerated reactions,
 natural body language, comedic timing, unexpected reactions,
-playful camera movement and entertaining visual storytelling`,
+playful camera movement, entertaining visual storytelling`,
 
  anime:
 `high-quality anime visual style, expressive characters,
-dynamic poses, dramatic motion, detailed anime environment,
-stylized lighting and energetic camera movement`,
+dynamic poses, detailed anime environment,
+stylized lighting, energetic camera movement,
+smooth anime action`,
 
  horror:
-`dark horror atmosphere, eerie environment, realistic fear,
-subtle unsettling movement, dramatic shadows, suspenseful camera,
-cinematic horror lighting`,
+`dark horror atmosphere, eerie environment,
+realistic fear, suspense, dramatic shadows,
+slow unsettling camera movement, cinematic horror lighting`,
 
  romance:
 `emotional romantic atmosphere, expressive characters,
 soft cinematic lighting, intimate camera movement,
-beautiful environment and natural emotional interaction`,
+beautiful environment, natural emotional interaction`,
 
  drama:
-`serious emotional drama, realistic acting, expressive faces,
-subtle camera movement, natural lighting and strong storytelling`,
+`serious emotional drama, realistic acting,
+expressive faces, subtle camera movement,
+natural lighting and strong storytelling`,
 
  fantasy:
 `epic fantasy environment, magical atmosphere,
-detailed costumes, cinematic lighting, imaginative creatures or objects,
+detailed costumes, cinematic lighting,
+imaginative creatures and objects,
 large-scale cinematic composition`,
 
  documentary:
 `realistic documentary footage, natural lighting,
 authentic human behavior, handheld camera feeling,
-real-world environment and believable details`,
+real-world environment, believable details`,
 
  shop:
-`short-form product marketing video, clean product presentation,
-bright commercial lighting, attractive close-up shots,
-clear product benefits, natural human demonstration,
-fast but smooth social-media style editing`
+`professional short-form product marketing video,
+clean product presentation, attractive close-up shots,
+bright commercial lighting, natural human demonstration,
+clear product benefits, smooth commercial editing,
+friendly social-media sales style`,
+
+ vlog:
+`natural creator vlog style, handheld camera,
+authentic environment, casual human behavior,
+natural lighting, relatable expressions,
+modern creator-video feeling`,
+
+ music:
+`stylish music-video cinematography,
+rhythmic camera movement, dramatic lighting,
+strong visual composition, fashionable performance,
+cinematic transitions and energetic visual rhythm`
+
 };
 
+
 /* =========================================================
-   DIALOGUE BUILDER
+   VIDEO SCENE DESCRIPTIONS
 ========================================================= */
 
-function buildDialogue(mode,idea){
+const sceneDescriptions={
+
+ custom:
+`Use the exact custom scene described by the user.`,
+
+ car_build:
+`Show a realistic step-by-step car building or car repair process.
+Show tools, mechanical parts, hands and believable workshop activity.
+Use close-up detail shots of the work process.
+Make every action physically believable.`,
+
+ planting:
+`Show a realistic plant-growing process.
+Prepare the soil, place the seed or young plant,
+cover it naturally, water it and show healthy plant growth.
+Use close-up shots of hands, soil, water and leaves.`,
+
+ flower_picking:
+`Show a beautiful natural flower-picking scene.
+A person carefully approaches blooming flowers,
+gently selects flowers and picks them naturally.
+Show detailed petals, hands, leaves and garden environment.`,
+
+ cooking:
+`Show a realistic cooking process.
+Prepare ingredients, cut ingredients, mix, cook and plate the food.
+Use satisfying close-up food shots and natural hand movements.`,
+
+ craft:
+`Show a detailed handmade craft process.
+Use realistic hands, tools and materials.
+Show the object being created step by step.
+Include close-up detail shots.`,
+
+ farming:
+`Show a realistic farming process.
+Prepare land, plant crops, water plants and work naturally.
+Use realistic agricultural tools and environment.`,
+
+ cleaning:
+`Show a satisfying cleaning process.
+Show a dirty or messy object becoming clean.
+Use close-up shots, realistic hand movements and before-after transformation.`,
+
+ repair:
+`Show a detailed repair process.
+Identify the damaged part, use appropriate tools,
+remove the damaged component and repair or replace it.
+Show realistic mechanical hand movements.`,
+
+ building:
+`Show a realistic construction process.
+Show materials, tools, workers and step-by-step construction.
+Use multiple camera angles while keeping the subject consistent.`,
+
+ beauty:
+`Show a natural beauty or makeup process.
+Use realistic facial expressions, hands, beauty products
+and clear step-by-step actions.`,
+
+ product_demo:
+`Show a product demonstration.
+Present the product clearly, demonstrate how it works,
+show useful details and realistic human interaction.`,
+
+ howto:
+`Create a clear step-by-step tutorial.
+Each action must be easy to understand.
+Use close-up shots for important steps.`,
+
+ before_after:
+`Create a strong before-and-after transformation.
+Start with the original condition,
+show the process clearly,
+then reveal the final result.`,
+
+ satisfying:
+`Create a visually satisfying process video.
+Focus on clean movements, detailed close-ups,
+smooth transitions and realistic physical interaction.`,
+
+ viral:
+`Create an engaging short-form viral scene.
+Start with a strong visual hook,
+keep the action easy to understand,
+use dynamic but believable movement and a satisfying ending.`
+
+};
+
+
+/* =========================================================
+   STYLE BUTTONS
+========================================================= */
+
+document
+.querySelectorAll(".style-btn")
+.forEach(btn=>{
+
+ btn.addEventListener("click",()=>{
+
+  document
+  .querySelectorAll(".style-btn")
+  .forEach(x=>
+   x.classList.remove("active")
+  );
+
+  btn.classList.add("active");
+
+  selectedVideoStyle=
+   btn.dataset.vstyle;
+
+  styleSelected.textContent=
+   btn.querySelector(
+    "strong"
+   ).textContent;
+
+  videoStatus.textContent=
+   "🎭 Style ရွေးပြီးပါပြီ။";
+
+ });
+
+});
+
+
+/* =========================================================
+   SCENE BUTTONS
+========================================================= */
+
+document
+.querySelectorAll(".scene-btn")
+.forEach(btn=>{
+
+ btn.addEventListener("click",()=>{
+
+  document
+  .querySelectorAll(".scene-btn")
+  .forEach(x=>
+   x.classList.remove("active")
+  );
+
+  btn.classList.add("active");
+
+  selectedVideoScene=
+   btn.dataset.scene;
+
+  sceneSelected.textContent=
+   btn.querySelector(
+    "strong"
+   ).textContent;
+
+  videoStatus.textContent=
+   "🛠️ Scene ရွေးပြီးပါပြီ။";
+
+ });
+
+});
+
+
+/* =========================================================
+   DIALOGUE
+========================================================= */
+
+function buildDialogue(
+ mode,
+ idea
+){
 
  if(mode==="none"){
+
   return `
 DIALOGUE:
 No spoken dialogue.
-Use natural environmental sound only.
+Use realistic environmental sound only.
 `;
+
  }
 
+
  if(mode==="burmese"){
+
   return `
 DIALOGUE:
-Use natural spoken Myanmar Burmese dialogue.
-The characters must speak clearly and naturally.
-Do not use Thai, Rakhine, Chinese or other language pronunciation.
-Use short everyday Myanmar sentences directly related to the scene.
+Use natural standard Myanmar Burmese dialogue.
 
-Example tone:
+The characters must speak clearly,
+slowly enough to understand,
+and naturally like ordinary Myanmar speakers.
+
+Do not use Thai pronunciation.
+Do not use Rakhine dialect.
+Do not use Chinese pronunciation.
+Do not shout.
+Do not mumble.
+Do not speak too quickly.
+
+Use short everyday Myanmar sentences
+directly related to the scene.
+
+Example style:
 "ဟာ... ဒီမှာ ဘာဖြစ်နေတာလဲ?"
 "မသိဘူး၊ မြန်မြန်သွားကြည့်ရအောင်။"
 
 Keep the dialogue short and believable.
 `;
+
  }
 
+
  if(mode==="funny"){
+
   return `
 DIALOGUE:
 Use natural Myanmar Burmese comedy dialogue.
-The characters speak like ordinary Myanmar people in a funny everyday situation.
+
+The characters should speak like ordinary
+Myanmar people in a funny everyday situation.
+
+Use short punchy lines with natural comedic timing.
 
 Example:
 "ဟေ့... မင်းက ဘာလုပ်နေတာလဲ?"
 "အစားအစာရှာနေတာလေ!"
 "အဲဒါက ငါ့ဟာကွ!"
 
-Use short punchy dialogue.
-Natural Myanmar pronunciation.
-Funny timing and facial reactions.
+Important:
+- Clear Myanmar pronunciation.
+- No shouting.
+- No Rakhine accent.
+- No Thai accent.
+- Natural pauses.
+- Funny facial reactions.
 `;
+
  }
 
+
  if(mode==="sales"){
+
   return `
 DIALOGUE:
 Use natural Myanmar Burmese product-selling dialogue.
 
-The speaker should sound friendly, confident and conversational,
-not like shouting and not like an advertisement robot.
+The speaker must sound friendly,
+confident and conversational.
 
-Example:
+Do not sound like shouting.
+Do not sound like a robotic advertisement.
+
+Example style:
 "ဒီပစ္စည်းလေးက သုံးရတာ တကယ်အဆင်ပြေတယ်နော်။"
 "အခုလိုအချိန်မှာ ဒီတစ်ခုရှိရင် တော်တော်အသုံးဝင်တယ်။"
 "စိတ်ဝင်စားရင် စမ်းကြည့်လို့ရပါတယ်။"
 
-Keep Myanmar pronunciation clear and natural.
-Do not mention TikTok or any platform name.
+Keep the sales dialogue short and believable.
+
+Do not mention TikTok.
+Do not mention any platform name.
 `;
+
  }
 
+
  if(mode==="narration"){
+
   return `
 DIALOGUE:
-Use a clear natural Myanmar Burmese narrator voice.
-The narration should sound like a professional Myanmar storyteller.
+Use a clear professional Myanmar Burmese narrator.
 
-Use short natural sentences.
-Clear pronunciation.
-Natural pauses.
-No shouting.
-No robotic speech.
+Narration must sound like a natural Myanmar storyteller.
+
+Use:
+- clear pronunciation
+- standard Myanmar Burmese
+- natural pauses
+- moderate speaking speed
+- smooth breathing
+- natural sentence rhythm
+
+Avoid:
+- shouting
+- robotic speech
+- mumbling
+- Thai accent
+- Rakhine dialect
+- Chinese pronunciation
 `;
+
  }
 
  return "";
+
 }
 
+
 /* =========================================================
-   VIDEO PROMPT
+   VIDEO PROMPT BUILDER
 ========================================================= */
 
-function generateVideoPrompt(){
+function createVideoPrompts(){
 
- const idea=videoIdea.value.trim();
+ const idea=
+  videoIdea.value.trim();
 
  if(!idea){
+
   videoStatus.textContent=
    "⚠️ Video Idea / Scene ထည့်ပေးပါ။";
+
   videoIdea.focus();
-  return;
+
+  return null;
  }
 
- const style=videoStyles[selectedVideoStyle];
- const dialogue=buildDialogue(dialogueMode.value,idea);
- const ratio=videoRatio.value;
- const targetAI=videoAI.value;
+
+ const style=
+  videoStyles[
+   selectedVideoStyle
+  ];
+
+ const scene=
+  sceneDescriptions[
+   selectedVideoScene
+  ];
+
+ const dialogue=
+  buildDialogue(
+   dialogueMode.value,
+   idea
+  );
+
+ const ratio=
+  videoRatio.value;
+
+ const targetAI=
+  videoAI.value;
+
 
  const imagePrompt=
 `🎨 Image Prompt (${ratio}):
 
-Create a high-quality ${ratio} image based on this exact scene:
+Create a high-quality ${ratio} image.
 
+MAIN VIDEO IDEA:
 "${idea}"
 
-VISUAL STYLE:
+SELECTED VIDEO STYLE:
 ${style}
 
-CHARACTER:
-Use believable characters with natural facial expressions,
-correct body proportions and appropriate clothing.
+SELECTED SCENE / ACTION:
+${scene}
+
+VISUAL DIRECTION:
+Create a story-specific image that clearly represents
+the exact idea and selected action.
+
+CHARACTERS:
+Use believable human characters,
+natural facial expressions,
+correct body proportions,
+realistic clothing and consistent identity.
+
+ACTION:
+The selected action must be visually obvious.
+Show the hands, tools, objects and environment
+needed to understand the process.
 
 ENVIRONMENT:
-Create an environment that directly matches the story and scene.
+Create a realistic environment that naturally
+matches the selected action.
 
 LIGHTING:
 Use cinematic lighting appropriate to the mood.
 
 COMPOSITION:
-Create a strong foreground, middle-ground and background.
-Keep the main subject clearly visible.
-Do not use unrelated objects.
+Strong foreground, middle-ground and background.
+Main subject clearly visible.
+Professional cinematic framing.
+
+CONSISTENCY:
+The image should be suitable as the first frame
+of an AI-generated video.
 
 IMPORTANT:
-- Story-specific visual.
-- High detail.
-- Consistent character appearance.
-- Natural human anatomy.
 - No random text.
+- No subtitles.
 - No logos.
 - No platform logos.
+- No TikTok logo.
 - No watermark.
 - No UI.
 - No borders.
-
+- No distorted faces.
+- No extra random characters.
+- Natural human anatomy.
+- High detail.
+- Realistic physical objects.
+- Mobile-friendly composition.
 `;
+
 
  const motionPrompt=
-`🎬 Video Motion Prompt (${targetAI} - ${dialogueMode.value==="none"?"No Dialogue":"With Dialogue"}):
-
-START SCENE:
-${idea}
-
-STYLE:
-${style}
-
-CAMERA:
-Use smooth professional camera movement appropriate for the scene.
-Use realistic depth, natural perspective and cinematic framing.
-
-MOTION:
-Animate characters with natural body movement,
-realistic facial expressions, believable walking/hand movement,
-natural environmental motion and physically believable interactions.
-
-TIMING:
-Keep the action easy to understand.
-Avoid sudden unnatural movements.
-Maintain character consistency throughout the shot.
-
-AUDIO:
-Use realistic environmental sound that matches the scene.
-
-${dialogue}
-
-MYANMAR LANGUAGE REQUIREMENT:
-If dialogue or narration is used:
-- Spoken language must be Myanmar Burmese.
-- Pronunciation must be clear and natural.
-- Use standard Myanmar Burmese speaking style.
-- Do not sound like Thai.
-- Do not sound like Rakhine dialect.
-- Do not sound like Chinese.
-- Do not shout.
-- Do not speak too quickly.
-- Do not mumble.
-- Use natural pauses.
-- Characters must speak only the exact intended Myanmar dialogue.
-- Lip movement should match the spoken Myanmar dialogue.
-
-NEGATIVE:
-No random dialogue.
-No random words.
-No subtitles unless explicitly requested.
-No TikTok logo.
-No platform logo.
-No watermark.
-No UI.
-No distorted faces.
-No extra characters.
-No unnatural camera shake.
-
-OUTPUT:
-Create a polished short-form video suitable for ${targetAI}.
-Aspect ratio: ${ratio}.
-`;
-
- videoOutputMode="image";
- videoOutput.value=imagePrompt+"\n"+motionPrompt;
-
- videoStatus.textContent=
-  "✅ Image Prompt + Video Motion Prompt ပြုလုပ်ပြီးပါပြီ။";
-}
-
-/* =========================================================
-   GENERATE VIDEO BUTTON
-========================================================= */
-
-generateVideoPromptBtn.onclick=generateVideoPrompt;
-
-/* =========================================================
-   OUTPUT TABS
-========================================================= */
-
-$("imageTab").onclick=()=>{
-
- $("imageTab").classList.add("active");
- $("motionTab").classList.remove("active");
-
- videoOutputMode="image";
-
- if(videoOutput.value.trim()){
-  const idea=videoIdea.value.trim();
-
-  if(idea){
-   const style=videoStyles[selectedVideoStyle];
-   const ratio=videoRatio.value;
-
-   videoOutput.value=
-`🎨 Image Prompt (${ratio}):
-
-Create a high-quality ${ratio} image based on this exact scene:
-
-"${idea}"
-
-VISUAL STYLE:
-${style}
-
-Create believable characters, natural expressions,
-story-specific environment, cinematic lighting,
-professional composition and realistic details.
-
-No random text.
-No logos.
-No platform logos.
-No watermark.
-No UI.
-No borders.`;
-  }
- }
-};
-
-$("motionTab").onclick=()=>{
-
- $("motionTab").classList.add("active");
- $("imageTab").classList.remove("active");
-
- videoOutputMode="motion";
-
- if(videoOutput.value.trim()){
-  const idea=videoIdea.value.trim();
-
-  if(idea){
-   const style=videoStyles[selectedVideoStyle];
-   const ratio=videoRatio.value;
-   const dialogue=buildDialogue(dialogueMode.value,idea);
-   const targetAI=videoAI.value;
-
-   videoOutput.value=
 `🎬 Video Motion Prompt (${targetAI} - ${dialogueMode.value==="none"?"No Dialogue":"With Dialogue"}):
 
 SCENE:
 ${idea}
 
-STYLE:
+VIDEO STYLE:
 ${style}
 
+VIDEO SCENE / ACTION:
+${scene}
+
 CAMERA:
-Smooth professional cinematic camera movement.
+Use professional cinematic camera movement.
+Use appropriate wide shots, medium shots
+and close-up detail shots.
+
+Do not move the camera randomly.
+Keep the main subject and environment consistent.
 
 MOTION:
-Natural character movement, realistic facial expressions,
-natural environmental motion and believable interaction.
+Animate every character with natural,
+physically believable body movement.
+
+Hands must interact correctly with objects.
+Tools must contact objects realistically.
+Objects must have realistic weight and physics.
+
+PROCESS:
+Show the selected action clearly.
+When the scene describes a process,
+show the process step by step.
+
+Use satisfying close-up detail shots
+for important actions.
+
+CHARACTER CONSISTENCY:
+Keep the same face, hairstyle,
+clothing and body proportions
+throughout the entire video.
+
+ENVIRONMENT:
+Keep lighting, location and major objects consistent.
+
+TIMING:
+Use smooth natural movement.
+Avoid sudden unnatural jumps.
+Avoid impossible transformations.
+
+AUDIO:
+Use realistic environmental sounds
+matching the scene.
 
 ${dialogue}
 
-MYANMAR LANGUAGE:
-Use standard Myanmar Burmese pronunciation.
-Clear, natural and understandable.
-No Thai accent.
-No Rakhine dialect.
-No shouting.
-No mumbling.
-Natural pauses.
+MYANMAR LANGUAGE REQUIREMENT:
+If dialogue or narration is used:
+
+- Spoken language must be standard Myanmar Burmese.
+- Pronunciation must be very clear.
+- Speak at a moderate natural speed.
+- Use natural Myanmar sentence rhythm.
+- Use natural pauses.
+- Do not shout.
+- Do not mumble.
+- Do not speak too quickly.
+- Do not use Thai pronunciation.
+- Do not use Rakhine dialect pronunciation.
+- Do not use Chinese pronunciation.
+- Do not randomly change Myanmar words.
+- Speak only the intended dialogue.
+- Lip movement must match the spoken Myanmar words.
+
+DIALOGUE QUALITY:
+The Myanmar speech should sound like
+a normal Myanmar person talking naturally,
+not like an artificial voice shouting.
 
 NEGATIVE:
 No random dialogue.
 No random words.
+No gibberish.
+No shouting.
+No mumbling.
+No Thai accent.
+No Rakhine dialect.
+No Chinese pronunciation.
 No TikTok logo.
 No platform logo.
 No watermark.
 No UI.
+No subtitles unless explicitly requested.
 No distorted faces.
+No extra characters.
+No unnatural camera shake.
+No impossible physics.
 
-Aspect ratio: ${ratio}.`;
-  }
- }
+OUTPUT:
+Create a polished short-form video
+suitable for ${targetAI}.
+
+Aspect Ratio:
+${ratio}
+`;
+
+
+ return {
+  imagePrompt,
+  motionPrompt
+ };
+
+}
+
+
+/* =========================================================
+   GENERATE VIDEO PROMPT
+========================================================= */
+
+generateVideoPromptBtn.onclick=()=>{
+
+ const result=
+  createVideoPrompts();
+
+ if(!result)return;
+
+ videoOutputMode=
+  "image";
+
+ videoOutput.value=
+  result.imagePrompt+
+  "\n\n"+
+  result.motionPrompt;
+
+ videoStatus.textContent=
+  "✅ Image Prompt + Video Motion Prompt ပြုလုပ်ပြီးပါပြီ။";
+
 };
+
+
+/* =========================================================
+   IMAGE TAB
+========================================================= */
+
+$("imageTab").onclick=()=>{
+
+ $("imageTab")
+ .classList.add("active");
+
+ $("motionTab")
+ .classList.remove("active");
+
+ videoOutputMode=
+  "image";
+
+ const result=
+  createVideoPrompts();
+
+ if(result){
+
+  videoOutput.value=
+   result.imagePrompt;
+
+ }
+
+};
+
+
+/* =========================================================
+   MOTION TAB
+========================================================= */
+
+$("motionTab").onclick=()=>{
+
+ $("motionTab")
+ .classList.add("active");
+
+ $("imageTab")
+ .classList.remove("active");
+
+ videoOutputMode=
+  "motion";
+
+ const result=
+  createVideoPrompts();
+
+ if(result){
+
+  videoOutput.value=
+   result.motionPrompt;
+
+ }
+
+};
+
 
 /* =========================================================
    COPY VIDEO PROMPT
@@ -1457,37 +3730,69 @@ Aspect ratio: ${ratio}.`;
 copyVideoPromptBtn.onclick=async()=>{
 
  if(!videoOutput.value.trim()){
-  generateVideoPrompt();
+
+  const result=
+   createVideoPrompts();
+
+  if(!result)return;
+
+  videoOutput.value=
+   videoOutputMode==="motion"
+   ?
+   result.motionPrompt
+   :
+   result.imagePrompt;
+
  }
 
- const text=videoOutput.value.trim();
+ const text=
+  videoOutput.value.trim();
 
  if(!text)return;
 
  try{
 
   await navigator.clipboard.writeText(text);
-  videoStatus.textContent="📋 Video Prompt Copied!";
+
+  videoStatus.textContent=
+   "📋 Video Prompt Copied!";
 
  }catch(e){
 
   videoOutput.focus();
+
   videoOutput.select();
+
   document.execCommand("copy");
 
-  videoStatus.textContent="📋 Video Prompt Copied!";
+  videoStatus.textContent=
+   "📋 Video Prompt Copied!";
+
  }
+
 };
+
 
 /* =========================================================
    CLEANUP
 ========================================================= */
 
-window.addEventListener("beforeunload",()=>{
- if(currentAudioURL){
-  URL.revokeObjectURL(currentAudioURL);
+window.addEventListener(
+ "beforeunload",
+ ()=>{
+
+  if(currentAudioURL){
+
+   URL.revokeObjectURL(
+    currentAudioURL
+   );
+
+  }
+
  }
-});
+);
+
 </script>
+
 </body>
 </html>
