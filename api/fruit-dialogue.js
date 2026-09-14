@@ -36,60 +36,75 @@ export default async function handler(req, res) {
       });
     }
 
-    // Myanmar Dialogue
+    // =========================
+    // DIALOGUE RULE
+    // =========================
+
     let dialogueRule = `
 Create 2-4 short, natural Myanmar Burmese spoken lines.
 Use standard Myanmar Burmese.
-Make the speech sound natural and suitable for real human conversation.
+Make the speech sound natural and conversational.
 Use accurate lip-sync.
 `;
 
     if (dialogueMode === "none") {
       dialogueRule = `
 No spoken dialogue.
-Use only natural character reactions and environmental sounds.
+Use only natural facial reactions, body movement and environmental sounds.
 `;
     }
 
     if (dialogueMode === "custom" && customDialogue) {
       dialogueRule = `
 Use ONLY this Myanmar dialogue:
+
 ${customDialogue}
 
 Do not invent additional spoken dialogue.
 `;
     }
 
-    // Character continuity
-    const continuity = `
-Character continuity:
-Keep the EXACT SAME Fruit Head characters throughout the story.
+    // =========================
+    // CHARACTER CONTINUITY
+    // =========================
 
-The characters must be anthropomorphic fruit-headed human characters:
-- Real fruit-shaped head
-- Human-like face
+    const continuity = `
+CHARACTER CONTINUITY:
+
+The characters are anthropomorphic Fruit Head human characters.
+
+They must have:
+- Real fruit-shaped heads
+- Human-like faces
 - Human eyes
 - Human mouth
 - Human body
-- Human arms and legs
+- Human arms
+- Human legs
 - Same fruit type
 - Same face
 - Same clothing
 - Same colors
 - Same hairstyle
 - Same body proportions
+- Same identity throughout every scene
 
+IMPORTANT:
 Do NOT turn them into normal humans.
-Do NOT turn them into ordinary fruit without a human body.
+Do NOT turn them into ordinary fruit.
+Keep the fruit head + human body design.
 `;
 
-    // FLOW AI
+    // =========================
+    // MAIN PROMPT
+    // =========================
+
+    let prompt = "";
+
     if (ai === "flow") {
 
-      const prompt = `
-You are a professional prompt writer for Flow AI.
-
-Create TWO separate prompts.
+      prompt = `
+You are a professional Flow AI prompt writer.
 
 ${continuity}
 
@@ -113,16 +128,18 @@ ${previous}
 MAIN STORY:
 ${story}
 
-IMPORTANT:
+Create TWO separate outputs.
 
 OUTPUT 1 — PHOTO PROMPT
-Create a strong cinematic still-image prompt.
 
-The PHOTO PROMPT must describe:
-- Exact fruit-headed character
+Create a cinematic still-image prompt.
+
+Include:
+- Exact Fruit Head character
 - Face
+- Fruit type
+- Human body
 - Clothing
-- Body
 - Environment
 - Background
 - Lighting
@@ -130,13 +147,15 @@ The PHOTO PROMPT must describe:
 - Visual style
 - Character consistency
 
-The PHOTO PROMPT must NOT contain dialogue.
-The PHOTO PROMPT must NOT describe video movement.
+IMPORTANT:
+The PHOTO PROMPT must contain NO dialogue.
+The PHOTO PROMPT must describe a still image only.
 
 OUTPUT 2 — FLOW VIDEO PROMPT
+
 Create a short video prompt based on the same character and scene.
 
-The video prompt must contain:
+Include:
 - Character action
 - Facial expressions
 - Body movement
@@ -150,7 +169,7 @@ The video prompt must contain:
 
 ${dialogueRule}
 
-Return EXACTLY this format:
+Return exactly:
 
 PHOTO PROMPT:
 [photo prompt]
@@ -159,94 +178,9 @@ FLOW VIDEO PROMPT:
 [video prompt]
 `;
 
-      const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [
-                  {
-                    text: prompt
-                  }
-                ]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.75,
-              maxOutputTokens: 6000
-            }
-          })
-        }
-      );
+    } else {
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        return res.status(response.status).json({
-          ok: false,
-          error:
-            data?.error?.message ||
-            "Gemini API request failed"
-        });
-      }
-
-      const text =
-        data?.candidates?.[0]?.content?.parts
-          ?.map((p) => p.text || "")
-          .join("")
-          .trim() || "";
-
-      if (!text) {
-        return res.status(500).json({
-          ok: false,
-          error: "Gemini returned empty result"
-        });
-      }
-
-      const photoMatch = text.match(
-        /PHOTO\s*PROMPT\s*:\s*([\s\S]*?)(?=FLOW\s*VIDEO\s*PROMPT\s*:|$)/i
-      );
-
-      const flowMatch = text.match(
-        /FLOW\s*VIDEO\s*PROMPT\s*:\s*([\s\S]*)$/i
-      );
-
-      const photoPrompt = (
-        photoMatch?.[1] || ""
-      )
-        .replace(/\s+/g, " ")
-        .trim();
-
-      const flowVideoPrompt = (
-        flowMatch?.[1] || text
-      )
-        .replace(/\s+/g, " ")
-        .trim();
-
-      return res.status(200).json({
-        ok: true,
-
-        photoPrompt,
-
-        flowVideoPrompt,
-
-        veoVideoPrompt: "",
-
-        veoCharacters: flowVideoPrompt.length,
-
-        scenes: []
-      });
-    }
-
-    // GOOGLE VEO
-    const prompt = `
+      prompt = `
 You are a professional Google Veo video prompt writer.
 
 ${continuity}
@@ -271,32 +205,34 @@ ${previous}
 MAIN STORY:
 ${story}
 
-Create a series of separate 10-second Google Veo video prompts.
+Create separate Google Veo video prompts.
 
 IMPORTANT RULES:
 
-1. Every scene must be exactly one 10-second video.
-2. Each scene must contain only actions that can realistically happen within 10 seconds.
-3. Each scene must be MAXIMUM 900 characters.
-4. Each scene must be directly usable in Google Veo.
-5. Do not create a photo prompt.
-6. Do not create image prompts.
-7. Video prompts only.
-8. Keep the exact same Fruit Head character throughout all scenes.
-9. Do not change fruit type, face, clothing or identity.
-10. Use natural cinematic movement.
-11. Include natural Myanmar Burmese dialogue when dialogue is enabled.
-12. Dialogue must be short enough for a 10-second scene.
+1. Every scene is exactly 10 seconds.
+2. Each scene must describe only actions that can happen in 10 seconds.
+3. Each scene MUST be 900 characters or less.
+4. Video prompts ONLY.
+5. Do NOT create photo prompts.
+6. Keep the same Fruit Head character in every scene.
+7. Do not change fruit type.
+8. Do not change face.
+9. Do not change clothing.
+10. Do not change identity.
+11. Include natural Myanmar Burmese dialogue when enabled.
+12. Dialogue must be short enough for a 10-second video.
 13. Include accurate lip-sync.
-14. Do not add subtitles.
-15. Do not add logos.
-16. Do not add watermark.
+14. No subtitles.
+15. No logos.
+16. No watermark.
 17. Do not repeat the entire story in every scene.
-18. Cover the complete MAIN STORY across the scenes.
+18. Cover the complete story across all scenes.
+19. Use cinematic camera movement.
+20. Use natural facial expressions and body movement.
 
 ${dialogueRule}
 
-Return EXACTLY:
+Return exactly:
 
 SCENE 1 — 10 SEC
 [video prompt]
@@ -307,52 +243,129 @@ SCENE 2 — 10 SEC
 SCENE 3 — 10 SEC
 [video prompt]
 
-Continue until the entire story is covered.
+Continue until the complete story is covered.
 `;
+    }
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-        body: JSON.stringify({
-          contents: [
+    // =========================
+    // GEMINI MODEL FALLBACK
+    // =========================
+
+    const models = [
+      "gemini-3.8-flash",
+      "gemini-2.5-flash",
+      "gemini-2.0-flash"
+    ];
+
+    let data = null;
+    let lastError = "";
+
+    for (const model of models) {
+
+      let success = false;
+
+      for (let attempt = 1; attempt <= 2; attempt++) {
+
+        try {
+
+          const response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
             {
-              role: "user",
-              parts: [
-                {
-                  text: prompt
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": apiKey
+              },
+              body: JSON.stringify({
+                contents: [
+                  {
+                    role: "user",
+                    parts: [
+                      {
+                        text: prompt
+                      }
+                    ]
+                  }
+                ],
+                generationConfig: {
+                  temperature: 0.75,
+                  maxOutputTokens: 6000
                 }
-              ]
+              })
             }
-          ],
-          generationConfig: {
-            temperature: 0.75,
-            maxOutputTokens: 6000
+          );
+
+          data = await response.json();
+
+          if (response.ok) {
+            success = true;
+            break;
           }
-        })
+
+          lastError =
+            data?.error?.message ||
+            `Gemini ${model} failed`;
+
+          // Retry only temporary errors
+          if (
+            response.status === 429 ||
+            response.status === 500 ||
+            response.status === 502 ||
+            response.status === 503 ||
+            response.status === 504
+          ) {
+            await new Promise(resolve =>
+              setTimeout(resolve, 1200 * attempt)
+            );
+
+            continue;
+          }
+
+          break;
+
+        } catch (error) {
+
+          lastError =
+            error?.message ||
+            "Gemini request failed";
+
+          await new Promise(resolve =>
+            setTimeout(resolve, 1000)
+          );
+        }
       }
-    );
 
-    const data = await response.json();
+      if (success) {
+        break;
+      }
+    }
 
-    if (!response.ok) {
-      return res.status(response.status).json({
+    // =========================
+    // ALL MODELS FAILED
+    // =========================
+
+    if (
+      !data ||
+      !data?.candidates?.[0]?.content?.parts
+    ) {
+
+      return res.status(503).json({
         ok: false,
         error:
-          data?.error?.message ||
-          "Gemini API request failed"
+          "Gemini models are temporarily busy. Please try again in a moment.",
+        details: lastError
       });
     }
 
+    // =========================
+    // GET GENERATED TEXT
+    // =========================
+
     const text =
-      data?.candidates?.[0]?.content?.parts
-        ?.map((p) => p.text || "")
+      data.candidates[0].content.parts
+        .map(part => part.text || "")
         .join("")
-        .trim() || "";
+        .trim();
 
     if (!text) {
       return res.status(500).json({
@@ -360,6 +373,48 @@ Continue until the entire story is covered.
         error: "Gemini returned empty result"
       });
     }
+
+    // =========================
+    // FLOW AI RESULT
+    // =========================
+
+    if (ai === "flow") {
+
+      const photoMatch = text.match(
+        /PHOTO\s*PROMPT\s*:\s*([\s\S]*?)(?=FLOW\s*VIDEO\s*PROMPT\s*:|$)/i
+      );
+
+      const flowMatch = text.match(
+        /FLOW\s*VIDEO\s*PROMPT\s*:\s*([\s\S]*)$/i
+      );
+
+      const photoPrompt =
+        (
+          photoMatch?.[1] || ""
+        )
+          .replace(/\s+/g, " ")
+          .trim();
+
+      const flowVideoPrompt =
+        (
+          flowMatch?.[1] || text
+        )
+          .replace(/\s+/g, " ")
+          .trim();
+
+      return res.status(200).json({
+        ok: true,
+        photoPrompt,
+        flowVideoPrompt,
+        veoVideoPrompt: "",
+        veoCharacters: flowVideoPrompt.length,
+        scenes: []
+      });
+    }
+
+    // =========================
+    // VEO RESULT
+    // =========================
 
     const scenes = [];
 
@@ -370,15 +425,17 @@ Continue until the entire story is covered.
 
     while ((match = regex.exec(text)) !== null) {
 
-      let scenePrompt = match[2]
-        .replace(/\s+/g, " ")
-        .trim();
-
-      // HARD LIMIT: 900 characters
-      if (scenePrompt.length > 900) {
-        scenePrompt = scenePrompt
-          .slice(0, 900)
+      let scenePrompt =
+        match[2]
+          .replace(/\s+/g, " ")
           .trim();
+
+      // HARD 900 CHARACTER LIMIT
+      if (scenePrompt.length > 900) {
+        scenePrompt =
+          scenePrompt
+            .slice(0, 900)
+            .trim();
       }
 
       scenes.push({
@@ -389,17 +446,22 @@ Continue until the entire story is covered.
       });
     }
 
-    // Fallback
+    // =========================
+    // FALLBACK SCENE
+    // =========================
+
     if (!scenes.length) {
 
-      let scenePrompt = text
-        .replace(/\s+/g, " ")
-        .trim();
+      let scenePrompt =
+        text
+          .replace(/\s+/g, " ")
+          .trim();
 
       if (scenePrompt.length > 900) {
-        scenePrompt = scenePrompt
-          .slice(0, 900)
-          .trim();
+        scenePrompt =
+          scenePrompt
+            .slice(0, 900)
+            .trim();
       }
 
       scenes.push({
@@ -410,6 +472,10 @@ Continue until the entire story is covered.
       });
     }
 
+    // =========================
+    // FINAL RESPONSE
+    // =========================
+
     return res.status(200).json({
       ok: true,
 
@@ -417,15 +483,19 @@ Continue until the entire story is covered.
 
       flowVideoPrompt: "",
 
-      veoVideoPrompt: scenes[0].prompt,
+      veoVideoPrompt:
+        scenes[0]?.prompt || "",
 
-      veoCharacters: scenes[0].prompt.length,
+      veoCharacters:
+        scenes[0]?.prompt?.length || 0,
 
       scenes,
 
-      totalScenes: scenes.length,
+      totalScenes:
+        scenes.length,
 
-      totalDuration: scenes.length * 10
+      totalDuration:
+        scenes.length * 10
     });
 
   } catch (error) {
@@ -434,7 +504,9 @@ Continue until the entire story is covered.
 
     return res.status(500).json({
       ok: false,
-      error: error.message || "Server error"
+      error:
+        error?.message ||
+        "Server error"
     });
   }
 }
