@@ -1,7 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
 export default async function handler(req, res) {
-  // Only allow POST
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -11,21 +10,19 @@ export default async function handler(req, res) {
 
   try {
     const {
-      prompt,
+      prompt = "",
       ratio = "9:16",
       sceneId = "",
       title = "",
     } = req.body || {};
 
-    // Check prompt
-    if (!prompt || !String(prompt).trim()) {
+    if (!String(prompt).trim()) {
       return res.status(400).json({
         success: false,
         error: "prompt is required",
       });
     }
 
-    // Check Gemini API Key
     if (!process.env.GEMINI_API_KEY) {
       return res.status(500).json({
         success: false,
@@ -37,56 +34,35 @@ export default async function handler(req, res) {
       apiKey: process.env.GEMINI_API_KEY,
     });
 
-    // Only allow these two ratios
-    const aspectRatio = ratio === "16:9" ? "16:9" : "9:16";
+    const aspectRatio =
+      ratio === "16:9" ? "16:9" : "9:16";
 
-    /*
-     * Important:
-     * The generated image must follow the news/article scene.
-     * Do not invent information that is not in the source.
-     */
     const instruction = `
-Create a realistic editorial news visual for a Myanmar news presentation.
+Create one realistic professional editorial news visual.
 
-Source scene title:
-${title || sceneId || "News Scene"}
+News title:
+${title || "News"}
 
-Scene visual requirement:
+Scene:
+${sceneId || "News Scene"}
+
+Visual requirement:
 ${prompt}
 
-Aspect ratio:
-${aspectRatio}
-
-STRICT NEWS ACCURACY RULES:
-- Depict ONLY information supported by the supplied scene description.
-- Do NOT invent facts.
-- Do NOT invent people.
-- Do NOT invent names.
-- Do NOT invent numbers.
-- Do NOT invent locations.
-- Do NOT invent dates.
-- Do NOT invent organizations.
-- Do NOT add events that are not described.
-- Do NOT add fake evidence.
-- Do NOT add misleading details.
-
-IMAGE RULES:
+IMPORTANT:
+- Follow ONLY the supplied scene description.
+- Do not invent facts.
+- Do not invent names, dates, numbers, places or organizations.
+- Do not add unsupported people or events.
 - No captions.
 - No headlines.
 - No subtitles.
 - No logos.
-- No platform watermarks.
-- No fake news text.
-- No fake newspaper text.
-- No extra written information.
-- Professional editorial/news photography style.
-- Documentary realism.
+- No watermarks.
+- No fake text.
+- Professional documentary/news photography.
 - Natural lighting.
 - Realistic composition.
-- Clear subject matching the scene.
-- The visual must directly correspond to the supplied news scene.
-
-Generate one clean professional news visual.
 `;
 
     const response = await ai.models.generateContent({
@@ -94,13 +70,19 @@ Generate one clean professional news visual.
       contents: instruction,
       config: {
         responseModalities: ["TEXT", "IMAGE"],
+
+        responseFormat: {
+          image: {
+            aspectRatio: aspectRatio,
+            imageSize: "1K",
+          },
+        },
       },
     });
 
     const parts =
       response?.candidates?.[0]?.content?.parts || [];
 
-    // Find generated image
     const imagePart = parts.find(
       (part) => part?.inlineData?.data
     );
@@ -120,6 +102,7 @@ Generate one clean professional news visual.
       sceneId,
       ratio: aspectRatio,
       imageData,
+      mimeType,
     });
 
   } catch (error) {
