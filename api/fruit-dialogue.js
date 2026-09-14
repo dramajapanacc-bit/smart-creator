@@ -1,6 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({
+      success: false,
       error: "Method not allowed"
     });
   }
@@ -9,61 +10,148 @@ export default async function handler(req, res) {
     const {
       character = "",
       story = "",
-      episode = "",
+      episode = "1",
       previous = "",
-      mood = "Funny comedy",
+      mood = "funny comedy",
       ratio = "16:9",
       ai = "veo",
       dialogueMode = "auto",
       dialogue = ""
     } = req.body || {};
 
+    if (!character.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Character is required"
+      });
+    }
+
+    if (!story.trim()) {
+      return res.status(400).json({
+        success: false,
+        error: "Story is required"
+      });
+    }
+
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "GEMINI_API_KEY is not configured in Vercel."
+        success: false,
+        error: "GEMINI_API_KEY is not configured"
       });
     }
 
-    if (!character || !story) {
-      return res.status(400).json({
-        error: "Character and story are required."
-      });
-    }
+    const isFlow = String(ai).toLowerCase() === "flow";
 
-    const isFlow = ai === "flow";
+    // =========================================================
+    // UNIVERSAL CHARACTER LOCK
+    // =========================================================
 
-    const languageRules = `
-SPOKEN LANGUAGE RULES:
-- Spoken dialogue MUST be natural Standard Myanmar Burmese.
-- Use a neutral Central Myanmar / Yangon-style Burmese accent.
-- DO NOT use Rakhine accent or Rakhine dialect.
-- DO NOT use Shan, Mon, Karen, or other regional dialect pronunciation.
-- Pronounce Burmese words clearly and naturally like a native speaker from central Myanmar.
-- The character must speak exactly the Burmese words written in the dialogue.
-- Do not translate the dialogue into English.
-- Do not romanize Burmese.
-- Do not invent a different dialect.
+    const characterLock = `
+UNIVERSAL CHARACTER CONSISTENCY LOCK:
+
+The character description supplied by the user is the MASTER CHARACTER DESIGN.
+
+Keep the exact same:
+- fruit head shape
+- fruit color
+- facial structure
+- eyes
+- eyebrows
+- nose
+- mouth
+- body proportions
+- arms
+- hands
+- legs
+- shoes
+- clothing
+- clothing colors
+- accessories
+- age appearance
+- body size
+- visual identity
+
+Do NOT redesign the character between scenes.
+
+If multiple characters are present, lock EVERY character separately.
+
+Do not replace fruit heads with normal human heads.
+
+The characters must remain anthropomorphic fruit characters:
+fruit-shaped head + human-like body + human-like arms and legs.
+
+Only change pose, facial expression, movement and action when the story requires it.
 `;
+
+    const continuityRules = `
+SCENE CONTINUITY RULE:
+
+Every scene must continue naturally from the previous scene.
+
+Scene 2 must feel like the immediate continuation of Scene 1.
+Scene 3 must continue from Scene 2, and so on.
+
+Never restart the story from the beginning.
+
+Keep the same:
+- characters
+- clothing
+- environment
+- time of day
+- lighting style
+- cinematic style
+- camera world
+- visual identity
+
+Only change the action/pose when the story progresses.
+
+For every new scene, explicitly preserve the previous scene's character identity and environment.
+`;
+
+    const speechRules = `
+STANDARD MYANMAR SPEECH RULE:
+
+All spoken dialogue must be natural spoken Myanmar Burmese.
+
+Use normal Myanmar conversational wording.
+
+Do NOT use:
+- English dialogue
+- romanized Burmese
+- strange machine-like Burmese
+- overly formal written Burmese
+
+Dialogue must sound like a real person speaking naturally.
+
+For a 10-second scene, keep dialogue SHORT.
+
+Usually 1 short sentence or 2 very short sentences.
+
+The character must finish speaking naturally within the 10-second clip.
+
+Use natural lip-sync.
+`;
+
+    // =========================================================
+    // FLOW
+    // =========================================================
 
     let prompt = "";
 
     if (isFlow) {
       prompt = `
-Create two production-ready prompts for an AI video generator.
+You are an expert prompt writer for Google Flow AI.
 
-CHARACTER:
-${character}
+Create a complete multi-scene story prompt package.
 
-STORY:
+The user's story is:
+
 ${story}
 
-EPISODE:
-${episode || "Episode 1"}
-
-PREVIOUS CONTEXT:
-${previous || "None"}
+MAIN CHARACTER DESIGN:
+${character}
 
 MOOD:
 ${mood}
@@ -71,58 +159,109 @@ ${mood}
 ASPECT RATIO:
 ${ratio}
 
+EPISODE:
+${episode}
+
+PREVIOUS STORY CONTEXT:
+${previous || "None"}
+
 DIALOGUE MODE:
 ${dialogueMode}
 
-USER DIALOGUE:
-${dialogue || "Create natural dialogue yourself."}
+USER PROVIDED DIALOGUE:
+${dialogue || "None"}
 
-${languageRules}
+${characterLock}
+
+${continuityRules}
+
+${speechRules}
+
+FLOW REQUIREMENTS:
+
+Each scene must be exactly 10 seconds.
+
+Break the story naturally into 10-second scenes.
+
+Do NOT put dialogue inside PHOTO PROMPT.
+
+PHOTO PROMPT is ONLY for creating the still image/reference image.
+
+VIDEO PROMPT MUST contain the spoken Myanmar dialogue.
+
+The VIDEO PROMPT must describe:
+- exact same character
+- exact same appearance
+- environment
+- action
+- camera movement
+- facial expression
+- natural body movement
+- natural lip-sync
+- spoken Myanmar dialogue
+- cinematic realism
+- 10-second duration
 
 IMPORTANT:
-The characters MUST be anthropomorphic fruit characters.
-Their heads must actually look like fruit while their bodies are human-like.
-Do not turn them into normal human characters.
 
-Create exactly these two outputs:
+Scene 1 establishes the complete visual identity.
 
-PHOTO PROMPT:
-Create a concise image-generation prompt describing the fruit characters, appearance, clothing, environment, lighting, camera framing and visual style.
-Do NOT include dialogue in the PHOTO PROMPT.
+Scene 2 must explicitly continue from Scene 1.
 
-FLOW VIDEO PROMPT:
-Create one concise video-generation prompt directly usable in Flow.
-Include the character action and natural Burmese spoken dialogue.
-Use only very short Burmese dialogue.
-Use at most ONE short spoken sentence per character.
-The dialogue should be short enough to finish naturally within the clip.
-Do not add subtitles, captions, text, logos or watermarks.
-Do not include explanations or meta instructions outside the actual video prompt.
+Scene 2 PHOTO PROMPT must say that it is the SAME EXACT CHARACTER from Scene 1 and preserve the same appearance.
 
-Return exactly:
+Scene 2 VIDEO PROMPT must continue the action directly from Scene 1.
 
+Do the same for every later scene.
+
+If a scene has no dialogue naturally, use a very short natural reaction sound or short Burmese line instead.
+
+Do not create unnecessary dialogue.
+
+OUTPUT FORMAT:
+
+SCENE 1
 PHOTO PROMPT:
 ...
 
-FLOW VIDEO PROMPT:
+VIDEO PROMPT:
 ...
+
+SCENE 2
+PHOTO PROMPT:
+...
+
+VIDEO PROMPT:
+...
+
+SCENE 3
+PHOTO PROMPT:
+...
+
+VIDEO PROMPT:
+...
+
+Continue until the entire story is covered.
+
+Do not add explanations.
+Do not add markdown tables.
+Return only the scene prompts.
 `;
-
     } else {
-      prompt = `
-Create production-ready Google Veo video prompts for a fruit-head comedy story.
+      // =======================================================
+      // VEO
+      // =======================================================
 
-CHARACTER:
-${character}
+      prompt = `
+You are an expert Google Veo video prompt writer.
+
+Create a complete multi-scene video prompt from this story.
 
 STORY:
 ${story}
 
-EPISODE:
-${episode || "Episode 1"}
-
-PREVIOUS CONTEXT:
-${previous || "None"}
+CHARACTER:
+${character}
 
 MOOD:
 ${mood}
@@ -130,64 +269,70 @@ ${mood}
 ASPECT RATIO:
 ${ratio}
 
+EPISODE:
+${episode}
+
+PREVIOUS STORY:
+${previous || "None"}
+
 DIALOGUE MODE:
 ${dialogueMode}
 
 USER DIALOGUE:
-${dialogue || "Create natural dialogue yourself."}
+${dialogue || "None"}
 
-${languageRules}
+${characterLock}
 
-VERY IMPORTANT VEO SPEECH RULES:
+${continuityRules}
 
-1. Split the story into separate scenes.
-2. Every scene MUST be exactly 10 seconds.
-3. Each scene must contain only ONE very short Burmese spoken line.
-4. The spoken line should normally be about 3-8 Burmese words.
-5. Never create long Burmese sentences.
-6. The character MUST finish the entire spoken line within the first 5 seconds.
-7. After the dialogue finishes, the character should only perform facial expressions, reactions or physical action.
-8. Do NOT stretch the Burmese pronunciation.
-9. Do NOT add unnecessary pauses between Burmese words.
-10. Do NOT repeat the dialogue.
-11. Do NOT continue speaking after the sentence is complete.
-12. Use neutral Standard Myanmar Burmese with a Central Myanmar / Yangon-style accent.
-13. ABSOLUTELY NO RAKHINE ACCENT OR RAKHINE DIALECT.
-14. The written Burmese dialogue must be spoken exactly as written.
-15. Do not translate Burmese dialogue into English.
-16. Do not romanize Burmese.
-17. Do not add subtitles, captions, text, logos or watermarks.
+${speechRules}
 
-IMPORTANT CHARACTER RULE:
-The characters are anthropomorphic fruits.
-Their heads must visibly be fruit-shaped.
-They have human-like bodies, arms and legs.
-Do NOT turn them into ordinary human characters.
+VEO REQUIREMENTS:
 
-Keep each complete scene prompt under 850 characters so the final prompt stays safely below Veo's 900-character limit.
+Create 10-second scenes.
 
-Use this exact format:
+Each scene MUST be 900 characters or fewer.
 
-SCENE 1 — 10 SEC
-[concise visual action]. [Character] says in natural Standard Myanmar Burmese with a neutral Yangon/Central Myanmar accent: "SHORT BURMESE DIALOGUE". The character finishes speaking within the first 5 seconds, then continues the physical action or reaction.
+Every scene must continue naturally from the previous scene.
 
-SCENE 2 — 10 SEC
-[concise visual action]. [Character] says in natural Standard Myanmar Burmese with a neutral Yangon/Central Myanmar accent: "SHORT BURMESE DIALOGUE". The character finishes speaking within the first 5 seconds, then continues the physical action or reaction.
+Keep exact character appearance and clothing consistent.
 
-Continue until the whole story is covered.
+The character must remain an anthropomorphic fruit character.
 
-Do not put multiple long dialogue lines into one scene.
+Each scene may contain short natural Myanmar dialogue.
+
+Dialogue must be inside the VIDEO PROMPT.
+
+Do not create separate photo prompts.
+
+OUTPUT EXACTLY:
+
+SCENE 1:
+...
+
+SCENE 2:
+...
+
+SCENE 3:
+...
+
+Continue until the entire story is covered.
+
+No explanations.
 `;
-
     }
+
+    // =========================================================
+    // GEMINI MODEL FALLBACK
+    // =========================================================
 
     const models = [
       "gemini-3.5-flash-lite",
       "gemini-3.6-flash"
     ];
 
-    let lastError = null;
     let result = null;
+    let lastError = null;
 
     for (const model of models) {
       try {
@@ -211,7 +356,8 @@ Do not put multiple long dialogue lines into one scene.
                 }
               ],
               generationConfig: {
-                maxOutputTokens: 6000
+                temperature: 0.8,
+                maxOutputTokens: 7000
               }
             })
           }
@@ -220,142 +366,152 @@ Do not put multiple long dialogue lines into one scene.
         const data = await response.json();
 
         if (!response.ok) {
-          lastError = data;
+          lastError = data?.error?.message || `HTTP ${response.status}`;
           continue;
         }
 
         const text =
           data?.candidates?.[0]?.content?.parts
-            ?.map(part => part.text || "")
+            ?.map(p => p.text || "")
             .join("")
-            .trim() || "";
+            .trim();
 
         if (!text) {
-          lastError = {
-            error: "Gemini returned an empty response."
-          };
+          lastError = "AI returned empty response";
           continue;
         }
 
         result = text;
         break;
-
       } catch (err) {
-        lastError = {
-          error: err.message
-        };
+        lastError = err.message;
       }
     }
 
     if (!result) {
       return res.status(500).json({
-        error: "Gemini API failed.",
-        details: lastError
+        success: false,
+        error: lastError || "AI generation failed"
       });
     }
 
+    // =========================================================
+    // FLOW PARSER
+    // =========================================================
+
     if (isFlow) {
-      const photoMatch = result.match(
-        /PHOTO PROMPT\s*:\s*([\s\S]*?)(?=FLOW VIDEO PROMPT\s*:|$)/i
-      );
+      const scenes = [];
 
-      const flowMatch = result.match(
-        /FLOW VIDEO PROMPT\s*:\s*([\s\S]*)/i
-      );
+      const sceneRegex =
+        /SCENE\s*(\d+)\s*[\r\n]+PHOTO PROMPT:\s*([\s\S]*?)\s*VIDEO PROMPT:\s*([\s\S]*?)(?=\s*SCENE\s*\d+\s*[\r\n]+PHOTO PROMPT:|$)/gi;
 
-      const photoPrompt = photoMatch
-        ? photoMatch[1].trim()
-        : "";
+      let match;
 
-      const flowVideoPrompt = flowMatch
-        ? flowMatch[1].trim()
-        : result.trim();
+      while ((match = sceneRegex.exec(result)) !== null) {
+        const sceneNumber = Number(match[1]);
+
+        const photoPrompt = match[2]
+          .trim()
+          .replace(/^["']|["']$/g, "");
+
+        const videoPrompt = match[3]
+          .trim()
+          .replace(/^["']|["']$/g, "");
+
+        if (photoPrompt || videoPrompt) {
+          scenes.push({
+            scene: sceneNumber,
+            duration: "10 sec",
+            photoPrompt,
+            videoPrompt
+          });
+        }
+      }
+
+      // Fallback if parser misses the format
+      if (!scenes.length) {
+        scenes.push({
+          scene: 1,
+          duration: "10 sec",
+          photoPrompt: result,
+          videoPrompt: result
+        });
+      }
 
       return res.status(200).json({
         success: true,
         ai: "flow",
-        photoPrompt,
-        flowVideoPrompt
+        scenes,
+
+        // Compatibility with older frontend
+        photoPrompt: scenes
+          .map(s => `SCENE ${s.scene}\n${s.photoPrompt}`)
+          .join("\n\n"),
+
+        flowVideoPrompt: scenes
+          .map(s => `SCENE ${s.scene}\n${s.videoPrompt}`)
+          .join("\n\n")
       });
     }
 
-    // ---------------------------------------
-    // VEO SCENE PARSER
-    // ---------------------------------------
-
-    const sceneRegex =
-      /SCENE\s*(\d+)\s*[—-]\s*10\s*SEC([\s\S]*?)(?=SCENE\s*\d+\s*[—-]\s*10\s*SEC|$)/gi;
+    // =========================================================
+    // VEO PARSER
+    // =========================================================
 
     const scenes = [];
+
+    const veoRegex =
+      /SCENE\s*(\d+)\s*:\s*([\s\S]*?)(?=\s*SCENE\s*\d+\s*:|$)/gi;
+
     let match;
 
-    while ((match = sceneRegex.exec(result)) !== null) {
-      let sceneNumber = Number(match[1]);
-      let sceneText = match[2].trim();
+    while ((match = veoRegex.exec(result)) !== null) {
+      const sceneNumber = Number(match[1]);
 
-      if (!sceneText) continue;
+      let scenePrompt = match[2]
+        .trim()
+        .replace(/^["']|["']$/g, "");
 
-      /*
-       * Safety cleanup.
-       * Keep each scene comfortably below 900 characters.
-       * We prefer cutting at sentence boundaries rather than
-       * cutting through the Burmese dialogue.
-       */
-
-      if (sceneText.length > 850) {
-        const possible = sceneText.slice(0, 850);
-
-        const sentenceEnd = Math.max(
-          possible.lastIndexOf("။"),
-          possible.lastIndexOf("."),
-          possible.lastIndexOf("”"),
-          possible.lastIndexOf('"')
-        );
-
-        if (sentenceEnd > 500) {
-          sceneText = possible.slice(0, sentenceEnd + 1);
-        } else {
-          sceneText = possible;
-        }
+      // Hard safety compression for Veo
+      if (scenePrompt.length > 900) {
+        scenePrompt = scenePrompt.slice(0, 900).trim();
       }
 
       scenes.push({
         scene: sceneNumber,
         duration: "10 sec",
-        prompt: `SCENE ${sceneNumber} — 10 SEC\n${sceneText}`
+        prompt: scenePrompt,
+        characters: scenePrompt.length
       });
     }
 
-    // Fallback if Gemini did not follow scene format
-    if (scenes.length === 0) {
+    if (!scenes.length) {
       let fallback = result.trim();
 
-      if (fallback.length > 850) {
-        fallback = fallback.slice(0, 850);
+      if (fallback.length > 900) {
+        fallback = fallback.slice(0, 900).trim();
       }
 
       scenes.push({
         scene: 1,
         duration: "10 sec",
-        prompt: `SCENE 1 — 10 SEC\n${fallback}`
+        prompt: fallback,
+        characters: fallback.length
       });
     }
 
     return res.status(200).json({
       success: true,
       ai: "veo",
-      scenes,
-      veoVideoPrompt: scenes
-        .map(item => item.prompt)
-        .join("\n\n")
+      scenes
     });
 
   } catch (error) {
     console.error("fruit-dialogue error:", error);
 
     return res.status(500).json({
-      error: "Server error.",
-      details: error.message
+      success: false,
+      error: error?.message || "Server error"
     });
   }
 }
