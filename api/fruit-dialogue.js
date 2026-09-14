@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
+  // Only allow POST
   if (req.method !== "POST") {
     return res.status(405).json({
+      ok: false,
       error: "Method not allowed"
     });
   }
@@ -9,142 +11,107 @@ export default async function handler(req, res) {
     const {
       character = "",
       story = "",
-      episode = "1",
-      mood = "cinematic",
+      episode = "",
+      mood = "",
       previous = ""
     } = req.body || {};
 
-    if (!story.trim()) {
-      return res.status(400).json({
-        error: "Main Story ထည့်ပေးပါ။"
-      });
-    }
-
+    // Check API key
     const apiKey = process.env.GEMINI_API_KEY;
 
     if (!apiKey) {
       return res.status(500).json({
-        error: "GEMINI_API_KEY ကို Vercel Environment Variables ထဲမှာ ထည့်ပါ။"
+        ok: false,
+        error: "GEMINI_API_KEY is not configured in Vercel."
       });
     }
 
     const prompt = `
-You are a professional Myanmar movie dialogue writer.
+Create a short natural Myanmar-language dialogue for a fruit character video.
 
-Create natural spoken Myanmar Burmese dialogue based ONLY on the story information below.
+Character:
+${character}
 
-CHARACTER:
-${character || "Fruit Head"}
-
-EPISODE:
-${episode}
-
-MOOD:
-${mood}
-
-PREVIOUS EPISODE:
-${previous || "None"}
-
-MAIN STORY:
+Story:
 ${story}
 
-IMPORTANT:
-- Write the dialogue in natural standard Myanmar Burmese.
-- Make the dialogue follow the story exactly.
-- Do NOT change the main story.
-- Do NOT invent unrelated events.
-- Use the characters from the story.
-- Create approximately 2–4 short dialogue lines.
-- Each line must clearly identify the speaker.
-- Dialogue should sound natural when spoken in a video.
-- Keep each line short enough for AI video lip-sync.
-- Match the selected mood.
-- Use emotional delivery appropriate to the scene.
-- If the scene is horror, make the speech tense and mysterious.
-- If comedy, make it funny and natural.
-- If sad, make it emotional.
-- If romance, make it gentle and emotional.
-- If action, make it energetic and urgent.
-- If cinematic, make it dramatic and realistic.
-- Do not use English unless it is a character name or absolutely necessary.
-- Output ONLY the dialogue.
+Episode:
+${episode}
+
+Mood:
+${mood}
+
+Previous dialogue:
+${previous}
+
+Requirements:
+- Write only the dialogue.
+- Use natural spoken Myanmar language.
+- Keep it short and suitable for a short video.
 - Do not add explanations.
-- Do not add markdown.
-- Do not add quotation marks around every line.
-
-Example format:
-
-Fruit Head: ဒီနေရာမှာ ဘယ်သူရှိတာလဲ...
-Unknown Voice: မင်း ဒီကို မလာသင့်ဘူး...
-Fruit Head: ဘယ်သူလဲ။ ထွက်လာခဲ့။
-
-Now create the Myanmar dialogue.
+- Do not use markdown.
 `;
 
-    const model = "gemini-2.5-flash";
-
-    const endpoint =
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: prompt
-              }
-            ]
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
+        encodeURIComponent(apiKey),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                {
+                  text: prompt
+                }
+              ]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.8,
+            maxOutputTokens: 300
           }
-        ],
-        generationConfig: {
-          temperature: 0.8,
-          maxOutputTokens: 500
-        }
-      })
-    });
+        })
+      }
+    );
 
     const data = await response.json();
 
     if (!response.ok) {
-      console.error("Gemini Dialogue Error:", data);
+      console.error("Gemini API Error:", data);
 
       return res.status(response.status).json({
+        ok: false,
         error:
           data?.error?.message ||
-          "Myanmar Dialogue AI Generate မအောင်မြင်ပါ။"
+          "Gemini API request failed."
       });
     }
 
-    const text =
-      data?.candidates?.[0]?.content?.parts
-        ?.map(part => part.text || "")
-        .join("")
-        .trim();
+    const dialogue =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || "";
 
-    if (!text) {
+    if (!dialogue) {
       return res.status(500).json({
-        error: "AI က Dialogue မထုတ်ပေးနိုင်ပါ။"
+        ok: false,
+        error: "Gemini returned an empty dialogue."
       });
     }
 
     return res.status(200).json({
       ok: true,
-      dialogue: text
+      dialogue
     });
 
   } catch (error) {
-    console.error("Fruit Dialogue Error:", error);
+    console.error("fruit-dialogue error:", error);
 
     return res.status(500).json({
-      error:
-        error?.message ||
-        "Myanmar Dialogue Generate မအောင်မြင်ပါ။"
+      ok: false,
+      error: error?.message || "Internal server error."
     });
   }
 }
