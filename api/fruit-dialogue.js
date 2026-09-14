@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     if (!apiKey) {
       return res.status(500).json({
         ok: false,
-        error: "GEMINI_API_KEY is missing in Vercel Environment Variables."
+        error: "GEMINI_API_KEY is missing in Vercel."
       });
     }
 
@@ -36,14 +36,14 @@ export default async function handler(req, res) {
       });
     }
 
-    // ==============================
+    // ==========================================
     // DIALOGUE
-    // ==============================
+    // ==========================================
 
     let dialogueRule = `
 Create 2-4 short, natural Myanmar Burmese spoken lines.
 Use natural conversational Myanmar Burmese.
-Keep each line short enough for a short video.
+Keep dialogue short enough for the video duration.
 Use accurate lip-sync.
 `;
 
@@ -60,46 +60,55 @@ Use ONLY this Myanmar Burmese dialogue:
 
 ${customDialogue}
 
-Do not create additional dialogue.
+Do not create additional spoken dialogue.
 `;
     }
 
-    // ==============================
-    // CHARACTER CONTINUITY
-    // ==============================
+    // ==========================================
+    // FRUIT HEAD CHARACTER CONTINUITY
+    // ==========================================
 
     const continuity = `
-CHARACTER CONTINUITY:
+CHARACTER DESIGN — VERY IMPORTANT:
 
-Use anthropomorphic Fruit Head characters.
+The characters MUST be anthropomorphic Fruit Head characters.
 
-The characters MUST have:
-- Fruit-shaped head
+They have:
+- A real fruit-shaped head
 - Human-like face
 - Human eyes
 - Human mouth
 - Human body
 - Human arms
+- Human hands
 - Human legs
-- Same fruit type
-- Same face
-- Same clothing
-- Same colors
-- Same hairstyle
-- Same body proportions
-- Same identity
+- Human feet
 
-IMPORTANT:
-Do NOT make them normal humans.
-Do NOT make them ordinary fruit.
-Keep the fruit head + human body design.
+Keep exactly the same:
+- Fruit type
+- Fruit color
+- Face
+- Eyes
+- Mouth
+- Hairstyle
+- Clothing
+- Body proportions
+- Character identity
+
+Do NOT turn the characters into normal humans.
+Do NOT turn them into ordinary fruit.
+The result MUST clearly look like a fruit head attached to a human-like body.
 `;
 
-    // ==============================
-    // PROMPT
-    // ==============================
+    // ==========================================
+    // CREATE PROMPT
+    // ==========================================
 
     let prompt = "";
+
+    // ==========================================
+    // FLOW AI
+    // ==========================================
 
     if (ai === "flow") {
 
@@ -121,20 +130,23 @@ ASPECT RATIO:
 ${ratio}
 
 ${episode > 1 ? `
-PREVIOUS EPISODE:
+PREVIOUS EPISODE CONTEXT:
 ${previous}
 ` : ""}
 
 MAIN STORY:
 ${story}
 
-Create TWO outputs.
+Create EXACTLY TWO outputs.
 
-PHOTO PROMPT:
+--------------------------------
+PHOTO PROMPT
+--------------------------------
+
 Create a cinematic still-image prompt.
 
-Include:
-- Fruit Head character
+Describe:
+- Exact Fruit Head character
 - Fruit type
 - Face
 - Human body
@@ -142,29 +154,42 @@ Include:
 - Environment
 - Background
 - Lighting
-- Camera composition
+- Camera angle
+- Composition
 - Visual style
 - Character consistency
 
-The PHOTO PROMPT must NOT contain dialogue.
-It must describe a still image only.
+IMPORTANT:
+The PHOTO PROMPT is for generating a still image.
 
-FLOW VIDEO PROMPT:
-Create a short video prompt using the same character.
+Do NOT include:
+- Dialogue
+- Speech
+- Lip-sync
+- Video movement
+- Scene duration
 
-Include:
+--------------------------------
+FLOW VIDEO PROMPT
+--------------------------------
+
+Create a short video prompt using the exact same character.
+
+Describe:
 - Character actions
 - Facial expressions
 - Body movement
 - Camera movement
 - Environment
-- Myanmar Burmese dialogue
+- Natural Myanmar Burmese dialogue
 - Speaker names
 - Natural voice
 - Accurate lip-sync
 - Ambient sound
 
 ${dialogueRule}
+
+The video prompt must be directly usable in Flow AI.
 
 Return EXACTLY:
 
@@ -176,6 +201,10 @@ FLOW VIDEO PROMPT:
 `;
 
     } else {
+
+      // ==========================================
+      // GOOGLE VEO
+      // ==========================================
 
       prompt = `
 You are a professional Google Veo video prompt writer.
@@ -195,7 +224,7 @@ ASPECT RATIO:
 ${ratio}
 
 ${episode > 1 ? `
-PREVIOUS EPISODE:
+PREVIOUS EPISODE CONTEXT:
 ${previous}
 ` : ""}
 
@@ -204,26 +233,30 @@ ${story}
 
 Create separate Google Veo VIDEO PROMPTS.
 
-RULES:
+IMPORTANT RULES:
 
-1. Each scene is exactly 10 seconds.
+1. Every scene must be exactly 10 seconds.
 2. Each scene must be 900 characters or less.
-3. VIDEO PROMPT ONLY.
-4. No photo prompt.
-5. Keep the same Fruit Head character.
+3. Video prompts ONLY.
+4. Do NOT create a photo prompt.
+5. Keep exactly the same Fruit Head character.
 6. Keep the same fruit type.
 7. Keep the same face.
 8. Keep the same clothing.
-9. Keep the same identity.
-10. Include natural Myanmar Burmese dialogue when enabled.
-11. Dialogue must be short enough for 10 seconds.
-12. Include accurate lip-sync.
-13. No subtitles.
-14. No logo.
-15. No watermark.
+9. Keep the same body design.
+10. Keep the same identity.
+11. Include natural Myanmar Burmese dialogue when enabled.
+12. Dialogue must be short enough for a 10-second scene.
+13. Include accurate lip-sync.
+14. Use natural facial expressions.
+15. Use believable body movement.
 16. Use cinematic camera movement.
-17. Cover the entire story across the scenes.
-18. Do not repeat the whole story in every scene.
+17. No subtitles.
+18. No logos.
+19. No watermark.
+20. Do not repeat the entire story in every scene.
+21. Cover the entire MAIN STORY across all scenes.
+22. Each scene must be directly usable in Google Veo.
 
 ${dialogueRule}
 
@@ -238,26 +271,26 @@ SCENE 2 — 10 SEC
 SCENE 3 — 10 SEC
 [video prompt]
 
-Continue until the whole story is covered.
+Continue until the complete story is covered.
 `;
     }
 
-    // ==============================
-    // GEMINI MODELS
-    // ==============================
+    // ==========================================
+    // CURRENT GEMINI MODELS
+    // ==========================================
 
     const models = [
-      "gemini-2.5-flash",
-      "gemini-2.5-flash-lite"
+      "gemini-3.5-flash-lite",
+      "gemini-3.6-flash"
     ];
 
-    let finalData = null;
+    let result = null;
     let lastStatus = 0;
     let lastError = "";
 
-    // ==============================
-    // TRY MODELS
-    // ==============================
+    // ==========================================
+    // TRY GEMINI
+    // ==========================================
 
     for (const model of models) {
 
@@ -286,7 +319,6 @@ Continue until the whole story is covered.
               ],
 
               generationConfig: {
-                temperature: 0.7,
                 maxOutputTokens: 6000
               }
             })
@@ -296,7 +328,7 @@ Continue until the whole story is covered.
         const data = await response.json();
 
         if (response.ok) {
-          finalData = data;
+          result = data;
           break;
         }
 
@@ -304,102 +336,85 @@ Continue until the whole story is covered.
 
         lastError =
           data?.error?.message ||
-          `Gemini returned HTTP ${response.status}`;
+          `Gemini ${model} returned HTTP ${response.status}`;
 
         console.error(
-          `Gemini model ${model} failed:`,
+          "Gemini error:",
+          model,
           lastStatus,
           lastError
         );
-
-        // Try the next model
-        continue;
 
       } catch (error) {
 
         lastError =
           error?.message ||
-          "Network error while connecting to Gemini.";
+          "Network error connecting to Gemini.";
 
         console.error(
-          `Gemini model ${model} exception:`,
+          "Gemini connection error:",
           lastError
         );
-
-        continue;
       }
     }
 
-    // ==============================
-    // NO MODEL WORKED
-    // ==============================
+    // ==========================================
+    // BOTH MODELS FAILED
+    // ==========================================
 
-    if (!finalData) {
+    if (!result) {
 
-      let message = lastError;
+      let errorMessage = lastError;
 
       if (lastStatus === 400) {
-        message =
-          `Gemini API 400 Error: ${lastError}`;
-      }
-
-      if (lastStatus === 401) {
-        message =
-          `Gemini API 401 Error: API key is invalid or unauthorized. ${lastError}`;
-      }
-
-      if (lastStatus === 403) {
-        message =
-          `Gemini API 403 Error: API key/project does not have permission. ${lastError}`;
-      }
-
-      if (lastStatus === 404) {
-        message =
-          `Gemini API 404 Error: Model not found. ${lastError}`;
-      }
-
-      if (lastStatus === 429) {
-        message =
-          `Gemini API 429 Error: Quota/rate limit or temporary high demand. ${lastError}`;
-      }
-
-      if (lastStatus >= 500) {
-        message =
-          `Gemini server error ${lastStatus}: ${lastError}`;
+        errorMessage =
+          `Gemini 400 Error: ${lastError}`;
+      } else if (lastStatus === 401) {
+        errorMessage =
+          `Gemini 401 Error: API Key is invalid. ${lastError}`;
+      } else if (lastStatus === 403) {
+        errorMessage =
+          `Gemini 403 Error: API Key has no permission. ${lastError}`;
+      } else if (lastStatus === 404) {
+        errorMessage =
+          `Gemini 404 Error: Model not available. ${lastError}`;
+      } else if (lastStatus === 429) {
+        errorMessage =
+          `Gemini 429 Error: Quota/rate limit/high demand. ${lastError}`;
+      } else if (lastStatus >= 500) {
+        errorMessage =
+          `Gemini ${lastStatus} Server Error: ${lastError}`;
       }
 
       return res.status(503).json({
         ok: false,
-        error: message,
+        error: errorMessage,
         status: lastStatus
       });
     }
 
-    // ==============================
-    // GET TEXT
-    // ==============================
+    // ==========================================
+    // READ GEMINI TEXT
+    // ==========================================
 
     const text =
-      finalData?.candidates?.[0]?.content?.parts
+      result?.candidates?.[0]?.content?.parts
         ?.map(part => part.text || "")
         .join("")
         .trim() || "";
 
     if (!text) {
 
-      const finishReason =
-        finalData?.candidates?.[0]?.finishReason || "";
-
       return res.status(500).json({
         ok: false,
         error:
-          `Gemini returned no text. Finish reason: ${finishReason || "unknown"}`
+          "Gemini returned an empty response."
       });
     }
 
-    // ==============================
-    // FLOW AI
-    // ==============================
+    // ==========================================
+    // FLOW RESULT
+    // ==========================================
 
     if (ai === "flow") {
 
@@ -422,6 +437,7 @@ Continue until the whole story is covered.
           .trim();
 
       return res.status(200).json({
+
         ok: true,
 
         photoPrompt,
@@ -430,15 +446,17 @@ Continue until the whole story is covered.
 
         veoVideoPrompt: "",
 
-        veoCharacters: flowVideoPrompt.length,
+        veoCharacters:
+          flowVideoPrompt.length,
 
         scenes: []
+
       });
     }
 
-    // ==============================
-    // VEO SCENES
-    // ==============================
+    // ==========================================
+    // VEO RESULT
+    // ==========================================
 
     const scenes = [];
 
@@ -454,8 +472,9 @@ Continue until the whole story is covered.
           .replace(/\s+/g, " ")
           .trim();
 
-      // Maximum 900 characters
+      // HARD 900 CHARACTER LIMIT
       if (scenePrompt.length > 900) {
+
         scenePrompt =
           scenePrompt
             .slice(0, 900)
@@ -463,16 +482,25 @@ Continue until the whole story is covered.
       }
 
       scenes.push({
-        scene: Number(match[1]),
-        duration: 10,
-        prompt: scenePrompt,
-        characters: scenePrompt.length
+
+        scene:
+          Number(match[1]),
+
+        duration:
+          10,
+
+        prompt:
+          scenePrompt,
+
+        characters:
+          scenePrompt.length
+
       });
     }
 
-    // ==============================
-    // FALLBACK
-    // ==============================
+    // ==========================================
+    // FALLBACK IF SCENES NOT DETECTED
+    // ==========================================
 
     if (!scenes.length) {
 
@@ -482,6 +510,7 @@ Continue until the whole story is covered.
           .trim();
 
       if (scenePrompt.length > 900) {
+
         scenePrompt =
           scenePrompt
             .slice(0, 900)
@@ -489,16 +518,23 @@ Continue until the whole story is covered.
       }
 
       scenes.push({
+
         scene: 1,
+
         duration: 10,
-        prompt: scenePrompt,
-        characters: scenePrompt.length
+
+        prompt:
+          scenePrompt,
+
+        characters:
+          scenePrompt.length
+
       });
     }
 
-    // ==============================
-    // FINAL RESPONSE
-    // ==============================
+    // ==========================================
+    // FINAL VEO RESPONSE
+    // ==========================================
 
     return res.status(200).json({
 
@@ -526,13 +562,19 @@ Continue until the whole story is covered.
 
   } catch (error) {
 
-    console.error("FRUIT DIALOGUE ERROR:", error);
+    console.error(
+      "FRUIT DIALOGUE ERROR:",
+      error
+    );
 
     return res.status(500).json({
+
       ok: false,
+
       error:
         error?.message ||
         "Unexpected server error."
+
     });
   }
 }
