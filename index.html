@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#070714">
-<title>YNT AI Box - Multi-Genre Series Story Generator</title>
+<title>YNT AI Box - Professional Creator Toolkit</title>
 
 <style>
 *{
@@ -563,7 +563,7 @@ audio{
 }
 
 /* =========================================================
-   MULTI-GENRE 6-SCENE SERIES STORY GENERATOR UI
+   6-SCENE MULTI-GENRE SERIES GENERATOR UI
 ========================================================= */
 .fruit-story-card{
  margin-top:14px;
@@ -622,7 +622,7 @@ audio{
  box-shadow:0 0 0 3px rgba(168,85,247,.15)
 }
 
-/* Multi-Genre Grid (Comedy, Romance, Longing, Sad, etc.) */
+/* Multi-Genre Grid */
 .fruit-mood-grid{
  display:grid;
  grid-template-columns:repeat(3,1fr);
@@ -1007,7 +1007,7 @@ audio{
   <div class="fruit-story-banner">
    <div class="fruit-story-banner-title">✨ 6-Scene Continuous Series Maker</div>
    <div class="fruit-story-banner-sub">
-    ဇာတ်လမ်းတစ်ပုဒ်ကို <b>Scene ၆ ခု (စုစုပေါင်း ၁ မိနစ်စာ)</b> ဖြင့် အဆက်အစပ်မပြတ် (Part 1, Part 2 စီးရီးပုံစံ) ထုတ်ပေးပြီး လိုချင်တဲ့ ပုံစံ (ဟာသ၊ အချစ်၊ အလွမ်း၊ အဆွေး) ကို ရွေးချယ်နိုင်ပါတယ်။
+    ဇာတ်လမ်းတစ်ပုဒ်ကို <b>Scene ၆ ခု (စုစုပေါင်း ၁ မိနစ်စာ)</b> ဖြင့် အဆက်အစပ်မပြတ် (Part 1, Part 2 စီးရီးပုံစံ) ထုတ်ပေးပြီး လိုချင်တဲ့ ပုံစံ (ဟာသ၊ အချစ်၊ အလွမ်း၊ အဆွေး) ကို ရွေးချယ်နိုင်ပါတယ်။ Flow AI အသုံးပြုရာတွင် အသံပိုင်းဆိုင်ရာ ရောထွေးမှုမရှိစေရန် Visual Expressions များကို သီးသန့်ဖွဲ့စည်းပေးထားပါသည်။
    </div>
   </div>
 
@@ -1059,7 +1059,7 @@ audio{
    <div class="fruit-story-full">
     <label>🎥 AI Video Engine</label>
     <div class="fruit-ai-grid" id="fruitAIGrid">
-     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI</button>
+     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI (No Audio Glitch)</button>
      <button class="fruit-ai-btn" data-ai="veo" type="button">🎥 Google Veo</button>
     </div>
    </div>
@@ -1328,7 +1328,7 @@ function buildFruitSceneCard(item,index,ai){
  title.textContent=`🎬 Scene ${sceneNo} of 6`;
  const time=document.createElement("span");
  time.className="fruit-scene-time";
- time.textContent=`10s • Continuous Flow`;
+ time.textContent=`10s • Visual Expression Flow`;
  head.append(title,time);
 
  const photo=fruitSceneValue(item,"photoPrompt",fruitSceneValue(item,"imagePrompt",""));
@@ -1353,12 +1353,12 @@ function buildFruitSceneCard(item,index,ai){
 
  if(String(ai).toLowerCase()==="flow"){
   addField("📸 PHOTO PROMPT (10s Frame)",photo);
-  addField("🎥 VIDEO MOTION PROMPT (Continuity)",video);
-  addField("💬 MYANMAR NARRATION & DIALOGUE",dialogue);
+  addField("🎥 VIDEO MOTION PROMPT (Optimized for Flow AI)",video);
+  addField("💬 SEPARATE MYANMAR VOICE (Use YNT Voice Gen)",dialogue);
  }else{
   const veo=video || fruitSceneValue(item,"prompt","");
   addField("🎥 GOOGLE VEO PROMPT (MAX 900)",veo.slice(0,900));
-  addField("💬 MYANMAR NARRATION & DIALOGUE",dialogue);
+  addField("💬 SEPARATE MYANMAR VOICE (Use YNT Voice Gen)",dialogue);
  }
  return [head,wrap];
 }
@@ -1367,7 +1367,6 @@ function renderFruitScenes(scenes,ai){
  fruitScenesList.innerHTML="";
  const list=Array.isArray(scenes)?scenes:[];
  if(!list.length){fruitScenesList.textContent="Scene မရရှိသေးပါ။";return;}
- // Force exact 6 scenes display if generated
  list.slice(0, 6).forEach((item,index)=>{
   const card=document.createElement("div");
   card.className="fruit-scene-card";
