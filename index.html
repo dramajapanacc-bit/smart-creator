@@ -1005,9 +1005,9 @@ audio{
  <div class="extra-content fruit-story-content" style="display:block;">
 
   <div class="fruit-story-banner">
-   <div class="fruit-story-banner-title">⚡ TikTok Algorithmic Story Maker</div>
+   <div class="fruit-story-banner-title">⚡ TikTok Algorithmic Story Maker (6s / 10s Pacing)</div>
    <div class="fruit-story-banner-sub">
-    ပထမ ၃ စက္ကန့်အတွင်း View ဆွဲနိုင်မယ့် <b>Strong Hook</b>၊ ဇာတ်လမ်းအဆုံးမှာ ဆက်ကြည့်ချင်အောင်ဖြတ်မယ့် <b>Cliffhanger (Part 1 / Part 2)</b> နဲ့ TikTok မှာ View သိန်းချီထွက်စေမယ့် ဇာတ်ညွှန်းများကို အလိုအလျောက်ဖန်တီးပေးပါတယ်။
+    ပထမ ၃ စက္ကန့်အတွင်း View ဆွဲနိုင်မယ့် <b>Strong Hook</b>၊ ဇာတ်လမ်းအဆုံးမှာ ဆက်ကြည့်ချင်အောင်ဖြတ်မယ့် <b>Cliffhanger (Part 1 / Part 2)</b> နဲ့ သတ်မှတ်ထားသော စက္ကန့်အလိုက် (၆ စက္ကန့် သို့မဟုတ် ၁၀ စက္ကန့်) ဇာတ်ကွက်များကို ဖန်တီးပေးပါတယ်။
    </div>
   </div>
 
@@ -1040,11 +1040,11 @@ audio{
    </div>
 
    <div>
-    <label>🎥 AI Video Engine</label>
-    <div class="fruit-ai-grid" id="fruitAIGrid">
-     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI</button>
-     <button class="fruit-ai-btn" data-ai="veo" type="button">🎥 Google Veo</button>
-    </div>
+    <label>⏱️ Scene Duration (TikTok Pacing)</label>
+    <select id="fruitSceneDuration" class="fruit-select">
+     <option value="6">⚡ 6 Seconds per Scene (Fast-Paced 1-Min)</option>
+     <option value="10" selected>🎬 10 Seconds per Scene (Standard Story)</option>
+    </select>
    </div>
 
    <div>
@@ -1053,6 +1053,14 @@ audio{
      <option value="9:16">📱 9:16 — TikTok / Reels / Shorts (Optimal)</option>
      <option value="16:9">🖥️ 16:9 — YouTube Long Form</option>
     </select>
+   </div>
+
+   <div class="fruit-story-full">
+    <label>🎥 AI Video Engine</label>
+    <div class="fruit-ai-grid" id="fruitAIGrid">
+     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI</button>
+     <button class="fruit-ai-btn" data-ai="veo" type="button">🎥 Google Veo</button>
+    </div>
    </div>
 
   </div>
@@ -1080,12 +1088,12 @@ audio{
    </div>
 
    <div class="fruit-meta-box">
-    <div class="fruit-meta-label">🎭 VISUAL CHARACTERS / STYLE</div>
+    <div class="fruit-meta-label">🎭 VISUAL CHARACTERS / CONTINUITY</div>
     <textarea id="fruitCharacterSummary" class="fruit-meta-input" rows="3" readonly></textarea>
    </div>
 
    <div class="fruit-meta-box">
-    <div class="fruit-meta-label">🎞️ SCENE-BY-SCENE PROMPTS (10s Each)</div>
+    <div class="fruit-meta-label">🎞️ SCENE-BY-SCENE CONTINUOUS PROMPTS</div>
     <div id="fruitScenesList" class="fruit-scene-list"></div>
    </div>
 
@@ -1095,7 +1103,7 @@ audio{
    </div>
 
    <div id="fruitStoryHistory" class="fruit-story-history">
-    ✨ CapCut သို့မဟုတ် TikTok Editor ထဲတွင် ဤအချက်အလက်များကို ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
+    ✨ CapCut သို့မဟုတ် TikTok Editor ထဲတွင် ဤအချက်အလက်များကို အစဉ်လိုက်ဆက်၍ ထည့်သွင်းအသုံးပြုနိုင်ပါသည်။
    </div>
 
   </div>
@@ -1235,7 +1243,7 @@ downloadBtn.onclick=()=>{
 };
 
 /* =========================================================
-   TIKTOK VIRAL STORY GENERATOR LOGIC
+   TIKTOK VIRAL STORY GENERATOR LOGIC (WITH SECONDS CONTROL)
 ========================================================= */
 const fruitStoryCard = $("fruitStoryCard");
 const fruitStoryHeader = $("fruitStoryHeader");
@@ -1243,6 +1251,7 @@ const fruitTitle = $("fruitTitle");
 const fruitMoodGrid = $("fruitMoodGrid");
 const fruitAIGrid = $("fruitAIGrid");
 const fruitRatio = $("fruitRatio");
+const fruitSceneDuration = $("fruitSceneDuration");
 const generateFruitStoryBtn = $("generateFruitStoryBtn");
 const fruitRandomBtn = $("fruitRandomBtn");
 const fruitStoryStatus = $("fruitStoryStatus");
@@ -1307,7 +1316,7 @@ function copyFruitText(text,msg){
  });
 }
 
-function buildFruitSceneCard(item,index,ai){
+function buildFruitSceneCard(item,index,ai,duration){
  const sceneNo=Number(item?.scene || item?.id || index+1);
  const wrap=document.createElement("div");
  wrap.className="fruit-scene-card";
@@ -1315,10 +1324,10 @@ function buildFruitSceneCard(item,index,ai){
  const head=document.createElement("div");
  head.className="fruit-scene-head";
  const title=document.createElement("span");
- title.textContent=`🎬 Scene ${sceneNo} (TikTok Hook/Part)`;
+ title.textContent=`🎬 Scene ${sceneNo} (Continuous)`;
  const time=document.createElement("span");
  time.className="fruit-scene-time";
- time.textContent="10s • Viral";
+ time.textContent=`${duration}s • Continuity Flow`;
  head.append(title,time);
 
  const photo=fruitSceneValue(item,"photoPrompt",fruitSceneValue(item,"imagePrompt",""));
@@ -1342,25 +1351,25 @@ function buildFruitSceneCard(item,index,ai){
  }
 
  if(String(ai).toLowerCase()==="flow"){
-  addField("📸 TIKTOK PHOTO PROMPT (9:16)",photo);
-  addField("🎥 VIDEO MOTION PROMPT",video);
-  addField("💬 MYANMAR NARRATION & DIALOGUE",dialogue);
+  addField(`📸 PHOTO PROMPT (${duration}s Pacing)`,photo);
+  addField(`🎥 VIDEO MOTION PROMPT (${duration}s Continuity)`,video);
+  addField(`💬 MYANMAR NARRATION & DIALOGUE`,dialogue);
  }else{
   const veo=video || fruitSceneValue(item,"prompt","");
-  addField("🎥 GOOGLE VEO PROMPT (MAX 900)",veo.slice(0,900));
-  addField("💬 MYANMAR NARRATION & DIALOGUE",dialogue);
+  addField(`🎥 GOOGLE VEO PROMPT (${duration}s Max 900)`,veo.slice(0,900));
+  addField(`💬 MYANMAR NARRATION & DIALOGUE`,dialogue);
  }
  return [head,wrap];
 }
 
-function renderFruitScenes(scenes,ai){
+function renderFruitScenes(scenes,ai,duration){
  fruitScenesList.innerHTML="";
  const list=Array.isArray(scenes)?scenes:[];
  if(!list.length){fruitScenesList.textContent="Scene မရရှိသေးပါ။";return;}
  list.forEach((item,index)=>{
   const card=document.createElement("div");
   card.className="fruit-scene-card";
-  const parts=buildFruitSceneCard(item,index,ai);
+  const parts=buildFruitSceneCard(item,index,ai,duration);
   card.append(...parts);
   fruitScenesList.appendChild(card);
  });
@@ -1371,11 +1380,12 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
  const mood=fruitMoodDescriptions[selectedFruitMood] || fruitMoodDescriptions.random;
  const ai=selectedFruitAI;
  const ratio=fruitRatio.value || "9:16";
+ const duration=fruitSceneDuration.value || "10";
  const randomMode=selectedFruitMood==="random" || !title;
 
  fruitStoryResults.style.display="none";
  generateFruitStoryBtn.disabled=true;
- fruitStoryStatus.textContent="⚡ TikTok တွင် View တက်မည့် Hook + Story များကို AI မှ ဖန်တီးနေပါသည်...";
+ fruitStoryStatus.textContent=`⚡ TikTok အတွက် ${duration} စက္ကန့်စီပါသော ဇာတ်လမ်းနှင့် အဆက်အစပ် Prompts များကို ဖန်တီးနေပါသည်...`;
 
  try{
   const response=await fetch("/api/fruit-dialogue",{
@@ -1383,7 +1393,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
    headers:{"Content-Type":"application/json"},
    body:JSON.stringify({
     title: randomMode ? "Create a viral TikTok dark psychology or mystery story with a strong hook and cliffhanger ending." : title,
-    character:"Engaging characters optimized for short-form storytelling.",
+    character:"Consistent characters with identical appearance across all scenes for seamless editing.",
     story: title,
     episode:1,
     previous:"",
@@ -1391,6 +1401,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
     genre:selectedFruitMood,
     ratio,
     ai,
+    sceneDuration: duration,
     dialogueMode:"auto",
     dialogue:"",
     generateFullStory:true
@@ -1406,12 +1417,12 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
 
   fruitMovieTitle.value=finalTitle;
   fruitCompleteStory.value=fullStory;
-  fruitCharacterSummary.value=fruitClean(data.characters || data.characterSummary || "Dark cinematic character style, mysterious lighting, engaging facial expressions.");
+  fruitCharacterSummary.value=fruitClean(data.characters || data.characterSummary || "Strict visual continuity: Same character face, hair, and clothing style maintained across all scenes.");
 
-  renderFruitScenes(scenes,ai);
+  renderFruitScenes(scenes,ai,duration);
   fruitStoryResults.style.display="block";
   fruitStoryCard.classList.add("open");
-  fruitStoryStatus.textContent=`✅ TikTok Viral Story အောင်မြင်စွာ ပြီးစီးပါပြီ။ (Part 1 / Cliffhanger အဆင်သင့်ဖြစ်ပါပြီ)`;
+  fruitStoryStatus.textContent=`✅ ${duration}s Pacing ဖြင့် TikTok Viral Story အောင်မြင်စွာ ပြီးစီးပါပြီ။`;
 
  }catch(error){
   fruitStoryStatus.textContent="❌ "+(error.message || "Generate မအောင်မြင်ပါ။");
