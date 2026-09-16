@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#070714">
-<title>YNT AI Box</title>
+<title>YNT AI Box - Multi-Genre Series Generator</title>
 
 <style>
 *{
@@ -430,29 +430,6 @@ input[type=range]::-webkit-slider-thumb{
 }
 
 /* =========================
-   EXTRA
-========================= */
-
-.extra-grid{
- display:grid;
- grid-template-columns:1fr;
- gap:10px;
- margin-top:10px
-}
-
-.extra-card{
- overflow:hidden
-}
-
-.extra-icon{
- font-size:16px
-}
-
-.extra-title{
- font-size:12px
-}
-
-/* =========================
    GENERATE VOICE
 ========================= */
 
@@ -585,358 +562,8 @@ audio{
  font-weight:900
 }
 
-/* =========================
-   THUMBNAIL
-========================= */
-
-.thumbnail-pro-card{
- border-color:rgba(245,158,11,.3);
- background:linear-gradient(
-  145deg,
-  rgba(120,53,15,.1),
-  rgba(8,8,22,.78)
- )
-}
-
-.thumbnail-pro-card .collapse-icon{
- background:rgba(245,158,11,.13)
-}
-
-.thumbnail-pro-card .collapse-title{
- color:#fef3c7
-}
-
-.pro-banner{
- padding:14px;
- border:1px solid rgba(245,158,11,.2);
- border-radius:14px;
- background:rgba(120,53,15,.1);
- margin-bottom:12px
-}
-
-.pro-banner-title{
- color:#fef3c7;
- font-size:14px;
- font-weight:950
-}
-
-.pro-banner-sub{
- margin-top:5px;
- color:#94a3b8;
- font-size:10px;
- line-height:1.7
-}
-
-.thumb-label{
- display:block;
- margin:7px 0 6px;
- color:#94a3b8;
- font-size:10px;
- font-weight:900
-}
-
-.thumb-input,
-.thumb-select{
- width:100%;
- padding:14px;
- margin-bottom:10px;
- border-radius:14px;
- border:1px solid rgba(148,163,184,.16);
- outline:none;
- background:#1a1a2e;
- color:#fff;
- font-size:14px
-}
-
-.thumb-select option{
- background:#11111f;
- color:#fff
-}
-
-.thumb-generate-prompt,
-.video-generate{
- width:100%;
- margin-top:4px;
- padding:14px;
- border:0;
- border-radius:16px;
- background:linear-gradient(
-  90deg,
-  #4f46e5,
-  #d946ef
- );
- color:#fff;
- font-weight:950;
- font-size:15px;
- cursor:pointer
-}
-
-.thumb-output,
-.video-output{
- width:100%;
- min-height:250px;
- margin-top:12px;
- padding:14px;
- border-radius:14px;
- border:1px solid rgba(148,163,184,.14);
- outline:none;
- background:#0f172a;
- color:#fff;
- font-size:11px;
- line-height:1.8;
- resize:vertical
-}
-
-.thumb-copy{
- width:100%;
- margin-top:10px;
- padding:12px;
- border:0;
- border-radius:14px;
- background:#2563eb;
- color:#fff;
- font-weight:950;
- cursor:pointer
-}
-
-/* =========================
-   VIDEO PROMPT MAKER
-========================= */
-
-.video-card{
- border-color:rgba(34,211,238,.28);
- background:linear-gradient(
-  145deg,
-  rgba(8,145,178,.08),
-  rgba(8,8,22,.78)
- )
-}
-
-.video-card .extra-icon{
- background:rgba(34,211,238,.12)
-}
-
-/* =========================
-   CLICKABLE VIDEO OPTION CARDS
-========================= */
-
-.option-card{
- margin-top:10px;
- overflow:hidden;
- border:1px solid rgba(255,255,255,.09);
- border-radius:18px;
- background:linear-gradient(
-  145deg,
-  rgba(15,23,42,.9),
-  rgba(8,8,22,.75)
- )
-}
-
-.option-card-header{
- width:100%;
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:15px;
- border:0;
- background:transparent;
- color:#fff;
- cursor:pointer;
- text-align:left
-}
-
-.option-left{
- display:flex;
- align-items:center;
- gap:11px
-}
-
-.option-main-icon{
- width:38px;
- height:38px;
- display:flex;
- align-items:center;
- justify-content:center;
- border-radius:12px;
- background:rgba(34,211,238,.1);
- font-size:18px
-}
-
-.option-title{
- font-size:13px;
- font-weight:950
-}
-
-.option-sub{
- margin-top:3px;
- color:#64748b;
- font-size:9px
-}
-
-.option-selected{
- color:#67e8f9;
- font-size:9px;
- font-weight:900
-}
-
-.option-arrow{
- color:#94a3b8;
- transition:.2s
-}
-
-.option-card.open .option-arrow{
- transform:rotate(180deg)
-}
-
-.option-card-content{
- display:none;
- padding:0 12px 13px
-}
-
-.option-card.open .option-card-content{
- display:block
-}
-
-/* STYLE CARDS */
-
-.style-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px
-}
-
-.style-btn{
- min-height:68px;
- padding:10px;
- border:1px solid #292941;
- border-radius:14px;
- background:rgba(8,8,22,.8);
- color:#94a3b8;
- cursor:pointer;
- text-align:left;
- transition:.18s
-}
-
-.style-btn:hover{
- border-color:rgba(34,211,238,.4)
-}
-
-.style-btn.active{
- border-color:#22d3ee;
- background:rgba(34,211,238,.12);
- color:#fff;
- box-shadow:0 0 0 1px rgba(34,211,238,.06)
-}
-
-.style-btn strong{
- display:block;
- font-size:11px
-}
-
-.style-btn small{
- display:block;
- margin-top:4px;
- color:#64748b;
- font-size:8px;
- line-height:1.4
-}
-
-/* SCENE CARDS */
-
-.scene-grid{
- display:grid;
- grid-template-columns:repeat(2,1fr);
- gap:8px
-}
-
-.scene-btn{
- min-height:70px;
- padding:9px;
- border:1px solid #292941;
- border-radius:14px;
- background:rgba(8,8,22,.8);
- color:#94a3b8;
- cursor:pointer;
- text-align:left;
- transition:.18s
-}
-
-.scene-btn:hover{
- border-color:rgba(168,85,247,.5)
-}
-
-.scene-btn.active{
- border-color:#a855f7;
- background:rgba(168,85,247,.14);
- color:#fff
-}
-
-.scene-btn strong{
- display:block;
- font-size:11px
-}
-
-.scene-btn small{
- display:block;
- margin-top:4px;
- color:#64748b;
- font-size:8px;
- line-height:1.4
-}
-
-/* SELECT */
-
-.output-tabs{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:7px;
- margin-top:12px
-}
-
-.output-tab{
- padding:11px;
- border:1px solid #292941;
- border-radius:12px;
- background:#0b0b20;
- color:#94a3b8;
- font-size:10px;
- font-weight:900;
- cursor:pointer
-}
-
-.output-tab.active{
- border-color:#8b5cf6;
- color:#fff;
- background:rgba(124,58,237,.18)
-}
-
-.video-copy{
- width:100%;
- margin-top:10px;
- padding:12px;
- border:0;
- border-radius:14px;
- background:#7c3aed;
- color:#fff;
- font-weight:950;
- cursor:pointer
-}
-
-.prompt-note{
- margin-top:10px;
- padding:10px;
- border-radius:12px;
- background:rgba(34,211,238,.06);
- border:1px solid rgba(34,211,238,.12);
- color:#64748b;
- font-size:9px;
- line-height:1.7
-}
-
-
-
 /* =========================================================
-   FRUIT HEAD STORY / 6-SCENE MULTI-GENRE SERIES GENERATOR
+   6-SCENE CONTINUOUS CHARACTER-CONSISTENT SERIES GENERATOR
 ========================================================= */
 .fruit-story-card{
  margin-top:14px;
@@ -995,7 +622,6 @@ audio{
  box-shadow:0 0 0 3px rgba(168,85,247,.15)
 }
 
-/* Multi-Genre Grid */
 .fruit-mood-grid{
  display:grid;
  grid-template-columns:repeat(3,1fr);
@@ -1230,58 +856,18 @@ audio{
 /* =========================
    RESPONSIVE
 ========================= */
-
 @media(max-width:650px){
-
- .container{
-  padding:9px 8px 28px
- }
-
- .hero{
-  padding:27px 14px 21px;
-  border-radius:23px
- }
-
- .card{
-  padding:14px
- }
-
- .logo{
-  font-size:32px
- }
-
- .voice-grid{
-  grid-template-columns:repeat(3,1fr)
- }
-
- .settings-content{
-  grid-template-columns:1fr
- }
-
- textarea{
-  min-height:220px
- }
-
- .style-grid,
- .scene-grid{
-  grid-template-columns:1fr 1fr
- }
+ .container{padding:9px 8px 28px}
+ .hero{padding:27px 14px 21px;border-radius:23px}
+ .card{padding:14px}
+ .logo{font-size:32px}
+ .voice-grid{grid-template-columns:repeat(3,1fr)}
+ .settings-content{grid-template-columns:1fr}
+ textarea{min-height:220px}
 }
-
 @media(max-width:400px){
-
- .voice-grid{
-  grid-template-columns:repeat(2,1fr)
- }
-
- .logo{
-  font-size:29px
- }
-
- .style-grid,
- .scene-grid{
-  grid-template-columns:1fr
- }
+ .voice-grid{grid-template-columns:repeat(2,1fr)}
+ .logo{font-size:29px}
 }
 </style>
 </head>
@@ -1290,1410 +876,158 @@ audio{
 
 <div class="container">
 
-<!-- =========================
-     HERO
-========================= -->
-
+<!-- HERO -->
 <section class="hero">
-
- <div class="badge">
-  ✨ AI POWERED CREATOR TOOLKIT
- </div>
-
+ <div class="badge">✨ AI POWERED CREATOR TOOLKIT</div>
  <div class="logo">
   <span class="logo-ynt">YNT</span>
   <span class="logo-ai">AI</span>
   <span class="logo-box">Box</span>
  </div>
-
- <p class="hero-sub">
-  Myanmar Creator အတွက် Voice • Thumbnail Prompt • Video Prompt
- </p>
-
+ <p class="hero-sub">Myanmar Creator အတွက် Voice • Thumbnail • Video Prompt & 6-Scene Series Generator</p>
  <div class="waveform">
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
-  <i class="wave"></i>
+  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
+  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
+  <i class="wave"></i><i class="wave"></i><i class="wave"></i><i class="wave"></i>
  </div>
-
 </section>
 
-
-<!-- =========================
-     MAIN CARD
-========================= -->
-
+<!-- MAIN CARD -->
 <section class="card">
 
-<!-- TEXT -->
-
+<!-- TEXT INPUT -->
 <div class="section-title">
-
  <div class="section-icon">📝</div>
-
  <div>
-  <div class="section-name">
-   မြန်မာစာထည့်ရန်
-  </div>
-
-  <div class="section-hint">
-   Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ
-  </div>
+  <div class="section-name">မြန်မာစာထည့်ရန်</div>
+  <div class="section-hint">Voice ပြောင်းလိုသော စာသားကို ထည့်ပါ</div>
  </div>
-
 </div>
-
-<textarea
- id="textInput"
- maxlength="5000"
- placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."
-></textarea>
-
+<textarea id="textInput" maxlength="5000" placeholder="မြန်မာစာကို ဒီနေရာမှာ ရိုက်ထည့်ပါ..."></textarea>
 <div class="text-bottom">
  <span>Maximum 5,000 characters</span>
- <span class="counter" id="counter">
-  0 / 5000
- </span>
+ <span class="counter" id="counter">0 / 5000</span>
 </div>
 
-
-<!-- =========================
-     VOICE
-========================= -->
-
+<!-- VOICE -->
 <div class="section-title" style="margin-top:18px">
-
  <div class="section-icon">🎙️</div>
-
  <div>
-  <div class="section-name">
-   Voice
-  </div>
-
-  <div class="section-hint">
-   AI Voice Character ရွေးပါ
-  </div>
+  <div class="section-name">Voice</div>
+  <div class="section-hint">AI Voice Character ရွေးပါ</div>
  </div>
-
 </div>
-
 <div class="voice-grid">
-
- <button class="voice-btn"
-  data-voice="Zephyr"
-  type="button">
-  <span class="voice-icon">〽</span>
-  <span class="voice-name">Zephyr</span>
- </button>
-
- <button class="voice-btn"
-  data-voice="Puck"
-  type="button">
-  <span class="voice-icon">〽</span>
-  <span class="voice-name">Puck</span>
- </button>
-
- <button class="voice-btn"
-  data-voice="Charon"
-  type="button">
-  <span class="voice-icon">〽</span>
-  <span class="voice-name">Charon</span>
- </button>
-
- <button class="voice-btn active"
-  data-voice="Kore"
-  type="button">
-  <span class="voice-icon">〽</span>
-  <span class="voice-name">Kore</span>
- </button>
-
- <button class="voice-btn"
-  data-voice="Leda"
-  type="button">
-  <span class="voice-icon">〽</span>
-  <span class="voice-name">Leda</span>
- </button>
-
+ <button class="voice-btn" data-voice="Zephyr" type="button"><span class="voice-icon">〽</span><span class="voice-name">Zephyr</span></button>
+ <button class="voice-btn" data-voice="Puck" type="button"><span class="voice-icon">〽</span><span class="voice-name">Puck</span></button>
+ <button class="voice-btn" data-voice="Charon" type="button"><span class="voice-icon">〽</span><span class="voice-name">Charon</span></button>
+ <button class="voice-btn active" data-voice="Kore" type="button"><span class="voice-icon">〽</span><span class="voice-name">Kore</span></button>
+ <button class="voice-btn" data-voice="Leda" type="button"><span class="voice-icon">〽</span><span class="voice-name">Leda</span></button>
 </div>
 
-
-<!-- =========================
-     EMOTION
-========================= -->
-
-<div class="collapse-card emotion-card"
- id="emotionCard">
-
-<button
- class="collapse-header"
- id="emotionHeader"
- type="button"
->
-
+<!-- EMOTION -->
+<div class="collapse-card emotion-card" id="emotionCard">
+<button class="collapse-header" id="emotionHeader" type="button">
  <div class="collapse-left">
-
   <div class="collapse-icon">😊</div>
-
   <div>
-
-   <div class="collapse-title">
-    Emotion
-   </div>
-
-   <div class="collapse-sub">
-    Voice ရဲ့ ခံစားချက်ကို ရွေးပါ
-   </div>
-
+   <div class="collapse-title">Emotion</div>
+   <div class="collapse-sub">Voice ရဲ့ ခံစားချက်ကို ရွေးပါ</div>
   </div>
-
  </div>
-
  <div class="collapse-right">
-
-  <span
-   class="collapse-value"
-   id="emotionValue"
-  >
-   Natural
-  </span>
-
-  <span class="chevron">
-   ▼
-  </span>
-
- </div>
-
-</button>
-
-<div class="collapse-content">
-
- <div class="emotion-grid">
-
-  <button
-   class="emotion-btn active"
-   data-emotion="natural"
-   type="button"
-  >
-   😌<br>
-   <span class="emotion-name">Natural</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="happy"
-   type="button"
-  >
-   😄<br>
-   <span class="emotion-name">Happy</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="sad"
-   type="button"
-  >
-   😢<br>
-   <span class="emotion-name">Sad</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="angry"
-   type="button"
-  >
-   😡<br>
-   <span class="emotion-name">Angry</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="excited"
-   type="button"
-  >
-   🤩<br>
-   <span class="emotion-name">Excited</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="serious"
-   type="button"
-  >
-   😐<br>
-   <span class="emotion-name">Serious</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="calm"
-   type="button"
-  >
-   😌<br>
-   <span class="emotion-name">Calm</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="whisper"
-   type="button"
-  >
-   🤫<br>
-   <span class="emotion-name">Whisper</span>
-  </button>
-
-  <button
-   class="emotion-btn"
-   data-emotion="dramatic"
-   type="button"
-  >
-   🎭<br>
-   <span class="emotion-name">Dramatic</span>
-  </button>
-
- </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     SETTINGS
-========================= -->
-
-<div class="collapse-card settings-card"
- id="settingsCard">
-
-<button
- class="collapse-header"
- id="settingsHeader"
- type="button"
->
-
- <div class="collapse-left">
-
-  <div class="collapse-icon">🎚️</div>
-
-  <div>
-
-   <div class="collapse-title">
-    Voice Settings
-   </div>
-
-   <div class="collapse-sub">
-    Speed နှင့် Pitch ကို ချိန်ညှိပါ
-   </div>
-
-  </div>
-
- </div>
-
- <div class="collapse-right">
-
-  <span
-   class="collapse-value"
-   id="settingsValue"
-  >
-   Speed 0 • Pitch 0
-  </span>
-
-  <span class="chevron">
-   ▼
-  </span>
-
- </div>
-
-</button>
-
-<div class="collapse-content">
-
- <div class="settings-content">
-
-  <div class="control-box">
-
-   <div class="control-head">
-    <span class="control-label">
-     ⚡ Speed
-    </span>
-
-    <span
-     class="control-value"
-     id="speedValue"
-    >
-     0
-    </span>
-   </div>
-
-   <input
-    type="range"
-    id="speed"
-    min="-5"
-    max="5"
-    value="0"
-   >
-
-   <div class="range-labels">
-    <span>Very Slow</span>
-    <span>Normal</span>
-    <span>Fast</span>
-   </div>
-
-  </div>
-
-
-  <div class="control-box">
-
-   <div class="control-head">
-
-    <span class="control-label">
-     🎵 Pitch
-    </span>
-
-    <span
-     class="control-value"
-     id="pitchValue"
-    >
-     0
-    </span>
-
-   </div>
-
-   <input
-    type="range"
-    id="pitch"
-    min="-5"
-    max="5"
-    value="0"
-   >
-
-   <div class="range-labels">
-    <span>Deep</span>
-    <span>Normal</span>
-    <span>High</span>
-   </div>
-
-  </div>
-
- </div>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     THUMBNAIL PROMPT MAKER
-========================= -->
-
-<div
- class="collapse-card thumbnail-pro-card"
- id="thumbnailCard"
->
-
-<button
- class="collapse-header"
- id="thumbnailHeader"
- type="button"
->
-
- <div class="collapse-left">
-
-  <div class="collapse-icon">
-   🎨
-  </div>
-
-  <div>
-
-   <div class="collapse-title">
-    Thumbnail Prompt Maker
-   </div>
-
-   <div class="collapse-sub">
-    Thumbnail AI Prompt ဖန်တီးရန်
-   </div>
-
-  </div>
-
- </div>
-
- <div class="collapse-right">
-
-  <span
-   style="
-    background:rgba(245,158,11,.12);
-    color:#fbbf24;
-    border:1px solid rgba(245,158,11,.22);
-    padding:4px 8px;
-    border-radius:999px;
-    font-size:8px;
-    font-weight:950
-   "
-  >
-   PRO
-  </span>
-
+  <span class="collapse-value" id="emotionValue">Natural</span>
   <span class="chevron">▼</span>
-
  </div>
-
 </button>
-
-
 <div class="collapse-content">
-
- <div class="pro-banner">
-
-  <div class="pro-banner-title">
-   👑 YNT Creator PRO
-  </div>
-
-  <div class="pro-banner-sub">
-   Movie Title၊ Text Color၊ Design Style၊
-   Font Style နဲ့ YNT Signature ပါဝင်တဲ့
-   Thumbnail Prompt ကို ဖန်တီးပါ။
-  </div>
-
+ <div class="emotion-grid">
+  <button class="emotion-btn active" data-emotion="natural" type="button">😌<br><span class="emotion-name">Natural</span></button>
+  <button class="emotion-btn" data-emotion="happy" type="button">😄<br><span class="emotion-name">Happy</span></button>
+  <button class="emotion-btn" data-emotion="sad" type="button">😢<br><span class="emotion-name">Sad</span></button>
+  <button class="emotion-btn" data-emotion="angry" type="button">😡<br><span class="emotion-name">Angry</span></button>
+  <button class="emotion-btn" data-emotion="excited" type="button">🤩<br><span class="emotion-name">Excited</span></button>
+  <button class="emotion-btn" data-emotion="serious" type="button">😐<br><span class="emotion-name">Serious</span></button>
+  <button class="emotion-btn" data-emotion="calm" type="button">😌<br><span class="emotion-name">Calm</span></button>
+  <button class="emotion-btn" data-emotion="whisper" type="button">🤫<br><span class="emotion-name">Whisper</span></button>
+  <button class="emotion-btn" data-emotion="dramatic" type="button">🎭<br><span class="emotion-name">Dramatic</span></button>
  </div>
-
-
- <label class="thumb-label">
-  🎬 Movie Title
- </label>
-
- <input
-  id="movieTitle"
-  class="thumb-input"
-  type="text"
-  maxlength="200"
-  placeholder="ဥပမာ - The Secret House in the Forest"
- >
-
- <label class="thumb-label">
-  📖 Story Summary
- </label>
- <textarea id="movieStorySummary" class="thumb-input thumb-mini-textarea" rows="3" maxlength="1200" placeholder="ဇာတ်လမ်းအကျဉ်း..."></textarea>
-
- <label class="thumb-label">
-  🍓 Character Description
- </label>
- <textarea id="movieCharacterDescription" class="thumb-input thumb-mini-textarea" rows="3" maxlength="800" placeholder="Fruit Head Character description..."></textarea>
-
- <label class="thumb-label">
-  🎨 Text Color
- </label>
-
- <select
-  id="movieColor"
-  class="thumb-select"
- >
-
-  <option value="Bright White">
-   ⚪ Bright White
-  </option>
-
-  <option value="Neon Cyan">
-   💠 Neon Cyan
-  </option>
-
-  <option value="Bright Yellow">
-   🟡 Bright Yellow
-  </option>
-
-  <option value="Blood Red">
-   🔴 Blood Red
-  </option>
-
-  <option value="Electric Blue">
-   🔵 Electric Blue
-  </option>
-
-  <option value="Luxury Gold">
-   🟨 Luxury Gold
-  </option>
-
-  <option value="Glowing Green">
-   🟢 Glowing Green
-  </option>
-
-  <option value="Vibrant Magenta">
-   🟣 Vibrant Magenta
-  </option>
-
-  <option value="Sunset Orange">
-   🟠 Sunset Orange
-  </option>
-
-  <option value="Metallic Silver">
-   ⚙️ Metallic Silver
-  </option>
-
- </select>
-
-
- <label class="thumb-label">
-  ✨ Design Style
- </label>
-
- <select
-  id="movieStyle"
-  class="thumb-select"
- >
-
-  <option value="Epic cinematic">
-   🎬 Epic Cinematic
-  </option>
-
-  <option value="Action blockbuster">
-   💥 Action Blockbuster
-  </option>
-
-  <option value="Dark horror">
-   👻 Dark Horror
-  </option>
-
-  <option value="Mystery thriller">
-   🕵️ Mystery Thriller
-  </option>
-
-  <option value="Romantic drama">
-   ❤️ Romantic Drama
-  </option>
-
-  <option value="Fantasy adventure">
-   🧙 Fantasy Adventure
-  </option>
-
-  <option value="War cinematic">
-   ⚔️ War Cinematic
-  </option>
-
-  <option value="Anime dynamic">
-   ⚡ Anime Dynamic
-  </option>
-
-  <option value="Documentary realistic">
-   📽️ Documentary Realistic
-  </option>
-
-  <option value="Luxury professional">
-   💎 Luxury Professional
-  </option>
-
- </select>
-
-
- <label class="thumb-label">
-  🔤 Font Style
- </label>
-
- <select
-  id="movieFont"
-  class="thumb-select"
- >
-
-  <option value="Bold Myanmar cinematic display font">
-   🔥 Bold Myanmar Cinematic
-  </option>
-
-  <option value="Heavy condensed headline font">
-   🖤 Heavy Condensed
-  </option>
-
-  <option value="Modern clean Myanmar display font">
-   ✨ Modern Clean
-  </option>
-
-  <option value="Elegant premium Myanmar display font">
-   💎 Elegant Premium
-  </option>
-
-  <option value="Handwritten dramatic Myanmar display font">
-   ✍️ Handwritten Dramatic
-  </option>
-
-  <option value="Strong action headline font">
-   💥 Action Headline
-  </option>
-
-  <option value="Horror distorted display font">
-   👻 Horror Distorted
-  </option>
-
-  <option value="Playful comedy display font">
-   😂 Playful Comedy
-  </option>
-
-  <option value="Anime inspired dynamic display font">
-   ⚡ Anime Dynamic
-  </option>
-
-  <option value="Luxury gold display font">
-   👑 Luxury Gold
-  </option>
-
- </select>
-
-
- <label class="thumb-label">
-  📐 Aspect Ratio
- </label>
-
- <select
-  id="movieRatio"
-  class="thumb-select"
- >
-
-  <option value="16:9">
-   🖥️ 16:9 — YouTube
-  </option>
-
-  <option value="9:16">
-   📱 9:16 — Shorts / Reels
-  </option>
-
- </select>
-
-
- <button
-  id="generateMoviePromptBtn"
-  class="thumb-generate-prompt"
-  type="button"
- >
-  ✨ Generate Thumbnail Prompt
- </button>
-
-
- <textarea
-  id="promptOutput"
-  class="thumb-output"
-  readonly
-  placeholder="Generated Thumbnail Prompt..."
- ></textarea>
-
-
- <button
-  id="copyPromptBtn"
-  class="thumb-copy"
-  type="button"
- >
-  📋 Copy Prompt
- </button>
-
-
- <div
-  id="thumbStatus"
-  class="thumb-status"
- ></div>
-
+</div>
 </div>
 
-</div>
-
-
-<!-- =========================
-     VIDEO PROMPT MAKER
-========================= -->
-
-<div
- class="extra-card video-card"
- id="videoPromptCard"
->
-
-<button
- class="extra-header"
- id="videoPromptHeader"
- type="button"
->
-
- <div class="extra-left">
-
-  <div class="extra-icon">
-   🎬
-  </div>
-
+<!-- SETTINGS -->
+<div class="collapse-card settings-card" id="settingsCard">
+<button class="collapse-header" id="settingsHeader" type="button">
+ <div class="collapse-left">
+  <div class="collapse-icon">🎚️</div>
   <div>
-
-   <div class="extra-title">
-    Video Prompt Maker
-   </div>
-
-   <div class="section-hint">
-    AI Video အတွက် Prompt Studio
-   </div>
-
+   <div class="collapse-title">Voice Settings</div>
+   <div class="collapse-sub">Speed နှင့် Pitch ကို ချိန်ညှိပါ</div>
   </div>
-
  </div>
-
- <span class="extra-chevron">
-  ▼
- </span>
-
+ <div class="collapse-right">
+  <span class="collapse-value" id="settingsValue">Speed 0 • Pitch 0</span>
+  <span class="chevron">▼</span>
+ </div>
 </button>
-
-
-<div class="extra-content">
-
- <div
-  class="pro-banner"
-  style="
-   border-color:rgba(34,211,238,.18);
-   background:rgba(8,145,178,.08)
-  "
- >
-
-  <div
-   class="pro-banner-title"
-   style="color:#cffafe"
-  >
-   🎬 YNT Video Prompt Studio
+<div class="collapse-content">
+ <div class="settings-content">
+  <div class="control-box">
+   <div class="control-head"><span class="control-label">⚡ Speed</span><span class="control-value" id="speedValue">0</span></div>
+   <input type="range" id="speed" min="-5" max="5" value="0">
+   <div class="range-labels"><span>Very Slow</span><span>Normal</span><span>Fast</span></div>
   </div>
-
-  <div class="pro-banner-sub">
-   Video Style နဲ့ Video Scene ကို Card နှိပ်ပြီး
-   အထဲက option ရွေးနိုင်ပါတယ်။
-   Flow AI တစ်ခုတည်းမဟုတ်ဘဲ AI Video Generator
-   အမျိုးမျိုးအတွက် Prompt ထုတ်ပေးနိုင်ပါတယ်။
+  <div class="control-box">
+   <div class="control-head"><span class="control-label">🎵 Pitch</span><span class="control-value" id="pitchValue">0</span></div>
+   <input type="range" id="pitch" min="-5" max="5" value="0">
+   <div class="range-labels"><span>Deep</span><span>Normal</span><span>High</span></div>
   </div>
-
  </div>
-
-
- <!-- VIDEO IDEA -->
-
- <label class="thumb-label">
-  📝 Video Idea / Scene
- </label>
-
- <input
-  id="videoIdea"
-  class="thumb-input"
-  maxlength="500"
-  placeholder="ဥပမာ - လူငယ်တစ်ယောက်က ကားတစ်စီးကို ပြုပြင်နေသည်"
- >
-
-
- <!-- =========================
-      VIDEO STYLE CARD
- ========================= -->
-
- <div
-  class="option-card"
-  id="styleOptionCard"
- >
-
-  <button
-   class="option-card-header"
-   id="styleOptionHeader"
-   type="button"
-  >
-
-   <div class="option-left">
-
-    <div class="option-main-icon">
-     🎭
-    </div>
-
-    <div>
-
-     <div class="option-title">
-      Video Style — Card ရွေးပါ
-     </div>
-
-     <div class="option-sub">
-      Card ကိုနှိပ်မှ Style များ ပေါ်မည်
-     </div>
-
-    </div>
-
-   </div>
-
-   <div
-    style="
-     display:flex;
-     align-items:center;
-     gap:8px
-    "
-   >
-
-    <span
-     class="option-selected"
-     id="styleSelected"
-    >
-     Cinematic
-    </span>
-
-    <span class="option-arrow">
-     ▼
-    </span>
-
-   </div>
-
-  </button>
-
-
-  <div class="option-card-content">
-
-   <div
-    class="style-grid"
-    id="styleGrid"
-   >
-
-    <button
-     class="style-btn active"
-     data-vstyle="cinematic"
-     type="button"
-    >
-     <strong>🎬 Cinematic</strong>
-     <small>Movie quality visual</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="action"
-     type="button"
-    >
-     <strong>💥 Action</strong>
-     <small>Fast powerful action</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="comedy"
-     type="button"
-    >
-     <strong>😂 Comedy</strong>
-     <small>Funny viral scene</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="anime"
-     type="button"
-    >
-     <strong>⚡ Anime</strong>
-     <small>Dynamic anime</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="horror"
-     type="button"
-    >
-     <strong>👻 Horror</strong>
-     <small>Dark scary mood</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="romance"
-     type="button"
-    >
-     <strong>❤️ Romance</strong>
-     <small>Emotional love</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="drama"
-     type="button"
-    >
-     <strong>🎭 Drama</strong>
-     <small>Emotional story</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="fantasy"
-     type="button"
-    >
-     <strong>🧙 Fantasy</strong>
-     <small>Magic adventure</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="documentary"
-     type="button"
-    >
-     <strong>📽️ Documentary</strong>
-     <small>Realistic footage</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="shop"
-     type="button"
-    >
-     <strong>🛍️ Product Sales</strong>
-     <small>Short-form selling video</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="vlog"
-     type="button"
-    >
-     <strong>📱 Vlog</strong>
-     <small>Natural creator style</small>
-    </button>
-
-    <button
-     class="style-btn"
-     data-vstyle="music"
-     type="button"
-    >
-     <strong>🎵 Music Video</strong>
-     <small>Stylish music scene</small>
-    </button>
-
-   </div>
-
-  </div>
-
- </div>
-
-
- <!-- =========================
-      VIDEO SCENE CARD
- ========================= -->
-
- <div
-  class="option-card"
-  id="sceneOptionCard"
- >
-
-  <button
-   class="option-card-header"
-   id="sceneOptionHeader"
-   type="button"
-  >
-
-   <div class="option-left">
-
-    <div
-     class="option-main-icon"
-     style="background:rgba(168,85,247,.12)"
-    >
-     🛠️
-    </div>
-
-    <div>
-
-     <div class="option-title">
-      Video Scene — လုပ်ဆောင်ချက်ရွေးပါ
-     </div>
-
-     <div class="option-sub">
-      လုပ်ဆောင်မယ့် Scene / Action ကိုရွေးပါ
-     </div>
-
-    </div>
-
-   </div>
-
-   <div
-    style="
-     display:flex;
-     align-items:center;
-     gap:8px
-    "
-   >
-
-    <span
-     class="option-selected"
-     id="sceneSelected"
-     style="color:#c084fc"
-    >
-     Custom Scene
-    </span>
-
-    <span class="option-arrow">
-     ▼
-    </span>
-
-   </div>
-
-  </button>
-
-
-  <div class="option-card-content">
-
-   <div
-    class="scene-grid"
-    id="sceneGrid"
-   >
-
-    <button
-     class="scene-btn active"
-     data-scene="custom"
-     type="button"
-    >
-     <strong>✨ Custom Scene</strong>
-     <small>ကိုယ်တိုင်ရေးထားတဲ့ scene</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="car_build"
-     type="button"
-    >
-     <strong>🚗 ကားပြုလုပ်နည်း</strong>
-     <small>ကားတည်ဆောက် / ပြုပြင်နေသော scene</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="planting"
-     type="button"
-    >
-     <strong>🌱 အပင်စိုက်နည်း</strong>
-     <small>မြေပြင်ဆင်ပြီး အပင်စိုက်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="flower_picking"
-     type="button"
-    >
-     <strong>🌸 ပန်းခူးနေခြင်း</strong>
-     <small>ပန်းခြံထဲမှာ ပန်းပွင့်တွေခူးနေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="cooking"
-     type="button"
-    >
-     <strong>🍳 ချက်ပြုတ်နည်း</strong>
-     <small>အစားအစာပြင်ဆင် / ချက်ပြုတ်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="craft"
-     type="button"
-    >
-     <strong>🧰 လက်မှုပစ္စည်းလုပ်နည်း</strong>
-     <small>ပစ္စည်းတစ်ခုကို အဆင့်လိုက်လုပ်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="farming"
-     type="button"
-    >
-     <strong>🚜 စိုက်ပျိုးရေး</strong>
-     <small>လယ်ယာလုပ်ငန်းလုပ်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="cleaning"
-     type="button"
-    >
-     <strong>🧹 သန့်ရှင်းရေး</strong>
-     <small>ပစ္စည်း / အခန်း သန့်ရှင်းနေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="repair"
-     type="button"
-    >
-     <strong>🔧 ပြုပြင်နည်း</strong>
-     <small>ပျက်နေတဲ့ပစ္စည်း ပြုပြင်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="building"
-     type="button"
-    >
-     <strong>🏗️ တည်ဆောက်နည်း</strong>
-     <small>အဆောက်အအုံ / ပစ္စည်း တည်ဆောက်ခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="beauty"
-     type="button"
-    >
-     <strong>💄 Beauty / Makeup</strong>
-     <small>မိတ်ကပ် / အလှပြင်နေခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="product_demo"
-     type="button"
-    >
-     <strong>📦 Product Demonstration</strong>
-     <small>ပစ္စည်းအသုံးပြုပုံ ပြသခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="howto"
-     type="button"
-    >
-     <strong>📚 How-To Tutorial</strong>
-     <small>အဆင့်လိုက် သင်ကြားပြသခြင်း</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="before_after"
-     type="button"
-    >
-     <strong>🔄 Before / After</strong>
-     <small>မလုပ်ခင် / လုပ်ပြီးနောက်</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="satisfying"
-     type="button"
-    >
-     <strong>✨ Satisfying Process</strong>
-     <small>ကြည့်ရတာစိတ်ကျေနပ်စရာ process</small>
-    </button>
-
-    <button
-     class="scene-btn"
-     data-scene="viral"
-     type="button"
-    >
-     <strong>🔥 Viral Short Scene</strong>
-     <small>Short-form viral action</small>
-    </button>
-
-   </div>
-
-  </div>
-
- </div>
-
-
- <!-- =========================
-      DIALOGUE
- ========================= -->
-
- <label class="thumb-label">
-  🗣️ Dialogue Mode
- </label>
-
- <select
-  id="dialogueMode"
-  class="thumb-select"
- >
-
-  <option value="none">
-   🔇 No Dialogue
-  </option>
-
-  <option value="burmese">
-   🇲🇲 Natural Myanmar Dialogue
-  </option>
-
-  <option value="funny">
-   😂 Funny Myanmar Dialogue
-  </option>
-
-  <option value="sales">
-   🛍️ Myanmar Sales Dialogue
-  </option>
-
-  <option value="narration">
-   🎙️ Myanmar Narration
-  </option>
-
- </select>
-
-
- <!-- AI -->
-
- <label class="thumb-label">
-  🤖 Target Video AI
- </label>
-
- <select
-  id="videoAI"
-  class="thumb-select"
- >
-
-  <option value="universal">
-   🌐 Universal AI Video
-  </option>
-
-  <option value="flow">
-   ✨ Flow AI
-  </option>
-
-  <option value="veo">
-   🎥 Google Veo
-  </option>
-
-  <option value="kling">
-   🎞️ Kling
-  </option>
-
-  <option value="runway">
-   🎬 Runway
-  </option>
-
-  <option value="pika">
-   ⚡ Pika
-  </option>
-
-  <option value="luma">
-   🌌 Luma
-  </option>
-
- </select>
-
-
- <!-- RATIO -->
-
- <label class="thumb-label">
-  📐 Aspect Ratio
- </label>
-
- <select
-  id="videoRatio"
-  class="thumb-select"
- >
-
-  <option value="9:16">
-   📱 9:16 — Shorts / Reels
-  </option>
-
-  <option value="16:9">
-   🖥️ 16:9 — YouTube
-  </option>
-
- </select>
-
-
- <button
-  id="generateVideoPromptBtn"
-  class="video-generate"
-  type="button"
- >
-  🎬 Generate Video Prompt
- </button>
-
-
- <div class="output-tabs">
-
-  <button
-   id="imageTab"
-   class="output-tab active"
-   type="button"
-  >
-   🎨 Image Prompt
-  </button>
-
-  <button
-   id="motionTab"
-   class="output-tab"
-   type="button"
-  >
-   🎬 Video Motion Prompt
-  </button>
-
- </div>
-
-
- <textarea
-  id="videoOutput"
-  class="video-output"
-  readonly
-  placeholder="Generated Image Prompt..."
- ></textarea>
-
-
- <button
-  id="copyVideoPromptBtn"
-  class="video-copy"
-  type="button"
- >
-  📋 Copy Video Prompt
- </button>
-
-
- <div class="prompt-note">
-  💡 Myanmar Dialogue ပါတဲ့ Prompt တွေမှာ
-  သဘာဝကျတဲ့ မြန်မာစကား၊ တိုတိုရှင်းရှင်း
-  ပြောစကားတွေကို ထည့်ပေးထားပါတယ်။
-  TikTok / platform logo မထည့်ပါ။
- </div>
-
-
- <div
-  id="videoStatus"
-  class="video-status"
- ></div>
-
 </div>
-
 </div>
-
-
-
 
 <!-- =========================================================
-     6-SCENE MULTI-GENRE SERIES GENERATOR (FRUIT HEAD STORY UPGRADED)
+     6-SCENE CHARACTER-CONSISTENT SERIES GENERATOR
 ========================================================= -->
-
-<div class="extra-card fruit-story-card" id="fruitStoryCard">
+<div class="extra-card fruit-story-card open" id="fruitStoryCard">
  <button class="extra-header" id="fruitStoryHeader" type="button">
   <div class="extra-left">
-   <div class="extra-icon">🎬</div>
+   <div class="extra-icon" style="background:rgba(168,85,247,.2); color:#d8b4fe;">🎬</div>
    <div>
-    <div class="extra-title">6-SCENE MULTI-GENRE SERIES GENERATOR</div>
-    <div class="section-hint">🎭 ဟာသ၊ အချစ်၊ အလွမ်း၊ အဆွေး အစုံ (Scene ၆ ခု • တစ်ကွက် ၁၀စက္ကန့်စီ)</div>
+    <div class="extra-title">6-SCENE CONTINUOUS SERIES GENERATOR</div>
+    <div class="section-hint">🎭 ဇာတ်လမ်းတစ်ပုဒ်လုံး Character တူညီသော Scene ၆ ခု (တစ်ကွက် ၁၀စက္ကန့်စီ)</div>
    </div>
   </div>
   <span class="extra-chevron">▼</span>
  </button>
 
- <div class="extra-content fruit-story-content">
+ <div class="extra-content fruit-story-content" style="display:block;">
 
   <div class="fruit-story-banner">
-   <div class="fruit-story-banner-title">✨ 6-Scene Continuous Series Maker</div>
+   <div class="fruit-story-banner-title">✨ Character-Consistent Series Maker</div>
    <div class="fruit-story-banner-sub">
-    ဇာတ်လမ်းတစ်ပုဒ်ကို Scene ၆ ခု (စုစုပေါင်း ၁ မိနစ်စာ) ဖြင့် အဆက်အစပ်မပြတ် (Part 1, Part 2 စီးရီးပုံစံ) ထုတ်ပေးပြီး လိုချင်တဲ့ ပုံစံ (ဟာသ၊ အချစ်၊ အလွမ်း၊ အဆွေး) ကို ရွေးချယ်နိုင်ပါတယ်။ Flow AI အသုံးပြုရာတွင် အသံပိုင်းဆိုင်ရာ ရောထွေးမှုမရှိစေရန် Visual Expressions များကို သီးသန့်ဖွဲ့စည်းပေးထားပါသည်။
+    ဇာတ်လမ်းခေါင်းစဉ် တစ်ခုတည်းထည့်ရုံဖြင့် <b>Scene ၆ ခု (၁ မိနစ်စာ)</b> အထိ ကာရိုက်တာ၊ ဝတ်စုံနှင့် မျက်နှာသွင်ပြင် လုံးဝမပြောင်းဘဲ ဆက်တိုက်ထွက်လာပါမည်။ Flow AI အသုံးပြုရာတွင် အသံပိုင်းဆိုင်ရာပြဿနာမရှိစေရန် Visual Motion ကို သီးသန့်ဖွဲ့စည်းပေးထားပါသည်။
    </div>
   </div>
 
   <div class="fruit-story-grid">
 
    <div class="fruit-story-full">
-    <label>✍️ ဇာတ်လမ်းခေါင်းစဉ် သို့မဟုတ် အဓိက အကြောင်းအရာ</label>
+    <label>✍️ ဇာတ်လမ်းခေါင်းစဉ် (ဥပမာ — သုံးပွင့်ဆိုင် အချစ်၊ သို့မဟုတ် မိုးသည်းထန်တဲ့ည...)</label>
     <input
      id="fruitTitle"
      class="fruit-title-input"
      type="text"
      maxlength="200"
-     placeholder="ဥပမာ — မိုးသည်းထန်တဲ့ညမှာ လမ်းဘေးကဖုန်းဆိုင်လေးမှာ တွေ့လိုက်ရတဲ့..."
+     placeholder="ဥပမာ — သုံးပွင့်ဆိုင် အချစ်ဇာတ်လမ်း..."
     >
    </div>
 
    <div class="fruit-story-full">
     <label>🎭 ဇာတ်လမ်း အမျိုးအစား (Genre / Mood)</label>
     <div class="fruit-mood-grid" id="fruitMoodGrid">
-     <button class="fruit-mood active" data-mood="comedy" type="button">😂<span class="emotion-name">ဟာသ (Comedy)</span></button>
-     <button class="fruit-mood" data-mood="romance" type="button">❤️<span class="emotion-name">အချစ် (Romance)</span></button>
+     <button class="fruit-mood active" data-mood="romance" type="button">❤️<span class="emotion-name">အချစ် (Romance)</span></button>
+     <button class="fruit-mood" data-mood="comedy" type="button">😂<span class="emotion-name">ဟာသ (Comedy)</span></button>
      <button class="fruit-mood" data-mood="longing" type="button">💔<span class="emotion-name">အလွမ်း (Longing)</span></button>
      <button class="fruit-mood" data-mood="sad" type="button">😢<span class="emotion-name">အဆွေး (Sad Drama)</span></button>
      <button class="fruit-mood" data-mood="horror" type="button">👻<span class="emotion-name">သရဲ / Horror</span></button>
@@ -2714,17 +1048,17 @@ audio{
    </div>
 
    <div>
-    <label>📐 Aspect Ratio</label>
+    <label>📐 Video Format</label>
     <select id="fruitRatio" class="fruit-select">
-     <option value="9:16">📱 9:16 — Shorts / Reels / TikTok</option>
-     <option value="16:9">🖥️ 16:9 — YouTube</option>
+     <option value="9:16">📱 9:16 — TikTok / Reels / Shorts</option>
+     <option value="16:9">🖥️ 16:9 — YouTube Long Form</option>
     </select>
    </div>
 
    <div class="fruit-story-full">
     <label>🎥 AI Video Engine</label>
     <div class="fruit-ai-grid" id="fruitAIGrid">
-     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI (No Audio Glitch)</button>
+     <button class="fruit-ai-btn active" data-ai="flow" type="button">🌊 Flow AI (Stable Continuity)</button>
      <button class="fruit-ai-btn" data-ai="veo" type="button">🎥 Google Veo</button>
     </div>
    </div>
@@ -2736,7 +1070,7 @@ audio{
   </button>
 
   <button id="generateFruitStoryBtn" class="fruit-story-generate" type="button">
-   🚀 GENERATE 6-SCENE CONTINUOUS SERIES
+   🚀 GENERATE CHARACTER-CONSISTENT 6-SCENE SERIES
   </button>
 
   <div id="fruitStoryStatus" class="fruit-story-status"></div>
@@ -2754,22 +1088,22 @@ audio{
    </div>
 
    <div class="fruit-meta-box">
-    <div class="fruit-meta-label">🎭 CHARACTER & CONTINUITY SETUP</div>
+    <div class="fruit-meta-label">🎭 STRICT CHARACTER & CONTINUITY SETUP (Same Face & Outfit)</div>
     <textarea id="fruitCharacterSummary" class="fruit-meta-input" rows="3" readonly></textarea>
    </div>
 
    <div class="fruit-meta-box">
-    <div class="fruit-meta-label">🎞️ EXACT 6 SCENES (10s Each • Continuity Prompts)</div>
+    <div class="fruit-meta-label">🎞️ EXACT 6 SCENES (10s Each • Copy-Ready Prompts)</div>
     <div id="fruitScenesList" class="fruit-scene-list"></div>
    </div>
 
    <div class="fruit-story-actions">
     <button id="copyFruitStoryBtn" class="fruit-action-btn" type="button">📋 Copy All 6 Scenes</button>
-    <button id="sendFruitToThumbnailBtn" class="fruit-action-btn" type="button">🖼️ Send to Thumbnail</button>
+    <button id="sendFruitToThumbnailBtn" class="fruit-action-btn" type="button">🖼️ Send to Thumbnail Maker</button>
    </div>
 
    <div id="fruitStoryHistory" class="fruit-story-history">
-    ✨ Scene ၁ မှ ၆ အထိ အစဉ်လိုက်ယူ၍ Video Generator ထဲတွင် ၁ မိနစ်စာ Series အဖြစ် တည်ဆောက်နိုင်ပါသည်။
+    ✨ Scene တစ်ခုချင်းစီကို Copy ကူးယူပြီး Flow AI နှင့် YNT Voice Generator တွင် အလွယ်တကူ အသုံးပြုနိုင်ပါသည်။
    </div>
 
   </div>
@@ -2777,1450 +1111,140 @@ audio{
  </div>
 </div>
 
+<!-- GENERATE VOICE BUTTON -->
+<button class="generate-btn" id="generateBtn" type="button">✨ Generate Voice</button>
 
-<!-- =========================
-     GENERATE VOICE
-========================= -->
-
-<button
- class="generate-btn"
- id="generateBtn"
- type="button"
->
- ✨ Generate Voice
-</button>
-
-
-<div
- class="loading"
- id="loading"
->
-
- <div class="loading-text">
-  ✨ Voice ဖန်တီးနေပါသည်...
- </div>
-
+<div class="loading" id="loading">
+ <div class="loading-text">✨ Voice ဖန်တီးနေပါသည်...</div>
  <div class="loading-bar"></div>
-
 </div>
 
+<div class="status" id="status"></div>
 
-<div
- class="status"
- id="status"
-></div>
-
-
-<div
- class="player"
- id="player"
->
-
+<div class="player" id="player">
  <div class="player-top">
-
-  <div class="player-icon">
-   🔊
-  </div>
-
+  <div class="player-icon">🔊</div>
   <div>
-
-   <div class="player-title">
-    YNT AI Box Voice Ready
-   </div>
-
-   <div class="player-sub">
-    Generated Myanmar Voice
-   </div>
-
+   <div class="player-title">YNT AI Box Voice Ready</div>
+   <div class="player-sub">Generated Myanmar Voice</div>
   </div>
-
  </div>
-
-
- <audio
-  id="audioPlayer"
-  controls
-  preload="metadata"
- ></audio>
-
-
- <button
-  class="download-btn"
-  id="downloadBtn"
-  type="button"
- >
-  ⬇️ Download WAV
- </button>
-
+ <audio id="audioPlayer" controls preload="metadata"></audio>
+ <button class="download-btn" id="downloadBtn" type="button">⬇️ Download WAV</button>
 </div>
 
 </section>
 
-
-<div class="footer">
- © 2026 YNT AI Box • AI Creator Toolkit
+<div class="footer" style="text-align:center; color:#64748b; font-size:10px; margin-top:20px;">
+ © 2026 YNT AI Box • Multi-Genre Series Toolkit
 </div>
 
 </div>
-
 
 <script>
-
 /* =========================================================
-   BASIC
+   BASIC APP LOGIC & SCRIPT
 ========================================================= */
-
 let selectedVoice="Kore";
 let selectedEmotion="natural";
 let currentAudioURL=null;
-
-let selectedVideoStyle="cinematic";
-let selectedVideoScene="custom";
-let videoOutputMode="image";
-
 const MAX_TEXT=5000;
-
 const $=id=>document.getElementById(id);
-
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
 
 const textInput=$("textInput");
 const counter=$("counter");
-
 const speed=$("speed");
 const pitch=$("pitch");
-
 const speedValue=$("speedValue");
 const pitchValue=$("pitchValue");
 const settingsValue=$("settingsValue");
-
 const emotionValue=$("emotionValue");
-
 const generateBtn=$("generateBtn");
 const loading=$("loading");
 const status=$("status");
-
 const player=$("player");
 const audioPlayer=$("audioPlayer");
 const downloadBtn=$("downloadBtn");
 
-
-/* =========================================================
-   TEXT COUNTER
-========================================================= */
-
 textInput.addEventListener("input",()=>{
-
- counter.textContent=
-  textInput.value.length+
-  " / "+
-  MAX_TEXT;
-
+ counter.textContent=textInput.value.length+" / "+MAX_TEXT;
 });
 
-
-/* =========================================================
-   VOICE
-========================================================= */
-
-document
-.querySelectorAll(".voice-btn")
-.forEach(btn=>{
-
+document.querySelectorAll(".voice-btn").forEach(btn=>{
  btn.addEventListener("click",()=>{
-
-  document
-  .querySelectorAll(".voice-btn")
-  .forEach(x=>
-   x.classList.remove("active")
-  );
-
+  document.querySelectorAll(".voice-btn").forEach(x=>x.classList.remove("active"));
   btn.classList.add("active");
-
-  selectedVoice=
-   btn.dataset.voice;
-
-  status.textContent=
-   "🎙️ Voice: "+
-   selectedVoice;
-
+  selectedVoice=btn.dataset.voice;
+  status.textContent="🎙️ Voice: "+selectedVoice;
  });
-
 });
 
+function toggle(id){$(id).classList.toggle("open");}
+$("emotionHeader").onclick=()=>toggle("emotionCard");
+$("settingsHeader").onclick=()=>toggle("settingsCard");
 
-/* =========================================================
-   COLLAPSE
-========================================================= */
-
-function toggle(id){
-
- $(id).classList.toggle("open");
-
-}
-
-
-$("emotionHeader").onclick=()=>
- toggle("emotionCard");
-
-$("settingsHeader").onclick=()=>
- toggle("settingsCard");
-
-$("thumbnailHeader").onclick=()=>
- toggle("thumbnailCard");
-
-$("videoPromptHeader").onclick=()=>
- toggle("videoPromptCard");
-
-
-/* =========================================================
-   EMOTION
-========================================================= */
-
-document
-.querySelectorAll(".emotion-btn")
-.forEach(btn=>{
-
+document.querySelectorAll(".emotion-btn").forEach(btn=>{
  btn.addEventListener("click",()=>{
-
-  document
-  .querySelectorAll(".emotion-btn")
-  .forEach(x=>
-   x.classList.remove("active")
-  );
-
+  document.querySelectorAll(".emotion-btn").forEach(x=>x.classList.remove("active"));
   btn.classList.add("active");
-
-  selectedEmotion=
-   btn.dataset.emotion;
-
-  emotionValue.textContent=
-   btn.querySelector(
-    ".emotion-name"
-   ).textContent;
-
+  selectedEmotion=btn.dataset.emotion;
+  emotionValue.textContent=btn.querySelector(".emotion-name").textContent;
  });
-
 });
-
-
-/* =========================================================
-   SPEED / PITCH
-========================================================= */
 
 function updateSettings(){
-
- settingsValue.textContent=
-  `Speed ${speed.value} • Pitch ${pitch.value}`;
-
+ settingsValue.textContent=`Speed ${speed.value} • Pitch ${pitch.value}`;
 }
-
-speed.oninput=()=>{
-
- speedValue.textContent=
-  speed.value;
-
- updateSettings();
-
-};
-
-pitch.oninput=()=>{
-
- pitchValue.textContent=
-  pitch.value;
-
- updateSettings();
-
-};
-
-
-/* =========================================================
-   TTS
-========================================================= */
+speed.oninput=()=>{speedValue.textContent=speed.value;updateSettings();};
+pitch.oninput=()=>{pitchValue.textContent=pitch.value;updateSettings();};
 
 generateBtn.onclick=async()=>{
-
- const text=
-  textInput.value.trim();
-
- if(!text){
-
-  status.textContent=
-   "⚠️ စာထည့်ပေးပါ။";
-
-  textInput.focus();
-
-  return;
- }
-
- if(text.length>MAX_TEXT){
-
-  status.textContent=
-   "⚠️ စာလုံးရေ 5,000 အထိပဲ အသုံးပြုနိုင်ပါတယ်။";
-
-  return;
- }
+ const text=textInput.value.trim();
+ if(!text){status.textContent="⚠️ စာထည့်ပေးပါ။";textInput.focus();return;}
+ if(text.length>MAX_TEXT){status.textContent="⚠️ စာလုံးရေ 5,000 အထိပဲ အသုံးပြုနိုင်ပါတယ်။";return;}
 
  generateBtn.disabled=true;
-
- loading.style.display=
-  "block";
-
+ loading.style.display="block";
  status.textContent="";
-
- player.style.display=
-  "none";
+ player.style.display="none";
 
  try{
+  const response=await fetch("/api/tts",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({text,voice:selectedVoice,emotion:selectedEmotion,speed:Number(speed.value),pitch:Number(pitch.value)})
+  });
 
-  const response=
-   await fetch(
-    "/api/tts",
-    {
-     method:"POST",
+  if(!response.ok)throw new Error("TTS Generate မအောင်မြင်ပါ။");
+  const blob=await response.blob();
+  if(!blob.size)throw new Error("❌ Audio file မရရှိပါ။");
 
-     headers:{
-      "Content-Type":
-       "application/json"
-     },
-
-     body:JSON.stringify({
-
-      text,
-
-      voice:
-       selectedVoice,
-
-      emotion:
-       selectedEmotion,
-
-      speed:
-       Number(speed.value),
-
-      pitch:
-       Number(pitch.value)
-
-     })
-    }
-   );
-
-
-  if(!response.ok){
-
-   let message=
-    "TTS Generate မအောင်မြင်ပါ။";
-
-   try{
-
-    const data=
-     await response.json();
-
-    if(data?.error){
-
-     message=
-      "❌ "+
-      data.error;
-
-    }
-
-   }catch(e){}
-
-   throw new Error(message);
-
-  }
-
-
-  const blob=
-   await response.blob();
-
-
-  if(!blob.size){
-
-   throw new Error(
-    "❌ Audio file မရရှိပါ။"
-   );
-
-  }
-
-
-  if(currentAudioURL){
-
-   URL.revokeObjectURL(
-    currentAudioURL
-   );
-
-  }
-
-
-  currentAudioURL=
-   URL.createObjectURL(blob);
-
-  audioPlayer.src=
-   currentAudioURL;
-
-  player.style.display=
-   "block";
-
-  status.textContent=
-   "✅ YNT AI Box Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
-
-
+  if(currentAudioURL)URL.revokeObjectURL(currentAudioURL);
+  currentAudioURL=URL.createObjectURL(blob);
+  audioPlayer.src=currentAudioURL;
+  player.style.display="block";
+  status.textContent="✅ YNT AI Box Voice အောင်မြင်စွာ ထုတ်ပြီးပါပြီ။";
  }catch(error){
-
-  status.textContent=
-   error.message ||
-   "❌ Generate မအောင်မြင်ပါ။";
-
+  status.textContent=error.message||"❌ Generate မအောင်မြင်ပါ။";
  }finally{
-
-  loading.style.display=
-   "none";
-
-  generateBtn.disabled=
-   false;
-
+  loading.style.display="none";
+  generateBtn.disabled=false;
  }
-
 };
-
-
-/* =========================================================
-   DOWNLOAD VOICE
-========================================================= */
 
 downloadBtn.onclick=()=>{
-
- if(!currentAudioURL){
-
-  status.textContent=
-   "⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";
-
-  return;
-
- }
-
- const a=
-  document.createElement("a");
-
- a.href=
-  currentAudioURL;
-
- a.download=
-  "YNT-AI-Box-Voice.wav";
-
+ if(!currentAudioURL){status.textContent="⚠️ Download လုပ်ရန် Audio မရှိသေးပါ။";return;}
+ const a=document.createElement("a");
+ a.href=currentAudioURL;
+ a.download="YNT-AI-Box-Voice.wav";
  document.body.appendChild(a);
-
  a.click();
-
  a.remove();
-
 };
 
-
 /* =========================================================
-   THUMBNAIL
+   6-SCENE CHARACTER-CONSISTENT SERIES GENERATOR LOGIC
 ========================================================= */
-
-const movieTitle=
- $("movieTitle");
-
-const movieStorySummary=
- $("movieStorySummary");
-
-const movieCharacterDescription=
- $("movieCharacterDescription");
-
-const movieColor=
- $("movieColor");
-
-const movieStyle=
- $("movieStyle");
-
-const movieFont=
- $("movieFont");
-
-const movieRatio=
- $("movieRatio");
-
-const generateMoviePromptBtn=
- $("generateMoviePromptBtn");
-
-const promptOutput=
- $("promptOutput");
-
-const copyPromptBtn=
- $("copyPromptBtn");
-
-const thumbStatus=
- $("thumbStatus");
-
-let generatedMoviePrompt="";
-
-
-function generateMoviePrompt(){
-
- const title=
-  movieTitle.value.trim();
-
- if(!title){
-
-  thumbStatus.textContent=
-   "⚠️ Movie Title ထည့်ပေးပါ။";
-
-  movieTitle.focus();
-
-  return;
- }
-
- const color=
-  movieColor.value;
-
- const style=
-  movieStyle.value;
-
- const font=
-  movieFont.value;
-
- const ratio=
-  movieRatio.value;
-
-
- const composition=
-  ratio==="9:16"
-  ?
-  "Create a vertical 9:16 composition optimized for Shorts and Reels."
-  :
-  "Create a widescreen 16:9 composition optimized for YouTube.";
-
-
- generatedMoviePrompt=
-`Create a professional, highly detailed cinematic thumbnail.
-
-TITLE:
-"${title}"
-
-STORY SUMMARY:
-"${movieStorySummary.value.trim()}"
-
-CHARACTER DESCRIPTION:
-"${movieCharacterDescription.value.trim()}"
-
-TEXT COLOR:
-${color}
-
-DESIGN STYLE:
-${style}
-
-FONT STYLE:
-${font}
-
-ASPECT RATIO:
-${ratio}
-
-${composition}
-
-VISUAL DIRECTION:
-Create a story-specific visual scene directly inspired by the exact meaning and mood of the title "${title}".
-
-Use relevant:
-- characters
-- facial expressions
-- environment
-- objects
-- action
-- lighting
-- atmosphere
-- cinematic composition
-
-The background must visually support the title.
-Do not use a generic unrelated background.
-
-TITLE TYPOGRAPHY:
-- Display the exact Myanmar title "${title}".
-- Keep every Myanmar character correct.
-- Do not translate or rewrite the title.
-- Use large, bold, highly readable Myanmar typography.
-- Use the selected ${font}.
-- Use ${color} for the title.
-- Add strong cinematic shadow/outline for readability.
-- Keep the title inside the safe area.
-- Do not cover important faces.
-
-YNT SIGNATURE:
-Add a small elegant "YNT" signature/logo near the bottom-right corner.
-The YNT signature should be stylish, clean and subtle.
-It must not cover the main subject.
-It must remain clearly visible.
-
-IMPORTANT:
-- No random text.
-- No extra words.
-- No MOVIE RECAP text.
-- No TikTok logo.
-- No platform logos.
-- No watermark other than the small YNT signature.
-- No UI.
-- No border.
-- No frame.
-- No distorted characters.
-- Professional thumbnail quality.
-- High contrast.
-- Mobile-friendly.
-- Eye-catching but clean.`;
-
-
- promptOutput.value=
-  generatedMoviePrompt;
-
- thumbStatus.textContent=
-  "✅ Thumbnail Prompt ပြုလုပ်ပြီးပါပြီ။";
-
-}
-
-
-generateMoviePromptBtn.onclick=
- generateMoviePrompt;
-
-
-/* =========================================================
-   COPY THUMBNAIL
-========================================================= */
-
-copyPromptBtn.onclick=async()=>{
-
- if(!promptOutput.value.trim()){
-
-  generateMoviePrompt();
-
- }
-
- const text=
-  promptOutput.value.trim();
-
- if(!text)return;
-
- try{
-
-  await navigator.clipboard.writeText(text);
-
-  thumbStatus.textContent=
-   "📋 Prompt Copied!";
-
- }catch(e){
-
-  promptOutput.focus();
-
-  promptOutput.select();
-
-  document.execCommand("copy");
-
-  thumbStatus.textContent=
-   "📋 Prompt Copied!";
-
- }
-
-};
-
-
-/* =========================================================
-   VIDEO PROMPT ELEMENTS
-========================================================= */
-
-const videoIdea=
- $("videoIdea");
-
-const dialogueMode=
- $("dialogueMode");
-
-const videoAI=
- $("videoAI");
-
-const videoRatio=
- $("videoRatio");
-
-const generateVideoPromptBtn=
- $("generateVideoPromptBtn");
-
-const videoOutput=
- $("videoOutput");
-
-const copyVideoPromptBtn=
- $("copyVideoPromptBtn");
-
-const videoStatus=
- $("videoStatus");
-
-const styleOptionCard=
- $("styleOptionCard");
-
-const sceneOptionCard=
- $("sceneOptionCard");
-
-const styleSelected=
- $("styleSelected");
-
-const sceneSelected=
- $("sceneSelected");
-
-
-/* =========================================================
-   STYLE CARD OPEN/CLOSE
-========================================================= */
-
-$("styleOptionHeader").onclick=()=>{
-
- styleOptionCard.classList.toggle(
-  "open"
- );
-
-};
-
-
-/* =========================================================
-   SCENE CARD OPEN/CLOSE
-========================================================= */
-
-$("sceneOptionHeader").onclick=()=>{
-
- sceneOptionCard.classList.toggle(
-  "open"
- );
-
-};
-
-
-/* =========================================================
-   VIDEO STYLES
-========================================================= */
-
-const videoStyles={
-
- cinematic:
-`cinematic movie quality, realistic characters,
-dramatic composition, natural camera movement,
-cinematic lighting, realistic environment,
-shallow depth of field, professional film look`,
-
- action:
-`high-energy action sequence, dynamic camera movement,
-fast physical movement, powerful action choreography,
-dramatic lighting, impact shots, blockbuster movie feeling`,
-
- comedy:
-`funny viral comedy scene, believable exaggerated reactions,
-natural body language, comedic timing, unexpected reactions,
-playful camera movement, entertaining visual storytelling`,
-
- anime:
-`high-quality anime visual style, expressive characters,
-dynamic poses, detailed anime environment,
-stylized lighting, energetic camera movement,
-smooth anime action`,
-
- horror:
-`dark horror atmosphere, eerie environment,
-realistic fear, suspense, dramatic shadows,
-slow unsettling camera movement, cinematic horror lighting`,
-
- romance:
-`emotional romantic atmosphere, expressive characters,
-soft cinematic lighting, intimate camera movement,
-beautiful environment, natural emotional interaction`,
-
- drama:
-`serious emotional drama, realistic acting,
-expressive faces, subtle camera movement,
-natural lighting and strong storytelling`,
-
- fantasy:
-`epic fantasy environment, magical atmosphere,
-detailed costumes, cinematic lighting,
-imaginative creatures and objects,
-large-scale cinematic composition`,
-
- documentary:
-`realistic documentary footage, natural lighting,
-authentic human behavior, handheld camera feeling,
-real-world environment, believable details`,
-
- shop:
-`professional short-form product marketing video,
-clean product presentation, attractive close-up shots,
-bright commercial lighting, natural human demonstration,
-clear product benefits, smooth commercial editing,
-friendly social-media sales style`,
-
- vlog:
-`natural creator vlog style, handheld camera,
-authentic environment, casual human behavior,
-natural lighting, relatable expressions,
-modern creator-video feeling`,
-
- music:
-`stylish music-video cinematography,
-rhythmic camera movement, dramatic lighting,
-strong visual composition, fashionable performance,
-cinematic transitions and energetic visual rhythm`
-
-};
-
-
-/* =========================================================
-   VIDEO SCENE DESCRIPTIONS
-========================================================= */
-
-const sceneDescriptions={
-
- custom:
-`Use the exact custom scene described by the user.`,
-
- car_build:
-`Show a realistic step-by-step car building or car repair process.
-Show tools, mechanical parts, hands and believable workshop activity.
-Use close-up detail shots of the work process.
-Make every action physically believable.`,
-
- planting:
-`Show a realistic plant-growing process.
-Prepare the soil, place the seed or young plant,
-cover it naturally, water it and show healthy plant growth.
-Use close-up shots of hands, soil, water and leaves.`,
-
- flower_picking:
-`Show a beautiful natural flower-picking scene.
-A person carefully approaches blooming flowers,
-gently selects flowers and picks them naturally.
-Show detailed petals, hands, leaves and garden environment.`,
-
- cooking:
-`Show a realistic cooking process.
-Prepare ingredients, cut ingredients, mix, cook and plate the food.
-Use satisfying close-up food shots and natural hand movements.`,
-
- craft:
-`Show a detailed handmade craft process.
-Use realistic hands, tools and materials.
-Show the object being created step by step.
-Include close-up detail shots.`,
-
- farming:
-`Show a realistic farming process.
-Prepare land, plant crops, water plants and work naturally.
-Use realistic agricultural tools and environment.`,
-
- cleaning:
-`Show a satisfying cleaning process.
-Show a dirty or messy object becoming clean.
-Use close-up shots, realistic hand movements and before-after transformation.`,
-
- repair:
-`Show a detailed repair process.
-Identify the damaged part, use appropriate tools,
-remove the damaged component and repair or replace it.
-Show realistic mechanical hand movements.`,
-
- building:
-`Show a realistic construction process.
-Show materials, tools, workers and step-by-step construction.
-Use multiple camera angles while keeping the subject consistent.`,
-
- beauty:
-`Show a natural beauty or makeup process.
-Use realistic facial expressions, hands, beauty products
-and clear step-by-step actions.`,
-
- product_demo:
-`Show a product demonstration.
-Present the product clearly, demonstrate how it works,
-show useful details and realistic human interaction.`,
-
- howto:
-`Create a clear step-by-step tutorial.
-Each action must be easy to understand.
-Use close-up shots for important steps.`,
-
- before_after:
-`Create a strong before-and-after transformation.
-Start with the original condition,
-show the process clearly,
-then reveal the final result.`,
-
- satisfying:
-`Create a visually satisfying process video.
-Focus on clean movements, detailed close-ups,
-smooth transitions and realistic physical interaction.`,
-
- viral:
-`Create an engaging short-form viral scene.
-Start with a strong visual hook,
-keep the action easy to understand,
-use dynamic but believable movement and a satisfying ending.`
-
-};
-
-
-/* =========================================================
-   STYLE BUTTONS
-========================================================= */
-
-document
-.querySelectorAll(".style-btn")
-.forEach(btn=>{
-
- btn.addEventListener("click",()=>{
-
-  document
-  .querySelectorAll(".style-btn")
-  .forEach(x=>
-   x.classList.remove("active")
-  );
-
-  btn.classList.add("active");
-
-  selectedVideoStyle=
-   btn.dataset.vstyle;
-
-  styleSelected.textContent=
-   btn.querySelector(
-    "strong"
-   ).textContent;
-
-  videoStatus.textContent=
-   "🎭 Style ရွေးပြီးပါပြီ။";
-
- });
-
-});
-
-
-/* =========================================================
-   SCENE BUTTONS
-========================================================= */
-
-document
-.querySelectorAll(".scene-btn")
-.forEach(btn=>{
-
- btn.addEventListener("click",()=>{
-
-  document
-  .querySelectorAll(".scene-btn")
-  .forEach(x=>
-   x.classList.remove("active")
-  );
-
-  btn.classList.add("active");
-
-  selectedVideoScene=
-   btn.dataset.scene;
-
-  sceneSelected.textContent=
-   btn.querySelector(
-    "strong"
-   ).textContent;
-
-  videoStatus.textContent=
-   "🛠️ Scene ရွေးပြီးပါပြီ။";
-
- });
-
-});
-
-
-/* =========================================================
-   DIALOGUE
-========================================================= */
-
-function buildDialogue(
- mode,
- idea
-){
-
- if(mode==="none"){
-
-  return `
-DIALOGUE:
-No spoken dialogue.
-Use realistic environmental sound only.
-`;
-
- }
-
-
- if(mode==="burmese"){
-
-  return `
-DIALOGUE:
-Use natural standard Myanmar Burmese dialogue.
-
-The characters must speak clearly,
-slowly enough to understand,
-and naturally like ordinary Myanmar speakers.
-
-Do not use Thai pronunciation.
-Do not use Rakhine dialect.
-Do not use Chinese pronunciation.
-Do not shout.
-Do not mumble.
-Do not speak too quickly.
-
-Use short everyday Myanmar sentences
-directly related to the scene.
-
-Example style:
-"ဟာ... ဒီမှာ ဘာဖြစ်နေတာလဲ?"
-"မသိဘူး၊ မြန်မြန်သွားကြည့်ရအောင်။"
-
-Keep the dialogue short and believable.
-`;
-
- }
-
-
- if(mode==="funny"){
-
-  return `
-DIALOGUE:
-Use natural Myanmar Burmese comedy dialogue.
-
-The characters should speak like ordinary
-Myanmar people in a funny everyday situation.
-
-Use short punchy lines with natural comedic timing.
-
-Example:
-"ဟေ့... မင်းက ဘာလုပ်နေတာလဲ?"
-"အစားအစာရှာနေတာလေ!"
-"အဲဒါက ငါ့ဟာကွ!"
-
-Important:
-- Clear Myanmar pronunciation.
-- No shouting.
-- No Rakhine accent.
-- No Thai accent.
-- Natural pauses.
-- Funny facial reactions.
-`;
-
- }
-
-
- if(mode==="sales"){
-
-  return `
-DIALOGUE:
-Use natural Myanmar Burmese product-selling dialogue.
-
-The speaker must sound friendly,
-confident and conversational.
-
-Do not sound like shouting.
-Do not sound like a robotic advertisement.
-
-Example style:
-"ဒီပစ္စည်းလေးက သုံးရတာ တကယ်အဆင်ပြေတယ်နော်။"
-"အခုလိုအချိန်မှာ ဒီတစ်ခုရှိရင် တော်တော်အသုံးဝင်တယ်။"
-"စိတ်ဝင်စားရင် စမ်းကြည့်လို့ရပါတယ်။"
-
-Keep the sales dialogue short and believable.
-
-Do not mention TikTok.
-Do not mention any platform name.
-`;
-
- }
-
-
- if(mode==="narration"){
-
-  return `
-DIALOGUE:
-Use a clear professional Myanmar Burmese narrator.
-
-Narration must sound like a natural Myanmar storyteller.
-
-Use:
-- clear pronunciation
-- standard Myanmar Burmese
-- natural pauses
-- moderate speaking speed
-- smooth breathing
-- natural sentence rhythm
-
-Avoid:
-- shouting
-- robotic speech
-- mumbling
-- Thai accent
-- Rakhine dialect
-- Chinese pronunciation
-`;
-
- }
-
- return "";
-
-}
-
-
-/* =========================================================
-   VIDEO PROMPT BUILDER
-========================================================= */
-
-function createVideoPrompts(){
-
- const idea=
-  videoIdea.value.trim();
-
- if(!idea){
-
-  videoStatus.textContent=
-   "⚠️ Video Idea / Scene ထည့်ပေးပါ။";
-
-  videoIdea.focus();
-
-  return null;
- }
-
-
- const style=
-  videoStyles[
-   selectedVideoStyle
-  ];
-
- const scene=
-  sceneDescriptions[
-   selectedVideoScene
-  ];
-
- const dialogue=
-  buildDialogue(
-   dialogueMode.value,
-   idea
-  );
-
- const ratio=
-  videoRatio.value;
-
- const targetAI=
-  videoAI.value;
-
-
- const imagePrompt=
-`🎨 Image Prompt (${ratio}):
-
-Create a high-quality ${ratio} image.
-
-MAIN VIDEO IDEA:
-"${idea}"
-
-SELECTED VIDEO STYLE:
-${style}
-
-SELECTED SCENE / ACTION:
-${scene}
-
-VISUAL DIRECTION:
-Create a story-specific image that clearly represents
-the exact idea and selected action.
-
-CHARACTERS:
-Use believable human characters,
-natural facial expressions,
-correct body proportions,
-realistic clothing and consistent identity.
-
-ACTION:
-The selected action must be visually obvious.
-Show the hands, tools, objects and environment
-needed to understand the process.
-
-ENVIRONMENT:
-Create a realistic environment that naturally
-matches the selected action.
-
-LIGHTING:
-Use cinematic lighting appropriate to the mood.
-
-COMPOSITION:
-Strong foreground, middle-ground and background.
-Main subject clearly visible.
-Professional cinematic framing.
-
-CONSISTENCY:
-The image should be suitable as the first frame
-of an AI-generated video.
-
-IMPORTANT:
-- No random text.
-- No subtitles.
-- No logos.
-- No platform logos.
-- No TikTok logo.
-- No watermark.
-- No UI.
-- No borders.
-- No distorted faces.
-- No extra random characters.
-- Natural human anatomy.
-- High detail.
-- Realistic physical objects.
-- Mobile-friendly composition.
-`;
-
-
- const motionPrompt=
-`🎬 Video Motion Prompt (${targetAI} - ${dialogueMode.value==="none"?"No Dialogue":"With Dialogue"}):
-
-SCENE:
-${idea}
-
-VIDEO STYLE:
-${style}
-
-VIDEO SCENE / ACTION:
-${scene}
-
-CAMERA:
-Use professional cinematic camera movement.
-Use appropriate wide shots, medium shots
-and close-up detail shots.
-
-Do not move the camera randomly.
-Keep the main subject and environment consistent.
-
-MOTION:
-Animate every character with natural,
-physically believable body movement.
-
-Hands must interact correctly with objects.
-Tools must contact objects realistically.
-Objects must have realistic weight and physics.
-
-PROCESS:
-Show the selected action clearly.
-When the scene describes a process,
-show the process step by step.
-
-Use satisfying close-up detail shots
-for important actions.
-
-CHARACTER CONSISTENCY:
-Keep the same face, hairstyle,
-clothing and body proportions
-throughout the entire video.
-
-ENVIRONMENT:
-Keep lighting, location and major objects consistent.
-
-TIMING:
-Use smooth natural movement.
-Avoid sudden unnatural jumps.
-Avoid impossible transformations.
-
-AUDIO:
-Use realistic environmental sounds
-matching the scene.
-
-${dialogue}
-
-MYANMAR LANGUAGE REQUIREMENT:
-If dialogue or narration is used:
-
-- Spoken language must be standard Myanmar Burmese.
-- Pronunciation must be very clear.
-- Speak at a moderate natural speed.
-- Use natural Myanmar sentence rhythm.
-- Use natural pauses.
-- Do not shout.
-- Do not mumble.
-- Do not speak too quickly.
-- Do not use Thai pronunciation.
-- Do not use Rakhine dialect pronunciation.
-- Do not use Chinese pronunciation.
-- Do not randomly change Myanmar words.
-- Speak only the intended dialogue.
-- Lip movement must match the spoken Myanmar words.
-
-DIALOGUE QUALITY:
-The Myanmar speech should sound like
-a normal Myanmar person talking naturally,
-not like an artificial voice shouting.
-
-NEGATIVE:
-No random dialogue.
-No random words.
-No gibberish.
-No shouting.
-No mumbling.
-No Thai accent.
-No Rakhine dialect.
-No Chinese pronunciation.
-No TikTok logo.
-No platform logo.
-No watermark.
-No UI.
-No subtitles unless explicitly requested.
-No distorted faces.
-No extra characters.
-No unnatural camera shake.
-No impossible physics.
-
-OUTPUT:
-Create a polished short-form video
-suitable for ${targetAI}.
-
-Aspect Ratio:
-${ratio}
-`;
-
-
- return {
-  imagePrompt,
-  motionPrompt
- };
-
-}
-
-
-/* =========================================================
-   GENERATE VIDEO PROMPT
-========================================================= */
-
-generateVideoPromptBtn.onclick=()=>{
-
- const result=
-  createVideoPrompts();
-
- if(!result)return;
-
- videoOutputMode=
-  "image";
-
- videoOutput.value=
-  result.imagePrompt+
-  "\n\n"+
-  result.motionPrompt;
-
- videoStatus.textContent=
-  "✅ Image Prompt + Video Motion Prompt ပြုလုပ်ပြီးပါပြီ။";
-
-};
-
-
-/* =========================================================
-   IMAGE TAB
-========================================================= */
-
-$("imageTab").onclick=()=>{
-
- $("imageTab")
- .classList.add("active");
-
- $("motionTab")
- .classList.remove("active");
-
- videoOutputMode=
-  "image";
-
- const result=
-  createVideoPrompts();
-
- if(result){
-
-  videoOutput.value=
-   result.imagePrompt;
-
- }
-
-};
-
-
-/* =========================================================
-   MOTION TAB
-========================================================= */
-
-$("motionTab").onclick=()=>{
-
- $("motionTab")
- .classList.add("active");
-
- $("imageTab")
- .classList.remove("active");
-
- videoOutputMode=
-  "motion";
-
- const result=
-  createVideoPrompts();
-
- if(result){
-
-  videoOutput.value=
-   result.motionPrompt;
-
- }
-
-};
-
-
-/* =========================================================
-   COPY VIDEO PROMPT
-========================================================= */
-
-copyVideoPromptBtn.onclick=async()=>{
-
- if(!videoOutput.value.trim()){
-
-  const result=
-   createVideoPrompts();
-
-  if(!result)return;
-
-  videoOutput.value=
-   videoOutputMode==="motion"
-   ?
-   result.motionPrompt
-   :
-   result.imagePrompt;
-
- }
-
- const text=
-  videoOutput.value.trim();
-
- if(!text)return;
-
- try{
-
-  await navigator.clipboard.writeText(text);
-
-  videoStatus.textContent=
-   "📋 Video Prompt Copied!";
-
- }catch(e){
-
-  videoOutput.focus();
-
-  videoOutput.select();
-
-  document.execCommand("copy");
-
-  videoStatus.textContent=
-   "📋 Video Prompt Copied!";
-
- }
-
-};
-
-
-/* =========================================================
-   6-SCENE MULTI-GENRE SERIES GENERATOR LOGIC
-========================================================= */
-
 const fruitStoryCard = $("fruitStoryCard");
 const fruitStoryHeader = $("fruitStoryHeader");
 const fruitTitle = $("fruitTitle");
@@ -4239,28 +1263,26 @@ const fruitScenesList = $("fruitScenesList");
 const copyFruitStoryBtn = $("copyFruitStoryBtn");
 const sendFruitToThumbnailBtn = $("sendFruitToThumbnailBtn");
 
-let selectedFruitMood = "comedy";
+let selectedFruitMood = "romance";
 let selectedFruitAI = "flow";
 
 const fruitMoodDescriptions = {
- comedy:"Funny comedy story, witty dialogue, amusing natural reactions, lighthearted humor, exactly 6 continuous scenes",
- romance:"Warm romantic emotion, sweet connection, heartfelt love story, emotional gazes, exactly 6 continuous scenes",
- longing:"Deep longing, separation, nostalgic memories, emotional quiet atmosphere, exactly 6 continuous scenes",
- sad:"Sad emotional drama, loneliness, heartbreaking realistic emotion, crying or melancholic tone, exactly 6 continuous scenes",
- horror:"Dark horror thriller, eerie atmosphere, suspenseful buildup, spooky twists, exactly 6 continuous scenes",
- emotional:"Deep emotional storytelling, touching expressions, heartfelt moments, exactly 6 continuous scenes",
- twist:"Mind-bending plot twist, unexpected turns, shocking mystery revelation, exactly 6 continuous scenes",
- cinematic:"Premium cinematic storytelling, realistic acting, beautiful visual composition, exactly 6 continuous scenes",
- random:"AI chooses a popular engaging genre with a 6-scene continuous storytelling flow"
+ romance:"Warm romantic emotion, sweet connection, heartfelt love story, emotional gazes, strict character consistency, exactly 6 continuous scenes",
+ comedy:"Funny comedy story, witty dialogue, amusing natural reactions, lighthearted humor, strict character consistency, exactly 6 continuous scenes",
+ longing:"Deep longing, separation, nostalgic memories, emotional quiet atmosphere, strict character consistency, exactly 6 continuous scenes",
+ sad:"Sad emotional drama, loneliness, heartbreaking realistic emotion, crying or melancholic tone, strict character consistency, exactly 6 continuous scenes",
+ horror:"Dark horror thriller, eerie atmosphere, suspenseful buildup, spooky twists, strict character consistency, exactly 6 continuous scenes",
+ emotional:"Deep emotional storytelling, touching expressions, heartfelt moments, strict character consistency, exactly 6 continuous scenes",
+ twist:"Mind-bending plot twist, unexpected turns, shocking mystery revelation, strict character consistency, exactly 6 continuous scenes",
+ cinematic:"Premium cinematic storytelling, realistic acting, beautiful visual composition, strict character consistency, exactly 6 continuous scenes",
+ random:"AI chooses a popular engaging genre with strict character consistency and a 6-scene continuous storytelling flow"
 };
 
-fruitStoryHeader?.addEventListener("click",()=>{
- fruitStoryCard?.classList.toggle("open");
-});
+fruitStoryHeader?.addEventListener("click",()=>toggle("fruitStoryCard"));
 
 fruitMoodGrid?.querySelectorAll(".fruit-mood").forEach(btn=>{
  btn.addEventListener("click",()=>{
-  selectedFruitMood = btn.dataset.mood || "comedy";
+  selectedFruitMood = btn.dataset.mood || "romance";
   fruitMoodGrid.querySelectorAll(".fruit-mood").forEach(x=>x.classList.remove("active"));
   btn.classList.add("active");
  });
@@ -4279,16 +1301,19 @@ fruitRandomBtn?.addEventListener("click",()=>{
  selectedFruitMood="random";
  fruitMoodGrid?.querySelectorAll(".fruit-mood").forEach(x=>x.classList.remove("active"));
  fruitMoodGrid?.querySelector('[data-mood="random"]')?.classList.add("active");
- fruitStoryStatus.textContent="🎲 Random Series Mode — AI က ရွေးချယ်ထားတဲ့ ပုံစံနဲ့ 6-Scene ဇာတ်လမ်းကို ဖန်တီးပေးပါမယ်။";
+ fruitStoryStatus.textContent="🎲 Random Series Mode — AI က ဇာတ်ကောင်လက္ခဏာတူညီသော 6-Scene စီးရီးကို ဖန်တီးပေးပါမယ်။";
  fruitTitle.focus();
 });
 
-function fruitClean(value){
- return String(value||"").trim();
-}
+function fruitClean(value){return String(value||"").trim();}
+function fruitSceneValue(item,key,fallback=""){return fruitClean(item?.[key]) || fallback;}
 
-function fruitSceneValue(item,key,fallback=""){
- return fruitClean(item?.[key]) || fallback;
+function copyFruitText(text,msg){
+ navigator.clipboard.writeText(text).then(()=>{
+  fruitStoryStatus.textContent=msg;
+ }).catch(()=>{
+  fruitStoryStatus.textContent="📋 Copied!";
+ });
 }
 
 function buildFruitSceneCard(item,index,ai){
@@ -4298,91 +1323,56 @@ function buildFruitSceneCard(item,index,ai){
 
  const head=document.createElement("div");
  head.className="fruit-scene-head";
-
  const title=document.createElement("span");
- title.textContent=`🎬 Scene ${sceneNo} of 6`;
-
+ title.textContent=`🎬 Scene ${sceneNo} of 6 (Character Consistent)`;
  const time=document.createElement("span");
  time.className="fruit-scene-time";
- time.textContent="10s • Visual Expression Flow";
-
+ time.textContent=`10s • Continuity Lock`;
  head.append(title,time);
 
- const photo=fruitSceneValue(
-  item,
-  "photoPrompt",
-  fruitSceneValue(item,"imagePrompt","")
- );
-
- const video=fruitSceneValue(
-  item,
-  "videoPrompt",
-  fruitSceneValue(item,"prompt","")
- );
-
- const dialogue=fruitSceneValue(
-  item,
-  "dialogue",
-  fruitSceneValue(item,"myanmarDialogue","")
- );
+ const photo=fruitSceneValue(item,"photoPrompt",fruitSceneValue(item,"imagePrompt",""));
+ const video=fruitSceneValue(item,"videoPrompt",fruitSceneValue(item,"prompt",""));
+ const dialogue=fruitSceneValue(item,"dialogue",fruitSceneValue(item,"myanmarDialogue",""));
 
  function addField(label,value){
   const l=document.createElement("div");
   l.className="fruit-scene-label";
   l.textContent=label;
-
   const ta=document.createElement("textarea");
   ta.className="fruit-scene-text";
   ta.readOnly=true;
   ta.value=value;
-
   const copy=document.createElement("button");
   copy.type="button";
   copy.className="fruit-copy-small";
   copy.textContent="📋 Copy";
   copy.addEventListener("click",()=>copyFruitText(value,"📋 Copied!"));
-
   wrap.append(l,ta,copy);
  }
 
  if(String(ai).toLowerCase()==="flow"){
-  addField("📸 PHOTO PROMPT (10s Frame)",photo);
-  addField("🎥 VIDEO MOTION PROMPT (Optimized for Flow AI)",video);
+  addField("📸 PHOTO PROMPT (10s Frame — Identical Character)",photo);
+  addField("🎥 VIDEO MOTION PROMPT (Flow AI Optimized)",video);
   addField("💬 SEPARATE MYANMAR VOICE (Use YNT Voice Gen)",dialogue);
  }else{
   const veo=video || fruitSceneValue(item,"prompt","");
-  const limited=veo.slice(0,900);
-  addField("🎥 GOOGLE VEO PROMPT — MAX 900",limited);
+  addField("🎥 GOOGLE VEO PROMPT (MAX 900)",veo.slice(0,900));
   addField("💬 SEPARATE MYANMAR VOICE (Use YNT Voice Gen)",dialogue);
  }
-
  return [head,wrap];
 }
 
 function renderFruitScenes(scenes,ai){
  fruitScenesList.innerHTML="";
  const list=Array.isArray(scenes)?scenes:[];
- if(!list.length){
-  fruitScenesList.textContent="Scene မရရှိသေးပါ။";
-  return;
- }
-
+ if(!list.length){fruitScenesList.textContent="Scene မရရှိသေးပါ။";return;}
  list.slice(0, 6).forEach((item,index)=>{
   const card=document.createElement("div");
   card.className="fruit-scene-card";
-
   const parts=buildFruitSceneCard(item,index,ai);
   card.append(...parts);
   fruitScenesList.appendChild(card);
  });
-}
-
-function fruitResetResults(){
- fruitStoryResults.style.display="none";
- fruitMovieTitle.value="";
- fruitCompleteStory.value="";
- fruitCharacterSummary.value="";
- fruitScenesList.innerHTML="";
 }
 
 generateFruitStoryBtn?.addEventListener("click",async()=>{
@@ -4391,20 +1381,19 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
  const ai=selectedFruitAI;
  const ratio=fruitRatio.value || "9:16";
  const partNum=fruitSeriesPart.value || "1";
-
  const randomMode=selectedFruitMood==="random" || !title;
 
- fruitResetResults();
+ fruitStoryResults.style.display="none";
  generateFruitStoryBtn.disabled=true;
- fruitStoryStatus.textContent=`⏳ ရွေးချယ်ထားသော ပုံစံဖြင့် Scene ၆ ခုပါဝင်သည့် စီးရီးဇာတ်လမ်း (Part ${partNum}) ကို ဖန်တီးနေပါသည်...`;
+ fruitStoryStatus.textContent=`⏳ ဇာတ်ကောင်လက္ခဏာတူညီသော 6-Scene စီးရီးဇာတ်လမ်း (Part ${partNum}) ကို ဖန်တီးနေပါသည်...`;
 
  try{
   const response=await fetch("/api/fruit-dialogue",{
    method:"POST",
    headers:{"Content-Type":"application/json"},
    body:JSON.stringify({
-    title: randomMode ? `Create a 6-scene continuous series story (Part ${partNum}) with selected genre.` : title,
-    character:"Strict character consistency: identical facial features, clothing, and environment across all 6 scenes.",
+    title: randomMode ? `Create a 6-scene continuous series story (Part ${partNum}) with strict character consistency.` : title,
+    character:"Strict character consistency: identical facial features, clothing, hairstyle, and wardrobe maintained across all 6 scenes.",
     story: title,
     episode: Number(partNum),
     previous: `Part ${partNum} of the series`,
@@ -4416,15 +1405,15 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
     sceneDuration: 10,
     dialogueMode: "auto",
     dialogue: "",
-    generateFullStory:true
+    generateFullStory: true
    })
   });
 
   const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(data.error || "Story generation failed");
+  if(!response.ok)throw new Error(data.error || "Generation failed");
 
   const scenes=Array.isArray(data.scenes)?data.scenes:[];
-  const finalTitle=fruitClean(data.title) || title || "Multi-Genre 6-Scene Series";
+  const finalTitle=fruitClean(data.title) || title || "Character-Consistent Series";
   const fullStory=fruitClean(data.fullStory || data.story || "");
 
   fruitMovieTitle.value=`${finalTitle} — Part ${partNum} (6 Scenes)`;
@@ -4434,8 +1423,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
   renderFruitScenes(scenes,ai);
   fruitStoryResults.style.display="block";
   fruitStoryCard.classList.add("open");
-
-  fruitStoryStatus.textContent=`✅ Scene ၆ ခုပါဝင်သော Part ${partNum} ဇာတ်လမ်း အောင်မြင်စွာ ပြီးစီးပါပြီ။`;
+  fruitStoryStatus.textContent=`✅ ဇာတ်ကောင်လက္ခဏာတူညီသော Part ${partNum} ဇာတ်လမ်း အောင်မြင်စွာ ပြီးစီးပါပြီ။`;
 
  }catch(error){
   fruitStoryStatus.textContent="❌ "+(error.message || "Generate မအောင်မြင်ပါ။");
@@ -4444,7 +1432,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
  }
 });
 
-copyFruitStoryBtn?.addEventListener("click",async()=>{
+copyFruitStoryBtn?.addEventListener("click",()=>{
  const blocks=[fruitMovieTitle.value,fruitCompleteStory.value,fruitCharacterSummary.value];
  document.querySelectorAll("#fruitScenesList .fruit-scene-text").forEach(x=>blocks.push(x.value));
  copyFruitText(blocks.filter(Boolean).join("\n\n"),"📋 6 Scenes အားလုံး Copied!");
@@ -4452,49 +1440,20 @@ copyFruitStoryBtn?.addEventListener("click",async()=>{
 
 sendFruitToThumbnailBtn?.addEventListener("click",()=>{
  const title=fruitMovieTitle.value.trim();
- if(!title){
-  fruitStoryStatus.textContent="⚠️ အရင် Generate Story လုပ်ပါ။";
-  return;
- }
-
+ if(!title){fruitStoryStatus.textContent="⚠️ အရင် Generate Story လုပ်ပါ။";return;}
  if(typeof movieTitle!=="undefined" && movieTitle){
   movieTitle.value=title;
-  if(typeof movieStorySummary!=="undefined" && movieStorySummary){
-   movieStorySummary.value=fruitCompleteStory.value.trim();
-  }
-  if(typeof movieCharacterDescription!=="undefined" && movieCharacterDescription){
-   movieCharacterDescription.value=fruitCharacterSummary.value.trim();
-  }
   if(typeof thumbnailCard!=="undefined" && thumbnailCard){
    thumbnailCard.classList.add("open");
    thumbnailCard.scrollIntoView({behavior:"smooth",block:"start"});
   }
-  if(typeof thumbStatus!=="undefined" && thumbStatus){
-   thumbStatus.textContent="🖼️ ဇာတ်လမ်းခေါင်းစဉ်ကို Thumbnail Maker သို့ ပို့ပြီးပါပြီ။";
-  }
+  fruitStoryStatus.textContent="🖼️ ဇာတ်လမ်းခေါင်းစဉ်ကို Thumbnail Maker သို့ ပို့ပြီးပါပြီ။";
  }
 });
 
-
-/* =========================================================
-   CLEANUP
-========================================================= */
-
-window.addEventListener(
- "beforeunload",
- ()=>{
-
-  if(currentAudioURL){
-
-   URL.revokeObjectURL(
-    currentAudioURL
-   );
-
-  }
-
- }
-);
-
+window.addEventListener("beforeunload",()=>{
+ if(currentAudioURL)URL.revokeObjectURL(currentAudioURL);
+});
 </script>
 
 </body>
