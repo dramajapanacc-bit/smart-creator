@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="my">
 <head>
-<meta name="YNT_FINAL_BUILD" content="true">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#070714">
-<title>YNT AI Box</title>
+<title>YNT AI Box v6</title>
 
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -82,7 +81,6 @@ textarea::placeholder{color:#475569}
 input[type=range]{width:100%;height:5px;appearance:none;border-radius:99px;background:#25253b}
 input[type=range]::-webkit-slider-thumb{appearance:none;width:17px;height:17px;border-radius:50%;border:2px solid #fff;background:#8b5cf6}
 .range-labels{display:flex;justify-content:space-between;margin-top:7px;color:#475569;font-size:8px}
-.extra-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
 .extra-card{overflow:hidden}
 .extra-icon{font-size:16px}
 .extra-title{font-size:12px}
@@ -128,13 +126,11 @@ audio{width:100%;height:40px}
 .option-card.open .option-card-content{display:block}
 .style-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .style-btn{min-height:68px;padding:10px;border:1px solid #292941;border-radius:14px;background:rgba(8,8,22,.8);color:#94a3b8;cursor:pointer;text-align:left;transition:.18s}
-.style-btn:hover{border-color:rgba(34,211,238,.4)}
-.style-btn.active{border-color:#22d3ee;background:rgba(34,211,238,.12);color:#fff;box-shadow:0 0 0 1px rgba(34,211,238,.06)}
+.style-btn.active{border-color:#22d3ee;background:rgba(34,211,238,.12);color:#fff}
 .style-btn strong{display:block;font-size:11px}
 .style-btn small{display:block;margin-top:4px;color:#64748b;font-size:8px;line-height:1.4}
 .scene-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .scene-btn{min-height:70px;padding:9px;border:1px solid #292941;border-radius:14px;background:rgba(8,8,22,.8);color:#94a3b8;cursor:pointer;text-align:left;transition:.18s}
-.scene-btn:hover{border-color:rgba(168,85,247,.5)}
 .scene-btn.active{border-color:#a855f7;background:rgba(168,85,247,.14);color:#fff}
 .scene-btn strong{display:block;font-size:11px}
 .scene-btn small{display:block;margin-top:4px;color:#64748b;font-size:8px;line-height:1.4}
@@ -143,8 +139,6 @@ audio{width:100%;height:40px}
 .output-tab.active{border-color:#8b5cf6;color:#fff;background:rgba(124,58,237,.18)}
 .video-copy{width:100%;margin-top:10px;padding:12px;border:0;border-radius:14px;background:#7c3aed;color:#fff;font-weight:950;cursor:pointer}
 .prompt-note{margin-top:10px;padding:10px;border-radius:12px;background:rgba(34,211,238,.06);border:1px solid rgba(34,211,238,.12);color:#64748b;font-size:9px;line-height:1.7}
-
-/* FRUIT HEAD STORY */
 .fruit-story-card{margin-top:14px}
 .fruit-story-content{padding:0 16px 18px}
 .fruit-story-banner{padding:15px;margin:0 0 14px;border:1px solid rgba(251,146,60,.20);border-radius:16px;background:linear-gradient(135deg,rgba(249,115,22,.10),rgba(219,39,119,.06))}
@@ -535,14 +529,13 @@ audio{width:100%;height:40px}
 </div>
 </div>
 
-<!-- FRUIT HEAD STORY -->
 <div class="extra-card fruit-story-card" id="fruitStoryCard">
 <button class="extra-header" id="fruitStoryHeader" type="button">
  <div class="extra-left">
   <div class="extra-icon">🍎</div>
   <div>
-   <div class="extra-title">FRUIT HEAD STORY</div>
-   <div class="section-hint">✨ AI Story Generator — Title တစ်ခုတည်းနဲ့ ဇာတ်လမ်းတစ်ခုလုံးဖန်တီးပါ</div>
+   <div class="extra-title">FRUIT HEAD STORY v6</div>
+   <div class="section-hint">✨ Character Lock + Natural Burmese + Veo 900</div>
   </div>
  </div>
  <span class="extra-chevron">▼</span>
@@ -551,9 +544,9 @@ audio{width:100%;height:40px}
 <div class="extra-content fruit-story-content">
 
 <div class="fruit-story-banner">
- <div class="fruit-story-banner-title">🍎✨ AI Story Generator — Pro Version</div>
+ <div class="fruit-story-banner-title">🍎✨ AI Story Generator v6</div>
  <div class="fruit-story-banner-sub">
-  Title တစ်ခုထည့်ပြီး Generate တစ်ချက်နှိပ်ရုံနဲ့ Full Story → Character Bible → Character Reference Sheet → 6 Scenes (60 sec) → Flow AI Prompt → Veo Prompt (<900) → Thumbnail Prompt ကို continuity lock နဲ့ ဖန်တီးပေးပါမယ်။
+  Title တစ်ခုထည့်ပြီး Generate တစ်ချက်နှိပ်ရုံနဲ့ Full Story → Character Bible → <b style="color:#fed7aa">Character Reference Sheet</b> → 6 Scenes (60 sec) → Flow AI Prompt → Veo Prompt (<900) → Thumbnail Prompt ကို continuity lock နဲ့ ဖန်တီးပေးပါမယ်။
   <br><br>
   <strong style="color:#fed7aa">⚠️ Flow AI အတွက် အရေးကြီး:</strong> Character Reference Sheet ကို <b>Reference Image</b> အဖြစ် Flow AI မှာ upload လုပ်ပြီးမှ Scene တစ်ခုချင်း generate လုပ်ပါ။
  </div>
@@ -641,10 +634,10 @@ audio{width:100%;height:40px}
  </div>
 
  <div class="fruit-meta-box">
-  <div class="fruit-meta-label">🧍 CHARACTER REFERENCE SHEET — FLOW AI / IMAGE GENERATOR</div>
-  <textarea id="fruitCharacterReferencePrompt" class="fruit-meta-input" rows="10" readonly></textarea>
+  <div class="fruit-meta-label">🧍 CHARACTER REFERENCE SHEET PROMPT — MOVIE PRODUCTION QUALITY</div>
+  <textarea id="fruitCharacterReferencePrompt" class="fruit-meta-input" rows="12" readonly></textarea>
   <button id="copyFruitCharacterReferenceBtn" class="fruit-action-btn" type="button">📋 Copy Character Reference Prompt</button>
-  <div class="fruit-prompt-note" style="color:#fbbf24">⚠️ ဒီ prompt ကို အရင်ဆုံး Generate လုပ်ပြီး ရလာတဲ့ image ကို Flow AI မှာ Reference Image အဖြစ် upload လုပ်ပါ။</div>
+  <div class="fruit-prompt-note" style="color:#fbbf24">⚠️ ဒီ prompt ကို Image AI မှာ Generate လုပ်ပြီး ရလာတဲ့ Character Reference Sheet ကို Flow AI မှာ Reference Image အဖြစ် upload လုပ်ပါ။</div>
  </div>
 
  <div class="fruit-meta-box">
@@ -700,7 +693,7 @@ audio{width:100%;height:40px}
 </section>
 
 <div class="footer" style="text-align:center;color:#475569;font-size:10px;margin-top:20px">
- © 2026 YNT AI Box • AI Creator Toolkit
+ © 2026 YNT AI Box v6 • AI Creator Toolkit
 </div>
 
 </div>
@@ -786,11 +779,11 @@ speed.oninput=()=>{ speedValue.textContent=speed.value; updateSettings(); };
 pitch.oninput=()=>{ pitchValue.textContent=pitch.value; updateSettings(); };
 
 /* =========================================================
-   GLOBAL COPY HELPER — FIXED
+   GLOBAL COPY HELPER
 ========================================================= */
-async function copyFruitText(text, successMsg="📋 Copied!"){
+async function copyFruitText(text,successMsg="📋 Copied!"){
  const t=String(text||"").trim();
- if(!t) return;
+ if(!t)return;
  try{
   await navigator.clipboard.writeText(t);
   const st=$("fruitStoryStatus");
@@ -880,12 +873,10 @@ function generateMoviePrompt(){
  generatedMoviePrompt=`Create a professional, highly detailed cinematic thumbnail.
 
 TITLE: "${title}"
-
 STORY SUMMARY: "${movieStorySummary.value.trim()}"
-
 CHARACTER DESCRIPTION: "${movieCharacterDescription.value.trim()}"
 
-CHARACTER CONSISTENCY LOCK: Keep every main character visually identical to the supplied character description: same face identity, age, body proportions, hairstyle, fruit-head type, colors, clothes, accessories and overall silhouette. Do not redesign or replace characters.
+CHARACTER CONSISTENCY LOCK: Keep every main character visually identical to the supplied character description.
 
 TEXT COLOR: ${color}
 DESIGN STYLE: ${style}
@@ -894,19 +885,18 @@ ASPECT RATIO: ${ratio}
 
 ${composition}
 
-VISUAL DIRECTION: Create a story-specific visual scene directly inspired by the exact meaning and mood of the title "${title}".
+VISUAL DIRECTION: Story-specific visual scene directly inspired by the title "${title}".
 
-TITLE TYPOGRAPHY: Display the exact Myanmar title "${title}". Do not translate or rewrite. Use large, bold, highly readable Myanmar typography. Use ${color} for the title. Add strong cinematic shadow/outline for readability.
+TITLE TYPOGRAPHY: Display the exact Myanmar title "${title}". Do not translate. Use large bold Myanmar typography.
 
-YNT SIGNATURE: Add a small elegant "YNT" signature/logo near the bottom-right corner.
+YNT SIGNATURE: Small elegant "YNT" signature near bottom-right corner.
 
 IMPORTANT:
-- No random text, no extra words, no MOVIE RECAP text.
+- No random text, no MOVIE RECAP text.
 - No TikTok logo, no platform logos.
-- No watermark other than the small YNT signature.
+- No watermark other than the YNT signature.
 - No UI, no border, no frame.
-- No distorted characters.
-- Professional thumbnail quality. High contrast. Mobile-friendly.`;
+- Professional thumbnail quality.`;
 
  promptOutput.value=generatedMoviePrompt;
  thumbStatus.textContent="✅ Thumbnail Prompt ပြုလုပ်ပြီးပါပြီ။";
@@ -950,7 +940,7 @@ generateThumbnailImageBtn?.addEventListener("click",async()=>{
   box.appendChild(a);
   thumbStatus.textContent="✅ Thumbnail image ထွက်ပါပြီ။";
  }catch(e){
-  thumbStatus.textContent="⚠️ "+(e.message||"Thumbnail image မထုတ်နိုင်ပါ။")+" — Prompt ကို Copy ကူးပြီး Image AI ထဲမှာသုံးနိုင်ပါတယ်။";
+  thumbStatus.textContent="⚠️ "+(e.message||"Thumbnail image မထုတ်နိုင်ပါ။");
  }finally{ generateThumbnailImageBtn.disabled=false; }
 });
 
@@ -988,32 +978,32 @@ $("styleOptionHeader").onclick=()=>styleOptionCard.classList.toggle("open");
 $("sceneOptionHeader").onclick=()=>sceneOptionCard.classList.toggle("open");
 
 const videoStyles={
- cinematic:`cinematic movie quality, realistic characters, dramatic composition, natural camera movement, cinematic lighting, realistic environment, shallow depth of field, professional film look`,
- action:`high-energy action sequence, dynamic camera movement, fast physical movement, powerful action choreography, dramatic lighting, impact shots, blockbuster movie feeling`,
- comedy:`funny viral comedy scene, believable exaggerated reactions, natural body language, comedic timing, playful camera movement, entertaining visual storytelling`,
- anime:`high-quality anime visual style, expressive characters, dynamic poses, detailed anime environment, stylized lighting, energetic camera movement`,
- horror:`dark horror atmosphere, eerie environment, realistic fear, suspense, dramatic shadows, slow unsettling camera movement, cinematic horror lighting`,
- romance:`emotional romantic atmosphere, expressive characters, soft cinematic lighting, intimate camera movement, beautiful environment`,
- drama:`serious emotional drama, realistic acting, expressive faces, subtle camera movement, natural lighting`,
- fantasy:`epic fantasy environment, magical atmosphere, detailed costumes, cinematic lighting, imaginative creatures`,
- documentary:`realistic documentary footage, natural lighting, authentic human behavior, handheld camera feeling, real-world environment`,
- shop:`professional short-form product marketing video, clean product presentation, attractive close-up shots, bright commercial lighting`,
- vlog:`natural creator vlog style, handheld camera, authentic environment, casual human behavior, natural lighting`,
- music:`stylish music-video cinematography, rhythmic camera movement, dramatic lighting, strong visual composition`
+ cinematic:`cinematic movie quality, realistic characters, dramatic composition, natural camera movement, cinematic lighting`,
+ action:`high-energy action sequence, dynamic camera movement, fast physical movement, blockbuster movie feeling`,
+ comedy:`funny viral comedy scene, believable exaggerated reactions, natural body language, comedic timing`,
+ anime:`high-quality anime visual style, expressive characters, dynamic poses, detailed anime environment`,
+ horror:`dark horror atmosphere, eerie environment, realistic fear, suspense, cinematic horror lighting`,
+ romance:`emotional romantic atmosphere, expressive characters, soft cinematic lighting, intimate camera movement`,
+ drama:`serious emotional drama, realistic acting, expressive faces, subtle camera movement`,
+ fantasy:`epic fantasy environment, magical atmosphere, detailed costumes, cinematic lighting`,
+ documentary:`realistic documentary footage, natural lighting, authentic human behavior, handheld camera feeling`,
+ shop:`professional short-form product marketing video, clean product presentation, bright commercial lighting`,
+ vlog:`natural creator vlog style, handheld camera, authentic environment, casual human behavior`,
+ music:`stylish music-video cinematography, rhythmic camera movement, dramatic lighting`
 };
 
 const sceneDescriptions={
  custom:`Use the exact custom scene described by the user.`,
- car_build:`Show a realistic step-by-step car building or car repair process with tools, mechanical parts, hands and believable workshop activity.`,
+ car_build:`Show a realistic step-by-step car building or car repair process with tools and believable workshop activity.`,
  planting:`Show a realistic plant-growing process: prepare soil, place seed, cover, water and show healthy growth.`,
- flower_picking:`Show a beautiful natural flower-picking scene with detailed petals, hands, leaves and garden environment.`,
- cooking:`Show a realistic cooking process: prepare, cut, mix, cook and plate the food with satisfying close-up shots.`,
+ flower_picking:`Show a beautiful natural flower-picking scene with detailed petals, hands, leaves.`,
+ cooking:`Show a realistic cooking process with satisfying close-up shots and natural hand movements.`,
  craft:`Show a detailed handmade craft process with realistic hands, tools and materials.`,
  farming:`Show a realistic farming process with agricultural tools and environment.`,
  cleaning:`Show a satisfying cleaning process with before-after transformation.`,
  repair:`Show a detailed repair process with appropriate tools and realistic mechanical hand movements.`,
  building:`Show a realistic construction process with materials, tools, workers and step-by-step construction.`,
- beauty:`Show a natural beauty or makeup process with realistic facial expressions and clear step-by-step actions.`,
+ beauty:`Show a natural beauty or makeup process with realistic facial expressions.`,
  product_demo:`Show a product demonstration with clear presentation and realistic human interaction.`,
  howto:`Create a clear step-by-step tutorial with close-up shots for important steps.`,
  before_after:`Create a strong before-and-after transformation.`,
@@ -1043,19 +1033,10 @@ document.querySelectorAll(".scene-btn").forEach(btn=>{
 
 function buildDialogue(mode){
  if(mode==="none") return `DIALOGUE: No spoken dialogue. Use realistic environmental sound only.`;
- if(mode==="burmese") return `DIALOGUE: Use natural standard Myanmar Burmese dialogue.
-Speak clearly at a moderate pace like ordinary Myanmar speakers.
-Use short everyday Myanmar sentences.
-No Thai pronunciation, no Rakhine dialect, no Chinese pronunciation.
-No shouting, no mumbling.`;
- if(mode==="funny") return `DIALOGUE: Use natural Myanmar Burmese comedy dialogue.
-Short punchy lines with natural comedic timing.
-Clear Myanmar pronunciation. No shouting, no accents.`;
- if(mode==="sales") return `DIALOGUE: Use natural Myanmar Burmese product-selling dialogue.
-Friendly, confident, conversational — not shouting.
-No platform names.`;
- if(mode==="narration") return `DIALOGUE: Clear professional Myanmar Burmese narrator.
-Standard Myanmar Burmese, natural pauses, moderate speed.`;
+ if(mode==="burmese") return `DIALOGUE: Natural standard Myanmar Burmese. No Rakhine accent, no Thai accent, no Chinese accent.`;
+ if(mode==="funny") return `DIALOGUE: Natural Myanmar Burmese comedy dialogue. Short punchy lines with natural comedic timing.`;
+ if(mode==="sales") return `DIALOGUE: Natural Myanmar Burmese product-selling dialogue. Friendly, confident, conversational.`;
+ if(mode==="narration") return `DIALOGUE: Clear professional Myanmar Burmese narrator. Standard Myanmar Burmese, natural pauses.`;
  return "";
 }
 
@@ -1076,7 +1057,7 @@ MAIN VIDEO IDEA: "${idea}"
 SELECTED VIDEO STYLE: ${style}
 SELECTED SCENE / ACTION: ${scene}
 
-VISUAL DIRECTION: Story-specific image that clearly represents the idea and selected action.
+VISUAL DIRECTION: Story-specific image that clearly represents the idea.
 
 CHARACTERS: Believable human characters, natural expressions, correct body proportions.
 
@@ -1099,10 +1080,8 @@ VIDEO STYLE: ${style}
 VIDEO SCENE / ACTION: ${scene}
 
 CAMERA: Professional cinematic camera movement. Wide, medium and close-up shots.
-No random camera movement. Keep subject and environment consistent.
 
 MOTION: Natural, physically believable body movement.
-Hands interact correctly with objects. Realistic weight and physics.
 
 PROCESS: Show the selected action clearly, step by step.
 
@@ -1110,8 +1089,7 @@ CHARACTER CONSISTENCY: Same face, hairstyle, clothing and body proportions throu
 
 ${dialogue}
 
-NEGATIVE:
-No random dialogue, no gibberish, no shouting, no accents, no logos, no watermark, no UI, no distorted faces, no unnatural camera shake.
+NEGATIVE: No random dialogue, no gibberish, no shouting, no accents, no logos, no watermark, no UI, no distorted faces.
 
 OUTPUT: Polished short-form video for ${targetAI}.
 
@@ -1163,7 +1141,7 @@ copyVideoPromptBtn.onclick=async()=>{
 };
 
 /* =========================================================
-   FRUIT HEAD STORY — IMPROVED
+   FRUIT HEAD STORY v6
 ========================================================= */
 const fruitStoryCard=$("fruitStoryCard");
 const fruitStoryHeader=$("fruitStoryHeader");
@@ -1193,8 +1171,6 @@ const copyFruitThumbnailPromptBtn=$("copyFruitThumbnailPromptBtn");
 const fruitStoryHistory=$("fruitStoryHistory");
 
 let selectedFruitAI="flow";
-
-// FIXED: initialize properly after elements exist
 let fruitSeriesState={
  title:"",
  episode:0,
@@ -1212,11 +1188,11 @@ let fruitSeriesState={
 ========================================================= */
 const FRUIT_VISUAL_LOCKS={
  fruit_head_realistic:`FRUIT HEAD REALISTIC — cinematic fruit-head characters integrated with human-like bodies; keep each fruit-head type, face details, body proportions, wardrobe and colors identical in every scene.`,
- "3d_cartoon_animation":`3D CARTOON ANIMATION — CINEMATIC HARD LOCK — high-quality stylized 3D cartoon characters, polished 3D animation render, expressive but consistent faces, stable character model, stable body proportions, stable hairstyle, stable wardrobe, stable colors and accessories, cinematic composition and lighting. NEVER photorealistic, NEVER live-action, NEVER anime, NEVER realistic human photography, NEVER mix styles.`,
- "3d_anime_animation":`3D ANIME ANIMATION — CINEMATIC HARD LOCK — consistent high-quality 3D anime character models, stable face, hair, body proportions, clothing, colors and accessories, cinematic anime lighting and staging. NEVER photorealistic, NEVER live-action, NEVER mix styles.`,
- realistic_drama:`REALISTIC HUMAN DRAMA — CINEMATIC HARD LOCK — consistent photoreal human actors, same face identity, body proportions, hair, wardrobe and accessories in every scene. NEVER cartoon, anime or fruit-head rendering.`,
- stylized_3d_character:`STYLIZED 3D CHARACTER — CINEMATIC HARD LOCK — consistent stylized 3D character models, same face, proportions, clothing, colors and accessories in every scene. NEVER photorealistic or anime.`,
- "3d_animal_character":`3D ANIMAL CHARACTER — CINEMATIC HARD LOCK — consistent 3D animal character models, species, face, markings, body proportions, colors and accessories remain identical in every scene. NEVER switch species or visual style.`
+ "3d_cartoon_animation":`3D CARTOON ANIMATION — CINEMATIC HARD LOCK — high-quality stylized 3D cartoon characters, polished 3D animation render, stable character model, stable body proportions, stable hairstyle, stable wardrobe, stable colors and accessories. NEVER photorealistic, NEVER live-action, NEVER anime, NEVER mix styles.`,
+ "3d_anime_animation":`3D ANIME ANIMATION — CINEMATIC HARD LOCK — consistent high-quality 3D anime character models, stable face, hair, body proportions, clothing, colors and accessories. NEVER photorealistic, NEVER live-action, NEVER mix styles.`,
+ realistic_drama:`REALISTIC HUMAN DRAMA — CINEMATIC HARD LOCK — consistent photoreal human actors, same face identity, body proportions, hair, wardrobe and accessories. NEVER cartoon, anime or fruit-head rendering.`,
+ stylized_3d_character:`STYLIZED 3D CHARACTER — CINEMATIC HARD LOCK — consistent stylized 3D character models, same face, proportions, clothing, colors and accessories. NEVER photorealistic or anime.`,
+ "3d_animal_character":`3D ANIMAL CHARACTER — CINEMATIC HARD LOCK — consistent 3D animal character models, species, face, markings, body proportions, colors and accessories. NEVER switch species or visual style.`
 };
 
 function fruitVisualLock(style){
@@ -1239,10 +1215,10 @@ CORRECT PRONUNCIATION:
 - "ကျွန်တော်" = "kya-naw"
 - "ဟုတ်လား" = "hote-lah"
 
-DO NOT USE:
+STRICTLY DO NOT USE:
 - Rakhine/Arakanese accent (do NOT pronounce "ရ" as "ra")
-- No Thai, Chinese, Shan, Indian or English accent
-- No regional vowel shifts or tone patterns
+- Thai, Chinese, Shan, Indian or English accent
+- Regional vowel shifts or tone patterns
 
 VOICE QUALITY:
 - Native central Myanmar speaker
@@ -1266,26 +1242,22 @@ REQUIRED STYLE:
 - Use everyday words: "ဟာ", "အေး", "နော်", "လား", "ပါ", "တယ်", "မယ်"
 - Short sentences — 3 to 8 words per line
 - Natural fillers: "ဟင်", "အို", "ဟေ့", "အင်း", "ဟုတ်လား"
-- Show emotion through word choice, not exclamation marks
 
 GOOD EXAMPLES:
 ✅ "ဟင်... ဒီမှာ ဘာလုပ်နေတာလဲ?"
 ✅ "မသိဘူးကွ၊ မြန်မြန်သွားကြည့်ရအောင်။"
 ✅ "အို... မင်းပဲလား၊ ငါထင်တာ သရဲပါ။"
-✅ "ဟုတ်လား? ငါတော့ မယုံဘူးနော်။"
 
 BAD EXAMPLES (DO NOT USE):
 ❌ "ကျွန်တော် ဤနေရာတွင် အဘယ်အရာပြုလုပ်နေသနည်း။"
 ❌ "သင်သည် ဤအရာကို မည်သို့ယူဆသနည်း။"
-❌ "ဪ! ဤအရာသည် အလွန်အံ့သြဖွယ်ကောင်းလှပေစွ!"
 
 EACH SCENE DIALOGUE MUST:
 1. Be 3-8 words per speaker line
 2. Have 1-3 dialogue exchanges per 10-second scene
 3. Use natural Myanmar spoken grammar
 4. Fit within 10 seconds when spoken at normal speed
-5. Advance the story — no filler conversation
-6. Connect to the previous scene's dialogue
+5. Advance the story
 
 TIMING: 10 seconds = about 20-30 Burmese words total.`;
 }
@@ -1294,53 +1266,34 @@ TIMING: 10 seconds = about 20-30 Burmese words total.`;
    PRODUCTION RULES
 ========================================================= */
 const FRUIT_PRODUCTION_RULES=`
-TITLE-ONLY AUTO STORY RULE: The user may provide ONLY a story title. Infer genre, tone, mood, style, characters, conflict, setting and plot direction from the title.
+TITLE-ONLY AUTO STORY RULE: Infer genre, tone, mood, style, characters, conflict, setting and plot from the title.
 
 SERIES ARC LOCK: Plan the complete ${fruitSeriesState.total||4}-episode arc. Only the final episode may fully resolve the central conflict.
 
-AUDIO DESIGN: Every scene must include dialogue, BGM, SFX and ambience only when useful. Dialogue must be louder and cleaner than BGM/SFX.
+AUDIO DESIGN: Dialogue must be louder and cleaner than BGM/SFX.
 
-VISUAL STYLE IS SELECTED BY THE USER: Treat the selected style as an independent mode. ONLY the selected mode may appear in characters, photo prompts and video prompts. Never combine two modes.
+VISUAL STYLE: Selected style is a HARD LOCK. Never mix styles.
 
-FRUIT HEAD SHORT DRAMA PRODUCTION RULES:
-
-1. Create EXACTLY 6 scenes, each exactly 10 seconds, total 60 seconds.
-
-2. Story structure: Scene 1 strong hook; Scene 2 development; Scene 3 conflict; Scene 4 escalation; Scene 5 climax/twist; Scene 6 episode payoff OR cliffhanger.
-
-3. Continuity is mandatory. Each scene must directly continue from the previous scene.
-
-4. Create a CHARACTER BIBLE before scenes. Every main character MUST have: Name, age, height in cm, gender, face/visual details, body, hair if applicable, clothing, personality and speaking style.
-
-5. PHOTO PROMPT must be precise and production-ready: character name + age + height + fixed appearance + clothes + location + action + facial expression + camera/framing + lighting.
-
-6. STYLE-SPECIFIC CHARACTER RULE: Fruit Head = believable fruit-head + human-like body. 3D Cartoon = full 3D cartoon characters. 3D Anime = full 3D anime characters. Realistic Drama = photoreal human actors. Stylized 3D = stylized 3D characters. 3D Animal = consistent 3D animal characters. NEVER mix styles.
-
-7. Dialogue is the priority. Characters should SPEAK naturally. Avoid long narration. Use short, conversational Myanmar Burmese lines that fit inside 10 seconds.
-
-8. Spoken language MUST be standard Myanmar Burmese (Yangon/Mandalay). NO Rakhine dialect/accent, NO Thai, NO Chinese, NO robotic delivery, NO shouting, NO mumbling.
-
-9. Speech must sound like a real Myanmar actor: natural rhythm, natural pauses, emotion appropriate to the scene, moderate speed, clear consonants and vowels. Lip movement must match the exact spoken Myanmar dialogue.
-
-10. For Flow AI, make the VIDEO PROMPT concise and action-focused. Include acting, camera movement, environment, continuity and exact dialogue. Keep each Flow video prompt under 900 characters.
-
-11. For Google Veo, the VIDEO PROMPT MUST be <= 900 characters.
-
-12. No subtitles, logos, watermark, UI, random text, extra characters, distorted faces or unnatural camera shake unless explicitly requested.
-
-13. SERIES RULE: Episode 1 starts the story. Middle episodes develop and escalate it. ONLY the final selected episode fully resolves the central conflict.
-
-14. FINAL EPISODE RULE: If the current episode number equals the selected episode count, finish the main conflict and end the story naturally.
-
-15. NEXT EPISODE RULE: When previous episode content is supplied, continue directly from its final scene. Start with the consequence of the previous ending.
-
-16. VISUAL STYLE RULE (HARD LOCK): The selected visual style is a HARD LOCK for every scene, every episode, every photo prompt and every video prompt. Never mix visual styles.
-
-17. CHARACTER IDENTITY LOCK: Generate the Character Bible first, then treat it as immutable. Every scene prompt MUST repeat the exact identity details for every visible main character. Never redesign, age, replace, recolor, change face, hairstyle, body proportions or wardrobe unless the story explicitly contains a permanent in-story change.
-
-18. TITLE-ONLY MODE: The user may provide only a title. Infer genre, mood, conflict, character types and episode arc from the title.
-
-19. Output structured scene data with: scene, time, characters, location, action, photoPrompt, videoPrompt, dialogue. Keep dialogue separate from prompts.
+FRUIT HEAD SHORT DRAMA RULES:
+1. EXACTLY 6 scenes, each 10 sec, total 60 sec.
+2. Story: Scene 1 hook, Scene 2 develop, Scene 3 conflict, Scene 4 escalate, Scene 5 climax, Scene 6 payoff/cliffhanger.
+3. Continuity mandatory. Each scene continues from previous.
+4. CHARACTER BIBLE first: Name, age, height (cm), gender, face details, body, hair, clothing, personality, speaking style.
+5. PHOTO PROMPT precise: name + age + height + appearance + clothes + location + action + expression + camera + lighting.
+6. STYLE-SPECIFIC: Fruit Head, 3D Cartoon, 3D Anime, Realistic, Stylized 3D, 3D Animal — NEVER mix.
+7. Dialogue priority. Short conversational Myanmar lines that fit in 10 seconds.
+8. Standard Myanmar Burmese (Yangon/Mandalay). NO Rakhine dialect/accent, NO Thai, NO Chinese, NO robotic, NO shouting, NO mumbling.
+9. Real Myanmar actor quality: natural rhythm, natural pauses, correct tones, lip-sync exact.
+10. Flow AI: VIDEO PROMPT under 900 characters, action-focused.
+11. Veo: VIDEO PROMPT MUST be <= 900 characters.
+12. No subtitles, logos, watermark, UI, random text, extra characters, distorted faces.
+13. SERIES: Episode 1 starts, middle develops, final resolves.
+14. FINAL EPISODE: Finish main conflict and end naturally.
+15. NEXT EPISODE: Continue directly from previous ending.
+16. VISUAL STYLE HARD LOCK: Selected style for every scene.
+17. CHARACTER IDENTITY LOCK: Repeat exact identity details in every scene.
+18. TITLE-ONLY MODE: Infer everything from title.
+19. Output: scene, time, characters, location, action, photoPrompt, videoPrompt, dialogue.
 `;
 
 /* =========================================================
@@ -1381,7 +1334,7 @@ function compactFruitText(text,max=560){
 }
 
 /* =========================================================
-   CHARACTER IDENTITY LOCK — STRONG
+   CHARACTER IDENTITY LOCK
 ========================================================= */
 function buildFruitIdentityLock(bible,chars=""){
  const source=fruitClean(bible||chars);
@@ -1405,40 +1358,93 @@ If the exact same character cannot be maintained, DO NOT generate the image.`;
 }
 
 /* =========================================================
-   CHARACTER REFERENCE SHEET
+   CHARACTER REFERENCE SHEET — MOVIE PRODUCTION LAYOUT
 ========================================================= */
 function buildCharacterReferenceSheetPrompt(style,bible,title){
  const lock=fruitVisualLock(style);
- const identity=compactFruitText(bible,1100)||"Create a fixed main character with Name, Age, Height, face details, body proportions, hair, clothing, accessories, personality and speaking style.";
- return `CREATE A PRODUCTION CHARACTER REFERENCE SHEET
+ const identity=compactFruitText(bible,1200)||"Main character with fixed appearance.";
 
-Story: ${title||"Untitled"}
+ return `CREATE A PROFESSIONAL CHARACTER REFERENCE SHEET — MOVIE PRODUCTION QUALITY.
+
+Story Title: ${title||"Untitled"}
 Visual Style: ${style}
-
 ${lock}
 
-CHARACTER BIBLE:
+CHARACTER BIBLE (READ CAREFULLY):
 ${identity}
 
-REFERENCE SHEET LAYOUT:
-1. Full-body FRONT VIEW
-2. Full-body SIDE VIEW
-3. Full-body BACK VIEW
-4. Full-body FRONT 3/4 VIEW
-5. HEAD / FACE CLOSE-UP (with hairstyle detail)
-6. OUTFIT + ACCESSORIES DETAILS
-7. 4 facial expressions: neutral, happy, serious, smiling
-8. COLOR PALETTE
-9. Character profile text: Name, Age, Height, Gender/Species
+═══════════════════════════════════════
+LAYOUT — EXACTLY AS DESCRIBED
+═══════════════════════════════════════
 
-CONSISTENCY RULE:
-All views must show the EXACT SAME character. Preserve the same face, eyes, nose, mouth, hair, body proportions, skin/fruit colors, clothes, shoes, accessories and silhouette. No redesign, no alternate costume, no extra characters, no random text, no watermark, no logo. Clean neutral background.
+TOP ROW (4 FULL-BODY VIEWS, side by side):
+[1] FRONT VIEW (ရှေ့ဘက်အမြင်)
+[2] SIDE VIEW (ဘေးဘက်အမြင်)
+[3] BACK VIEW (နောက်ဘက်အမြင်)
+[4] FRONT 3/4 VIEW (ရှေ့သုံးပုံတစ်ပုံအမြင်)
 
-This sheet is the MASTER VISUAL REFERENCE for every scene in Flow AI and every scene in Veo.`.trim();
+Each view must show the FULL BODY from head to feet, standing naturally in a neutral pose, arms relaxed at sides. All 4 views MUST show the EXACT SAME character — same face, same hair, same clothes, same colors, same proportions.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+MIDDLE ROW (3 PANELS):
+
+[PROFILE] (ကိုယ်ရေးအကျဉ်း) — boxed panel:
+- Name, Age, Height, Weight, Blood (optional)
+- Hair (color + style), Eyes (color), Gender / Species
+
+[OUTFIT DETAILS] (ဝတ်စုံအသေးစိတ်) — boxed panel:
+- Top garment shown separately
+- Bottom garment shown separately
+- Footwear shown separately
+- Accessories (necklace, earrings, belt)
+- Exact same colors as the character
+
+[HAIR CLOSE-UP] (ဆံပင်ပုံစံအသေးစိတ်) — boxed panel:
+- Back of head showing full hair length
+- Ponytail / braid / style visible
+- Hair tie or accessory shown
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+BOTTOM ROW:
+
+[EXPRESSION SHEET] (မျက်နှာအမူအရာများ) — 4 head close-ups:
+[1] Neutral (ပုံမှန်)
+[2] Happy (ပျော်ရွှင်)
+[3] Serious (တည်ကြည်)
+[4] Smiling (ပြုံး)
+All 4 must show the EXACT SAME face — only expression changes.
+
+[COLOR PALETTE] (အရောင်အစင်း) — small box:
+- Hair color swatch
+- Skin color swatch
+- Main garment color swatch
+- Accent color swatch
+- Footwear color swatch
+
+═══════════════════════════════════════
+CRITICAL RULES
+═══════════════════════════════════════
+✓ ALL views show the EXACT SAME character
+✓ Same face, hair, body, clothes, colors, accessories
+✓ Neutral clean background (light gray or white)
+✓ No text other than labeled sections
+✓ No watermark, no logo, no UI
+✓ Professional animation studio quality
+✓ Clean line work, consistent line weight
+
+✗ NO redesign
+✗ NO alternate costume
+✗ NO extra characters
+✗ NO random text
+✗ NO distorted anatomy
+
+This sheet will be used as the MASTER VISUAL REFERENCE for every scene in Flow AI and Veo.`.trim();
 }
 
 /* =========================================================
-   PHOTO PROMPT — STRONG IDENTITY LOCK
+   PHOTO PROMPT — REFERENCE SHEET BASED
 ========================================================= */
 function buildFruitPhotoPrompt(item,index,style,bible,title){
  const sceneNo=Number(item?.scene||item?.id||index+1);
@@ -1448,38 +1454,51 @@ function buildFruitPhotoPrompt(item,index,style,bible,title){
  const raw=fruitSceneValue(item,"photoPrompt",fruitSceneValue(item,"imagePrompt",""));
  const fullIdentity=fruitClean(bible);
 
- return `⚠️ CRITICAL: Use the EXACT SAME character as the uploaded Character Reference Sheet.
+ return `⚠️ USE THE UPLOADED CHARACTER REFERENCE SHEET AS THE ONLY CHARACTER SOURCE.
 
-MASTER CHARACTER REFERENCE (IMMUTABLE):
+═══════════════════════════════════════
+STEP 1 — CHARACTER IDENTITY (IMMUTABLE)
+═══════════════════════════════════════
 ${fullIdentity||buildFruitIdentityLock(bible,chars)}
 
-SCENE ${sceneNo} OF 6:
-CHARACTERS: ${compactFruitText(chars,260)}
+═══════════════════════════════════════
+STEP 2 — SCENE ${sceneNo} OF 6
+═══════════════════════════════════════
+CHARACTERS IN THIS SCENE: ${compactFruitText(chars,260)}
 LOCATION: ${compactFruitText(location,220)}
 ACTION: ${compactFruitText(action,360)}
 SCENE DIRECTION: ${compactFruitText(raw,700)}
 
-IDENTITY LOCK RULES (MANDATORY):
-1. FACE: Same face shape, same eyes, same nose, same mouth, same skin/fruit color.
-2. HEAD/HAIR: Same hairstyle, same fruit-head type, same size.
-3. BODY: Same height, same body proportions, same build.
-4. CLOTHES: Same shirt, same pants, same shoes, same colors.
-5. ACCESSORIES: Same necklace, same earrings, same items.
-6. AGE: Same age — do not make younger or older.
-7. SILHOUETTE: Same overall shape from any angle.
+═══════════════════════════════════════
+STEP 3 — IDENTITY LOCK RULES (MANDATORY)
+═══════════════════════════════════════
+Copy the EXACT character from the Reference Sheet:
+✓ Same face — same eyes, nose, mouth, jawline, skin tone
+✓ Same hair — same length, color, style, bangs
+✓ Same body — same height, build, proportions
+✓ Same clothes — same shirt, shorts, boots, colors
+✓ Same accessories — same items, no additions
+✓ Same age — do not make younger or older
 
-If you cannot maintain the exact same character, DO NOT generate the image.
+If you cannot match the character exactly, DO NOT generate.
 
-VISUAL STYLE: ${fruitVisualLock(style)}
+═══════════════════════════════════════
+STEP 4 — VISUAL STYLE
+═══════════════════════════════════════
+${fruitVisualLock(style)}
 
-CONTINUITY: Only pose, expression, action, camera angle and lighting may change.
-No subtitles, logos, watermark, UI or random text.
-
-NEGATIVE: Different face, different clothes, different colors, different age, different body, new character design, extra characters, distorted faces, text, subtitles, logos, watermark, UI.`.trim();
+═══════════════════════════════════════
+STEP 5 — NEGATIVE
+═══════════════════════════════════════
+- Different face, different hair, different clothes
+- Different colors, different age, different body
+- New character design, redesigned character
+- Extra characters, distorted faces
+- Text, subtitles, logos, watermark, UI`.trim();
 }
 
 /* =========================================================
-   FLOW AI VIDEO PROMPT
+   FLOW AI VIDEO PROMPT — CHARACTER LOCK + ACCENT LOCK
 ========================================================= */
 function buildFlowVideoPrompt(item,index,style,bible,title){
  const sceneNo=Number(item?.scene||item?.id||index+1);
@@ -1492,11 +1511,10 @@ function buildFlowVideoPrompt(item,index,style,bible,title){
  const raw=fruitSceneValue(item,"videoPrompt",fruitSceneValue(item,"prompt",""));
  const fullIdentity=fruitClean(bible);
 
- const prompt=`[SCENE ${sceneNo}/6 — 10 SECONDS]
+ const prompt=`[SCENE ${sceneNo}/6 — EXACTLY 10 SECONDS]
 
-REFERENCE: Use the uploaded Character Reference Sheet image as the ONLY character source.
+CHARACTER SOURCE (IMMUTABLE): Use the uploaded Character Reference Sheet image as the ONLY character source. Every frame must match that reference sheet exactly.
 
-CHARACTER IDENTITY (IMMUTABLE — NEVER CHANGE):
 ${fullIdentity||buildFruitIdentityLock(bible,chars)}
 
 ACTION: ${compactFruitText(action,280)}
@@ -1504,16 +1522,12 @@ LOCATION: ${compactFruitText(location,180)}
 CAMERA: Cinematic stable camera. Natural movement.
 ${raw?("DIRECTION: "+compactFruitText(raw,240)):""}
 
-DIALOGUE (Burmese): "${compactFruitText(dialogue,180)}"
+DIALOGUE (STANDARD MYANMAR BURMESE):
+"${compactFruitText(dialogue,180)}"
 
-DIALOGUE RULES:
-- Standard Myanmar Burmese (Yangon/Mandalay accent).
-- Clear pronunciation, correct tones, natural rhythm.
-- NOT robotic, NOT shouted.
-- Lip-sync must match exact Burmese words.
-- Dialogue louder than BGM/SFX.
+ACCENT: Standard Myanmar Burmese (Yangon/Mandalay). "ရ"="ya" NOT "ra". Clear tones, natural rhythm, moderate speed. NO Rakhine, NO Thai, NO Chinese accent. Lip-sync exact Burmese. Dialogue louder than BGM/SFX.
 
-BGM: ${compactFruitText(bgm,70)||"very low, does not cover dialogue"}
+BGM: ${compactFruitText(bgm,70)||"very low"}
 SFX: ${compactFruitText(sfx,70)||"natural environmental sounds"}
 
 STYLE LOCK: ${fruitVisualLock(style)}
@@ -1524,7 +1538,7 @@ NEGATIVE: No different face, no different clothes, no different colors, no new d
 }
 
 /* =========================================================
-   VEO PROMPT — <=900 chars
+   VEO PROMPT — HARD 900 CHAR LIMIT
 ========================================================= */
 function buildVeoPrompt(item,index,style,bible,title){
  const sceneNo=Number(item?.scene||item?.id||index+1);
@@ -1533,29 +1547,50 @@ function buildVeoPrompt(item,index,style,bible,title){
  const action=fruitSceneValue(item,"action",fruitSceneValue(item,"description",""));
  const dialogue=fruitSceneValue(item,"dialogue",fruitSceneValue(item,"myanmarDialogue",""));
  const raw=fruitSceneValue(item,"videoPrompt",fruitSceneValue(item,"prompt",""));
- const identityLock=buildFruitIdentityLock(bible,chars);
 
- const prompt=`${fruitVisualLock(style)}
+ const identityShort=compactFruitText(bible,320);
+ const charShort=compactFruitText(chars,100);
+ const locShort=compactFruitText(location,80);
+ const actionShort=compactFruitText(action,140);
+ const rawShort=raw?compactFruitText(raw,100):"";
+ const dialogueShort=compactFruitText(dialogue,120);
 
-REFERENCE: Use uploaded Character Reference Sheet. Exact match required.
-${identityLock}
+ let prompt=`${fruitVisualLock(style)}
 
-SCENE ${sceneNo}/6 — 10 SECONDS.
-ACTION: ${compactFruitText(action,180)}
-CHARACTERS: ${compactFruitText(chars,140)}
-LOCATION: ${compactFruitText(location,120)}
-CAMERA: Cinematic, stable, natural.
-${raw?("DIRECTION: "+compactFruitText(raw,150)):""}
+Use uploaded Character Reference Sheet. Same character in all frames — same face, hair, clothes, colors, body.
 
-DIALOGUE (Burmese): "${compactFruitText(dialogue,140)}"
+IDENTITY: ${identityShort}
 
-ACCENT: Standard Myanmar Burmese (Yangon/Mandalay). Clear tones. No Rakhine, no Thai, no Chinese accent. Natural rhythm. Lip-sync exact Burmese words.
+SCENE ${sceneNo}/6 (10 sec):
+ACTION: ${actionShort}
+CHARACTERS: ${charShort}
+LOCATION: ${locShort}
+${rawShort?("DIRECTION: "+rawShort):""}
+CAMERA: cinematic stable, natural movement.
 
-AUDIO: Dialogue louder than BGM/SFX.
+DIALOGUE (Burmese): "${dialogueShort}"
 
-NEGATIVE: No different face, no different clothes, no new design, no extra characters, no subtitles, no logos, no watermark, no UI, no distorted faces.`;
+ACCENT: Standard Myanmar Burmese (Yangon/Mandalay). "ရ"="ya" NOT "ra". Clear tones, natural rhythm, moderate speed. NO Rakhine, NO Thai, NO Chinese accent. Lip-sync exact Burmese.
 
- return limitPrompt900(prompt);
+AUDIO: dialogue louder than BGM/SFX.
+
+NEGATIVE: no different face, no different clothes, no new design, no extra characters, no subtitles, no logos, no watermark, no UI, no distorted faces.`;
+
+ if(prompt.length>900){
+  const cut=prompt.slice(0,880);
+  const lastStop=Math.max(
+   cut.lastIndexOf(". "),
+   cut.lastIndexOf("။"),
+   cut.lastIndexOf(": ")
+  );
+  if(lastStop>600){
+   prompt=cut.slice(0,lastStop+1).trim();
+  } else {
+   prompt=cut.trim();
+  }
+ }
+
+ return prompt;
 }
 
 /* =========================================================
@@ -1571,13 +1606,13 @@ CHARACTERS: ${compactFruitText(characters,500)}
 VISUAL STYLE: ${style}. ${fruitVisualLock(style)}
 COMPOSITION: ${composition}.
 
-Show the most dramatic story moment with clear main characters, strong facial expressions, meaningful environment, cinematic lighting, depth, high contrast and mobile-friendly framing. Keep main faces unobstructed.
+Show the most dramatic story moment with clear main characters, strong facial expressions, meaningful environment, cinematic lighting, depth, high contrast and mobile-friendly framing.
 
-CHARACTER CONSISTENCY: Use the supplied Character Reference Sheet. Keep the exact same face identity, hairstyle, body proportions, clothing, colors and accessories. Do not redesign.
+CHARACTER CONSISTENCY: Use the supplied Character Reference Sheet. Keep exact same face identity, hairstyle, body proportions, clothing, colors and accessories.
 
-TITLE TEXT: Display EXACTLY "${fruitClean(title)}". Do not translate, rewrite, shorten or misspell any Myanmar characters. Use large bold readable typography inside the safe area.
+TITLE TEXT: Display EXACTLY "${fruitClean(title)}". Do not translate or shorten. Use large bold readable typography inside the safe area.
 
-NEGATIVE: No random text, no extra words, no subtitles, no watermark, no UI, no border, no frame, no platform logo, no distorted face, no extra fingers/limbs, no duplicate characters, no unrelated background.
+NEGATIVE: No random text, no subtitles, no watermark, no UI, no border, no platform logo, no distorted face, no extra fingers/limbs.
 
 Premium movie-poster quality.`.trim();
 }
@@ -1620,12 +1655,13 @@ function lockFruitScenePrompts(scenes,style,bible,title){
   const sceneIndex=Number(item?.scene||1)-1;
   item.photoPrompt=buildFruitPhotoPrompt(item,sceneIndex,style,bible,title);
   item.videoPrompt=buildFlowVideoPrompt(item,sceneIndex,style,bible,title);
+  item.veoPrompt=buildVeoPrompt(item,sceneIndex,style,bible,title);
   return item;
  });
 }
 
 /* =========================================================
-   SCENE RENDER — FIXED (no nested div)
+   SCENE RENDER
 ========================================================= */
 function buildFruitSceneCard(item,index,ai,style,bible,title){
  const sceneNo=Number(item?.scene||item?.id||index+1);
@@ -1650,9 +1686,9 @@ function buildFruitSceneCard(item,index,ai,style,bible,title){
  const ambience=fruitSceneValue(item,"ambience",fruitSceneValue(item,"ambientSound",""));
  const dialogue=fruitSceneValue(item,"dialogue",fruitSceneValue(item,"myanmarDialogue",""));
 
- const photo=buildFruitPhotoPrompt(item,index,style,bible,title);
- const flow=buildFlowVideoPrompt(item,index,style,bible,title);
- const veo=buildVeoPrompt(item,index,style,bible,title);
+ const photo=item.photoPrompt||buildFruitPhotoPrompt(item,index,style,bible,title);
+ const flow=item.videoPrompt||buildFlowVideoPrompt(item,index,style,bible,title);
+ const veo=item.veoPrompt||buildVeoPrompt(item,index,style,bible,title);
 
  function addField(label,value,extraNote=""){
   const l=document.createElement("div");
@@ -1682,10 +1718,11 @@ function buildFruitSceneCard(item,index,ai,style,bible,title){
  if(bgm) addField("🎵 BGM / MUSIC",bgm);
  if(sfx) addField("🔊 SFX",sfx);
  if(ambience) addField("🌧️ AMBIENCE",ambience);
- addField("📸 FLOW AI IMAGE / PHOTO PROMPT",photo);
- addField("🌊 FLOW AI VIDEO PROMPT",flow,`Length: <span class="fruit-count-ok">${flow.length} chars</span>`);
- addField("🎥 GOOGLE VEO VIDEO PROMPT",veo,`Length: <span class="${veo.length<=900?'fruit-count-ok':'fruit-count-warn'}">${veo.length} / 900 chars</span>`);
- addField("💬 MYANMAR DIALOGUE",dialogue);
+
+ addField("📸 PHOTO PROMPT — REFERENCE SHEET BASED",photo);
+ addField("🌊 FLOW AI VIDEO PROMPT",flow,`Length: <span class="fruit-count-ok">${flow.length} / 900 chars</span>`);
+ addField("🎥 GOOGLE VEO PROMPT",veo,`Length: <span class="${veo.length<=900?'fruit-count-ok':'fruit-count-warn'}">${veo.length} / 900 chars</span>`);
+ addField("💬 MYANMAR DIALOGUE (Standard Burmese)",dialogue);
 
  return wrap;
 }
@@ -1705,7 +1742,7 @@ function renderFruitScenes(scenes,ai,style,bible,title){
 ========================================================= */
 function saveFruitStoryState(){
  try{
-  localStorage.setItem("ynt_fruit_state",JSON.stringify({
+  localStorage.setItem("ynt_fruit_state_v6",JSON.stringify({
    title:fruitSeriesState.title,
    episode:fruitSeriesState.episode,
    total:fruitSeriesState.total,
@@ -1722,7 +1759,7 @@ function saveFruitStoryState(){
 
 function loadFruitStoryState(){
  try{
-  const raw=localStorage.getItem("ynt_fruit_state");
+  const raw=localStorage.getItem("ynt_fruit_state_v6");
   if(!raw) return;
   const data=JSON.parse(raw);
   if(data?.title){
@@ -1782,7 +1819,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
 
   const styleSpec={
    fruit_head_realistic:"FRUIT HEAD mode: use believable fruit-head characters integrated with human-like bodies.",
-   "3d_cartoon_animation":"3D CARTOON mode: use full-body high-quality 3D cartoon characters. Do NOT use fruit heads, photoreal humans or anime unless the title explicitly requires a special exception.",
+   "3d_cartoon_animation":"3D CARTOON mode: use full-body high-quality 3D cartoon characters. Do NOT use fruit heads, photoreal humans or anime unless the title explicitly requires.",
    "3d_anime_animation":"3D ANIME mode: use consistent full-body 3D anime characters. Do NOT use fruit heads, photoreal humans or cartoon rendering.",
    realistic_drama:"REALISTIC HUMAN DRAMA mode: use consistent photoreal human actors. Do NOT use fruit heads, cartoon or anime rendering.",
    stylized_3d_character:"STYLIZED 3D CHARACTER mode: use consistent stylized 3D character models. Do NOT use fruit heads or photoreal live-action rendering.",
@@ -1794,7 +1831,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
    headers:{"Content-Type":"application/json"},
    body:JSON.stringify({
     title,
-    character:`${styleSpec[style]||styleSpec.fruit_head_realistic} Create a fixed Character Bible with exact Name, Age, Height(cm), gender/species, face/visual details, body/anatomy, hair or fur, clothing/accessories, personality and speaking style. Reuse exactly in all 6 scenes and all episodes. The selected visual style is independent and must not be mixed.`,
+    character:`${styleSpec[style]||styleSpec.fruit_head_realistic} Create a fixed Character Bible with exact Name, Age, Height(cm), gender/species, face/visual details, body/anatomy, hair or fur, clothing/accessories, personality and speaking style. Reuse exactly in all 6 scenes and all episodes.`,
     story:storyInput,
     episode:fruitSeriesState.episode||1,
     episodeCount:fruitSeriesState.total||Number(fruitEpisodeCount?.value||4),
@@ -1853,7 +1890,6 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
   fruitStoryResults.style.display="block";
   fruitStoryCard.classList.add("open");
 
-  // Auto-fill Thumbnail Prompt Maker
   if(movieTitle) movieTitle.value=finalTitle;
   if(movieStorySummary) movieStorySummary.value=fullStory.slice(0,1200);
   if(movieCharacterDescription) movieCharacterDescription.value=fruitCharacterSummary.value.slice(0,800);
@@ -1875,7 +1911,7 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
   }
 
   fruitStoryStatus.textContent=isFinalEpisode
-   ?`🏁 FINAL EPISODE ${fruitSeriesState.episode}/${fruitSeriesState.total} • 6 Scenes × 10 sec = 60 sec • Myanmar Dialogue ready.`
+   ?`🏁 FINAL EPISODE ${fruitSeriesState.episode}/${fruitSeriesState.total} • 6 Scenes × 10 sec = 60 sec • Ready.`
    :`✅ Episode ${fruitSeriesState.episode}/${fruitSeriesState.total} • ${style} • 6 Scenes × 10 sec = 60 sec • Ready.`;
 
   saveFruitStoryState();
@@ -1910,7 +1946,7 @@ copyFruitStoryBtn?.addEventListener("click",async()=>{
 
  const sceneTexts=document.querySelectorAll("#fruitScenesList .fruit-scene-text");
  sceneTexts.forEach((ta,i)=>{
-  if(i%8===0) sections.push(`\n🎞️ SCENE ${Math.floor(i/8)+1}`);
+  if(i%9===0) sections.push(`\n🎞️ SCENE ${Math.floor(i/9)+1}`);
   sections.push(ta.value);
  });
 
@@ -1927,7 +1963,7 @@ sendFruitToThumbnailBtn?.addEventListener("click",()=>{
   thumbnailCard.classList.add("open");
   thumbnailCard.scrollIntoView({behavior:"smooth",block:"start"});
  }
- if(thumbStatus) thumbStatus.textContent="🍎 Fruit Head Story → Thumbnail Prompt Maker PRO ကို Title + Story + Characters အလိုအလျောက်ပို့ပြီးပါပြီ။";
+ if(thumbStatus) thumbStatus.textContent="🍎 Fruit Head Story → Thumbnail Prompt Maker PRO ကို ပို့ပြီးပါပြီ။";
 });
 
 nextFruitEpisodeBtn?.addEventListener("click",()=>{
