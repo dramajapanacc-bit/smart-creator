@@ -4221,7 +4221,6 @@ FRUIT HEAD SHORT DRAMA PRODUCTION RULES:
 16. VISUAL STYLE RULE: The selected visual style is a HARD LOCK for every scene, every episode, every photo prompt and every video prompt. If the selected style is 3D Cartoon Animation — Cinematic, ALL characters and ALL scenes MUST be high-quality 3D cartoon animation with the SAME character designs, same face shape, same body proportions, same hairstyle, same clothing, same colors, same accessories and same rendering style. Do NOT switch to photorealistic humans, live-action drama, anime, fruit-head realism, illustration or another style. If the selected style is 3D Anime Animation — Cinematic, keep ALL scenes in the same 3D anime design. Other selected styles must likewise remain locked. Never mix visual styles within one episode or across NEXT EPISODE.
 17. CHARACTER IDENTITY LOCK: Generate the Character Bible first, then treat it as immutable. Every scene prompt MUST repeat the exact identity details for every visible main character. Never redesign, age, replace, recolor, change face, change hairstyle, change body proportions or change wardrobe unless the story explicitly contains a permanent in-story change.
 18. TITLE-ONLY MODE: The user may provide only a title. Infer a suitable genre, mood, conflict, character types and episode arc from the title. Make it entertaining, coherent and emotionally understandable without asking the user to choose more settings.
-16. TITLE-ONLY MODE: The user may provide only a title. Infer a suitable genre, mood, conflict, character types and episode arc from the title. Make it entertaining, coherent and emotionally understandable without asking the user to choose more settings.
 19. Output structured scene data with: scene, time, characters, location, action, photoPrompt, videoPrompt, dialogue. Keep dialogue separate from prompts.
 `;
 
@@ -4260,7 +4259,6 @@ function fruitSceneValue(item,key,fallback=""){ return fruitClean(item?.[key]) |
 function limitPrompt900(text){
  const t=fruitClean(text);
  if(t.length<=900)return t;
- // Prefer complete sentence boundaries, then hard limit as final fallback.
  const cut=t.slice(0,900);
  const lastStop=Math.max(cut.lastIndexOf(". "),cut.lastIndexOf("! "),cut.lastIndexOf("? "),cut.lastIndexOf("။"));
  return (lastStop>650 ? cut.slice(0,lastStop+1) : cut).trim();
@@ -4383,6 +4381,21 @@ function lockFruitScenePrompts(scenes,style,bible){
  });
 }
 
+function copyFruitText(text, successMsg="📋 Copied!"){
+ if(!text) return;
+ navigator.clipboard.writeText(text).then(()=>{
+  fruitStoryStatus.textContent = successMsg;
+ }).catch(()=>{
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand("copy");
+  ta.remove();
+  fruitStoryStatus.textContent = successMsg;
+ });
+}
+
 generateFruitStoryBtn?.addEventListener("click",async()=>{
  const title=fruitClean(fruitTitle.value);
  const mood="AI AUTO-INFER FROM TITLE";
@@ -4422,74 +4435,52 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
     })(),
     story:storyInput,
     episode:fruitSeriesState.episode || 1,
-    episodeCount:fruitSeriesState.total || Number(fruitEpisodeCount?.value || 4),
-    previous:fruitSeriesState.previous || "",
-    storyBible:fruitSeriesState.bible || "",
-    storyArc:fruitSeriesState.arc || "",
-    finalEpisode:isFinalEpisode,
     mood,
-    genre:selectedFruitMood,
-    ratio,
     ai,
-    dialogueMode:"natural_standard_myanmar",
-    dialogue:"Use ONLY natural Standard Myanmar Burmese pronunciation used in central Myanmar. STRICTLY avoid Rakhine/Arakanese accent, Thai accent, Chinese accent, Shan accent, regional accent, foreign-accented Burmese, robotic reading, and overly literary pronunciation. Speak the exact Burmese dialogue text naturally as a native central-Myanmar actor would: correct Burmese tones, consonants and vowel sounds, conversational rhythm, natural pauses and emotion. Do not translate, paraphrase, add words, or improvise dialogue. Lip movement must match the exact dialogue. Dialogue is always louder and clearer than BGM/SFX.",
-    sceneCount:6,
-    sceneDuration:10,
-    totalDuration:60,
-    veoMaxCharacters:900,
-    flowMaxCharacters:900,
-    continuityLock:true,
-    characterBible:true,
-    generateFullStory:true,
-    productionMode:"short_drama_series_pro",
-    targetWorkflow:"Flow AI + YT Create",
-    visualStyle:fruitSeriesState.style || fruitVisualStyle?.value || "fruit_head_realistic",
-    visualStyleHardLock:fruitVisualLock(style),
-    characterIdentityHardLock:true,
-    neverMixVisualStyles:true,
-    seriesMode:true,
-    seriesEpisodeCount:fruitSeriesState.total || Number(fruitEpisodeCount?.value || 4),
-    finishSeriesNaturally:isFinalEpisode
+    ratio,
+    visualStyle:style
    })
   });
 
-  const data=await response.json().catch(()=>({}));
-  if(!response.ok)throw new Error(data.error || "Story generation failed");
+  if(!response.ok){
+   const errData=await response.json().catch(()=>({}));
+   throw new Error(errData.error || "Story Generator API မရရှိနိုင်ပါ။");
+  }
 
-  const scenes=Array.isArray(data.scenes)?data.scenes.slice(0,6):[];
-  const finalTitle=fruitClean(data.title) || title || "AI Fruit Head Story";
-  const fullStory=fruitClean(data.fullStory || data.story || "") || buildFruitStoryFromScenes(finalTitle,scenes);
+  const data=await response.json();
+  const rawTitle=fruitClean(data.title || data.movieTitle || title || "Fruit Head Short Story");
+  fruitMovieTitle.value=rawTitle;
 
-  fruitMovieTitle.value=finalTitle;
-  fruitCompleteStory.value=fullStory;
-  fruitCharacterSummary.value=fruitClean(data.characters || data.characterSummary || data.characterBible || "") || buildFruitCharacters(scenes);
-  fruitSeriesState.characterBible=fruitClean(data.characterBible || data.characters || data.characterSummary || fruitSeriesState.characterBible || "");
-  fruitSeriesState.bible=fruitCharacterSummary.value;
-  fruitSeriesState.arc=fruitClean(data.storyArc || data.seriesArc || data.arc || "") || fruitSeriesState.arc;
-  const lockedScenes=lockFruitScenePrompts(scenes,style,fruitSeriesState.characterBible || fruitCharacterSummary.value);
-  renderFruitScenes(lockedScenes,ai);
+  let scenes=Array.isArray(data.scenes)?data.scenes:[];
+  scenes=lockFruitScenePrompts(scenes,style,data.characterBible||data.characterSummary||"");
+
+  const fullStoryText=fruitClean(data.fullStory || data.completeStory || buildFruitStoryFromScenes(rawTitle,scenes));
+  const characterBibleText=fruitClean(data.characterBible || data.characterSummary || buildFruitCharacters(scenes));
+
+  fruitCompleteStory.value=fullStoryText;
+  fruitCharacterSummary.value=characterBibleText;
+
+  renderFruitScenes(scenes,ai);
   fruitStoryResults.style.display="block";
-  fruitStoryCard.classList.add("open");
 
-  // Automatically prepare Thumbnail Prompt Maker fields from generated story.
-  if(typeof movieTitle!=="undefined" && movieTitle) movieTitle.value=finalTitle;
-  if(typeof movieStorySummary!=="undefined" && movieStorySummary) movieStorySummary.value=fullStory.slice(0,1200);
-  if(typeof movieCharacterDescription!=="undefined" && movieCharacterDescription) movieCharacterDescription.value=fruitCharacterSummary.value.slice(0,800);
+  fruitSeriesState={
+   title:rawTitle,
+   episode:Number(data.currentEpisode || fruitSeriesState.episode || 1),
+   total:Number(data.totalEpisodes || fruitSeriesState.total || totalEpisodes),
+   style,
+   previous:fullStoryText,
+   bible:characterBibleText,
+   arc:data.seriesArc || fruitSeriesState.arc || "",
+   ended:Boolean(data.isFinalEpisode || isFinalEpisode)
+  };
 
-  fruitSeriesState.title=finalTitle;
-  fruitSeriesState.episode=Number(fruitSeriesState.episode || 1);
-  fruitSeriesState.total=totalEpisodes;
-  fruitSeriesState.style=style;
-  fruitSeriesState.previous=fullStory + "\n\nLOCKED CHARACTER BIBLE:\n" + (fruitSeriesState.characterBible || fruitCharacterSummary.value);
-  if(isFinalEpisode) fruitSeriesState.ended=true;
-  if(!isFinalEpisode) fruitSeriesState.ended=false;
-  if(fruitEpisodeStatus) fruitEpisodeStatus.textContent=`📺 Episode ${fruitSeriesState.episode} / ${fruitSeriesState.total} ready — Next Episode နှိပ်ရင် ဒီအဆုံးကနေ တိုက်ရိုက်ဆက်ပါမယ်။`;
-  if(nextFruitEpisodeBtn) nextFruitEpisodeBtn.disabled=fruitSeriesState.episode>=fruitSeriesState.total || fruitSeriesState.ended;
-  if(endFruitSeriesBtn) endFruitSeriesBtn.disabled=false;
-  fruitStoryStatus.textContent=isFinalEpisode ? `🏁 FINAL EPISODE ${fruitSeriesState.episode}/${fruitSeriesState.total} • Ending complete • 6 Scenes × 10 sec = 60 sec • Myanmar Dialogue + Sound Design ready.` : `✅ Episode ${fruitSeriesState.episode}/${fruitSeriesState.total} • ${style} • 6 Scenes × 10 sec = 60 sec • Character + Continuity + Natural Myanmar Dialogue + Sound Design ready.`;
+  fruitEpisodeStatus.textContent=`Episode ${fruitSeriesState.episode} / ${fruitSeriesState.total} ${fruitSeriesState.ended?"(Series Complete)":""}`;
+  if(nextFruitEpisodeBtn) nextFruitEpisodeBtn.disabled=fruitSeriesState.ended;
 
- }catch(error){
-  fruitStoryStatus.textContent="❌ "+(error.message || "Generate မအောင်မြင်ပါ။");
+  fruitStoryStatus.textContent="✅ 60-Second AI Story Generator အောင်မြင်စွာ ဖန်တီးပြီးပါပြီ။";
+
+ }catch(e){
+  fruitStoryStatus.textContent="❌ "+(e.message||"Story ဖန်တီး၍ မရပါ။");
  }finally{
   generateFruitStoryBtn.disabled=false;
  }
@@ -4498,51 +4489,46 @@ generateFruitStoryBtn?.addEventListener("click",async()=>{
 copyFruitCompleteStoryBtn?.addEventListener("click",()=>copyFruitText(fruitCompleteStory.value,"📋 Full Story Copied!"));
 copyFruitCharacterBtn?.addEventListener("click",()=>copyFruitText(fruitCharacterSummary.value,"📋 Character Bible Copied!"));
 
-copyFruitStoryBtn?.addEventListener("click",async()=>{
- const blocks=[fruitMovieTitle.value,fruitCompleteStory.value,fruitCharacterSummary.value];
- document.querySelectorAll("#fruitScenesList .fruit-scene-text").forEach(x=>blocks.push(x.value));
- copyFruitText(blocks.filter(Boolean).join("\n\n"),"📋 Fruit Head Story အားလုံး Copied!");
+copyFruitStoryBtn?.addEventListener("click",()=>{
+ const title=fruitMovieTitle.value;
+ const story=fruitCompleteStory.value;
+ const bible=fruitCharacterSummary.value;
+ let text=`🎬 ${title}\n\n📖 STORY:\n${story}\n\n🎭 CHARACTER BIBLE:\n${bible}\n\n🎞️ SCENES:\n`;
+ 
+ const cards=fruitScenesList.querySelectorAll(".fruit-scene-card");
+ cards.forEach((card,i)=>{
+  text+=`--- Scene ${i+1} ---\n`;
+  card.querySelectorAll("textarea").forEach(ta=>{
+   text+=ta.value+"\n";
+  });
+  text+="\n";
+ });
+
+ copyFruitText(text,"📋 All Prompts Copied!");
 });
 
 sendFruitToThumbnailBtn?.addEventListener("click",()=>{
- const title=fruitMovieTitle.value.trim();
- if(!title){ fruitStoryStatus.textContent="⚠️ အရင် Generate Story လုပ်ပါ။"; return; }
- if(typeof movieTitle!=="undefined" && movieTitle) movieTitle.value=title;
- if(typeof movieStorySummary!=="undefined" && movieStorySummary) movieStorySummary.value=fruitCompleteStory.value.trim().slice(0,1200);
- if(typeof movieCharacterDescription!=="undefined" && movieCharacterDescription) movieCharacterDescription.value=fruitCharacterSummary.value.trim().slice(0,800);
- if(typeof thumbnailCard!=="undefined" && thumbnailCard){
-  thumbnailCard.classList.add("open");
-  thumbnailCard.scrollIntoView({behavior:"smooth",block:"start"});
- }
- if(typeof thumbStatus!=="undefined" && thumbStatus) thumbStatus.textContent="🍎 Fruit Head Story → Thumbnail Prompt Maker PRO ကို Title + Story + Characters အလိုအလျောက်ပို့ပြီးပါပြီ။";
+ if(movieTitle) movieTitle.value=fruitMovieTitle.value;
+ if(movieStorySummary) movieStorySummary.value=fruitCompleteStory.value;
+ if(movieCharacterDescription) movieCharacterDescription.value=fruitCharacterSummary.value;
+ $("thumbnailCard")?.classList.add("open");
+ $("thumbnailCard")?.scrollIntoView({behavior:"smooth"});
+ thumbStatus.textContent="✅ Story အချက်အလက်များကို Thumbnail Maker သို့ ပို့ဆောင်ပြီးပါပြီ။";
 });
 
 nextFruitEpisodeBtn?.addEventListener("click",()=>{
- if(!fruitSeriesState.title || !fruitSeriesState.previous){ fruitEpisodeStatus.textContent="⚠️ အရင် Episode 1 ကို Generate လုပ်ပါ။"; return; }
- if(fruitSeriesState.episode>=fruitSeriesState.total){ fruitEpisodeStatus.textContent="🏁 ဒီ Series ရဲ့ သတ်မှတ်ထားတဲ့ နောက်ဆုံး Episode ရောက်ပါပြီ။ END SERIES ကိုနှိပ်ပါ။"; return; }
- fruitSeriesState.episode += 1;
- selectedFruitMood="random";
- fruitMoodGrid?.querySelectorAll(".fruit-mood").forEach(x=>x.classList.remove("active"));
- fruitMoodGrid?.querySelector('[data-mood="random"]')?.classList.add("active");
- generateFruitStoryBtn?.click();
+ if(fruitSeriesState.ended) return;
+ fruitSeriesState.episode+=1;
+ fruitTitle.value=fruitSeriesState.title;
+ generateFruitStoryBtn.click();
 });
 
 endFruitSeriesBtn?.addEventListener("click",()=>{
- if(!fruitSeriesState.title || !fruitSeriesState.previous){ fruitEpisodeStatus.textContent="⚠️ အရင် Episode ကို Generate လုပ်ပါ။"; return; }
  fruitSeriesState.ended=true;
  if(nextFruitEpisodeBtn) nextFruitEpisodeBtn.disabled=true;
- if(endFruitSeriesBtn) endFruitSeriesBtn.disabled=true;
- fruitEpisodeStatus.textContent=`🏁 Series End — Episode ${fruitSeriesState.episode} ကို နောက်ဆုံးအပိုင်းအဖြစ် သတ်မှတ်ထားပါပြီ။`;
-});
-
-fruitVisualStyle?.addEventListener("change",()=>{
- fruitSeriesState.style=fruitVisualStyle.value;
-});
-fruitEpisodeCount?.addEventListener("change",()=>{
- fruitSeriesState.total=Math.max(1,Math.min(5,Number(fruitEpisodeCount.value||4)));
+ fruitEpisodeStatus.textContent=`Series Ended at Episode ${fruitSeriesState.episode}`;
 });
 
 </script>
-
 </body>
 </html>
