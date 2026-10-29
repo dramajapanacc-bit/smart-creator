@@ -11,8 +11,17 @@ export default async function handler(req, res) {
       productName = "",
       productDesc = "",
       productImage = "",
-      tone = "energetic",
-      sceneCount = 6,
+      tone = "standard",
+      voice = "standard",
+      voiceLabel = "Standard Myanmar Burmese",
+      presenter = "🧠 Smart Auto Match",
+      salesGoal = "TikTok Shop Conversion",
+      adHook = "Hook → Product Demo → Benefits → CTA",
+      cta = "အခုပဲ Order တင်လိုက်ပါ။",
+      price = "",
+      durationSeconds = 10,
+      story = "",
+      sceneCount = 1,
       ratio = "9:16",
       ai = "flow"
     } = req.body || {};
@@ -41,16 +50,19 @@ export default async function handler(req, res) {
     }
 
     const isFlow = String(ai).toLowerCase() === "flow";
-    const totalScenes = Math.max(3, Math.min(6, Number(sceneCount) || 6));
+    const totalScenes = 1;
+    const duration = 10;
+    const selectedTone = String(voice || tone || "standard").toLowerCase();
 
     const toneDescriptions = {
+      standard: "clear natural Central Myanmar Burmese, moderate pace",
       energetic: "high-energy, enthusiastic, upbeat TikTok sales presenter voice",
       trustworthy: "calm, expert, credible, reassuring product-expert voice",
       funny: "funny, relatable, playful, natural comedic timing",
-      urgent: "urgent, excited, time-pressure, fear-of-missing-out tone"
+      urgent: "urgent, excited, persuasive but truthful sales tone"
     };
 
-    const toneDesc = toneDescriptions[tone] || toneDescriptions.energetic;
+    const toneDesc = toneDescriptions[selectedTone] || toneDescriptions.standard;
 
     // =========================================================
     // PRODUCT VISUAL LOCK
@@ -90,176 +102,58 @@ Keep the SAME product appearance identical across every scene.
 `;
 
     const continuityRules = `
-SCENE CONTINUITY RULE:
-
-Every scene must continue naturally from the previous scene.
-
-Keep the same presenter, outfit, setting and product appearance consistent across all scenes
-unless a scene change is naturally justified (for example a before/after demo).
-
-Never restart or repeat the pitch from scratch mid-video.
+SMART CHARACTER AUTO-MATCH:
+Presenter preference: ${presenter}.
+If Smart Auto Match is selected, infer the category from product name, product description and reference photo. Choose the best fitting ad character automatically: beauty/skincare = polished beauty creator; fashion = stylish model; food/snacks = appetizing playful food-loving character or suitable presenter; home products = practical demonstrator; tech = modern tech reviewer; kids/pet items = friendly suitable mascot/presenter. Avoid random fruit-heads, oversized objects on heads, awkward costumes or unrelated characters. Character must naturally showcase the product.
+Keep character, outfit, product design, environment and lighting consistent for the entire continuous take.
 `;
 
     const speechRules = `
 STANDARD MYANMAR SPEECH RULE:
-
-All spoken dialogue must be natural spoken Myanmar Burmese.
-
-Use normal Myanmar conversational wording, ${toneDesc}.
-
-Do NOT use:
-- English dialogue
-- romanized Burmese
-- robotic or overly literary Burmese
-
-Dialogue must sound like a real TikTok seller speaking naturally.
-
-For a 10-second scene, keep dialogue SHORT — usually 1 short sentence or 2 very short sentences,
-so it comfortably finishes speaking within 10 seconds with natural lip-sync.
+Dialogue must be natural spoken Standard Myanmar Burmese with clear Central Myanmar pronunciation. Voice style: ${voiceLabel} (${toneDesc}). No Rakhine/regional accent, no English dialogue, no mumbling, no robotic or overly literary wording. Keep spoken dialogue short enough to finish within 10 seconds, ideally 15–25 Myanmar words.
 `;
 
     const salesStructureRules = `
-TIKTOK SHOP SALES STRUCTURE:
-
-Scene 1 (0-10s): Strong scroll-stopping HOOK about this exact product — a question, a bold claim,
-or a relatable problem the product solves. Never a generic greeting.
-
-Middle scenes: Show and describe the product's real features and benefits, taken directly from
-the product description below. Do not invent features that contradict the given description.
-
-Final scene: Clear call-to-action — tell viewers to tap the TikTok Shop cart / yellow basket,
-mention price or promotion if it was given in the description, and create urgency.
+10-SECOND SALES STRUCTURE:
+0–2 seconds: strong scroll-stopping hook and character/product reveal.
+2–7 seconds: show one clear product demonstration and one or two verified benefits.
+7–10 seconds: direct spoken CTA to tap the TikTok Shop yellow basket/cart.
+Sales goal: ${salesGoal}. Ad flow: ${adHook}. CTA: ${cta}. Price/promotion: ${price || "not supplied; do not invent one"}.
+Do not invent features, medical claims, certifications, discounts, scarcity or performance results not provided by the user.
 `;
 
-    // =========================================================
-    // PROMPT
-    // =========================================================
+    let prompt = `
+You are an expert Google Flow AI prompt engineer and high-converting TikTok Shop ad director.
+Create ONE polished 10-second product advertisement, not a story, not a multi-scene video.
 
-    let prompt = "";
-
-    if (isFlow) {
-      prompt = `
-You are an expert prompt writer for Google Flow AI, writing a TikTok Shop product-selling video script.
-
-PRODUCT NAME:
-${productName}
-
-PRODUCT DESCRIPTION / KEY SELLING POINTS:
-${productDesc}
-
-SCRIPT TONE:
-${tone} (${toneDesc})
-
-ASPECT RATIO:
-${ratio}
-
-NUMBER OF SCENES:
-${totalScenes} scenes, each exactly 10 seconds.
+PRODUCT NAME: ${productName}
+PRODUCT DESCRIPTION / VERIFIED KEY BENEFITS: ${productDesc}
+PRICE / PROMOTION: ${price || "Not supplied"}
+ASPECT RATIO: ${ratio}
+TARGET: ${ai === "veo" ? "Google Veo" : "Google Flow AI"}
 
 ${productVisualLock}
-
 ${continuityRules}
-
 ${speechRules}
-
 ${salesStructureRules}
 
-FLOW REQUIREMENTS:
+PHOTO PROMPT REQUIREMENTS:
+Write one production-ready image prompt for a premium commercial still. Show the automatically selected best-fit character and the product clearly. Keep product design matched to reference photo if supplied. Use polished cinematic commercial lighting, attractive composition, believable materials, realistic hands, clear product visibility, vertical ${ratio}. No watermark or unnecessary text.
 
-Do NOT put dialogue inside PHOTO PROMPT. PHOTO PROMPT is only for the still reference image of the product/presenter.
-
-VIDEO PROMPT MUST contain the exact spoken Myanmar dialogue for that scene, written into the prompt text itself,
-so lip movement can match it.
-
-The VIDEO PROMPT must describe: exact same product appearance, exact same presenter, environment, action,
-camera movement, facial expression, natural body movement, natural lip-sync, spoken Myanmar dialogue,
-cinematic realism, 10-second duration.
+VIDEO PROMPT REQUIREMENTS:
+Exactly 10 seconds, one continuous take, vertical ${ratio}, premium TikTok Shop commercial. Include timing (0–2s hook, 2–7s product demo, 7–10s CTA), character action, facial expression, natural product interaction, camera framing/movement, lighting, and the EXACT Myanmar dialogue inline in quotation marks for accurate lip-sync. The dialogue must be short enough for 10 seconds. Keep the entire videoPrompt under 900 characters. No scene changes, no subtitles, no on-screen UI, no random text, no watermark.
 
 OUTPUT EXACTLY IN THIS FORMAT:
-
-TITLE: <one short scroll-stopping hook line for the video>
-
-FULL SCRIPT:
-<the complete script as continuous readable text, scene by scene, including the dialogue lines>
-
+TITLE: <short Myanmar scroll-stopping hook>
+FULL SCRIPT: <one concise spoken Myanmar script suitable for 10 seconds>
 SCENE 1
-ACTION: <what happens/is shown in this scene>
-DIALOGUE: <the exact Myanmar dialogue spoken in this scene>
-PHOTO PROMPT: <...>
-VIDEO PROMPT: <...>
+ACTION: <single continuous action description>
+DIALOGUE: <exact short Myanmar dialogue>
+PHOTO PROMPT: <one still-image prompt>
+VIDEO PROMPT: <one 10-second video prompt including the exact dialogue inline>
 
-SCENE 2
-ACTION: ...
-DIALOGUE: ...
-PHOTO PROMPT: ...
-VIDEO PROMPT: ...
-
-Continue until all ${totalScenes} scenes are covered.
-
-Do not add explanations. Do not add markdown tables. Return only the text in the exact format above.
+Return only this format. Do not add scene 2 or any explanation.
 `;
-    } else {
-      prompt = `
-You are an expert Google Veo video prompt writer, writing a TikTok Shop product-selling video script.
-
-PRODUCT NAME:
-${productName}
-
-PRODUCT DESCRIPTION / KEY SELLING POINTS:
-${productDesc}
-
-SCRIPT TONE:
-${tone} (${toneDesc})
-
-ASPECT RATIO:
-${ratio}
-
-NUMBER OF SCENES:
-${totalScenes} scenes, each exactly 10 seconds.
-
-${productVisualLock}
-
-${continuityRules}
-
-${speechRules}
-
-${salesStructureRules}
-
-VEO REQUIREMENTS:
-
-Each scene's VIDEO PROMPT must be 900 characters or fewer.
-
-Every scene must continue naturally from the previous scene.
-
-Keep exact product appearance and presenter identity consistent.
-
-Each VIDEO PROMPT must contain the exact spoken Myanmar dialogue for that scene, written into the prompt text itself.
-
-Do not create a separate photo prompt — combine everything into one VIDEO PROMPT per scene, but ALSO
-restate the dialogue separately in the DIALOGUE field below for clarity.
-
-OUTPUT EXACTLY IN THIS FORMAT:
-
-TITLE: <one short scroll-stopping hook line for the video>
-
-FULL SCRIPT:
-<the complete script as continuous readable text, scene by scene, including the dialogue lines>
-
-SCENE 1
-ACTION: <what happens/is shown in this scene>
-DIALOGUE: <the exact Myanmar dialogue spoken in this scene>
-VIDEO PROMPT: <...>
-
-SCENE 2
-ACTION: ...
-DIALOGUE: ...
-VIDEO PROMPT: ...
-
-Continue until all ${totalScenes} scenes are covered.
-
-No explanations.
-`;
-    }
 
     // =========================================================
     // GEMINI REQUEST (with optional reference photo)
