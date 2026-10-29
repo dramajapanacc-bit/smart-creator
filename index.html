@@ -1445,6 +1445,74 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}
 }
 
+
+
+/* =========================================================
+   THUMBNAIL STUDIO — POLISHED WORKFLOW UI
+========================================================= */
+#thumbnailCard{
+ position:relative;overflow:hidden;
+ border:1px solid rgba(255,112,207,.3)!important;
+ background:radial-gradient(ellipse at 100% 0%,rgba(157,104,255,.13),transparent 35%),linear-gradient(155deg,rgba(28,23,45,.98),rgba(17,16,29,.98))!important;
+ box-shadow:0 18px 45px -30px rgba(173,91,255,.5),inset 0 1px rgba(255,255,255,.045)!important;
+}
+#thumbnailCard:before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,#ff70cf,#9c7cff,#50d8ff);pointer-events:none}
+#thumbnailCard .collapse-header{position:relative;background:linear-gradient(100deg,rgba(255,112,207,.045),rgba(119,103,255,.04))}
+#thumbnailCard .collapse-icon{background:linear-gradient(145deg,rgba(255,112,207,.2),rgba(156,124,255,.2))!important;color:#ffb5e9!important;border:1px solid rgba(255,112,207,.25)}
+#thumbnailCard .collapse-title{font-size:15px;letter-spacing:.1px;color:#fff!important}
+#thumbnailCard .collapse-sub{color:#b9b0d2}
+#thumbnailCard .collapse-content{padding-top:4px}
+#thumbnailCard .pro-banner{position:relative;overflow:hidden;border-color:rgba(255,112,207,.25)!important;border-radius:16px!important;padding:17px 15px 16px!important}
+#thumbnailCard .pro-banner:after{content:"✦";position:absolute;right:13px;top:8px;font-size:38px;color:rgba(255,181,233,.12)}
+.thumb-workflow{display:flex;align-items:center;gap:7px;margin:15px 0 18px;padding:12px 10px;border:1px solid rgba(156,124,255,.2);border-radius:15px;background:linear-gradient(110deg,rgba(156,124,255,.08),rgba(80,216,255,.035))}
+.thumb-step{display:flex;align-items:center;gap:7px;min-width:0}
+.thumb-step>span{display:grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border:1px solid rgba(181,165,255,.35);border-radius:9px;background:rgba(156,124,255,.12);color:#d4c7ff;font:700 10px var(--font-display)}
+.thumb-step.active>span{background:linear-gradient(145deg,#ff70cf,#9277ff);border-color:transparent;color:#1a1027;box-shadow:0 0 15px rgba(255,112,207,.2)}
+.thumb-step strong{display:block;font:700 9px var(--font-display);letter-spacing:.7px;color:#eee8ff}
+.thumb-step small{display:block;margin-top:2px;color:#9189ab;font-size:8px;white-space:nowrap}
+.thumb-step-line{height:1px;flex:1;min-width:7px;background:linear-gradient(90deg,rgba(255,112,207,.35),rgba(156,124,255,.15))}
+.thumb-section-heading{display:flex;align-items:center;gap:10px;margin:16px 0 8px;padding:0 0 10px;border-bottom:1px solid rgba(255,255,255,.075)}
+.thumb-section-heading>span{display:grid;place-items:center;width:35px;height:35px;border:1px solid rgba(156,124,255,.25);border-radius:11px;background:rgba(156,124,255,.1);font-size:17px}
+.thumb-section-heading strong{display:block;font-size:12px;color:#f7f2ff}
+.thumb-section-heading small{display:block;margin-top:3px;font-size:9px;color:#958cae}
+#thumbnailCard .thumb-label{margin:14px 0 7px;color:#d8d1eb;font-size:10px;letter-spacing:.15px}
+#thumbnailCard .thumb-input,#thumbnailCard .thumb-select{border:1px solid rgba(177,164,214,.17);border-radius:13px;background:rgba(12,11,22,.78);color:#f7f3ff;padding:13px 14px;box-shadow:inset 0 1px rgba(255,255,255,.025);transition:border-color .18s,box-shadow .18s}
+#thumbnailCard .thumb-input::placeholder{color:#746c8b}
+#thumbnailCard .thumb-input:focus,#thumbnailCard .thumb-select:focus{border-color:#a68cff;box-shadow:0 0 0 3px rgba(156,124,255,.12);outline:none}
+#thumbnailCard textarea.thumb-input{line-height:1.7;resize:vertical;min-height:125px}
+#thumbnailCard #movieCharacterDescription{min-height:100px}
+#thumbnailCard #thumbnailReferenceImage{border-style:dashed;border-color:rgba(156,124,255,.35);background:rgba(156,124,255,.055)}
+#thumbnailCard .thumb-style-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:0 0 12px}
+#thumbnailCard .thumb-style-card{position:relative;min-height:96px;padding:11px 9px;border-radius:14px;border-color:rgba(177,164,214,.15);background:linear-gradient(150deg,rgba(255,255,255,.035),rgba(255,255,255,.012));transition:transform .18s,border-color .18s,background .18s;overflow:hidden}
+#thumbnailCard .thumb-style-card:active{transform:scale(.98)}
+#thumbnailCard .thumb-style-card span{font-size:22px;margin-bottom:7px}
+#thumbnailCard .thumb-style-card strong{font-size:10px;line-height:1.4}
+#thumbnailCard .thumb-style-card small{font-size:8px;line-height:1.5;color:#9d94b5}
+#thumbnailCard .thumb-style-card.active{border-color:#b49aff;background:linear-gradient(145deg,rgba(255,112,207,.13),rgba(140,116,255,.15));box-shadow:0 0 0 1px rgba(180,154,255,.12),0 8px 22px -15px rgba(255,112,207,.6)}
+#thumbnailCard .thumb-style-card.active:after{content:"✓";position:absolute;right:7px;top:7px;display:grid;place-items:center;width:17px;height:17px;border-radius:50%;background:#c5b2ff;color:#20132e;font-size:10px;font-weight:900}
+#thumbnailCard #generateMoviePromptBtn{background:linear-gradient(100deg,#ff70cf,#a27bff);color:#190f27;box-shadow:0 8px 22px -13px rgba(255,112,207,.8);font-weight:900;letter-spacing:.1px}
+#thumbnailCard #generateThumbnailImageBtn{margin-top:9px;background:linear-gradient(100deg,#4edcff,#7c8cff);color:#081322;box-shadow:0 8px 22px -13px rgba(78,220,255,.75);font-weight:900}
+#thumbnailCard .thumb-generate-prompt{min-height:51px;border-radius:14px}
+#thumbnailCard .thumb-output{width:100%;min-height:200px;margin-top:13px;padding:15px;border:1px solid rgba(78,220,255,.2);border-radius:14px;background:linear-gradient(150deg,rgba(9,15,29,.98),rgba(16,13,31,.98));color:#d9f6ff;font-size:11px;line-height:1.8;box-shadow:inset 0 1px rgba(255,255,255,.025)}
+#thumbnailCard .thumb-output:focus{outline:none;border-color:rgba(78,220,255,.5)}
+#thumbnailCard .thumb-copy{border-radius:13px;border-color:rgba(156,124,255,.25);background:rgba(156,124,255,.08);color:#e9e1ff;min-height:45px}
+#thumbnailCard .thumb-status{margin-top:12px;padding:11px 12px;border:1px solid rgba(156,124,255,.15);border-radius:12px;background:rgba(156,124,255,.055);color:#c7bddf;font-size:10px;line-height:1.7;overflow-wrap:anywhere}
+#thumbnailCard #thumbnailImageResult{padding:10px;border:1px solid rgba(78,220,255,.22);border-radius:16px;background:rgba(5,10,20,.65)}
+#thumbnailCard #thumbnailImageResult img{width:100%;max-height:520px;object-fit:contain;border:1px solid rgba(255,255,255,.09);box-shadow:0 12px 28px rgba(0,0,0,.28)}
+#thumbnailCard #thumbnailImageResult a{padding:10px 14px;border:1px solid rgba(78,220,255,.28);border-radius:11px;color:#8cecff;text-decoration:none;font-size:11px;font-weight:800}
+#thumbnailCard .fruit-story-status{font-size:9px;line-height:1.75;color:#a8a0bf}
+@media(max-width:520px){
+ .thumb-workflow{gap:5px;padding:10px 7px}
+ .thumb-step{gap:5px}
+ .thumb-step>span{width:24px;height:24px;flex-basis:24px;border-radius:8px;font-size:9px}
+ .thumb-step strong{font-size:8px;letter-spacing:.4px}
+ .thumb-step small{font-size:7px}
+ #thumbnailCard .thumb-style-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #thumbnailCard .thumb-style-card{min-height:89px}
+ #thumbnailCard .thumb-input,#thumbnailCard .thumb-select{font-size:13px}
+}
+@media(max-width:350px){.thumb-step small{display:none}.thumb-workflow{justify-content:space-between}}
+
 </style>
 </head>
 
@@ -1917,14 +1985,21 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
   </div>
 
   <div class="pro-banner-sub">
-   Movie Title + Full Story + Character Bible ကိုအခြေခံပြီး
-   ဇာတ်လမ်းထဲက တကယ့်အဖြစ်အပျက်ကို key visual အဖြစ်ရွေးပါမယ်။
-   Text Color + Design Style + Font Style ကို သင်ရွေးပြီး
-   Story-specific Thumbnail Prompt ထုတ်ပေးပါမယ်။
+   ခေါင်းစဉ်ထည့်ပါ၊ ကိုယ်ပိုင်ပုံ Upload လုပ်ပါ၊ Design Style ရွေးပြီး
+   တစ်ချက်နှိပ်ရုံနဲ့ စာသားပါဝင်တဲ့ Thumbnail JPG ပုံ ဖန်တီးပါ။
   </div>
 
  </div>
 
+ <div class="thumb-workflow" aria-label="Thumbnail workflow">
+  <div class="thumb-step active"><span>01</span><div><strong>STORY</strong><small>ဇာတ်လမ်းထည့်ပါ</small></div></div>
+  <div class="thumb-step-line"></div>
+  <div class="thumb-step"><span>02</span><div><strong>PHOTO</strong><small>ပုံထည့်ပါ</small></div></div>
+  <div class="thumb-step-line"></div>
+  <div class="thumb-step"><span>03</span><div><strong>CREATE</strong><small>Thumbnail JPG</small></div></div>
+ </div>
+
+ <div class="thumb-section-heading"><span>✍️</span><div><strong>Thumbnail Title & Photo</strong><small>ခေါင်းစဉ်ထည့်ပြီး ပုံ Upload လုပ်ပါ</small></div></div>
 
  <label class="thumb-label">
   🎬 Movie Title
@@ -1938,6 +2013,7 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
   placeholder="ဥပမာ - The Secret House in the Forest"
  >
 
+ <div style="display:none" aria-hidden="true">
  <label class="thumb-label">
   📖 Story Summary
  </label>
@@ -1950,8 +2026,10 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
 
  <div class="fruit-story-status" style="margin:-3px 0 9px">💡 Thumbnail ကို Title တစ်ခုတည်းနဲ့ မဖန်တီးပါဘူး။ Full Story ထဲက အဖြစ်အပျက် + Character Bible + Title ကို အခြေခံပြီး key scene ကိုရွေးပါမယ်။ Design Style က composition/lighting ပဲပြောင်းပြီး Character identity နဲ့ Story facts ကို မပြောင်းပါဘူး။</div>
 
+ </div>
+
  <label class="thumb-label">
-  🖼️ ကိုယ်ပိုင်ပုံထည့်ရန် (Optional)
+  🖼️ Thumbnail အဖြစ်သုံးမယ့် ပုံထည့်ရန်
  </label>
  <input
   id="thumbnailReferenceImage"
@@ -1967,7 +2045,7 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
    <button id="clearThumbnailReferenceBtn" class="thumb-copy" type="button" style="margin-top:7px;width:auto;padding:8px 10px">✕ ပုံဖယ်မယ်</button>
   </div>
  </div>
- <div class="fruit-story-status" style="margin:-3px 0 9px">💡 ကိုယ်ပိုင်ပုံထည့်ထားရင် Thumbnail Prompt နဲ့ Image Generation နှစ်ခုလုံးမှာ ဒီပုံရဲ့ identity / appearance ကို reference အဖြစ် lock လုပ်ပေးပါမယ်။</div>
+ <div class="fruit-story-status" style="margin:-3px 0 9px">💡 ခေါင်းစဉ်နဲ့ ဒီပုံကို ပေါင်းစပ်ပြီး တကယ့် Thumbnail JPG ပုံအဖြစ် ဖန်တီးပေးပါမယ်။ ပုံမထည့်ထားရင် Generate လုပ်လို့မရပါ။</div>
 
  <label class="thumb-label">
   🎨 Text Color
@@ -2134,7 +2212,7 @@ button:focus-visible{outline:2px solid var(--teal)!important;outline-offset:3px}
   class="thumb-generate-prompt"
   type="button"
  >
-  🖼️ Generate Thumbnail Image
+  🪄 Create Thumbnail from My Photo
  </button>
 
  <button
@@ -3147,32 +3225,121 @@ thumbnailReferenceImage?.addEventListener("change",()=>prepareThumbnailReference
 clearThumbnailReferenceBtn?.addEventListener("click",clearThumbnailReference);
 
 /* =========================================================
-   THUMBNAIL IMAGE
+   THUMBNAIL IMAGE — REAL IMAGE COMPOSER
+   Uses the user's uploaded photo and renders a downloadable thumbnail.
 ========================================================= */
 const generateThumbnailImageBtn=$("generateThumbnailImageBtn");
 
+function hexColorForThumbnail(name){
+ const colors={
+  "Bright White":"#ffffff", "Neon Cyan":"#45f3ff", "Bright Yellow":"#ffe500",
+  "Blood Red":"#ff354f", "Electric Blue":"#62a8ff", "Luxury Gold":"#ffd166",
+  "Glowing Green":"#8dff65", "Vibrant Magenta":"#ff65d4", "Sunset Orange":"#ff9d45",
+  "Metallic Silver":"#e6edf7"
+ };
+ return colors[name]||"#ffe500";
+}
+
+function loadImage(src){
+ return new Promise((resolve,reject)=>{
+  const img=new Image();
+  img.onload=()=>resolve(img);
+  img.onerror=()=>reject(new Error("ရွေးထားတဲ့ပုံကို ဖွင့်မရပါ။ အခြားပုံတစ်ပုံ ရွေးပါ။"));
+  img.src=src;
+ });
+}
+
+function wrapCanvasText(ctx,text,maxWidth){
+ const words=Array.from(String(text||"").trim());
+ const lines=[]; let line="";
+ for(const ch of words){
+  const test=line+ch;
+  if(line && ctx.measureText(test).width>maxWidth){lines.push(line);line=ch;}else line=test;
+ }
+ if(line)lines.push(line);
+ return lines;
+}
+
+async function createThumbnailFromUploadedImage(){
+ const title=movieTitle.value.trim();
+ if(!title){movieTitle.focus();throw new Error("🎬 Thumbnail ခေါင်းစဉ် အရင်ထည့်ပါ။");}
+ if(!thumbnailReferenceImageData){thumbnailReferenceImage?.focus();throw new Error("🖼️ Thumbnail အဖြစ်ပြောင်းမယ့် ပုံကို အရင် Upload လုပ်ပါ။");}
+ const img=await loadImage(thumbnailReferenceImageData);
+ const portrait=movieRatio.value==="9:16";
+ const W=portrait?1080:1280, H=portrait?1920:720;
+ const canvas=document.createElement("canvas");canvas.width=W;canvas.height=H;
+ const ctx=canvas.getContext("2d");if(!ctx)throw new Error("Canvas ကို အသုံးမပြုနိုင်ပါ။");
+ // Cover crop so the uploaded photo fills the entire thumbnail.
+ const scale=Math.max(W/img.width,H/img.height), dw=img.width*scale, dh=img.height*scale;
+ ctx.drawImage(img,(W-dw)/2,(H-dh)/2,dw,dh);
+ // Cinematic contrast and color treatment.
+ ctx.fillStyle="rgba(4,5,18,.12)";ctx.fillRect(0,0,W,H);
+ const accent=hexColorForThumbnail(movieColor.value);
+ const style=movieStyle.value||"Story Key Art";
+ const topGrad=ctx.createLinearGradient(0,0,0,H);
+ topGrad.addColorStop(0,"rgba(3,5,16,.08)");topGrad.addColorStop(.52,"rgba(3,5,16,.02)");topGrad.addColorStop(1,"rgba(2,3,12,.94)");
+ ctx.fillStyle=topGrad;ctx.fillRect(0,0,W,H);
+ const sideGrad=ctx.createLinearGradient(0,0,W,0);
+ sideGrad.addColorStop(0,"rgba(2,4,16,.76)");sideGrad.addColorStop(.52,"rgba(2,4,16,.30)");sideGrad.addColorStop(1,"rgba(2,4,16,0)");
+ ctx.fillStyle=sideGrad;ctx.fillRect(0,0,W,H);
+ // Soft vignette.
+ const vignette=ctx.createRadialGradient(W*.5,H*.42,Math.min(W,H)*.18,W*.5,H*.5,Math.max(W,H)*.72);
+ vignette.addColorStop(0,"rgba(0,0,0,0)");vignette.addColorStop(1,"rgba(0,0,0,.48)");ctx.fillStyle=vignette;ctx.fillRect(0,0,W,H);
+ // Accent strip / editorial details.
+ const margin=portrait?66:58;
+ ctx.fillStyle=accent;ctx.shadowColor=accent;ctx.shadowBlur=22;ctx.fillRect(margin,portrait?H*.66:H*.70,portrait?100:90,7);ctx.shadowBlur=0;
+ // Title: preserve exact user text, use Myanmar-capable fallback fonts.
+ const maxTextWidth=portrait?W-margin*2:W*.70;
+ const baseSize=portrait?78:70;
+ let fontSize=baseSize, lines=[];
+ do{
+  ctx.font=`900 ${fontSize}px "Noto Sans Myanmar","Myanmar Text","Padauk",system-ui,sans-serif`;
+  lines=wrapCanvasText(ctx,title,maxTextWidth);
+  if(lines.length>(portrait?5:3))fontSize-=4;
+ }while(lines.length>(portrait?5:3)&&fontSize>34);
+ const lineHeight=fontSize*1.22;
+ const textBlockHeight=lines.length*lineHeight;
+ const titleY=portrait?H*.70:H*.72;
+ const availableBottom=H-margin*.72;
+ const startY=Math.min(titleY,availableBottom-textBlockHeight+lineHeight);
+ ctx.textAlign="left";ctx.textBaseline="alphabetic";ctx.lineJoin="round";
+ lines.forEach((line,i)=>{
+  const y=startY+i*lineHeight;
+  ctx.font=`900 ${fontSize}px "Noto Sans Myanmar","Myanmar Text","Padauk",system-ui,sans-serif`;
+  ctx.lineWidth=Math.max(8,fontSize*.17);ctx.strokeStyle="rgba(0,0,0,.94)";ctx.shadowColor="rgba(0,0,0,.8)";ctx.shadowBlur=14;ctx.strokeText(line,margin,y,maxTextWidth);
+  ctx.shadowColor=accent;ctx.shadowBlur=style.includes("Horror")?8:13;ctx.fillStyle=accent;ctx.fillText(line,margin,y,maxTextWidth);
+  // Fine white highlight gives the headline a crisp, premium edge.
+  ctx.shadowBlur=0;ctx.lineWidth=1.5;ctx.strokeStyle="rgba(255,255,255,.36)";ctx.strokeText(line,margin,y,maxTextWidth);
+ });
+ ctx.shadowBlur=0;
+ // Small branded label, never competing with the title.
+ const badgeY=H-margin*.52;
+ ctx.font=`800 ${portrait?22:20}px system-ui,sans-serif`;ctx.textAlign="right";
+ ctx.fillStyle="rgba(255,255,255,.92)";ctx.fillText("YNT CREATOR",W-margin,badgeY);
+ ctx.textAlign="left";
+ // Thin premium frame and corner accents.
+ ctx.strokeStyle="rgba(255,255,255,.25)";ctx.lineWidth=2;ctx.strokeRect(18,18,W-36,H-36);
+ ctx.fillStyle=accent;ctx.fillRect(18,18,portrait?150:180,5);ctx.fillRect(18,18,5,portrait?150:100);
+ return canvas.toDataURL("image/jpeg",.94);
+}
+
 generateThumbnailImageBtn?.addEventListener("click",async()=>{
- if(!promptOutput.value.trim()) generateMoviePrompt();
- const prompt=promptOutput.value.trim();
- if(!prompt)return;
- thumbStatus.textContent="⏳ Thumbnail image ထုတ်နေပါတယ်…";
  generateThumbnailImageBtn.disabled=true;
+ const originalText=generateThumbnailImageBtn.textContent;
+ generateThumbnailImageBtn.textContent="⏳ Thumbnail ဖန်တီးနေသည်...";
+ thumbStatus.textContent="🪄 Upload လုပ်ထားတဲ့ပုံ၊ ခေါင်းစဉ်နဲ့ Design Style ကို ပေါင်းစပ်နေပါတယ်...";
  try{
-   const response=await fetch("/api/generate-image",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({prompt,ratio:movieRatio.value,kind:"thumbnail",referenceImage:thumbnailReferenceImageData||"",useReferenceImage:!!thumbnailReferenceImageData,characterReferenceMode:thumbnailReferenceImageData?"uploaded_reference_identity_lock":"character_bible_text_lock"})});
-   const data=await response.json().catch(()=>({}));
-   if(!response.ok) throw new Error(data.error||"Image generation API မရရှိသေးပါ။");
-   const url=data.imageUrl||data.url||data.image||data.data?.[0]?.url;
-   if(!url) throw new Error("Image URL မရပါ။");
-   let box=document.getElementById("thumbnailImageResult");
-   if(!box){box=document.createElement("div");box.id="thumbnailImageResult";box.style.cssText="margin-top:12px;text-align:center;";promptOutput.parentNode.appendChild(box);}
-   box.innerHTML="";
-   const img=document.createElement("img"); img.src=url; img.alt="Generated Thumbnail"; img.style.cssText="max-width:100%;border-radius:14px;display:block;margin:auto;";
-   box.appendChild(img);
-   const a=document.createElement("a"); a.href=url; a.target="_blank"; a.rel="noopener"; a.textContent="🖼️ Open / Save Thumbnail"; a.style.cssText="display:inline-block;margin-top:8px;"; box.appendChild(a);
-   thumbStatus.textContent=data.warning?"⚠️ "+data.warning:"✅ Thumbnail image ထွက်ပါပြီ။";
- }catch(e){
-   thumbStatus.textContent="⚠️ "+(e.message||"Thumbnail image မထုတ်နိုင်ပါ။")+" — Prompt ကို Copy ကူးပြီး Image AI ထဲမှာသုံးနိုင်ပါတယ်။";
- }finally{generateThumbnailImageBtn.disabled=false;}
+  const dataUrl=await createThumbnailFromUploadedImage();
+  let box=document.getElementById("thumbnailImageResult");
+  if(!box){box=document.createElement("div");box.id="thumbnailImageResult";box.style.cssText="margin-top:16px;text-align:center;";generateThumbnailImageBtn.parentNode.appendChild(box);}
+  box.replaceChildren();
+  const heading=document.createElement("div");heading.textContent="✨ YOUR THUMBNAIL IS READY";heading.style.cssText="font-size:12px;font-weight:900;letter-spacing:1px;color:#8cecff;margin:6px 0 12px";box.appendChild(heading);
+  const img=document.createElement("img");img.src=dataUrl;img.alt="Generated YouTube Thumbnail";img.style.cssText="width:100%;max-height:620px;object-fit:contain;border-radius:14px;display:block;margin:auto;";box.appendChild(img);
+  const download=document.createElement("a");download.href=dataUrl;download.download="YNT-Thumbnail.jpg";download.textContent="⬇️ Download Thumbnail JPG";download.style.cssText="display:inline-flex;align-items:center;justify-content:center;margin-top:12px;padding:13px 18px;border-radius:12px;background:linear-gradient(100deg,#4edcff,#7c8cff);color:#081322;text-decoration:none;font-size:12px;font-weight:900;";box.appendChild(download);
+  thumbStatus.textContent="✅ Thumbnail ပုံတကယ်ဖန်တီးပြီးပါပြီ။ အောက်က Download ခလုတ်ကိုနှိပ်ပြီး JPG ဖိုင်ယူနိုင်ပါတယ်။";
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+ }catch(e){thumbStatus.textContent="⚠️ "+(e.message||"Thumbnail မဖန်တီးနိုင်ပါ။");}
+ finally{generateThumbnailImageBtn.disabled=false;generateThumbnailImageBtn.textContent=originalText||"🪄 Create Thumbnail from My Photo";}
 });
 
 
@@ -3365,6 +3532,13 @@ H. PRODUCT VISUAL LOCK: A reference photo of the real product may be supplied. T
 7. No TikTok logos, no watermark, no on-screen UI, no random text overlays unless explicitly requested.
 8. Output structured JSON with exactly these fields: title (a short scroll-stopping hook line), fullScript (the complete continuous script as one readable block, no "Scene" labels), photoPrompt (single string), videoPrompt (single string containing the inline dialogue).
 `;
+}
+
+// Keep TikTok video prompts within the generator's 900-character limit.
+function limitPrompt900(value){
+ const text=String(value || "").trim();
+ if(text.length <= 900) return text;
+ return text.slice(0,897).trimEnd() + "...";
 }
 
 function lockTiktokPrompt(photoPrompt,videoPrompt,dialogue,hasPhoto){
